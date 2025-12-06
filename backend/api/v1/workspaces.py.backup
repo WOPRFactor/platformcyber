@@ -1,0 +1,1980 @@
+"""
+Workspace API Endpoints
+=======================
+
+Endpoints para gestión de workspaces.
+"""
+
+from flask import Blueprint, request, jsonify, send_file, Response
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from repositories.workspace_repository import WorkspaceRepository
+from models import WorkspaceLog, Workspace, Scan, Vulnerability, db
+from datetime import datetime, timedelta, timezone
+from sqlalchemy import func, and_, extract
+import json
+import tempfile
+import os
+import logging
+from pathlib import Path
+from utils.workspace_filesystem import get_workspace_dir
+
+workspaces_bp = Blueprint('workspaces', __name__, url_prefix='/workspaces')
+workspace_repo = WorkspaceRepository()
+
+
+@workspaces_bp.route('/', methods=['GET'])
+@jwt_required()
+def list_workspaces():
+    """Lista todos los workspaces del usuario actual."""
+    try:
+        user_id = int(get_jwt_identity())
+        workspaces = workspace_repo.find_by_owner(user_id)
+        
+        return jsonify([{
+            'id': ws.id,
+            'name': ws.name,
+            'description': ws.description,
+            'client_name': ws.client_name,
+            'client_contact': ws.client_contact,
+            'target_domain': ws.target_domain,
+            'target_ip': ws.target_ip,
+            'target_type': ws.target_type,
+            'in_scope': ws.in_scope,
+            'out_of_scope': ws.out_of_scope,
+            'start_date': ws.start_date.isoformat() if ws.start_date else None,
+            'end_date': ws.end_date.isoformat() if ws.end_date else None,
+            'notes': ws.notes,
+            'is_active': ws.is_active,
+            'created_at': ws.created_at.isoformat() if ws.created_at else None,
+            'updated_at': ws.updated_at.isoformat() if ws.updated_at else None
+        } for ws in workspaces]), 200
+        
+    except Exception as e:
+        return jsonify({
+            'error': 'Failed to list workspaces',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>', methods=['GET'])
+@jwt_required()
+def get_workspace(workspace_id):
+    """Obtiene un workspace específico."""
+    try:
+        workspace = workspace_repo.find_by_id(workspace_id)
+        
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        return jsonify({
+            'id': workspace.id,
+            'name': workspace.name,
+            'description': workspace.description,
+            'client_name': workspace.client_name,
+            'client_contact': workspace.client_contact,
+            'target_domain': workspace.target_domain,
+            'target_ip': workspace.target_ip,
+            'target_type': workspace.target_type,
+            'in_scope': workspace.in_scope,
+            'out_of_scope': workspace.out_of_scope,
+            'start_date': workspace.start_date.isoformat() if workspace.start_date else None,
+            'end_date': workspace.end_date.isoformat() if workspace.end_date else None,
+            'notes': workspace.notes,
+            'is_active': workspace.is_active,
+            'created_at': workspace.created_at.isoformat() if workspace.created_at else None,
+            'updated_at': workspace.updated_at.isoformat() if workspace.updated_at else None,
+            'owner_id': workspace.owner_id
+        }), 200
+        
+    except Exception as e:
+        return jsonify({
+            'error': 'Failed to get workspace',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/', methods=['POST'])
+@jwt_required()
+def create_workspace():
+    """Crea un nuevo workspace."""
+    try:
+        user_id = int(get_jwt_identity())
+        data = request.get_json()
+        
+        # Validar datos requeridos
+        if not data.get('name'):
+            return jsonify({
+                'error': 'Validation Error',
+                'message': 'Workspace name is required'
+            }), 400
+        
+        # Parsear fechas si existen
+        start_date = None
+        end_date = None
+        
+        if data.get('start_date'):
+            try:
+                start_date = datetime.fromisoformat(data['start_date'].replace('Z', '+00:00')).date()
+            except (ValueError, AttributeError):
+                pass
+        
+        if data.get('end_date'):
+            try:
+                end_date = datetime.fromisoformat(data['end_date'].replace('Z', '+00:00')).date()
+            except (ValueError, AttributeError):
+                pass
+        
+        # Crear workspace
+        workspace = workspace_repo.create(
+            name=data['name'],
+            description=data.get('description', ''),
+            owner_id=user_id,
+            client_name=data.get('client_name'),
+            client_contact=data.get('client_contact'),
+            target_domain=data.get('target_domain'),
+            target_ip=data.get('target_ip'),
+            target_type=data.get('target_type'),
+            in_scope=data.get('in_scope'),
+            out_of_scope=data.get('out_of_scope'),
+            start_date=start_date,
+            end_date=end_date,
+            notes=data.get('notes'),
+            is_active=data.get('is_active', True)
+        )
+        
+        return jsonify({
+            'id': workspace.id,
+            'name': workspace.name,
+            'description': workspace.description,
+            'client_name': workspace.client_name,
+            'client_contact': workspace.client_contact,
+            'target_domain': workspace.target_domain,
+            'target_ip': workspace.target_ip,
+            'target_type': workspace.target_type,
+            'in_scope': workspace.in_scope,
+            'out_of_scope': workspace.out_of_scope,
+            'start_date': workspace.start_date.isoformat() if workspace.start_date else None,
+            'end_date': workspace.end_date.isoformat() if workspace.end_date else None,
+            'notes': workspace.notes,
+            'is_active': workspace.is_active,
+            'created_at': workspace.created_at.isoformat() if workspace.created_at else None,
+            'message': 'Workspace created successfully'
+        }), 201
+        
+    except Exception as e:
+        return jsonify({
+            'error': 'Failed to create workspace',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>', methods=['PUT'])
+@jwt_required()
+def update_workspace(workspace_id):
+    """Actualiza un workspace existente."""
+    try:
+        data = request.get_json()
+        
+        workspace = workspace_repo.find_by_id(workspace_id)
+        
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Actualizar campos
+        if 'name' in data:
+            workspace.name = data['name']
+        if 'description' in data:
+            workspace.description = data['description']
+        if 'client_name' in data:
+            workspace.client_name = data['client_name']
+        if 'client_contact' in data:
+            workspace.client_contact = data['client_contact']
+        if 'target_domain' in data:
+            workspace.target_domain = data['target_domain']
+        if 'target_ip' in data:
+            workspace.target_ip = data['target_ip']
+        if 'target_type' in data:
+            workspace.target_type = data['target_type']
+        if 'in_scope' in data:
+            workspace.in_scope = data['in_scope']
+        if 'out_of_scope' in data:
+            workspace.out_of_scope = data['out_of_scope']
+        if 'notes' in data:
+            workspace.notes = data['notes']
+        if 'is_active' in data:
+            workspace.is_active = data['is_active']
+        
+        # Actualizar fechas si existen
+        if 'start_date' in data and data['start_date']:
+            try:
+                workspace.start_date = datetime.fromisoformat(data['start_date'].replace('Z', '+00:00')).date()
+            except (ValueError, AttributeError):
+                pass
+        
+        if 'end_date' in data and data['end_date']:
+            try:
+                workspace.end_date = datetime.fromisoformat(data['end_date'].replace('Z', '+00:00')).date()
+            except (ValueError, AttributeError):
+                pass
+        
+        workspace = workspace_repo.update(workspace)
+        
+        return jsonify({
+            'id': workspace.id,
+            'name': workspace.name,
+            'description': workspace.description,
+            'client_name': workspace.client_name,
+            'client_contact': workspace.client_contact,
+            'target_domain': workspace.target_domain,
+            'target_ip': workspace.target_ip,
+            'target_type': workspace.target_type,
+            'in_scope': workspace.in_scope,
+            'out_of_scope': workspace.out_of_scope,
+            'start_date': workspace.start_date.isoformat() if workspace.start_date else None,
+            'end_date': workspace.end_date.isoformat() if workspace.end_date else None,
+            'notes': workspace.notes,
+            'is_active': workspace.is_active,
+            'updated_at': workspace.updated_at.isoformat() if workspace.updated_at else None,
+            'message': 'Workspace updated successfully'
+        }), 200
+        
+    except Exception as e:
+        return jsonify({
+            'error': 'Failed to update workspace',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>', methods=['DELETE'])
+@jwt_required()
+def delete_workspace(workspace_id):
+    """
+    Elimina un workspace permanentemente (hard delete).
+    
+    Elimina:
+    - El registro de la base de datos
+    - El directorio del filesystem con todo su contenido
+    - Todas las relaciones (scans, vulnerabilities, reports) por cascade
+    
+    Solo el owner del workspace puede eliminarlo.
+    """
+    try:
+        user_id = int(get_jwt_identity())
+        workspace = workspace_repo.find_by_id(workspace_id)
+        
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos: solo el owner puede eliminar
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to delete this workspace'
+            }), 403
+        
+        # Guardar nombre del workspace antes de eliminarlo (para eliminar directorio)
+        workspace_name = workspace.name
+        
+        # Eliminar directorio del filesystem
+        try:
+            from utils.workspace_filesystem import delete_workspace_directory
+            delete_workspace_directory(workspace_id, workspace_name)
+        except Exception as fs_error:
+            # Log el error pero continuar con la eliminación de la BD
+            # El directorio puede no existir o haber sido eliminado manualmente
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Error eliminando directorio del workspace {workspace_id}: {fs_error}")
+        
+        # Eliminar de la base de datos (hard delete)
+        workspace_repo.delete(workspace)
+        
+        return jsonify({
+            'message': 'Workspace deleted successfully',
+            'workspace_id': workspace_id
+        }), 200
+        
+    except Exception as e:
+        db.session.rollback()
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error eliminando workspace {workspace_id}: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to delete workspace',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/logs', methods=['GET'])
+@jwt_required()
+def get_workspace_logs(workspace_id):
+    """
+    Obtiene logs históricos de un workspace.
+    
+    Query params:
+        - limit: Número máximo de logs (default: 100, max: 1000)
+        - since: Timestamp ISO o días atrás (ej: "2025-11-26T00:00:00" o "7d")
+        - source: Filtrar por fuente (BACKEND, CELERY, NIKTO, etc.)
+        - level: Filtrar por nivel (DEBUG, INFO, WARNING, ERROR)
+        - page: Número de página (default: 1)
+        - per_page: Items por página (default: 100)
+    """
+    try:
+        # Verificar que el workspace existe y pertenece al usuario
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos (solo el owner puede ver logs)
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to view this workspace logs'
+            }), 403
+        
+        # Obtener parámetros de query
+        limit = min(int(request.args.get('limit', 100)), 1000)
+        since = request.args.get('since')
+        source_filter = request.args.get('source')
+        level_filter = request.args.get('level')
+        page = int(request.args.get('page', 1))
+        per_page = min(int(request.args.get('per_page', 100)), 1000)
+        
+        # Construir query base
+        query = WorkspaceLog.query.filter_by(workspace_id=workspace_id)
+        
+        # Filtrar por fecha (since)
+        if since:
+            try:
+                # Intentar parsear como ISO datetime
+                if 'T' in since or ' ' in since:
+                    since_dt = datetime.fromisoformat(since.replace('Z', '+00:00'))
+                # Intentar parsear como días atrás (ej: "7d")
+                elif since.endswith('d'):
+                    days = int(since[:-1])
+                    since_dt = datetime.utcnow() - timedelta(days=days)
+                else:
+                    # Intentar parsear como fecha simple
+                    since_dt = datetime.fromisoformat(since)
+                query = query.filter(WorkspaceLog.timestamp >= since_dt)
+            except (ValueError, AttributeError):
+                # Si no se puede parsear, ignorar el filtro
+                pass
+        
+        # Filtrar por source
+        if source_filter:
+            query = query.filter(WorkspaceLog.source == source_filter.upper())
+        
+        # Filtrar por level
+        if level_filter:
+            query = query.filter(WorkspaceLog.level == level_filter.upper())
+        
+        # Ordenar por timestamp descendente (más recientes primero)
+        query = query.order_by(WorkspaceLog.timestamp.desc())
+        
+        # Paginación
+        pagination = query.paginate(
+            page=page,
+            per_page=per_page,
+            error_out=False
+        )
+        
+        # Serializar logs
+        logs = [log.to_dict() for log in pagination.items]
+        
+        return jsonify({
+            'logs': logs,
+            'pagination': {
+                'page': page,
+                'per_page': per_page,
+                'total': pagination.total,
+                'pages': pagination.pages,
+                'has_next': pagination.has_next,
+                'has_prev': pagination.has_prev
+            },
+            'workspace_id': workspace_id
+        }), 200
+        
+    except ValueError as e:
+        return jsonify({
+            'error': 'Bad Request',
+            'message': f'Invalid parameter: {str(e)}'
+        }), 400
+    except Exception as e:
+        return jsonify({
+            'error': 'Failed to get workspace logs',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/logs/stats', methods=['GET'])
+@jwt_required()
+def get_workspace_logs_stats(workspace_id):
+    """
+    Obtiene estadísticas de logs de un workspace.
+    
+    Returns:
+        - total_logs: Total de logs
+        - size_mb: Tamaño aproximado en MB
+        - date_range: Rango de fechas (first, last)
+        - by_source: Conteo por fuente
+        - by_level: Conteo por nivel
+    """
+    try:
+        # Verificar que el workspace existe y pertenece al usuario
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to view this workspace logs'
+            }), 403
+        
+        # Total de logs
+        total_logs = WorkspaceLog.query.filter_by(workspace_id=workspace_id).count()
+        
+        # Tamaño aproximado (estimación: ~200 bytes por log en promedio)
+        size_bytes = total_logs * 200
+        size_mb = round(size_bytes / (1024 * 1024), 2)
+        
+        # Rango de fechas
+        first_log = WorkspaceLog.query.filter_by(workspace_id=workspace_id).order_by(WorkspaceLog.timestamp.asc()).first()
+        last_log = WorkspaceLog.query.filter_by(workspace_id=workspace_id).order_by(WorkspaceLog.timestamp.desc()).first()
+        
+        date_range = {
+            'first': first_log.timestamp.isoformat() if first_log else None,
+            'last': last_log.timestamp.isoformat() if last_log else None
+        }
+        
+        # Conteo por source
+        by_source = db.session.query(
+            WorkspaceLog.source,
+            func.count(WorkspaceLog.id).label('count')
+        ).filter_by(workspace_id=workspace_id).group_by(WorkspaceLog.source).all()
+        by_source_dict = {source: count for source, count in by_source}
+        
+        # Conteo por level
+        by_level = db.session.query(
+            WorkspaceLog.level,
+            func.count(WorkspaceLog.id).label('count')
+        ).filter_by(workspace_id=workspace_id).group_by(WorkspaceLog.level).all()
+        by_level_dict = {level: count for level, count in by_level}
+        
+        return jsonify({
+            'workspace_id': workspace_id,
+            'total_logs': total_logs,
+            'size_mb': size_mb,
+            'date_range': date_range,
+            'by_source': by_source_dict,
+            'by_level': by_level_dict
+        }), 200
+        
+    except Exception as e:
+        return jsonify({
+            'error': 'Failed to get workspace logs stats',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/logs/export', methods=['GET'])
+@jwt_required()
+def export_workspace_logs(workspace_id):
+    """
+    Exporta logs de un workspace en formato JSON o TXT.
+    
+    Query params:
+        - format: 'json' o 'txt' (default: 'json')
+    """
+    try:
+        # Verificar que el workspace existe y pertenece al usuario
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to export this workspace logs'
+            }), 403
+        
+        # Obtener formato
+        export_format = request.args.get('format', 'json').lower()
+        if export_format not in ['json', 'txt']:
+            return jsonify({
+                'error': 'Bad Request',
+                'message': 'Format must be "json" or "txt"'
+            }), 400
+        
+        # Obtener todos los logs
+        logs = WorkspaceLog.query.filter_by(workspace_id=workspace_id).order_by(WorkspaceLog.timestamp.asc()).all()
+        
+        # Crear archivo temporal
+        timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S')
+        filename = f'workspace_{workspace_id}_logs_{timestamp}'
+        
+        if export_format == 'json':
+            # Exportar como JSON
+            export_data = {
+                'workspace_id': workspace_id,
+                'workspace_name': workspace.name,
+                'exported_at': datetime.utcnow().isoformat(),
+                'total_logs': len(logs),
+                'logs': [log.to_dict() for log in logs]
+            }
+            
+            temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False, encoding='utf-8')
+            json.dump(export_data, temp_file, indent=2, ensure_ascii=False, default=str)
+            temp_file.close()
+            filename += '.json'
+            mimetype = 'application/json'
+        else:
+            # Exportar como TXT
+            temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8')
+            temp_file.write(f"Workspace Logs Export\n")
+            temp_file.write(f"Workspace ID: {workspace_id}\n")
+            temp_file.write(f"Workspace Name: {workspace.name}\n")
+            temp_file.write(f"Exported At: {datetime.utcnow().isoformat()}\n")
+            temp_file.write(f"Total Logs: {len(logs)}\n")
+            temp_file.write("=" * 80 + "\n\n")
+            
+            for log in logs:
+                temp_file.write(f"[{log.timestamp.isoformat()}] [{log.source}] [{log.level}]\n")
+                temp_file.write(f"{log.message}\n")
+                if log.task_id:
+                    temp_file.write(f"Task ID: {log.task_id}\n")
+                if log.get_metadata():
+                    temp_file.write(f"Metadata: {json.dumps(log.get_metadata(), indent=2)}\n")
+                temp_file.write("-" * 80 + "\n")
+            
+            temp_file.close()
+            filename += '.txt'
+            mimetype = 'text/plain'
+        
+        # Enviar archivo y eliminar después
+        def remove_file(response):
+            try:
+                os.unlink(temp_file.name)
+            except Exception:
+                pass
+            return response
+        
+        return remove_file(send_file(
+            temp_file.name,
+            mimetype=mimetype,
+            as_attachment=True,
+            download_name=filename
+        ))
+        
+    except Exception as e:
+        return jsonify({
+            'error': 'Failed to export workspace logs',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/logs', methods=['DELETE'])
+@jwt_required()
+def delete_workspace_logs(workspace_id):
+    """
+    Elimina logs de un workspace.
+    
+    Query params:
+        - export: 'true' o 'false' (default: 'false') - Si exportar antes de eliminar
+    """
+    try:
+        # Verificar que el workspace existe y pertenece al usuario
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to delete this workspace logs'
+            }), 403
+        
+        # Verificar si se debe exportar antes
+        should_export = request.args.get('export', 'false').lower() == 'true'
+        export_url = None
+        
+        if should_export:
+            # Exportar antes de eliminar (usar endpoint interno)
+            try:
+                logs = WorkspaceLog.query.filter_by(workspace_id=workspace_id).order_by(WorkspaceLog.timestamp.asc()).all()
+                timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S')
+                filename = f'workspace_{workspace_id}_logs_{timestamp}.json'
+                
+                export_data = {
+                    'workspace_id': workspace_id,
+                    'workspace_name': workspace.name,
+                    'exported_at': datetime.utcnow().isoformat(),
+                    'total_logs': len(logs),
+                    'logs': [log.to_dict() for log in logs]
+                }
+                
+                temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False, encoding='utf-8')
+                json.dump(export_data, temp_file, indent=2, ensure_ascii=False, default=str)
+                temp_file.close()
+                
+                # Guardar en directorio de exports (crear si no existe)
+                exports_dir = Path(__file__).parent.parent.parent / 'exports'
+                exports_dir.mkdir(exist_ok=True)
+                export_path = exports_dir / filename
+                
+                # Mover archivo temporal a exports
+                import shutil
+                shutil.move(temp_file.name, str(export_path))
+                
+                export_url = f'/api/v1/exports/{filename}'
+            except Exception as e:
+                # Si falla la exportación, continuar con la eliminación
+                pass
+        
+        # Eliminar logs
+        deleted_count = WorkspaceLog.query.filter_by(workspace_id=workspace_id).delete()
+        db.session.commit()
+        
+        return jsonify({
+            'message': f'Deleted {deleted_count} logs',
+            'deleted_count': deleted_count,
+            'export_url': export_url
+        }), 200
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'error': 'Failed to delete workspace logs',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/archive', methods=['POST'])
+@jwt_required()
+def archive_workspace(workspace_id):
+    """
+    Archiva un workspace.
+    
+    Body:
+        {
+            "export_logs": bool,      # Exportar logs antes de eliminar
+            "keep_findings": bool,     # Mantener vulnerabilidades
+            "keep_reports": bool       # Mantener reportes
+        }
+    """
+    try:
+        # Verificar que el workspace existe y pertenece al usuario
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to archive this workspace'
+            }), 403
+        
+        data = request.get_json() or {}
+        export_logs = data.get('export_logs', True)
+        keep_findings = data.get('keep_findings', False)
+        keep_reports = data.get('keep_reports', False)
+        
+        export_url = None
+        
+        # Exportar logs si se solicita
+        if export_logs:
+            try:
+                logs = WorkspaceLog.query.filter_by(workspace_id=workspace_id).order_by(WorkspaceLog.timestamp.asc()).all()
+                if logs:
+                    timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S')
+                    filename = f'workspace_{workspace_id}_logs_{timestamp}.json'
+                    
+                    export_data = {
+                        'workspace_id': workspace_id,
+                        'workspace_name': workspace.name,
+                        'exported_at': datetime.utcnow().isoformat(),
+                        'total_logs': len(logs),
+                        'logs': [log.to_dict() for log in logs]
+                    }
+                    
+                    temp_file = tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False, encoding='utf-8')
+                    json.dump(export_data, temp_file, indent=2, ensure_ascii=False, default=str)
+                    temp_file.close()
+                    
+                    # Guardar en directorio de exports
+                    exports_dir = Path(__file__).parent.parent.parent / 'exports'
+                    exports_dir.mkdir(exist_ok=True)
+                    export_path = exports_dir / filename
+                    
+                    import shutil
+                    shutil.move(temp_file.name, str(export_path))
+                    
+                    export_url = f'/api/v1/exports/{filename}'
+            except Exception as e:
+                # Si falla la exportación, continuar con el archivo
+                pass
+        
+        # Eliminar logs
+        WorkspaceLog.query.filter_by(workspace_id=workspace_id).delete()
+        
+        # Eliminar vulnerabilidades si no se deben mantener
+        if not keep_findings:
+            from models import Vulnerability
+            Vulnerability.query.filter_by(workspace_id=workspace_id).delete()
+        
+        # Eliminar reportes si no se deben mantener
+        if not keep_reports:
+            from models import Report
+            Report.query.filter_by(workspace_id=workspace_id).delete()
+        
+        # Cambiar status a 'archived'
+        workspace.status = 'archived'
+        workspace.is_active = False
+        workspace_repo.update(workspace)
+        
+        return jsonify({
+            'message': 'Workspace archived successfully',
+            'workspace_id': workspace_id,
+            'status': 'archived',
+            'export_url': export_url
+        }), 200
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'error': 'Failed to archive workspace',
+            'message': str(e)
+        }), 500
+
+
+# ========================================
+# ENDPOINTS DE SESIONES
+# ========================================
+
+@workspaces_bp.route('/<int:workspace_id>/sessions', methods=['GET', 'OPTIONS'])
+def get_workspace_sessions(workspace_id):
+    """
+    Obtiene sesiones de un workspace.
+    
+    Por ahora devuelve un array vacío hasta que se implementen los modelos.
+    """
+    # Flask-CORS maneja OPTIONS automáticamente
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    # Para GET, requerir autenticación
+    try:
+        from flask_jwt_extended import verify_jwt_in_request
+        verify_jwt_in_request()
+    except Exception as auth_error:
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Authentication error in get_workspace_sessions: {auth_error}")
+        return jsonify({'error': 'Unauthorized', 'message': 'Authentication required'}), 401
+    
+    try:
+        # Verificar que el workspace existe
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to view this workspace sessions'
+            }), 403
+        
+        # Por ahora devolver array vacío hasta que se implementen los modelos
+        return jsonify([]), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error getting workspace sessions: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to get workspace sessions',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/sessions', methods=['POST', 'OPTIONS'])
+def create_workspace_session(workspace_id):
+    """
+    Crea una nueva sesión en un workspace.
+    
+    Por ahora devuelve un error 501 (Not Implemented) hasta que se implementen los modelos.
+    """
+    # Flask-CORS maneja OPTIONS automáticamente
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    # Para POST, requerir autenticación
+    try:
+        from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity
+        verify_jwt_in_request()
+    except Exception as auth_error:
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Authentication error in create_workspace_session: {auth_error}")
+        return jsonify({'error': 'Unauthorized', 'message': 'Authentication required'}), 401
+    
+    try:
+        # Verificar que el workspace existe
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to create sessions in this workspace'
+            }), 403
+        
+        # Por ahora devolver 501 hasta que se implementen los modelos
+        return jsonify({
+            'error': 'Not Implemented',
+            'message': 'Session creation is not yet implemented'
+        }), 501
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error creating workspace session: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to create workspace session',
+            'message': str(e)
+        }), 500
+
+
+# ========================================
+# ENDPOINTS DE EVIDENCIAS
+# ========================================
+
+@workspaces_bp.route('/<int:workspace_id>/evidence', methods=['GET', 'OPTIONS'])
+def get_workspace_evidence(workspace_id):
+    """
+    Obtiene evidencias de un workspace.
+    
+    Query params:
+        - session_id: Filtrar por sesión
+        - type: Filtrar por tipo
+        - tags: Filtrar por tags (múltiples valores)
+    
+    Por ahora devuelve un array vacío hasta que se implementen los modelos.
+    """
+    # Flask-CORS maneja OPTIONS automáticamente
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    # Para GET, requerir autenticación
+    try:
+        from flask_jwt_extended import verify_jwt_in_request
+        verify_jwt_in_request()
+    except Exception as auth_error:
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Authentication error in get_workspace_evidence: {auth_error}")
+        return jsonify({'error': 'Unauthorized', 'message': 'Authentication required'}), 401
+    
+    try:
+        # Verificar que el workspace existe
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to view this workspace evidence'
+            }), 403
+        
+        # Por ahora devolver array vacío hasta que se implementen los modelos
+        # Los filtros se ignoran por ahora
+        return jsonify([]), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error getting workspace evidence: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to get workspace evidence',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/evidence', methods=['POST', 'OPTIONS'])
+def create_workspace_evidence(workspace_id):
+    """
+    Crea nueva evidencia en un workspace.
+    
+    Por ahora devuelve un error 501 (Not Implemented) hasta que se implementen los modelos.
+    """
+    # Flask-CORS maneja OPTIONS automáticamente
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    # Para POST, requerir autenticación
+    try:
+        from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity
+        verify_jwt_in_request()
+    except Exception as auth_error:
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Authentication error in create_workspace_evidence: {auth_error}")
+        return jsonify({'error': 'Unauthorized', 'message': 'Authentication required'}), 401
+    
+    try:
+        # Verificar que el workspace existe
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to create evidence in this workspace'
+            }), 403
+        
+        # Por ahora devolver 501 hasta que se implementen los modelos
+        return jsonify({
+            'error': 'Not Implemented',
+            'message': 'Evidence creation is not yet implemented'
+        }), 501
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error creating workspace evidence: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to create workspace evidence',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/evidence/<int:evidence_id>', methods=['PUT', 'OPTIONS'])
+def update_workspace_evidence(workspace_id, evidence_id):
+    """
+    Actualiza evidencia existente.
+    
+    Por ahora devuelve un error 501 (Not Implemented) hasta que se implementen los modelos.
+    """
+    # Flask-CORS maneja OPTIONS automáticamente
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    # Para PUT, requerir autenticación
+    try:
+        from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity
+        verify_jwt_in_request()
+    except Exception as auth_error:
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Authentication error in update_workspace_evidence: {auth_error}")
+        return jsonify({'error': 'Unauthorized', 'message': 'Authentication required'}), 401
+    
+    try:
+        # Verificar que el workspace existe
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to update evidence in this workspace'
+            }), 403
+        
+        # Por ahora devolver 501 hasta que se implementen los modelos
+        return jsonify({
+            'error': 'Not Implemented',
+            'message': 'Evidence update is not yet implemented'
+        }), 501
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error updating workspace evidence: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to update workspace evidence',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/evidence/<int:evidence_id>', methods=['DELETE', 'OPTIONS'])
+def delete_workspace_evidence(workspace_id, evidence_id):
+    """
+    Elimina evidencia.
+    
+    Por ahora devuelve un error 501 (Not Implemented) hasta que se implementen los modelos.
+    """
+    # Flask-CORS maneja OPTIONS automáticamente
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    # Para DELETE, requerir autenticación
+    try:
+        from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity
+        verify_jwt_in_request()
+    except Exception as auth_error:
+        logger = logging.getLogger(__name__)
+        logger.warning(f"Authentication error in delete_workspace_evidence: {auth_error}")
+        return jsonify({'error': 'Unauthorized', 'message': 'Authentication required'}), 401
+    
+    try:
+        # Verificar que el workspace existe
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to delete evidence in this workspace'
+            }), 403
+        
+        # Por ahora devolver 501 hasta que se implementen los modelos
+        return jsonify({
+            'error': 'Not Implemented',
+            'message': 'Evidence deletion is not yet implemented'
+        }), 501
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error deleting workspace evidence: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to delete workspace evidence',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/files', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def list_workspace_files(workspace_id):
+    """
+    Lista archivos generados en un workspace.
+    
+    Args:
+        workspace_id: ID del workspace
+        category (query param, opcional): Categoría específica (recon, scans, enumeration, etc.)
+    
+    Returns:
+        Lista de archivos con metadatos
+    """
+    # Flask-CORS maneja OPTIONS automáticamente
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    try:
+        # Verificar que el workspace existe
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to access files in this workspace'
+            }), 403
+        
+        # Obtener categoría del query param (opcional)
+        category = request.args.get('category', None)
+        # Obtener path relativo para navegar subdirectorios (opcional)
+        relative_path = request.args.get('path', '')
+        
+        # Categorías disponibles
+        categories = [
+            'recon',
+            'scans',
+            'enumeration',
+            'vuln_scans',
+            'exploitation',
+            'postexploit',
+            'ad_scans',
+            'cloud_scans'
+        ]
+        
+        # Si se especifica una categoría, solo listar esa
+        if category:
+            if category not in categories:
+                return jsonify({
+                    'error': 'Bad Request',
+                    'message': f'Invalid category. Valid categories: {", ".join(categories)}'
+                }), 400
+            categories = [category]
+        
+        # Obtener directorio del workspace
+        workspace_dir = get_workspace_dir(workspace_id, workspace.name)
+        
+        files_list = []
+        directories_list = []
+        
+        # Listar archivos y directorios en cada categoría
+        for cat in categories:
+            cat_dir = workspace_dir / cat
+            
+            # Si hay un path relativo, navegar dentro de él
+            if relative_path:
+                # Validar que el path no salga del workspace (prevenir path traversal)
+                try:
+                    target_dir = (cat_dir / relative_path).resolve()
+                    cat_dir_resolved = cat_dir.resolve()
+                    target_dir.relative_to(cat_dir_resolved)
+                    cat_dir = target_dir
+                except (ValueError, OSError):
+                    return jsonify({
+                        'error': 'Bad Request',
+                        'message': 'Invalid path'
+                    }), 400
+            
+            if cat_dir.exists() and cat_dir.is_dir():
+                for item_path in cat_dir.iterdir():
+                    if item_path.is_file():
+                        stat = item_path.stat()
+                        files_list.append({
+                            'name': item_path.name,
+                            'category': cat,
+                            'path': str(item_path.relative_to(workspace_dir)),
+                            'size': stat.st_size,
+                            'size_human': _format_file_size(stat.st_size),
+                            'modified': datetime.fromtimestamp(stat.st_mtime).isoformat(),
+                            'extension': item_path.suffix,
+                            'type': 'file'
+                        })
+                    elif item_path.is_dir():
+                        # Es un subdirectorio
+                        dir_stat = item_path.stat()
+                        # Contar archivos dentro del directorio
+                        file_count = sum(1 for _ in item_path.rglob('*') if _.is_file())
+                        directories_list.append({
+                            'name': item_path.name,
+                            'category': cat,
+                            'path': str(item_path.relative_to(workspace_dir)),
+                            'modified': datetime.fromtimestamp(dir_stat.st_mtime).isoformat(),
+                            'type': 'directory',
+                            'file_count': file_count
+                        })
+        
+        # Combinar listas (directorios primero, luego archivos)
+        all_items = directories_list + files_list
+        
+        # Ordenar por fecha de modificación (más recientes primero)
+        all_items.sort(key=lambda x: x['modified'], reverse=True)
+        
+        return jsonify({
+            'workspace_id': workspace_id,
+            'workspace_name': workspace.name,
+            'total_files': len(files_list),
+            'total_directories': len(directories_list),
+            'current_path': relative_path,
+            'items': all_items,
+            'files': files_list,  # Mantener compatibilidad hacia atrás
+            'directories': directories_list
+        }), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error listing workspace files: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to list workspace files',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/files/<path:file_path>', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def get_workspace_file(workspace_id, file_path):
+    """
+    Obtiene el contenido de un archivo del workspace.
+    
+    Args:
+        workspace_id: ID del workspace
+        file_path: Ruta relativa del archivo (ej: 'recon/amass_442.txt')
+        download (query param, opcional): Si es 'true', descarga el archivo en lugar de mostrar contenido
+    
+    Returns:
+        Contenido del archivo o archivo descargable
+    """
+    # Flask-CORS maneja OPTIONS automáticamente
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    try:
+        # Verificar que el workspace existe
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to access files in this workspace'
+            }), 403
+        
+        # Obtener directorio del workspace
+        workspace_dir = get_workspace_dir(workspace_id, workspace.name)
+        
+        # Construir path completo del archivo
+        full_path = workspace_dir / file_path
+        
+        # Validar que el archivo está dentro del workspace (prevenir path traversal)
+        try:
+            full_path.resolve().relative_to(workspace_dir.resolve())
+        except ValueError:
+            return jsonify({
+                'error': 'Bad Request',
+                'message': 'Invalid file path'
+            }), 400
+        
+        # Verificar que el archivo existe
+        if not full_path.exists() or not full_path.is_file():
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'File not found'
+            }), 404
+        
+        # Verificar si es descarga o lectura
+        download = request.args.get('download', 'false').lower() == 'true'
+        
+        if download:
+            # Descargar archivo
+            return send_file(
+                str(full_path),
+                as_attachment=True,
+                download_name=full_path.name
+            )
+        else:
+            # Leer contenido del archivo
+            try:
+                # Intentar leer como texto
+                content = full_path.read_text(encoding='utf-8', errors='replace')
+                return jsonify({
+                    'workspace_id': workspace_id,
+                    'file_path': file_path,
+                    'file_name': full_path.name,
+                    'size': full_path.stat().st_size,
+                    'content': content,
+                    'is_binary': False
+                }), 200
+            except UnicodeDecodeError:
+                # Si no es texto, indicar que es binario
+                return jsonify({
+                    'workspace_id': workspace_id,
+                    'file_path': file_path,
+                    'file_name': full_path.name,
+                    'size': full_path.stat().st_size,
+                    'content': None,
+                    'is_binary': True,
+                    'message': 'File is binary. Use ?download=true to download it.'
+                }), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error reading workspace file: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to read workspace file',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/files/<path:file_path>', methods=['DELETE', 'OPTIONS'])
+@jwt_required()
+def delete_workspace_file(workspace_id, file_path):
+    """
+    Elimina un archivo específico del workspace.
+    
+    Args:
+        workspace_id: ID del workspace
+        file_path: Ruta relativa del archivo (ej: 'recon/amass_442.txt')
+    
+    Returns:
+        Mensaje de confirmación
+    """
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    try:
+        # Verificar que el workspace existe
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to delete files in this workspace'
+            }), 403
+        
+        # Obtener directorio del workspace
+        workspace_dir = get_workspace_dir(workspace_id, workspace.name)
+        
+        # Construir path completo del archivo
+        full_path = workspace_dir / file_path
+        
+        # Validar que el archivo está dentro del workspace (prevenir path traversal)
+        try:
+            full_path.resolve().relative_to(workspace_dir.resolve())
+        except ValueError:
+            return jsonify({
+                'error': 'Bad Request',
+                'message': 'Invalid file path'
+            }), 400
+        
+        # Verificar que el archivo existe
+        if not full_path.exists():
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'File not found'
+            }), 404
+        
+        # Eliminar el archivo
+        if full_path.is_file():
+            full_path.unlink()
+        elif full_path.is_dir():
+            import shutil
+            shutil.rmtree(full_path)
+        else:
+            return jsonify({
+                'error': 'Bad Request',
+                'message': 'Path is not a file or directory'
+            }), 400
+        
+        logger = logging.getLogger(__name__)
+        logger.info(f"File deleted: {file_path} from workspace {workspace_id} by user {user_id}")
+        
+        return jsonify({
+            'message': 'File deleted successfully',
+            'file_path': file_path
+        }), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error deleting workspace file: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to delete workspace file',
+            'message': str(e)
+        }), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/files', methods=['DELETE', 'OPTIONS'])
+@jwt_required()
+def delete_all_workspace_files(workspace_id):
+    """
+    Elimina todos los archivos del workspace.
+    
+    Args:
+        workspace_id: ID del workspace
+        category (query param, opcional): Si se especifica, solo elimina archivos de esa categoría
+    
+    Returns:
+        Mensaje de confirmación con estadísticas
+    """
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    try:
+        # Verificar que el workspace existe
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({
+                'error': 'Not Found',
+                'message': 'Workspace not found'
+            }), 404
+        
+        # Verificar permisos
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({
+                'error': 'Forbidden',
+                'message': 'You do not have permission to delete files in this workspace'
+            }), 403
+        
+        # Obtener categoría del query param (opcional)
+        category = request.args.get('category', None)
+        
+        # Obtener directorio del workspace
+        workspace_dir = get_workspace_dir(workspace_id, workspace.name)
+        
+        # Categorías disponibles
+        categories = [
+            'recon',
+            'scans',
+            'enumeration',
+            'vuln_scans',
+            'exploitation',
+            'postexploit',
+            'ad_scans',
+            'cloud_scans'
+        ]
+        
+        # Si se especifica una categoría, solo eliminar esa
+        if category:
+            if category not in categories:
+                return jsonify({
+                    'error': 'Bad Request',
+                    'message': f'Invalid category. Valid categories: {", ".join(categories)}'
+                }), 400
+            categories = [category]
+        
+        deleted_files = 0
+        deleted_dirs = 0
+        
+        import shutil
+        
+        # Eliminar archivos y directorios en cada categoría
+        for cat in categories:
+            cat_dir = workspace_dir / cat
+            
+            if cat_dir.exists() and cat_dir.is_dir():
+                # Contar antes de eliminar
+                for item_path in cat_dir.rglob('*'):
+                    if item_path.is_file():
+                        deleted_files += 1
+                    elif item_path.is_dir():
+                        deleted_dirs += 1
+                
+                # Eliminar todo el contenido de la categoría
+                shutil.rmtree(cat_dir)
+                # Recrear el directorio vacío
+                cat_dir.mkdir(parents=True, exist_ok=True)
+        
+        logger = logging.getLogger(__name__)
+        logger.info(f"All files deleted from workspace {workspace_id} (category: {category or 'all'}) by user {user_id}")
+        
+        return jsonify({
+            'message': 'Files deleted successfully',
+            'deleted_files': deleted_files,
+            'deleted_directories': deleted_dirs,
+            'category': category or 'all'
+        }), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error deleting all workspace files: {e}", exc_info=True)
+        return jsonify({
+            'error': 'Failed to delete workspace files',
+            'message': str(e)
+        }), 500
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# DASHBOARD ENDPOINTS
+# ═══════════════════════════════════════════════════════════════════════
+
+@workspaces_bp.route('/<int:workspace_id>/dashboard/stats', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def get_dashboard_stats(workspace_id: int):
+    """
+    Obtiene métricas generales del dashboard para un workspace.
+    
+    Returns:
+        - scans: total, active, completed, failed
+        - vulnerabilities: total, by_severity
+        - security_score: score calculado
+        - audits: total, completed
+    """
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    try:
+        # Verificar workspace y permisos
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({'error': 'Workspace not found'}), 404
+        
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({'error': 'Forbidden'}), 403
+        
+        # Scans
+        scans = Scan.query.filter_by(workspace_id=workspace_id).all()
+        active_scans = [s for s in scans if s.status == 'running']
+        completed_scans = [s for s in scans if s.status == 'completed']
+        failed_scans = [s for s in scans if s.status == 'failed']
+        
+        # Vulnerabilidades
+        vulns = Vulnerability.query.filter_by(workspace_id=workspace_id).all()
+        total_vulns = len(vulns)
+        
+        # Distribución por severidad
+        vulns_by_severity = {
+            'critical': len([v for v in vulns if v.severity == 'critical']),
+            'high': len([v for v in vulns if v.severity == 'high']),
+            'medium': len([v for v in vulns if v.severity == 'medium']),
+            'low': len([v for v in vulns if v.severity == 'low']),
+            'info': len([v for v in vulns if v.severity == 'info']),
+        }
+        
+        # Score de seguridad (0-100)
+        security_score = 100
+        if total_vulns > 0:
+            security_score = max(0, 100 - (
+                vulns_by_severity['critical'] * 5 +
+                vulns_by_severity['high'] * 2 +
+                vulns_by_severity['medium'] * 0.5 +
+                vulns_by_severity['low'] * 0.1
+            ))
+        
+        # Auditorías OWASP (simulado por ahora, se puede conectar a owasp service)
+        audits_total = 0
+        audits_completed = 0
+        
+        return jsonify({
+            'workspace_id': workspace_id,
+            'scans': {
+                'total': len(scans),
+                'active': len(active_scans),
+                'completed': len(completed_scans),
+                'failed': len(failed_scans),
+            },
+            'vulnerabilities': {
+                'total': total_vulns,
+                'by_severity': vulns_by_severity,
+            },
+            'security_score': round(security_score, 1),
+            'audits': {
+                'total': audits_total,
+                'completed': audits_completed,
+            },
+        }), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error getting dashboard stats: {e}", exc_info=True)
+        return jsonify({'error': 'Internal server error', 'message': str(e)}), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/dashboard/vulnerabilities', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def get_dashboard_vulnerabilities(workspace_id: int):
+    """
+    Obtiene distribución de vulnerabilidades por severidad para el pie chart.
+    
+    Returns:
+        Array de {severity, count}
+    """
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    try:
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({'error': 'Workspace not found'}), 404
+        
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({'error': 'Forbidden'}), 403
+        
+        vulns = Vulnerability.query.filter_by(workspace_id=workspace_id).all()
+        
+        severity_counts = {
+            'critical': 0,
+            'high': 0,
+            'medium': 0,
+            'low': 0,
+            'info': 0,
+        }
+        
+        for vuln in vulns:
+            if vuln.severity in severity_counts:
+                severity_counts[vuln.severity] += 1
+        
+        data = [
+            {'severity': 'critical', 'count': severity_counts['critical']},
+            {'severity': 'high', 'count': severity_counts['high']},
+            {'severity': 'medium', 'count': severity_counts['medium']},
+            {'severity': 'low', 'count': severity_counts['low']},
+            {'severity': 'info', 'count': severity_counts['info']},
+        ]
+        
+        return jsonify(data), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error getting vulnerabilities: {e}", exc_info=True)
+        return jsonify({'error': 'Internal server error'}), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/dashboard/timeline', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def get_dashboard_timeline(workspace_id: int):
+    """
+    Obtiene timeline de scans (últimos 30 días) agrupados por día.
+    
+    Returns:
+        Array de {date, completed, failed, running, total}
+    """
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    try:
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({'error': 'Workspace not found'}), 404
+        
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({'error': 'Forbidden'}), 403
+        
+        # Obtener scans de los últimos 30 días
+        thirty_days_ago = datetime.now(timezone.utc) - timedelta(days=30)
+        scans = Scan.query.filter(
+            and_(
+                Scan.workspace_id == workspace_id,
+                Scan.created_at >= thirty_days_ago
+            )
+        ).all()
+        
+        # Agrupar por día
+        timeline = {}
+        for scan in scans:
+            # Usar fecha de creación o started_at
+            scan_date = scan.created_at.date() if scan.created_at else datetime.now().date()
+            date_str = scan_date.isoformat()
+            
+            if date_str not in timeline:
+                timeline[date_str] = {
+                    'date': date_str,
+                    'completed': 0,
+                    'failed': 0,
+                    'running': 0,
+                    'total': 0,
+                }
+            
+            timeline[date_str]['total'] += 1
+            if scan.status == 'completed':
+                timeline[date_str]['completed'] += 1
+            elif scan.status == 'failed':
+                timeline[date_str]['failed'] += 1
+            elif scan.status == 'running':
+                timeline[date_str]['running'] += 1
+        
+        # Rellenar días faltantes (últimos 30 días)
+        data = []
+        for i in range(30):
+            date = (datetime.now(timezone.utc) - timedelta(days=i)).date()
+            date_str = date.isoformat()
+            
+            if date_str in timeline:
+                data.append(timeline[date_str])
+            else:
+                data.append({
+                    'date': date_str,
+                    'completed': 0,
+                    'failed': 0,
+                    'running': 0,
+                    'total': 0,
+                })
+        
+        # Ordenar por fecha (más antiguo primero)
+        data.sort(key=lambda x: x['date'])
+        
+        return jsonify(data), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error getting timeline: {e}", exc_info=True)
+        return jsonify({'error': 'Internal server error'}), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/dashboard/trends', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def get_dashboard_trends(workspace_id: int):
+    """
+    Obtiene tendencia de vulnerabilidades (últimos 30 días) por severidad.
+    
+    Returns:
+        Array de {date, critical, high, medium, low, total}
+    """
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    try:
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({'error': 'Workspace not found'}), 404
+        
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({'error': 'Forbidden'}), 403
+        
+        # Obtener vulnerabilidades de los últimos 30 días
+        thirty_days_ago = datetime.now(timezone.utc) - timedelta(days=30)
+        vulns = Vulnerability.query.filter(
+            and_(
+                Vulnerability.workspace_id == workspace_id,
+                Vulnerability.discovered_at >= thirty_days_ago
+            )
+        ).all()
+        
+        # Agrupar por día y severidad
+        trends = {}
+        for vuln in vulns:
+            vuln_date = vuln.discovered_at.date() if vuln.discovered_at else datetime.now().date()
+            date_str = vuln_date.isoformat()
+            
+            if date_str not in trends:
+                trends[date_str] = {
+                    'date': date_str,
+                    'critical': 0,
+                    'high': 0,
+                    'medium': 0,
+                    'low': 0,
+                    'total': 0,
+                }
+            
+            trends[date_str]['total'] += 1
+            if vuln.severity in trends[date_str]:
+                trends[date_str][vuln.severity] += 1
+        
+        # Rellenar días faltantes y calcular acumulado
+        data = []
+        cumulative = {'critical': 0, 'high': 0, 'medium': 0, 'low': 0, 'total': 0}
+        
+        for i in range(30):
+            date = (datetime.now(timezone.utc) - timedelta(days=29-i)).date()
+            date_str = date.isoformat()
+            
+            if date_str in trends:
+                # Agregar al acumulado
+                cumulative['critical'] += trends[date_str]['critical']
+                cumulative['high'] += trends[date_str]['high']
+                cumulative['medium'] += trends[date_str]['medium']
+                cumulative['low'] += trends[date_str]['low']
+                cumulative['total'] += trends[date_str]['total']
+            
+            data.append({
+                'date': date_str,
+                'critical': cumulative['critical'],
+                'high': cumulative['high'],
+                'medium': cumulative['medium'],
+                'low': cumulative['low'],
+                'total': cumulative['total'],
+            })
+        
+        return jsonify(data), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error getting trends: {e}", exc_info=True)
+        return jsonify({'error': 'Internal server error'}), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/dashboard/top-vulnerabilities', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def get_dashboard_top_vulnerabilities(workspace_id: int):
+    """
+    Obtiene top 10 vulnerabilidades más frecuentes.
+    
+    Returns:
+        Array de {name, count, severity, cve, affected_hosts}
+    """
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    try:
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({'error': 'Workspace not found'}), 404
+        
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({'error': 'Forbidden'}), 403
+        
+        # Agrupar vulnerabilidades por título
+        vulns = Vulnerability.query.filter_by(workspace_id=workspace_id).all()
+        
+        vuln_groups = {}
+        for vuln in vulns:
+            title = vuln.title
+            if title not in vuln_groups:
+                vuln_groups[title] = {
+                    'name': title,
+                    'count': 0,
+                    'severity': vuln.severity,
+                    'cve': vuln.cve_id,
+                    'affected_hosts': set(),
+                }
+            
+            vuln_groups[title]['count'] += 1
+            if vuln.target:
+                vuln_groups[title]['affected_hosts'].add(vuln.target)
+        
+        # Convertir a lista y ordenar
+        data = []
+        for group in vuln_groups.values():
+            data.append({
+                'name': group['name'],
+                'count': group['count'],
+                'severity': group['severity'],
+                'cve': group['cve'],
+                'affected_hosts': len(group['affected_hosts']),
+            })
+        
+        # Ordenar por count y tomar top 10
+        data.sort(key=lambda x: x['count'], reverse=True)
+        data = data[:10]
+        
+        return jsonify(data), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error getting top vulnerabilities: {e}", exc_info=True)
+        return jsonify({'error': 'Internal server error'}), 500
+
+
+@workspaces_bp.route('/<int:workspace_id>/dashboard/risk-matrix', methods=['GET', 'OPTIONS'])
+@jwt_required()
+def get_dashboard_risk_matrix(workspace_id: int):
+    """
+    Obtiene datos para la matriz de riesgo (probabilidad vs impacto).
+    
+    Returns:
+        Array de {id, name, probability, impact, severity, count, affected_hosts, cve}
+    """
+    if request.method == 'OPTIONS':
+        return jsonify({'message': 'OK'}), 200
+    
+    try:
+        workspace = workspace_repo.find_by_id(workspace_id)
+        if not workspace:
+            return jsonify({'error': 'Workspace not found'}), 404
+        
+        user_id = int(get_jwt_identity())
+        if workspace.owner_id != user_id:
+            return jsonify({'error': 'Forbidden'}), 403
+        
+        vulns = Vulnerability.query.filter_by(workspace_id=workspace_id).all()
+        
+        # Agrupar por título
+        vuln_groups = {}
+        for vuln in vulns:
+            title = vuln.title
+            if title not in vuln_groups:
+                vuln_groups[title] = {
+                    'name': title,
+                    'count': 0,
+                    'severity': vuln.severity,
+                    'cvss_score': vuln.cvss_score or 0,
+                    'cve': vuln.cve_id,
+                    'affected_hosts': set(),
+                }
+            
+            vuln_groups[title]['count'] += 1
+            if vuln.target:
+                vuln_groups[title]['affected_hosts'].add(vuln.target)
+        
+        # Calcular probabilidad e impacto basado en severidad y CVSS
+        data = []
+        for idx, (title, group) in enumerate(vuln_groups.items(), 1):
+            # Probabilidad: basada en cantidad de ocurrencias (normalizada a 0-100)
+            max_count = max([g['count'] for g in vuln_groups.values()]) if vuln_groups else 1
+            probability = min(100, (group['count'] / max_count) * 100) if max_count > 0 else 50
+            
+            # Impacto: basado en CVSS score o severidad
+            if group['cvss_score'] > 0:
+                impact = group['cvss_score'] * 10  # CVSS 0-10 -> Impacto 0-100
+            else:
+                # Mapeo de severidad a impacto
+                severity_impact = {
+                    'critical': 95,
+                    'high': 75,
+                    'medium': 55,
+                    'low': 35,
+                    'info': 15,
+                }
+                impact = severity_impact.get(group['severity'], 50)
+            
+            data.append({
+                'id': str(idx),
+                'name': group['name'],
+                'probability': round(probability, 1),
+                'impact': round(impact, 1),
+                'severity': group['severity'],
+                'count': group['count'],
+                'affected_hosts': len(group['affected_hosts']),
+                'cve': group['cve'],
+            })
+        
+        return jsonify(data), 200
+        
+    except Exception as e:
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error getting risk matrix: {e}", exc_info=True)
+        return jsonify({'error': 'Internal server error'}), 500
+
+
+def _format_file_size(size_bytes: int) -> str:
+    """Formatea tamaño de archivo en formato legible."""
+    for unit in ['B', 'KB', 'MB', 'GB']:
+        if size_bytes < 1024.0:
+            return f"{size_bytes:.1f} {unit}"
+        size_bytes /= 1024.0
+    return f"{size_bytes:.1f} TB"
+

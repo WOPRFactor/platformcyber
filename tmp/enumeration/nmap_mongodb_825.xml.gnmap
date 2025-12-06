@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Fri Dec  5 10:45:40 2025 as: /usr/lib/nmap/nmap --privileged -sV --script mongodb-info,mongodb-databases -p 27017 -oA /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/tmp/enumeration/nmap_mongodb_825.xml kopernicus.tech
+Host: 66.97.42.227 (vps-1889901-x.dattaweb.com)	Status: Up
+Host: 66.97.42.227 (vps-1889901-x.dattaweb.com)	Ports: 27017/filtered/tcp//mongod///
+# Nmap done at Fri Dec  5 10:45:42 2025 -- 1 IP address (1 host up) scanned in 1.58 seconds

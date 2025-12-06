@@ -1,0 +1,35 @@
+ 
+ -------------- celery@kali v5.5.3 (immunity)
+--- ***** ----- 
+-- ******* ---- Linux-6.16.8+kali-amd64-x86_64-with-glibc2.41 2025-11-25 07:13:11
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         pentesting_platform:0x7fb8e2a87a10
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     redis://localhost:6379/0
+- *** --- * --- .> concurrency: 5 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . celery_app.debug_task
+  . tasks.ad.bloodhound_collection
+  . tasks.ad.crackmapexec_scan
+  . tasks.brute_force.hydra_attack
+  . tasks.container.trivy_scan
+  . tasks.exploitation.sqlmap_scan
+  . tasks.exploitation.zap_scan
+  . tasks.mobile.mobsf_analysis
+  . tasks.reporting.export_to_pdf
+  . tasks.reporting.generate_full_report
+  . tasks.scanning.masscan_scan
+  . tasks.scanning.nmap_scan
+  . tasks.scanning.nuclei_scan
+
+[2025-11-25 07:13:24,826: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2025-11-25 07:13:25,528: INFO/MainProcess] mingle: searching for neighbors
+[2025-11-25 07:13:27,426: INFO/MainProcess] mingle: all alone
+[2025-11-25 07:13:28,281: INFO/MainProcess] celery@kali ready.

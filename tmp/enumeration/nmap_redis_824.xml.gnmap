@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Fri Dec  5 10:45:37 2025 as: /usr/lib/nmap/nmap --privileged -sV --script redis-info -p 6379 -oA /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/tmp/enumeration/nmap_redis_824.xml kopernicus.tech
+Host: 66.97.42.227 (vps-1889901-x.dattaweb.com)	Status: Up
+Host: 66.97.42.227 (vps-1889901-x.dattaweb.com)	Ports: 6379/filtered/tcp//redis///
+# Nmap done at Fri Dec  5 10:45:43 2025 -- 1 IP address (1 host up) scanned in 6.51 seconds

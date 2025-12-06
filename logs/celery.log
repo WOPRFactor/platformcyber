@@ -1,0 +1,101 @@
+/usr/lib/python3/dist-packages/celery/platforms.py:841: SecurityWarning: You're running the worker with superuser privileges: this is
+absolutely not recommended!
+
+Please specify a different user using the --uid option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  warnings.warn(SecurityWarning(ROOT_DISCOURAGED.format(
+ 
+ -------------- celery@kali v5.5.3 (immunity)
+--- ***** ----- 
+-- ******* ---- Linux-6.16.8+kali-amd64-x86_64-with-glibc2.41 2025-11-25 08:58:52
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         pentesting_platform:0x7f9d7ff1fb60
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     redis://localhost:6379/0
+- *** --- * --- .> concurrency: 5 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . celery_app.debug_task
+  . tasks.ad.bloodhound_collection
+  . tasks.ad.crackmapexec_scan
+  . tasks.brute_force.hydra_attack
+  . tasks.container.trivy_scan
+  . tasks.exploitation.sqlmap_scan
+  . tasks.exploitation.zap_scan
+  . tasks.mobile.mobsf_analysis
+  . tasks.reporting.export_to_pdf
+  . tasks.reporting.generate_full_report
+  . tasks.scanning.masscan_scan
+  . tasks.scanning.nmap_scan
+  . tasks.scanning.nuclei_scan
+
+[2025-11-25 08:58:53,533: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2025-11-25 08:58:53,539: INFO/MainProcess] mingle: searching for neighbors
+[2025-11-25 08:58:54,558: INFO/MainProcess] mingle: all alone
+[2025-11-25 08:58:54,580: INFO/MainProcess] celery@kali ready.
+[2025-11-25 08:58:54,595: INFO/MainProcess] Task tasks.scanning.nmap_scan[53f234de-a604-4949-a3de-ffda2c2129ec] received
+[2025-11-25 08:58:54,597: INFO/MainProcess] Task tasks.scanning.nmap_scan[2622e019-c05a-4a63-b150-6c25a9c16b23] received
+[2025-11-25 08:58:54,621: INFO/MainProcess] Task tasks.scanning.nmap_scan[2622e019-c05a-4a63-b150-6c25a9c16b23] received
+[2025-11-25 08:58:54,625: INFO/MainProcess] Task tasks.scanning.nmap_scan[53f234de-a604-4949-a3de-ffda2c2129ec] received
+[2025-11-25 08:58:54,628: INFO/ForkPoolWorker-4] Task tasks.scanning.nmap_scan[53f234de-a604-4949-a3de-ffda2c2129ec] retry: Retry in 1s: ModuleNotFoundError("No module named 'config'")
+[2025-11-25 08:58:54,629: INFO/ForkPoolWorker-5] Task tasks.scanning.nmap_scan[2622e019-c05a-4a63-b150-6c25a9c16b23] retry: Retry in 1s: ModuleNotFoundError("No module named 'config'")
+[2025-11-25 08:58:55,614: INFO/MainProcess] Task tasks.scanning.nmap_scan[2622e019-c05a-4a63-b150-6c25a9c16b23] received
+[2025-11-25 08:58:55,616: INFO/MainProcess] Task tasks.scanning.nmap_scan[53f234de-a604-4949-a3de-ffda2c2129ec] received
+[2025-11-25 08:58:55,617: INFO/ForkPoolWorker-4] Task tasks.scanning.nmap_scan[53f234de-a604-4949-a3de-ffda2c2129ec] retry: Retry in 1s: ModuleNotFoundError("No module named 'config'")
+[2025-11-25 08:58:55,618: INFO/ForkPoolWorker-5] Task tasks.scanning.nmap_scan[2622e019-c05a-4a63-b150-6c25a9c16b23] retry: Retry in 2s: ModuleNotFoundError("No module named 'config'")
+[2025-11-25 08:58:56,620: INFO/MainProcess] Task tasks.scanning.nmap_scan[53f234de-a604-4949-a3de-ffda2c2129ec] received
+[2025-11-25 08:58:56,625: INFO/ForkPoolWorker-4] Task tasks.scanning.nmap_scan[53f234de-a604-4949-a3de-ffda2c2129ec] retry: Retry in 0s: ModuleNotFoundError("No module named 'config'")
+[2025-11-25 08:58:56,628: ERROR/ForkPoolWorker-5] Task tasks.scanning.nmap_scan[53f234de-a604-4949-a3de-ffda2c2129ec] raised unexpected: ModuleNotFoundError("No module named 'config'")
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/celery/app/autoretry.py", line 60, in run
+    ret = task.retry(exc=exc, **retry_kwargs)
+  File "/usr/lib/python3/dist-packages/celery/app/task.py", line 743, in retry
+    raise_with_context(exc)
+    ~~~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/lib/python3/dist-packages/celery/app/autoretry.py", line 38, in run
+    return task._orig_run(*args, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/tasks/scanning_tasks.py", line 73, in nmap_scan_task
+    app = get_flask_app()
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/celery_app.py", line 23, in get_flask_app
+    from config import get_config
+ModuleNotFoundError: No module named 'config'
+[2025-11-25 08:58:57,623: INFO/MainProcess] Task tasks.scanning.nmap_scan[2622e019-c05a-4a63-b150-6c25a9c16b23] received
+[2025-11-25 08:58:57,625: INFO/ForkPoolWorker-4] Task tasks.scanning.nmap_scan[2622e019-c05a-4a63-b150-6c25a9c16b23] retry: Retry in 1s: ModuleNotFoundError("No module named 'config'")
+[2025-11-25 08:58:58,630: ERROR/ForkPoolWorker-4] Task tasks.scanning.nmap_scan[2622e019-c05a-4a63-b150-6c25a9c16b23] raised unexpected: ModuleNotFoundError("No module named 'config'")
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/celery/app/autoretry.py", line 60, in run
+    ret = task.retry(exc=exc, **retry_kwargs)
+  File "/usr/lib/python3/dist-packages/celery/app/task.py", line 743, in retry
+    raise_with_context(exc)
+    ~~~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/lib/python3/dist-packages/celery/app/autoretry.py", line 38, in run
+    return task._orig_run(*args, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/tasks/scanning_tasks.py", line 73, in nmap_scan_task
+    app = get_flask_app()
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/celery_app.py", line 23, in get_flask_app
+    from config import get_config
+ModuleNotFoundError: No module named 'config'
+
+worker: Warm shutdown (MainProcess)
