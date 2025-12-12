@@ -15,16 +15,20 @@ import os
 logger = logging.getLogger(__name__)
 
 # Directorio base para workspaces (configurable por variable de entorno)
-# Default: usar directorio en el proyecto si no hay permisos para /workspaces
-_default_base = Path('/workspaces')
-if not _default_base.exists():
-    # Intentar crear, si falla usar directorio en el proyecto
-    try:
-        _default_base.mkdir(parents=True, exist_ok=True)
-    except (PermissionError, OSError):
-        # Fallback a directorio en el proyecto
-        _default_base = Path(__file__).parent.parent.parent / 'workspaces'
-        _default_base.mkdir(parents=True, exist_ok=True)
+# Dev4 usa directorio dentro del proyecto para aislarse de dev3
+# Si se necesita usar otro directorio, configurar WORKSPACES_BASE_DIR como variable de entorno
+_default_base = Path(__file__).parent.parent.parent / 'workspaces'
+try:
+    _default_base.mkdir(parents=True, exist_ok=True)
+except (PermissionError, OSError) as e:
+    logger.warning(f"No se pudo crear directorio de workspaces {_default_base}: {e}")
+    # Fallback a /workspaces solo si falla crear el directorio del proyecto
+    _default_base = Path('/workspaces')
+    if not _default_base.exists():
+        try:
+            _default_base.mkdir(parents=True, exist_ok=True)
+        except (PermissionError, OSError):
+            logger.error(f"No se pudo crear ningún directorio de workspaces. Usando {_default_base}")
 
 WORKSPACES_BASE_DIR = Path(os.getenv('WORKSPACES_BASE_DIR', str(_default_base)))
 

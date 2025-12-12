@@ -3,9 +3,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // Configuración dinámica según entorno
+// DEV4-IMPROVEMENTS: Puertos separados para entorno de mejoras
 const isProduction = process.env.NODE_ENV === 'production' || process.env.VITE_ENV === 'prod'
-const frontendPort = process.env.PORT ? parseInt(process.env.PORT) : (isProduction ? 5174 : 5179)
-const backendPort = isProduction ? 5002 : 5000  // Backend siempre en puerto 5000
+const frontendPort = process.env.PORT ? parseInt(process.env.PORT) : (isProduction ? 5174 : 5180)  // Puerto 5180 para dev4
+const backendPort = isProduction ? 5002 : 5001  // Backend en puerto 5001 para dev4
 
 // https://vitejs.dev/config/
 export default defineConfig({

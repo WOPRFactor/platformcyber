@@ -1,0 +1,380 @@
+/* Report CSS - Estilos para reportes PDF */
+
+/* Reset y base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-size: 10pt;
+    line-height: 1.4;
+    color: #333;
+    background: #fff;
+}
+
+.container {
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 20mm;
+}
+
+/* Header */
+.report-header {
+    border-bottom: 3px solid #2c3e50;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.report-header h1 {
+    font-size: 24pt;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.metadata {
+    font-size: 9pt;
+    color: #666;
+}
+
+.metadata p {
+    margin: 3px 0;
+}
+
+/* Footer */
+.report-footer {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    font-size: 8pt;
+    color: #999;
+}
+
+/* Risk Score */
+.risk-score {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.risk-score h3 {
+    font-size: 18pt;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.risk-level {
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 12pt;
+}
+
+.risk-level.critical {
+    background: #dc3545;
+    color: white;
+}
+
+.risk-level.high {
+    background: #fd7e14;
+    color: white;
+}
+
+.risk-level.medium {
+    background: #ffc107;
+    color: #333;
+}
+
+.risk-level.low {
+    background: #17a2b8;
+    color: white;
+}
+
+.risk-level.info {
+    background: #6c757d;
+    color: white;
+}
+
+/* Statistics Grid */
+.statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.stat-card h4 {
+    font-size: 9pt;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 20pt;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Severity Distribution */
+.severity-distribution {
+    margin: 30px 0;
+}
+
+.severity-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.severity-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 3px;
+    align-items: center;
+}
+
+.severity-item.critical {
+    background: #fee;
+    border-left: 4px solid #dc3545;
+}
+
+.severity-item.high {
+    background: #fff4e6;
+    border-left: 4px solid #fd7e14;
+}
+
+.severity-item.medium {
+    background: #fffbf0;
+    border-left: 4px solid #ffc107;
+}
+
+.severity-item.low {
+    background: #e6f7ff;
+    border-left: 4px solid #17a2b8;
+}
+
+.severity-item.info {
+    background: #f5f5f5;
+    border-left: 4px solid #6c757d;
+}
+
+.severity-label {
+    font-weight: bold;
+}
+
+.severity-count {
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+/* Category Sections */
+.category-section {
+    margin: 30px 0;
+    page-break-inside: avoid;
+}
+
+.category-section h3 {
+    font-size: 14pt;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.category-count {
+    font-size: 9pt;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Tables */
+.findings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 8pt;
+}
+
+.findings-table thead {
+    background: #2c3e50;
+    color: white;
+}
+
+.findings-table th {
+    padding: 8px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.findings-table td {
+    padding: 6px;
+    border-bottom: 1px solid #ddd;
+}
+
+.findings-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.finding-row.severity-critical {
+    border-left: 3px solid #dc3545;
+}
+
+.finding-row.severity-high {
+    border-left: 3px solid #fd7e14;
+}
+
+.finding-row.severity-medium {
+    border-left: 3px solid #ffc107;
+}
+
+.finding-row.severity-low {
+    border-left: 3px solid #17a2b8;
+}
+
+.finding-row.severity-info {
+    border-left: 3px solid #6c757d;
+}
+
+.finding-title {
+    font-weight: bold;
+}
+
+.finding-target {
+    font-family: monospace;
+    font-size: 7pt;
+}
+
+.finding-description {
+    color: #666;
+}
+
+/* Severity Badge */
+.severity-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 7pt;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.severity-badge.critical {
+    background: #dc3545;
+    color: white;
+}
+
+.severity-badge.high {
+    background: #fd7e14;
+    color: white;
+}
+
+.severity-badge.medium {
+    background: #ffc107;
+    color: #333;
+}
+
+.severity-badge.low {
+    background: #17a2b8;
+    color: white;
+}
+
+.severity-badge.info {
+    background: #6c757d;
+    color: white;
+}
+
+/* Technical Details */
+.finding-detail {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    page-break-inside: avoid;
+}
+
+.finding-detail h4 {
+    font-size: 12pt;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.finding-meta {
+    margin-bottom: 10px;
+}
+
+.finding-meta span {
+    margin-right: 10px;
+}
+
+.category-badge,
+.target-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #e9ecef;
+    border-radius: 3px;
+    font-size: 7pt;
+}
+
+.finding-description-full {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.finding-evidence,
+.finding-remediation {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 3px;
+}
+
+.finding-evidence pre {
+    font-family: monospace;
+    font-size: 7pt;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.finding-cve {
+    margin-top: 10px;
+    font-family: monospace;
+    font-weight: bold;
+    color: #dc3545;
+}
+
+/* Page breaks */
+section {
+    page-break-inside: avoid;
+}
+
+/* Print styles */
+@media print {
+    .container {
+        padding: 10mm;
+    }
+    
+    .report-header {
+        page-break-after: avoid;
+    }
+    
+    .finding-detail {
+        page-break-inside: avoid;
+    }
+}
+
+
+
+
+

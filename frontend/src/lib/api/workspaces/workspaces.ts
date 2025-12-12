@@ -383,7 +383,9 @@ export const deleteWorkspaceFile = async (
   workspaceId: number,
   filePath: string
 ): Promise<{ message: string; file_path: string }> => {
-  const response = await api.delete(`workspaces/${workspaceId}/files/${filePath}`)
+  // Codificar cada segmento del path para manejar caracteres especiales y barras
+  const encodedPath = filePath.split('/').map(segment => encodeURIComponent(segment)).join('/')
+  const response = await api.delete(`workspaces/${workspaceId}/files/${encodedPath}`)
   return response.data
 }
 

@@ -3,6 +3,10 @@ import { Sword, Target, Shield, Play, Zap, Users, Server, Lock, Eye, AlertCircle
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { mitreAPI } from '../lib/api/mitre'
 import { useAuth } from '../contexts/AuthContext'
+import { useWorkspace } from '../contexts/WorkspaceContext'
+import { useCommandPreview } from './VulnerabilityAssessment/hooks/useCommandPreview'
+import CommandPreviewModal from '../components/CommandPreviewModal'
+import { toast } from 'sonner'
 
 interface MitreTechnique {
   id: string
@@ -24,9 +28,30 @@ interface MitreResult {
 
 const MitreAttacks: React.FC = () => {
   const { isAuthenticated } = useAuth()
+  const { currentWorkspace } = useWorkspace()
   const [selectedTactic, setSelectedTactic] = useState('all')
   const [target, setTarget] = useState('')
   const [runningAttacks, setRunningAttacks] = useState<string[]>([])
+  const commandPreview = useCommandPreview()
+  const { showPreview, previewData, previewToolName, closePreview, executePreview, openPreview } = commandPreview
+
+  // Mapeo de IDs del frontend a IDs MITRE del backend
+  const tacticIdMapping: Record<string, string> = {
+    'reconnaissance': 'TA0043',
+    'resource_development': 'TA0042',
+    'initial_access': 'TA0001',
+    'execution': 'TA0002',
+    'persistence': 'TA0003',
+    'privilege_escalation': 'TA0004',
+    'defense_evasion': 'TA0005',
+    'credential_access': 'TA0006',
+    'discovery': 'TA0007',
+    'lateral_movement': 'TA0008',
+    'collection': 'TA0009',
+    'command_and_control': 'TA0011',
+    'exfiltration': 'TA0010',
+    'impact': 'TA0040'
+  }
 
   const tactics = [
     { id: 'reconnaissance', name: 'Reconocimiento', icon: Eye, color: 'blue' },
@@ -46,11 +71,28 @@ const MitreAttacks: React.FC = () => {
   ]
 
   // Cargar técnicas y tácticas de la API
-  const { data: techniquesData } = useQuery({
+  const { data: techniquesData, isLoading: techniquesLoading, error: techniquesError } = useQuery({
     queryKey: ['mitre-techniques', selectedTactic],
-    queryFn: () => mitreAPI.getTechniques(selectedTactic === 'all' ? undefined : selectedTactic),
+    queryFn: async () => {
+      // Convertir ID del frontend a ID MITRE del backend
+      const backendTacticId = selectedTactic === 'all' ? undefined : tacticIdMapping[selectedTactic]
+      console.log('🔍 Filtrando técnicas:', { frontendId: selectedTactic, backendId: backendTacticId })
+      const data = await mitreAPI.getTechniques(backendTacticId)
+      console.log('✅ Técnicas cargadas desde API:', data)
+      return data
+    },
     enabled: isAuthenticated
   })
+
+  // Log cuando cambian los datos
+  React.useEffect(() => {
+    if (techniquesData) {
+      console.log('📊 techniquesData actualizado:', techniquesData)
+    }
+    if (techniquesError) {
+      console.error('❌ Error cargando técnicas:', techniquesError)
+    }
+  }, [techniquesData, techniquesError])
 
   const { data: tacticsData } = useQuery({
     queryKey: ['mitre-tactics'],
@@ -60,23 +102,68 @@ const MitreAttacks: React.FC = () => {
 
   // Convertir datos de API a formato local
   const techniques: MitreTechnique[] = React.useMemo(() => {
-    if (!techniquesData?.techniques) return []
+    console.log('🔄 Procesando técnicas. techniquesData:', techniquesData)
+    
+    if (!techniquesData) {
+      console.log('⚠️ No hay techniquesData')
+      return []
+    }
 
-    return Object.entries(techniquesData.techniques).map(([id, tech]: [string, any]) => ({
+    // El frontend API client devuelve directamente el Record<string, MitreTechnique>
+    // pero puede venir como { techniques: {...}, total: N } del backend
+    let techniquesObj: Record<string, any> = {}
+    
+    if (typeof techniquesData === 'object' && 'techniques' in techniquesData) {
+      techniquesObj = (techniquesData as any).techniques || {}
+    } else if (typeof techniquesData === 'object') {
+      techniquesObj = techniquesData as Record<string, any>
+    }
+    
+    if (!techniquesObj || typeof techniquesObj !== 'object' || Object.keys(techniquesObj).length === 0) {
+      console.log('⚠️ techniquesObj no es un objeto válido o está vacío:', techniquesObj)
+      return []
+    }
+
+    const result = Object.entries(techniquesObj).map(([id, tech]: [string, any]) => ({
       id,
-      name: tech.name,
-      tactic: tech.tactic,
-      description: tech.description,
-      severity: tech.severity as 'low' | 'medium' | 'high' | 'critical',
+      name: tech.name || id,
+      tactic: tech.tactic || 'unknown',
+      description: tech.description || '',
+      severity: (tech.severity || 'medium') as 'low' | 'medium' | 'high' | 'critical',
       status: 'available' as const
     }))
+    
+    console.log(`✅ ${result.length} técnicas procesadas`)
+    return result
   }, [techniquesData])
 
   const executeAttackMutation = useMutation({
     mutationFn: async (techniqueId: string) => {
       console.log('Ejecutando técnica MITRE:', techniqueId, 'en target:', target)
 
-      const result = await mitreAPI.executeTechnique(techniqueId, target)
+      // Necesitamos un campaign_id para ejecutar. Por ahora, creamos uno temporal o usamos uno existente
+      // Por simplicidad, usaremos un campaign temporal
+      const campaigns = await mitreAPI.listCampaigns(currentWorkspace?.id)
+      let campaignId = campaigns?.[0]?.id
+      
+      if (!campaignId) {
+        // Crear una campaña temporal si no existe
+        const newCampaign = await mitreAPI.createCampaign({
+          name: `Temporary Campaign - ${techniqueId}`,
+          workspace_id: currentWorkspace?.id || 1,
+          techniques: [techniqueId]
+        })
+        campaignId = newCampaign.campaign?.id
+      }
+
+      if (!campaignId) {
+        throw new Error('No se pudo obtener o crear una campaña')
+      }
+
+      const result = await mitreAPI.executeTechnique(campaignId, {
+        technique_id: techniqueId,
+        target: target || undefined
+      })
 
       // Marcar como ejecutándose
       setRunningAttacks(prev => [...prev, techniqueId])
@@ -90,9 +177,31 @@ const MitreAttacks: React.FC = () => {
     }
   })
 
-  const filteredTechniques = selectedTactic === 'all'
-    ? techniques
-    : techniques.filter(t => t.tactic === selectedTactic)
+  const filteredTechniques = React.useMemo(() => {
+    if (selectedTactic === 'all') {
+      return techniques
+    }
+    
+    // Convertir ID del frontend a ID MITRE del backend para filtrar
+    const backendTacticId = tacticIdMapping[selectedTactic]
+    console.log('🔍 Filtrando técnicas localmente:', { 
+      selectedTactic, 
+      backendTacticId, 
+      totalTechniques: techniques.length 
+    })
+    
+    const filtered = techniques.filter(t => {
+      // Las técnicas tienen tactic como 'TA0009' (ID MITRE)
+      const matches = t.tactic === backendTacticId
+      if (matches) {
+        console.log('✅ Técnica coincide:', t.id, t.tactic, 'con', backendTacticId)
+      }
+      return matches
+    })
+    
+    console.log(`✅ ${filtered.length} técnicas filtradas de ${techniques.length} totales`)
+    return filtered
+  }, [techniques, selectedTactic])
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
@@ -115,6 +224,49 @@ const MitreAttacks: React.FC = () => {
       return
     }
     executeAttackMutation.mutate(techniqueId)
+  }
+
+  const handlePreviewTechnique = async (techniqueId: string) => {
+    console.log('🔍 handlePreviewTechnique llamado:', {
+      techniqueId,
+      target,
+      workspaceId: currentWorkspace?.id,
+      hasWorkspace: !!currentWorkspace
+    })
+
+    if (!currentWorkspace?.id) {
+      toast.error('Workspace no seleccionado')
+      console.error('❌ Workspace no seleccionado')
+      return
+    }
+
+    try {
+      console.log('📡 Llamando a mitreAPI.previewTechnique...')
+      const preview = await mitreAPI.previewTechnique(
+        techniqueId,
+        target || undefined,
+        currentWorkspace.id
+      )
+      console.log('✅ Preview recibido:', preview)
+      
+      if (!preview || preview.error) {
+        toast.error(preview?.error || 'Error obteniendo preview')
+        console.error('❌ Preview tiene error:', preview)
+        return
+      }
+
+      console.log('🚀 Abriendo preview modal...')
+      openPreview(preview, 'MITRE ATT&CK', async () => {
+        if (!target.trim()) {
+          toast.error('Target es requerido para ejecutar')
+          return
+        }
+        await executeAttackMutation.mutateAsync(techniqueId)
+      })
+    } catch (error: any) {
+      console.error('❌ Error en handlePreviewTechnique:', error)
+      toast.error(`Error obteniendo preview: ${error.message}`)
+    }
   }
 
   return (
@@ -182,6 +334,25 @@ const MitreAttacks: React.FC = () => {
 
       {/* Lista de técnicas */}
       <div className="space-y-4">
+        {techniquesLoading && (
+          <div className="bg-gray-800 border border-green-500 rounded-lg p-6 text-center">
+            <p className="text-gray-400">Cargando técnicas...</p>
+          </div>
+        )}
+        {techniquesError && (
+          <div className="bg-red-900 border border-red-500 rounded-lg p-6 text-center">
+            <p className="text-red-400">Error cargando técnicas: {techniquesError.message}</p>
+            <p className="text-red-300 text-sm mt-2">Revisa la consola para más detalles</p>
+          </div>
+        )}
+        {!techniquesLoading && !techniquesError && filteredTechniques.length === 0 && (
+          <div className="bg-gray-800 border border-green-500 rounded-lg p-6 text-center">
+            <p className="text-gray-400">No hay técnicas disponibles para la táctica seleccionada.</p>
+            <p className="text-gray-500 text-sm mt-2">Total técnicas cargadas: {techniques.length}</p>
+            <p className="text-gray-500 text-sm">Táctica seleccionada: {selectedTactic}</p>
+            <p className="text-gray-500 text-sm mt-2">Revisa la consola para ver los datos recibidos</p>
+          </div>
+        )}
         {filteredTechniques.map(technique => {
           const isRunning = runningAttacks.includes(technique.id)
           const TacticIcon = getTacticIcon(technique.tactic)
@@ -206,18 +377,44 @@ const MitreAttacks: React.FC = () => {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => handleExecuteAttack(technique.id)}
-                  disabled={isRunning || executeAttackMutation.isPending}
-                  className="bg-red-600 hover:bg-red-700 disabled:bg-gray-600 px-4 py-2 rounded font-medium flex items-center space-x-2 ml-4"
-                >
-                  {isRunning ? (
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  ) : (
-                    <Play className="w-4 h-4" />
-                  )}
-                  <span>{isRunning ? 'Ejecutando...' : 'Simular Ataque'}</span>
-                </button>
+                <div className="flex items-center space-x-2 ml-4">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      alert(`Preview para técnica: ${technique.id}`)
+                      console.log('🖱️ CLICK EN PREVIEW - técnica:', technique.id)
+                      console.log('🖱️ handlePreviewTechnique existe?', typeof handlePreviewTechnique)
+                      console.log('🖱️ currentWorkspace:', currentWorkspace)
+                      if (typeof handlePreviewTechnique === 'function') {
+                        handlePreviewTechnique(technique.id)
+                      } else {
+                        console.error('❌ handlePreviewTechnique no es una función!')
+                        alert('Error: handlePreviewTechnique no está definida')
+                      }
+                    }}
+                    disabled={!currentWorkspace?.id}
+                    className="bg-gray-600 hover:bg-gray-700 disabled:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2 rounded font-medium flex items-center space-x-2 transition-colors"
+                    title={!currentWorkspace?.id ? "Selecciona un workspace primero" : "Preview del comando"}
+                    style={{ pointerEvents: 'auto', zIndex: 10 }}
+                  >
+                    <Eye className="w-4 h-4" />
+                    <span>Preview</span>
+                  </button>
+                  <button
+                    onClick={() => handleExecuteAttack(technique.id)}
+                    disabled={isRunning || executeAttackMutation.isPending}
+                    className="bg-red-600 hover:bg-red-700 disabled:bg-gray-600 px-4 py-2 rounded font-medium flex items-center space-x-2"
+                  >
+                    {isRunning ? (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    ) : (
+                      <Play className="w-4 h-4" />
+                    )}
+                    <span>{isRunning ? 'Ejecutando...' : 'Simular Ataque'}</span>
+                  </button>
+                </div>
               </div>
             </div>
           )
@@ -261,6 +458,17 @@ const MitreAttacks: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <CommandPreviewModal
+        isOpen={showPreview}
+        onClose={closePreview}
+        previewData={previewData}
+        category="Herramientas Auxiliares"
+        toolName={previewToolName}
+        onExecute={async () => {
+          await executePreview()
+        }}
+      />
     </div>
   )
 }

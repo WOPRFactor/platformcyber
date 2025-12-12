@@ -14,7 +14,7 @@ import logging
 import os
 from pathlib import Path
 from logging.handlers import RotatingFileHandler
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_limiter import Limiter
@@ -40,7 +40,8 @@ from api.v1 import (
     system_bp,
     owasp_bp,
     advanced_bp,
-    mitre_bp
+    mitre_bp,
+    whitebox_bp
 )
 from api.v1.integrations import integrations_bp
 from api.v1.workspaces import workspaces_bp
@@ -93,7 +94,8 @@ def create_app(config_name: str = 'development') -> Flask:
     setup_compression(app, min_size=500)
     
     # Initialize Redis cache
-    redis_url = app.config.get('REDIS_URL', 'redis://localhost:6379/2')
+    # DEV4-IMPROVEMENTS: Usar base de datos Redis 3 para separación completa
+    redis_url = app.config.get('REDIS_URL', 'redis://localhost:6379/3')
     init_cache(redis_url)
     
     # Registrar blueprints
@@ -147,20 +149,22 @@ def init_extensions(app: Flask) -> None:
             "http://localhost:5178",
             "http://localhost:5179",
             "http://localhost:5379",
+            "http://192.168.0.11:5180",
+            "http://localhost:5180",
             # Permitir cualquier IP de la LAN con regex
             r"http://192\.168\.\d+\.\d+:\d+",
             r"http://localhost:\d+"
         ]
     
-    CORS(app, 
+    CORS(app,
          resources={r"/api/*": {
-             "origins": allowed_origins,
+             "origins": allowed_origins,  # Usar lista de orígenes
              "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
              "allow_headers": ["Content-Type", "Authorization", "X-Project-ID"],
              "expose_headers": ["Content-Type", "Authorization"],
              "supports_credentials": True
          }},
-         automatic_options=True)  # Asegurar que OPTIONS se maneje automáticamente
+         automatic_options=True)
 
     # Permitir OPTIONS sin autenticación (CORS preflight)
     # Flask-CORS maneja esto automáticamente con automatic_options=True
@@ -186,8 +190,6 @@ def init_extensions(app: Flask) -> None:
             except Exception as e:
                 logger.error(f"   Error leyendo body: {e}")
     
-    # Agregar after_request handler para asegurar headers CORS en TODAS las respuestas
-    # Esto es necesario porque Flask-CORS a veces no procesa errores 500 correctamente
     @app.after_request
     def after_request_handler(response):
         """Asegura que todas las respuestas tengan headers CORS, incluso en errores."""
@@ -205,7 +207,10 @@ def init_extensions(app: Flask) -> None:
                     "http://localhost:5173",
                     "http://localhost:5178",
                     "http://localhost:5179",
-                    "http://localhost:5379"
+                    "http://localhost:5379",
+                    # Puertos dev4-improvements
+                    "http://192.168.0.11:5180",
+                    "http://localhost:5180"
                 ]
                 if origin in dev_origins:
                     response.headers['Access-Control-Allow-Origin'] = origin
@@ -214,6 +219,80 @@ def init_extensions(app: Flask) -> None:
                     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Project-ID'
                     response.headers['Access-Control-Expose-Headers'] = 'Content-Type, Authorization'
         return response
+    
+    # Handler para excepciones no manejadas (asegura que siempre se agreguen headers CORS)
+    @app.errorhandler(Exception)
+    def handle_exception(e):
+        """Maneja todas las excepciones no manejadas y asegura headers CORS."""
+        import traceback
+        
+        # Si ya hay un handler específico para este tipo de error, dejar que Flask lo maneje
+        from werkzeug.exceptions import HTTPException
+        if isinstance(e, HTTPException):
+            # Dejar que Flask maneje errores HTTP estándar
+            return e
+        
+        # Para excepciones no manejadas, loguear y devolver 500 con headers CORS
+        logger.error(f"❌ [GLOBAL HANDLER] Excepción no manejada capturada: {type(e).__name__}: {e}")
+        logger.error(f"   Request path: {request.path}")
+        logger.error(f"   Request method: {request.method}")
+        logger.error(f"   Request origin: {request.headers.get('Origin')}")
+        logger.error(f"   Request URL: {request.url}")
+        logger.error(f"   Traceback completo:")
+        logger.error(f"   {traceback.format_exc()}")
+        
+        try:
+            if request.is_json:
+                logger.error(f"   Request JSON: {request.get_json()}")
+            elif request.form:
+                logger.error(f"   Request Form: {dict(request.form)}")
+            elif request.args:
+                logger.error(f"   Request Args: {dict(request.args)}")
+        except Exception as log_error:
+            logger.error(f"   Error obteniendo datos del request: {log_error}")
+        
+        # En desarrollo, incluir detalles del error en la respuesta
+        error_response = {
+            'error': 'Internal Server Error',
+            'message': 'An unexpected error occurred',
+            'type': type(e).__name__
+        }
+
+        # En desarrollo, agregar detalles del error (siempre mostrar en desarrollo)
+        is_development = (app.config.get('ENV') == 'development' or
+                         os.getenv('FLASK_ENV') == 'development' or
+                         app.config.get('DEBUG') == True)
+        logger.info(f'DEBUG: is_development={is_development}, ENV={app.config.get("ENV")}, FLASK_ENV={os.getenv("FLASK_ENV")}, DEBUG={app.config.get("DEBUG")}')
+
+        if is_development:
+            error_response['details'] = str(e)
+            error_response['traceback'] = traceback.format_exc().split('\n')[-10:]  # Últimas 10 líneas
+        
+        response = jsonify(error_response)
+        origin = request.headers.get('Origin')
+        if origin:
+            # Para desarrollo, permitir los orígenes conocidos
+            dev_origins = [
+                "http://192.168.0.11:5178",
+                "http://192.168.0.11:5179",
+                "http://192.168.0.11:5379",
+                "http://localhost:5173",
+                "http://localhost:5178",
+                "http://localhost:5179",
+                "http://localhost:5379",
+                # Puertos dev4-improvements
+                "http://192.168.0.11:5180",
+                "http://localhost:5180"
+            ]
+            if origin in dev_origins:
+                response.headers['Access-Control-Allow-Origin'] = origin
+                response.headers['Access-Control-Allow-Credentials'] = 'true'
+                response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS, PATCH'
+                response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Project-ID'
+                response.headers['Access-Control-Expose-Headers'] = 'Content-Type, Authorization'
+                logger.info(f"   ✅ Headers CORS agregados al error 500: {origin}")
+        
+        return response, 500
     
     # JWT
     jwt = JWTManager(app)
@@ -226,13 +305,17 @@ def init_extensions(app: Flask) -> None:
         origin = flask_request.headers.get('Origin')
         if origin:
             dev_origins = [
+                # Puertos dev3-refactor (estable)
                 "http://192.168.0.11:5178",
                 "http://192.168.0.11:5179",
                 "http://192.168.0.11:5379",
                 "http://localhost:5173",
                 "http://localhost:5178",
                 "http://localhost:5179",
-                "http://localhost:5379"
+                "http://localhost:5379",
+                # Puertos dev4-improvements (mejoras)
+                "http://192.168.0.11:5180",
+                "http://localhost:5180"
             ]
             if origin in dev_origins:
                 response.headers['Access-Control-Allow-Origin'] = origin
@@ -250,25 +333,34 @@ def init_extensions(app: Flask) -> None:
         logger.error(f"❌ JWT Invalid Token: {error_string}")
         logger.error(f"   Path: {flask_request.path}")
         logger.error(f"   Method: {flask_request.method}")
+        logger.error(f"   Origin: {flask_request.headers.get('Origin')}")
         logger.error(f"   Headers: {dict(flask_request.headers)}")
         response = jsonify({'error': 'Invalid token', 'message': error_string})
-        return add_cors_headers_jwt(response), 401
+        response_with_cors = add_cors_headers_jwt(response)
+        logger.info(f"   ✅ Headers CORS agregados: {response_with_cors.headers.get('Access-Control-Allow-Origin')}")
+        return response_with_cors, 401
     
     @jwt.expired_token_loader
     def expired_token_callback(jwt_header, jwt_payload):
         logger.error(f"❌ JWT Expired Token")
         logger.error(f"   Path: {flask_request.path}")
         logger.error(f"   Method: {flask_request.method}")
+        logger.error(f"   Origin: {flask_request.headers.get('Origin')}")
         response = jsonify({'error': 'Token expired', 'message': 'Token has expired'})
-        return add_cors_headers_jwt(response), 401
+        response_with_cors = add_cors_headers_jwt(response)
+        logger.info(f"   ✅ Headers CORS agregados: {response_with_cors.headers.get('Access-Control-Allow-Origin')}")
+        return response_with_cors, 401
     
     @jwt.unauthorized_loader
     def unauthorized_callback(error_string):
         logger.error(f"❌ JWT Unauthorized: {error_string}")
         logger.error(f"   Path: {flask_request.path}")
         logger.error(f"   Method: {flask_request.method}")
+        logger.error(f"   Origin: {flask_request.headers.get('Origin')}")
         response = jsonify({'error': 'Unauthorized', 'message': error_string})
-        return add_cors_headers_jwt(response), 401
+        response_with_cors = add_cors_headers_jwt(response)
+        logger.info(f"   ✅ Headers CORS agregados: {response_with_cors.headers.get('Access-Control-Allow-Origin')}")
+        return response_with_cors, 401
     
     # Rate limiting
     # En desarrollo, aumentar límites para permitir polling frecuente
@@ -336,6 +428,7 @@ def register_blueprints(app: Flask) -> None:
     app.register_blueprint(advanced_bp, url_prefix=f'{api_prefix}/advanced')
     app.register_blueprint(mitre_bp, url_prefix=f'{api_prefix}/mitre')
     app.register_blueprint(integrations_bp, url_prefix=f'{api_prefix}/integrations')
+    app.register_blueprint(whitebox_bp, url_prefix=f'{api_prefix}/whitebox')
     
     # Registrar system_bp AL FINAL para evitar conflictos
     app.register_blueprint(system_bp, url_prefix=f'{api_prefix}/system')
@@ -385,15 +478,52 @@ def setup_logging(app: Flask) -> None:
     root_logger.handlers.clear()
     
     # Handler para archivo con rotación
-    file_handler = RotatingFileHandler(
-        log_path,
-        maxBytes=log_max_bytes,
-        backupCount=log_backup_count,
-        encoding='utf-8'
-    )
-    file_handler.setLevel(getattr(logging, log_level))
-    file_handler.setFormatter(log_format)
-    root_logger.addHandler(file_handler)
+    # Intentar crear el archivo con permisos correctos si no existe o no se puede escribir
+    try:
+        if log_path.exists() and not os.access(log_path, os.W_OK):
+            # Si el archivo existe pero no se puede escribir, intentar eliminarlo
+            try:
+                log_path.unlink()
+                root_logger.warning(f"Removed existing log file with incorrect permissions: {log_path}")
+            except Exception as e:
+                root_logger.warning(f"Could not remove log file {log_path}: {e}. Using fallback logging.")
+                # Usar logging a consola si no se puede escribir al archivo
+                console_handler = logging.StreamHandler()
+                console_handler.setLevel(getattr(logging, log_level))
+                console_handler.setFormatter(log_format)
+                root_logger.addHandler(console_handler)
+                return
+        
+        # Crear el archivo si no existe para asegurar permisos correctos
+        if not log_path.exists():
+            log_path.parent.mkdir(parents=True, exist_ok=True)
+            log_path.touch()
+            # Asegurar permisos de escritura
+            os.chmod(log_path, 0o664)
+        
+        file_handler = RotatingFileHandler(
+            log_path,
+            maxBytes=log_max_bytes,
+            backupCount=log_backup_count,
+            encoding='utf-8'
+        )
+        file_handler.setLevel(getattr(logging, log_level))
+        file_handler.setFormatter(log_format)
+        root_logger.addHandler(file_handler)
+    except PermissionError as e:
+        root_logger.warning(f"Permission denied for log file {log_path}: {e}. Using console logging only.")
+        # Fallback a consola si no se puede escribir al archivo
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(getattr(logging, log_level))
+        console_handler.setFormatter(log_format)
+        root_logger.addHandler(console_handler)
+    except Exception as e:
+        root_logger.warning(f"Error setting up file logging: {e}. Using console logging only.")
+        # Fallback a consola
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(getattr(logging, log_level))
+        console_handler.setFormatter(log_format)
+        root_logger.addHandler(console_handler)
     
     # Handler para consola (solo en desarrollo)
     if app.config.get('DEBUG', False):
@@ -419,6 +549,7 @@ def register_error_handlers(app: Flask) -> None:
         """Agrega headers CORS a una respuesta."""
         origin = request.headers.get('Origin')
         if origin:
+            # Para desarrollo, permitir los orígenes conocidos
             dev_origins = [
                 "http://192.168.0.11:5178",
                 "http://192.168.0.11:5179",
@@ -426,9 +557,13 @@ def register_error_handlers(app: Flask) -> None:
                 "http://localhost:5173",
                 "http://localhost:5178",
                 "http://localhost:5179",
-                "http://localhost:5379"
+                "http://localhost:5379",
+                # Puertos dev4-improvements
+                "http://192.168.0.11:5180",
+                "http://localhost:5180"
             ]
             if origin in dev_origins:
+                # Siempre agregar headers CORS si el origen es válido
                 response.headers['Access-Control-Allow-Origin'] = origin
                 response.headers['Access-Control-Allow-Credentials'] = 'true'
                 response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS, PATCH'
@@ -475,7 +610,12 @@ def register_error_handlers(app: Flask) -> None:
     
     @app.errorhandler(500)
     def internal_error(error):
-        logger.error(f"Internal error: {error}", exc_info=True)
+        logger.error(f"❌ Internal error: {error}", exc_info=True)
+        logger.error(f"   Request path: {request.path}")
+        logger.error(f"   Request method: {request.method}")
+        logger.error(f"   Request origin: {request.headers.get('Origin')}")
+        import traceback
+        logger.error(f"   Traceback: {traceback.format_exc()}")
         response = jsonify({'error': 'Internal Server Error', 'message': 'An unexpected error occurred'})
         return add_cors_headers(response), 500
     
@@ -499,12 +639,14 @@ if __name__ == '__main__':
     # Solo para desarrollo (usar gunicorn en producción)
     if env == 'development':
         # Usar socketio.run() para WebSocket support
+        # use_reloader=False evita que se cree un proceso hijo que duplica sockets
         socketio.run(
             app,
             host='0.0.0.0',
-            port=5000,
+            port=5001,  # Puerto separado para dev4-improvements
             debug=True,
-            allow_unsafe_werkzeug=True
+            allow_unsafe_werkzeug=True,
+            use_reloader=False  # Evitar proceso hijo que duplica sockets
         )
 
 

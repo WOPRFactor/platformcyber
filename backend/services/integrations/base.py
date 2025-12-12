@@ -29,3 +29,4 @@ class BaseIntegrationService:
         return get_workspace_output_dir_from_scan(scan_id, 'integrations')
 
 
+

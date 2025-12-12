@@ -10,6 +10,9 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..services.files_service import WorkspaceFilesService
 from pathlib import Path
 from utils.workspace_filesystem import get_workspace_dir
+import logging
+
+logger = logging.getLogger(__name__)
 
 files_service = WorkspaceFilesService()
 
@@ -97,6 +100,10 @@ def register_routes(bp: Blueprint):
             return jsonify({'message': 'OK'}), 200
         
         try:
+            # Decodificar el path si viene codificado
+            from urllib.parse import unquote
+            file_path = unquote(file_path)
+            
             user_id = int(get_jwt_identity())
             from repositories.workspace_repository import WorkspaceRepository
             workspace_repo = WorkspaceRepository()
@@ -114,9 +121,22 @@ def register_routes(bp: Blueprint):
             
             return jsonify({'message': 'File deleted successfully', 'file_path': file_path}), 200
         except ValueError as e:
+            logger.error(f"ValueError deleting file {file_path} in workspace {workspace_id}: {e}")
             return jsonify({'error': 'Bad Request', 'message': str(e)}), 400
+        except OSError as e:
+            logger.error(f"OSError deleting file {file_path} in workspace {workspace_id}: {e}")
+            return jsonify({
+                'error': 'Failed to delete file',
+                'message': f'Cannot delete file: {str(e)}'
+            }), 500
         except Exception as e:
-            return jsonify({'error': 'Failed to delete file', 'message': str(e)}), 500
+            logger.error(f"Unexpected error deleting file {file_path} in workspace {workspace_id}: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+            return jsonify({
+                'error': 'Failed to delete file',
+                'message': str(e)
+            }), 500
     
     @bp.route('/<int:workspace_id>/files', methods=['DELETE', 'OPTIONS'])
     @jwt_required()
@@ -150,8 +170,21 @@ def register_routes(bp: Blueprint):
                 'category': result['category']
             }), 200
         except ValueError as e:
+            logger.error(f"ValueError deleting all files in workspace {workspace_id}: {e}")
             return jsonify({'error': 'Bad Request', 'message': str(e)}), 400
+        except OSError as e:
+            logger.error(f"OSError deleting all files in workspace {workspace_id}: {e}")
+            return jsonify({
+                'error': 'Failed to delete files',
+                'message': f'Cannot delete some files: {str(e)}'
+            }), 500
         except Exception as e:
-            return jsonify({'error': 'Failed to delete files', 'message': str(e)}), 500
+            logger.error(f"Unexpected error deleting all files in workspace {workspace_id}: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+            return jsonify({
+                'error': 'Failed to delete files',
+                'message': str(e)
+            }), 500
 
 

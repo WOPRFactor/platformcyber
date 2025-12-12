@@ -22,6 +22,7 @@ from .system import system_bp
 from .owasp import owasp_bp
 from .advanced import advanced_bp
 from .mitre import mitre_bp
+from .whitebox import whitebox_bp
 
 __all__ = [
     'auth_bp',
@@ -40,7 +41,8 @@ __all__ = [
     'system_bp',
     'owasp_bp',
     'advanced_bp',
-    'mitre_bp'
+    'mitre_bp',
+    'whitebox_bp'
 ]
 
 

@@ -7,9 +7,9 @@ import axios from 'axios'
 
 // Detectar si estamos en entorno de producción por variable de entorno
 const isProductionEnv = import.meta.env.VITE_ENV === 'prod'
-// dev3-refactor backend URL (puerto 5000 con /api/v1)
+// DEV4-IMPROVEMENTS: Puerto 5001 para entorno de mejoras
 // Usar IP de red para acceso desde LAN
-const baseURL = isProductionEnv ? 'http://192.168.0.11:5002/api/v1' : 'http://192.168.0.11:5000/api/v1'
+const baseURL = isProductionEnv ? 'http://192.168.0.11:5002/api/v1' : 'http://192.168.0.11:5001/api/v1'
 
 /**
  * Instancia configurada de Axios para toda la aplicación
@@ -53,9 +53,17 @@ api.interceptors.request.use(
 
     if (!isPublicEndpoint) {
       const token = localStorage.getItem('access_token')
+      console.log('🔐 Interceptor - URL:', config.url)
+      console.log('🔐 Interceptor - Token exists:', !!token)
+      console.log('🔐 Interceptor - Token length:', token?.length)
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
+        console.log('✅ Interceptor - Authorization header set')
+      } else {
+        console.warn('⚠️ Interceptor - No token found in localStorage')
       }
+    } else {
+      console.log('📢 Interceptor - Public endpoint, skipping auth:', config.url)
     }
 
     // Agregar workspace_id=1 si no existe (por defecto)
@@ -150,6 +158,62 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Log detallado de errores para debugging
+    const url = error.config?.url || ''
+    
+    if (url.includes('auth/login')) {
+      console.error('🔴 Error en petición de login:', {
+        message: error.message,
+        code: error.code,
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        headers: error.response?.headers,
+        isNetworkError: !error.response,
+        config: {
+          url: error.config.url,
+          method: error.config.method,
+          baseURL: error.config.baseURL,
+          headers: error.config.headers
+        }
+      })
+    } else if (url.includes('reporting')) {
+      // Log detallado para errores de reporting
+      const errorData = error.response?.data
+      console.error('🔴 Error en petición de reporting:', {
+        message: error.message,
+        code: error.code,
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        isNetworkError: !error.response,
+        isConnectionRefused: error.code === 'ERR_CONNECTION_REFUSED' || error.code === 'ERR_NETWORK',
+        config: {
+          url: error.config.url,
+          method: error.config.method,
+          baseURL: error.config.baseURL
+        }
+      })
+      
+      // Mostrar detalles del error del servidor
+      if (errorData) {
+        console.error('📋 Detalles del error del servidor:', errorData)
+        if (errorData.details) {
+          console.error('   Mensaje de error:', errorData.details)
+        }
+        if (errorData.traceback) {
+          console.error('   Traceback:', errorData.traceback)
+        }
+        if (errorData.type) {
+          console.error('   Tipo de error:', errorData.type)
+        }
+      }
+      
+      // Si es un error de conexión, mejorar el mensaje
+      if (error.code === 'ERR_CONNECTION_REFUSED' || error.code === 'ERR_NETWORK') {
+        error.message = 'No se pudo conectar con el servidor. Verifica que el backend esté funcionando.'
+      }
+    }
+    
     if (error.response?.status === 401) {
       // Token expirado o inválido
       localStorage.removeItem('access_token')

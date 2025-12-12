@@ -1,0 +1,20 @@
+[
+  {
+    "Description": "AWS Access Key",
+    "Match": "AKIAIOSFODNN7EXAMPLE",
+    "File": "config/aws.js",
+    "StartLine": 15,
+    "RuleID": "aws-access-token",
+    "Entropy": 4.5
+  },
+  {
+    "Description": "Generic API Key",
+    "Match": "api_key=sk_live_1234567890abcdef",
+    "File": ".env",
+    "StartLine": 10,
+    "RuleID": "generic-api-key",
+    "Entropy": 3.8
+  }
+]
+
+

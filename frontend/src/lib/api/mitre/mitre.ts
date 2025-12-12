@@ -145,6 +145,21 @@ export const mitreAPI = {
   },
 
   /**
+   * Preview technique (without executing)
+   */
+  previewTechnique: async (
+    techniqueId: string,
+    target?: string,
+    workspaceId?: number
+  ): Promise<any> => {
+    const response = await api.post<any>(
+      `${BASE_URL}/techniques/${techniqueId}/preview`,
+      { target, workspace_id: workspaceId }
+    )
+    return response.data
+  },
+
+  /**
    * Health check
    */
   healthCheck: async (): Promise<{

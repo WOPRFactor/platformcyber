@@ -1,0 +1,10 @@
+[+] IP: 192.168.1.100:445	Name: TARGET-PC                                      
+	Disk					Permissions	Comment
+	----					-----------	-------
+	ADMIN$					READ, WRITE	Remote Admin
+	C$						READ, WRITE	Default share
+	IPC$					READ ONLY	Remote IPC
+	Shared					READ, WRITE	Public Share
+	Documents				READ ONLY	User Documents
+
+

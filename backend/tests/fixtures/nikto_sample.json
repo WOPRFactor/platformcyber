@@ -1,0 +1,44 @@
+[
+  {
+    "host": "example.com",
+    "ip": "192.168.1.100",
+    "port": 80,
+    "vulnerabilities": [
+      {
+        "OSVDB": "12345",
+        "msg": "Apache/2.4.41 appears to be outdated (current is at least Apache/2.4.46)",
+        "method": "GET",
+        "url": "/"
+      },
+      {
+        "OSVDB": "67890",
+        "msg": "The anti-clickjacking X-Frame-Options header is not present.",
+        "method": "GET",
+        "url": "/"
+      },
+      {
+        "OSVDB": "11111",
+        "msg": "Uncommon header 'x-powered-by' found, with contents: PHP/7.4.3",
+        "method": "GET",
+        "url": "/"
+      },
+      {
+        "OSVDB": "22222",
+        "msg": "OSVDB-3092: /phpinfo.php: This might be interesting...",
+        "method": "GET",
+        "url": "/phpinfo.php"
+      },
+      {
+        "OSVDB": "33333",
+        "msg": "OSVDB-3268: /backup/: Directory indexing found.",
+        "method": "GET",
+        "url": "/backup/"
+      }
+    ]
+  }
+]
+
+
+
+
+

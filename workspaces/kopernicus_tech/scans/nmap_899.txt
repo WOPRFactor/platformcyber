@@ -1,0 +1,17 @@
+# Nmap 7.95 scan initiated Wed Dec 10 15:53:45 2025 as: /usr/lib/nmap/nmap --privileged -T4 --top-ports 100 -oX /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.xml -oN /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.txt kopernicus.tech
+Nmap scan report for kopernicus.tech (66.97.42.227)
+Host is up (0.11s latency).
+rDNS record for 66.97.42.227: vps-1889901-x.dattaweb.com
+Not shown: 91 filtered tcp ports (no-response)
+PORT    STATE SERVICE
+21/tcp  open  ftp
+80/tcp  open  http
+110/tcp open  pop3
+143/tcp open  imap
+443/tcp open  https
+465/tcp open  smtps
+587/tcp open  submission
+993/tcp open  imaps
+995/tcp open  pop3s
+
+# Nmap done at Wed Dec 10 15:53:53 2025 -- 1 IP address (1 host up) scanned in 8.59 seconds

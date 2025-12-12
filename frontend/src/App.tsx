@@ -21,6 +21,7 @@ import PostExploitation from './pages/PostExploitation'
 import WhiteboxTesting from './pages/WhiteboxTesting'
 import Integrations from './pages/Integrations'
 import Reporting from './pages/Reporting'
+import ReportingV2 from './pages/ReportingV2'
 import PentestSelector from './pages/PentestSelector'
 import OwaspAuditor from './pages/OwaspAuditor'
 import MitreAttacks from './pages/MitreAttacks'
@@ -175,6 +176,7 @@ function AppRoutes() {
                 <Route path="/whitebox" element={<WhiteboxTesting />} />
                 <Route path="/integrations" element={<Integrations />} />
                 <Route path="/reporting" element={<Reporting />} />
+                <Route path="/reporting-v2" element={<ReportingV2 />} />
                 <Route path="/pentest-selector" element={<PentestSelector />} />
                 <Route path="/ia" element={<IA />} />
                 <Route path="/owasp" element={<OwaspAuditor />} />
@@ -220,10 +222,11 @@ function AppWithConditionalProviders() {
 
   if (isAuthenticated) {
     // Usar la misma URL que el cliente API
+    // DEV4-IMPROVEMENTS: Puerto 5001 para entorno de mejoras
     const isProductionEnv = import.meta.env.VITE_ENV === 'prod'
     const websocketURL = isProductionEnv 
       ? 'http://192.168.0.11:5002' 
-      : 'http://192.168.0.11:5000'
+      : 'http://192.168.0.11:5001'  // Puerto 5001 para dev4-improvements
     
     return (
       <ThemeProvider>

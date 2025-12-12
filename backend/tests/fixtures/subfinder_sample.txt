@@ -1,0 +1,14 @@
+subdomain1.example.com
+subdomain2.example.com
+subdomain3.example.com
+www.example.com
+api.example.com
+admin.example.com
+# Este es un comentario y debe ser ignorado
+test.example.com
+dev.example.com
+
+
+
+
+

@@ -210,9 +210,11 @@ class CommandSanitizer:
         """
         import os
         
+        # Usar PROJECT_TMP_DIR en lugar de /tmp
+        from utils.workspace_filesystem import PROJECT_TMP_DIR
         safe_env = {
             'PATH': '/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin',
-            'HOME': os.environ.get('HOME', '/tmp'),
+            'HOME': os.environ.get('HOME', str(PROJECT_TMP_DIR)),
             'LANG': 'en_US.UTF-8',
         }
         

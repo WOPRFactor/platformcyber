@@ -18,7 +18,9 @@ def generate_executive_summary(
     # Contar por severidad
     severity_counts = defaultdict(int)
     for vuln in vulns:
-        severity_counts[vuln.severity] += 1
+        # Manejar casos donde severity puede ser None
+        severity = vuln.severity if vuln.severity is not None else 'unknown'
+        severity_counts[severity] += 1
     
     # Calcular risk score (simplificado)
     risk_score = (

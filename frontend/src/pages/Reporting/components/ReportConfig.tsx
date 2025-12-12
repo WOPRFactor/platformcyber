@@ -6,10 +6,10 @@
  */
 
 import React from 'react'
+import { useWorkspace } from '../../../contexts/WorkspaceContext'
+import DatePicker from '../../../components/DatePicker'
 
 interface ReportConfigProps {
-  target: string
-  setTarget: (target: string) => void
   startDate: string
   setStartDate: (date: string) => void
   endDate: string
@@ -19,8 +19,6 @@ interface ReportConfigProps {
 }
 
 const ReportConfig: React.FC<ReportConfigProps> = ({
-  target,
-  setTarget,
   startDate,
   setStartDate,
   endDate,
@@ -28,6 +26,12 @@ const ReportConfig: React.FC<ReportConfigProps> = ({
   complianceStandard,
   setComplianceStandard
 }) => {
+  const { currentWorkspace } = useWorkspace()
+  
+  const displayName = currentWorkspace 
+    ? (currentWorkspace.name || `Workspace #${currentWorkspace.id}`)
+    : 'No hay workspace seleccionado'
+
   return (
     <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
       <div className="mb-4">
@@ -35,31 +39,29 @@ const ReportConfig: React.FC<ReportConfigProps> = ({
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">Target</label>
-          <input
-            type="text"
-            value={target}
-            onChange={(e) => setTarget(e.target.value)}
-            placeholder="192.168.1.1 o dominio.com"
-            className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
-          />
+          <label className="block text-sm font-medium text-green-400 mb-2">Workspace</label>
+          <div className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 min-h-[42px] flex items-center">
+            <span className={currentWorkspace ? 'text-green-400' : 'text-gray-500 italic'}>
+              {displayName}
+            </span>
+          </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">Fecha Inicio</label>
-          <input
-            type="date"
+          <DatePicker
+            label="Fecha Inicio"
             value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+            onChange={setStartDate}
+            placeholder="dd/mm/yyyy"
+            maxDate={endDate || undefined}
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">Fecha Fin</label>
-          <input
-            type="date"
+          <DatePicker
+            label="Fecha Fin"
             value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+            onChange={setEndDate}
+            placeholder="dd/mm/yyyy"
+            minDate={startDate || undefined}
           />
         </div>
         <div>
@@ -80,4 +82,3 @@ const ReportConfig: React.FC<ReportConfigProps> = ({
 }
 
 export default ReportConfig
-

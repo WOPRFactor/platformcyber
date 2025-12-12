@@ -31,6 +31,71 @@ def get_techniques() -> Dict[str, Dict[str, Any]]:
             'data_sources': ['Internet Scan']
         },
         
+        # === RESOURCE DEVELOPMENT ===
+        'T1583': {
+            'id': 'T1583',
+            'name': 'Acquire Infrastructure',
+            'tactic': 'TA0042',
+            'description': 'Adquirir infraestructura (dominios, VPS, cuentas cloud)',
+            'detection': 'Registro de dominios sospechosos, actividad cloud anómala',
+            'platforms': ['PRE'],
+            'data_sources': ['Internet Scan', 'Domain Registration']
+        },
+        'T1584': {
+            'id': 'T1584',
+            'name': 'Compromise Infrastructure',
+            'tactic': 'TA0042',
+            'description': 'Comprometer infraestructura existente',
+            'detection': 'Análisis de infraestructura comprometida',
+            'platforms': ['PRE'],
+            'data_sources': ['Network Traffic', 'Internet Scan']
+        },
+        'T1585': {
+            'id': 'T1585',
+            'name': 'Establish Accounts',
+            'tactic': 'TA0042',
+            'description': 'Establecer cuentas en servicios (email, social media, cloud)',
+            'detection': 'Creación de cuentas sospechosas, análisis de comportamiento',
+            'platforms': ['PRE'],
+            'data_sources': ['Account Creation', 'User Account']
+        },
+        'T1586': {
+            'id': 'T1586',
+            'name': 'Compromise Accounts',
+            'tactic': 'TA0042',
+            'description': 'Comprometer cuentas existentes mediante credenciales robadas',
+            'detection': 'Análisis de credenciales comprometidas, actividad anómala',
+            'platforms': ['PRE'],
+            'data_sources': ['Account Usage', 'Logon Session']
+        },
+        'T1587': {
+            'id': 'T1587',
+            'name': 'Develop Capabilities',
+            'tactic': 'TA0042',
+            'description': 'Desarrollar malware, exploits o herramientas personalizadas',
+            'detection': 'Análisis de malware, detección de exploits',
+            'platforms': ['PRE'],
+            'data_sources': ['File', 'Process']
+        },
+        'T1588': {
+            'id': 'T1588',
+            'name': 'Obtain Capabilities',
+            'tactic': 'TA0042',
+            'description': 'Obtener malware, exploits o herramientas de terceros',
+            'detection': 'Análisis de herramientas conocidas, detección de exploits',
+            'platforms': ['PRE'],
+            'data_sources': ['File', 'Network Traffic']
+        },
+        'T1608': {
+            'id': 'T1608',
+            'name': 'Stage Capabilities',
+            'tactic': 'TA0042',
+            'description': 'Almacenar herramientas y malware en ubicaciones accesibles',
+            'detection': 'Monitoreo de repositorios públicos, análisis de hosting',
+            'platforms': ['PRE'],
+            'data_sources': ['Internet Scan', 'File']
+        },
+        
         # === INITIAL ACCESS ===
         'T1566': {
             'id': 'T1566',

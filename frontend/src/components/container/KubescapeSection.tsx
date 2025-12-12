@@ -150,3 +150,4 @@ export const KubescapeSection: React.FC<KubescapeSectionProps> = ({ workspaceId 
 
 
 
+

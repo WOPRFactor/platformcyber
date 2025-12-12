@@ -21,7 +21,8 @@ export const owaspAPI = {
     const response = await api.get<{ categories: Record<string, OwaspCategory> }>(
       `${BASE_URL}/categories`
     )
-    return response.data.categories
+    console.log('📦 Respuesta de categorías OWASP:', response.data)
+    return response.data.categories || response.data
   },
 
   /**

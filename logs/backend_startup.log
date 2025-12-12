@@ -1,0 +1,46 @@
+Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/app.py", line 27, in <module>
+    from api.v1 import (
+    ...<17 lines>...
+    )
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/api/v1/__init__.py", line 9, in <module>
+    from .reconnaissance import reconnaissance_bp
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/api/v1/reconnaissance.py", line 12, in <module>
+    from .reconnaissance_endpoints import reconnaissance_bp
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/api/v1/reconnaissance_endpoints/__init__.py", line 14, in <module>
+    from .subdomain_routes import subdomain_bp
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/api/v1/reconnaissance_endpoints/subdomain_routes.py", line 12, in <module>
+    from services import ReconnaissanceService
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/__init__.py", line 19, in <module>
+    from .active_directory import ActiveDirectoryService
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/active_directory/__init__.py", line 8, in <module>
+    from .active_directory_service import ActiveDirectoryService
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/active_directory/active_directory_service.py", line 20, in <module>
+    from services.active_directory.tools import (
+    ...<5 lines>...
+    )
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/active_directory/tools/__init__.py", line 8, in <module>
+    from .kerbrute_scanner import KerbruteScanner
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/active_directory/tools/kerbrute_scanner.py", line 16, in <module>
+    from services.active_directory.executors.scan_executor import ADScanExecutor
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/active_directory/executors/scan_executor.py", line 17, in <module>
+    from celery_app import get_flask_app
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/celery_app.py", line 117, in <module>
+    from tasks import scanning_tasks, exploitation_tasks, ad_tasks, reporting_tasks, mobile_tasks, container_tasks, brute_force_tasks
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/tasks/reporting_tasks.py", line 15, in <module>
+    from services.reporting import ReportingService
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/__init__.py", line 8, in <module>
+    from .reporting_service import ReportingService
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/reporting_service.py", line 28, in <module>
+    from services.reporting.generators import (
+    ...<10 lines>...
+    )
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/generators/__init__.py", line 12, in <module>
+    from .scan_generator import generate_scan_summary
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/generators/scan_generator.py", line 10, in <module>
+    from services.reporting.utils.helpers import calculate_duration
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/utils/__init__.py", line 8, in <module>
+    from .chart_builder import ChartBuilder
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/utils/chart_builder.py", line 14, in <module>
+    import plotly.graph_objects as go
+ModuleNotFoundError: No module named 'plotly'

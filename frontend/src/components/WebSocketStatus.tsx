@@ -84,7 +84,7 @@ export const WebSocketStatus: React.FC = () => {
                   />
                   <DetailItem 
                     label="Server" 
-                    value="http://localhost:5000" 
+                    value="http://localhost:5001" 
                   />
                   <div className="pt-2 border-t border-gray-700">
                     <p className="text-xs text-gray-400">

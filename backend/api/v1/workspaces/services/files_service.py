@@ -174,30 +174,67 @@ class WorkspaceFilesService:
         
         Returns:
             True si se eliminó, False si no existe
+            
+        Raises:
+            ValueError: Si el path es inválido o no es archivo/directorio
+            OSError: Si hay error de permisos o archivo en uso
         """
-        workspace = self.workspace_repo.find_by_id(workspace_id)
-        if not workspace:
-            return False
-        
-        workspace_dir = get_workspace_dir(workspace_id, workspace.name)
-        full_path = workspace_dir / file_path
-        
         try:
-            full_path.resolve().relative_to(workspace_dir.resolve())
-        except ValueError:
-            raise ValueError('Invalid file path')
-        
-        if not full_path.exists():
-            return False
-        
-        if full_path.is_file():
-            full_path.unlink()
-        elif full_path.is_dir():
-            shutil.rmtree(full_path)
-        else:
-            raise ValueError('Path is not a file or directory')
-        
-        return True
+            workspace = self.workspace_repo.find_by_id(workspace_id)
+            if not workspace:
+                logger.warning(f"Workspace {workspace_id} not found")
+                return False
+            
+            workspace_dir = get_workspace_dir(workspace_id, workspace.name)
+            full_path = workspace_dir / file_path
+            
+            # Validar path traversal
+            try:
+                full_path.resolve().relative_to(workspace_dir.resolve())
+            except ValueError:
+                logger.error(f"Invalid file path (path traversal attempt): {file_path}")
+                raise ValueError('Invalid file path')
+            
+            if not full_path.exists():
+                logger.debug(f"File does not exist: {full_path}")
+                return False
+            
+            # Eliminar archivo o directorio
+            try:
+                if full_path.is_file():
+                    logger.info(f"Deleting file: {full_path}")
+                    full_path.unlink()
+                    logger.info(f"File deleted successfully: {full_path}")
+                elif full_path.is_dir():
+                    logger.info(f"Deleting directory: {full_path}")
+                    shutil.rmtree(full_path)
+                    logger.info(f"Directory deleted successfully: {full_path}")
+                else:
+                    logger.error(f"Path is not a file or directory: {full_path}")
+                    raise ValueError('Path is not a file or directory')
+                
+                return True
+                
+            except PermissionError as e:
+                logger.error(f"Permission denied deleting {full_path}: {e}")
+                raise OSError(f'Permission denied: {e}')
+            except OSError as e:
+                logger.error(f"OS error deleting {full_path}: {e}")
+                raise
+            except Exception as e:
+                logger.error(f"Unexpected error deleting {full_path}: {e}")
+                import traceback
+                logger.error(traceback.format_exc())
+                raise
+            
+        except (ValueError, OSError):
+            # Re-lanzar estos errores para que el endpoint los maneje
+            raise
+        except Exception as e:
+            logger.error(f"Unexpected error in delete_file for workspace {workspace_id}, path {file_path}: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+            raise
     
     def delete_all_files(self, workspace_id: int, category: Optional[str] = None) -> Dict[str, Any]:
         """

@@ -80,6 +80,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { name: 'Container Security', href: '/container', icon: Container },
     { name: 'Active Directory', href: '/active-directory', icon: Building2 },
     { name: 'Reporting', href: '/reporting', icon: FileText },
+    { name: 'Reporting V2', href: '/reporting-v2', icon: FileText },
   ]
 
   // Herramientas auxiliares/complementarias (sidebar)

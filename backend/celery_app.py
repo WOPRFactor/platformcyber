@@ -39,7 +39,8 @@ def get_flask_app():
     return app
 
 # Configuración desde environment
-REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
+# DEV4: Usar Redis DB 1 para separación completa de dev3 (que usa DB 0)
+REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/1')
 BROKER_URL = os.getenv('CELERY_BROKER_URL', REDIS_URL)
 BACKEND_URL = os.getenv('CELERY_RESULT_BACKEND', REDIS_URL)
 
@@ -90,11 +91,11 @@ celery.conf.update(
         'tasks.scanning.*': {'queue': 'scanning'},
         'tasks.exploitation.*': {'queue': 'exploitation'},
         'tasks.ad.*': {'queue': 'active_directory'},
-        'tasks.reporting.*': {'queue': 'reporting'},
+        # 'tasks.reporting.*': {'queue': 'reporting'},  # COMENTADO: usar cola default 'celery'
         'tasks.mobile.*': {'queue': 'mobile'},
         'tasks.container.*': {'queue': 'container'},
         'tasks.brute_force.*': {'queue': 'exploitation'},  # Usa la cola de exploitation
-        'tasks.maintenance.*': {'queue': 'reporting'},  # Usa la cola de reporting
+        # 'tasks.maintenance.*': {'queue': 'reporting'},  # COMENTADO: usar cola default 'celery'
     },
     
     # Scheduled tasks (Celery Beat)

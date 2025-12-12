@@ -71,9 +71,8 @@ class DevelopmentConfig(Config):
     TESTING = False
     
     # Database
-    # Usar ruta absoluta para evitar que Flask-SQLAlchemy use instance/
-    basedir = Path(__file__).parent.parent
-    default_db_path = basedir / 'dev3_pentest.db'
+    # DEV4: Usar BD separada con ruta absoluta
+    default_db_path = '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/dev4_pentest.db'
     SQLALCHEMY_DATABASE_URI = os.getenv(
         'DATABASE_URL',
         f'sqlite:///{default_db_path}'

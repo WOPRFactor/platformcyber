@@ -117,6 +117,39 @@ def get_technique(technique_id: str):
     return jsonify({'technique': technique}), 200
 
 
+@mitre_bp.route('/techniques/<technique_id>/preview', methods=['POST'])
+@jwt_required()
+@handle_errors
+def preview_technique(technique_id: str):
+    """
+    Preview de una técnica MITRE ATT&CK (sin ejecutar).
+    
+    Args:
+        technique_id: ID de la técnica (ej: T1566)
+        
+    Request Body:
+        {
+            "target": str (optional),
+            "workspace_id": int (optional)
+        }
+        
+    Returns:
+        200: Preview de la técnica
+        404: Técnica no encontrada
+        500: Error del servidor
+    """
+    data = request.get_json() or {}
+    target = data.get('target')
+    workspace_id = data.get('workspace_id')
+    
+    result = mitre_service.preview_technique(technique_id, target, workspace_id)
+    
+    if 'error' in result:
+        return jsonify(result), 404
+    
+    return jsonify(result), 200
+
+
 @mitre_bp.route('/campaigns', methods=['POST'])
 @jwt_required()
 @handle_errors

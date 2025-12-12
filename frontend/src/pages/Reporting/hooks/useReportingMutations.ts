@@ -15,22 +15,26 @@ export const useReportingMutations = () => {
   const { startTask, addLog, updateTaskProgress, completeTask, failTask } = useConsole()
 
   const executiveMutation = useMutation({
-    mutationFn: (data: { target: string; startDate?: string; endDate?: string }) =>
-      reportingAPI.generateExecutiveSummary(data.target, data.startDate, data.endDate),
+    mutationFn: (data: { workspaceId: number; startDate?: string; endDate?: string }) =>
+      reportingAPI.generateExecutiveSummary(data.workspaceId, data.startDate, data.endDate),
     onMutate: (data) => {
-      const taskId = startTask('Reporting', `Resumen ejecutivo para ${data.target}`)
-      addLog('info', 'reporting', `Generando resumen ejecutivo para ${data.target}`, taskId, `Executive Summary - target: ${data.target}`)
+      const taskId = startTask('Reporting', `Resumen ejecutivo para workspace ${data.workspaceId}`)
+      addLog('info', 'reporting', `Generando resumen ejecutivo para workspace ${data.workspaceId}`, taskId, `Executive Summary - workspace: ${data.workspaceId}`)
       updateTaskProgress(taskId, 10, 'Iniciando generación de resumen ejecutivo...')
       return { taskId }
     },
     onSuccess: (data, variables, context) => {
       if (data.success) {
+        console.log('✅ Executive summary generated successfully (raw):', data)
+        console.log('✅ Executive summary generated successfully (JSON):', JSON.stringify(data, null, 2))
+        console.log('🎯 Mutation onSuccess triggered')
         toast.success('Resumen ejecutivo generado exitosamente')
         queryClient.invalidateQueries({ queryKey: ['reports'] })
+
         if (context?.taskId) {
           updateTaskProgress(context.taskId, 100, 'Resumen ejecutivo generado exitosamente')
           addLog('success', 'reporting', 'Resumen ejecutivo generado exitosamente', context.taskId)
-          completeTask(context.taskId, `Resumen ejecutivo generado para ${variables.target}`)
+          completeTask(context.taskId, `Resumen ejecutivo generado para workspace ${variables.workspaceId}`)
         }
       } else {
         toast.error('Error generando resumen ejecutivo')
@@ -40,19 +44,21 @@ export const useReportingMutations = () => {
       }
     },
     onError: (error: any, variables, context) => {
-      toast.error(`Error: ${error.message}`)
+      console.error('❌ Error en mutation ejecutivo:', error)
+      const errorMessage = error?.response?.data?.error || error?.message || 'Error desconocido al generar el reporte'
+      toast.error(`Error: ${errorMessage}`)
       if (context?.taskId) {
-        failTask(context.taskId, error.message)
+        failTask(context.taskId, errorMessage)
       }
     }
   })
 
   const technicalMutation = useMutation({
-    mutationFn: (data: { target: string; startDate?: string; endDate?: string }) =>
-      reportingAPI.generateTechnicalReport(data.target, data.startDate, data.endDate),
+    mutationFn: (data: { workspaceId: number; startDate?: string; endDate?: string }) =>
+      reportingAPI.generateTechnicalReport(data.workspaceId, data.startDate, data.endDate),
     onMutate: (data) => {
-      const taskId = startTask('Reporting', `Reporte técnico para ${data.target}`)
-      addLog('info', 'reporting', `Generando reporte técnico para ${data.target}`, taskId, `Technical Report - target: ${data.target}`)
+      const taskId = startTask('Reporting', `Reporte técnico para workspace ${data.workspaceId}`)
+      addLog('info', 'reporting', `Generando reporte técnico para workspace ${data.workspaceId}`, taskId, `Technical Report - workspace: ${data.workspaceId}`)
       updateTaskProgress(taskId, 10, 'Iniciando generación de reporte técnico...')
       return { taskId }
     },
@@ -63,7 +69,7 @@ export const useReportingMutations = () => {
         if (context?.taskId) {
           updateTaskProgress(context.taskId, 100, 'Reporte técnico generado exitosamente')
           addLog('success', 'reporting', 'Reporte técnico generado exitosamente', context.taskId)
-          completeTask(context.taskId, `Reporte técnico generado para ${variables.target}`)
+          completeTask(context.taskId, `Reporte técnico generado para workspace ${variables.workspaceId}`)
         }
       } else {
         toast.error('Error generando reporte técnico')
@@ -73,19 +79,21 @@ export const useReportingMutations = () => {
       }
     },
     onError: (error: any, variables, context) => {
-      toast.error(`Error: ${error.message}`)
+      console.error('❌ Error en mutation técnico:', error)
+      const errorMessage = error?.response?.data?.error || error?.message || 'Error desconocido al generar el reporte'
+      toast.error(`Error: ${errorMessage}`)
       if (context?.taskId) {
-        failTask(context.taskId, error.message)
+        failTask(context.taskId, errorMessage)
       }
     }
   })
 
   const complianceMutation = useMutation({
-    mutationFn: (data: { target: string; standard: string; startDate?: string; endDate?: string }) =>
-      reportingAPI.generateComplianceReport(data.target, data.standard, data.startDate, data.endDate),
+    mutationFn: (data: { workspaceId: number; standard: string; startDate?: string; endDate?: string }) =>
+      reportingAPI.generateComplianceReport(data.workspaceId, data.standard, data.startDate, data.endDate),
     onMutate: (data) => {
-      const taskId = startTask('Reporting', `Reporte de cumplimiento ${data.standard} para ${data.target}`)
-      addLog('info', 'reporting', `Generando reporte de cumplimiento ${data.standard} para ${data.target}`, taskId, `Compliance Report - ${data.standard}`)
+      const taskId = startTask('Reporting', `Reporte de cumplimiento ${data.standard} para workspace ${data.workspaceId}`)
+      addLog('info', 'reporting', `Generando reporte de cumplimiento ${data.standard} para workspace ${data.workspaceId}`, taskId, `Compliance Report - ${data.standard}`)
       updateTaskProgress(taskId, 10, 'Iniciando generación de reporte de cumplimiento...')
       return { taskId }
     },
@@ -96,7 +104,7 @@ export const useReportingMutations = () => {
         if (context?.taskId) {
           updateTaskProgress(context.taskId, 100, 'Reporte de cumplimiento generado exitosamente')
           addLog('success', 'reporting', `Reporte de cumplimiento ${data.data?.standard} generado exitosamente`, context.taskId)
-          completeTask(context.taskId, `Reporte de cumplimiento generado para ${variables.target}`)
+          completeTask(context.taskId, `Reporte de cumplimiento generado para workspace ${variables.workspaceId}`)
         }
       } else {
         toast.error('Error generando reporte de cumplimiento')
@@ -106,16 +114,18 @@ export const useReportingMutations = () => {
       }
     },
     onError: (error: any, variables, context) => {
-      toast.error(`Error: ${error.message}`)
+      console.error('❌ Error en mutation cumplimiento:', error)
+      const errorMessage = error?.response?.data?.error || error?.message || 'Error desconocido al generar el reporte'
+      toast.error(`Error: ${errorMessage}`)
       if (context?.taskId) {
-        failTask(context.taskId, error.message)
+        failTask(context.taskId, errorMessage)
       }
     }
   })
 
   const exportMutation = useMutation({
     mutationFn: (data: { reportData: any; format: 'json' | 'html' | 'pdf' }) =>
-      reportingAPI.exportReport({ report_data: data.reportData, format: data.format }),
+      reportingAPI.exportReport(data.reportData, data.format),
     onMutate: (data) => {
       const taskId = startTask('Reporting', `Exportando reporte en formato ${data.format.toUpperCase()}`)
       addLog('info', 'reporting', `Exportando reporte en formato ${data.format.toUpperCase()}`, taskId, `Report Export - format: ${data.format}`)

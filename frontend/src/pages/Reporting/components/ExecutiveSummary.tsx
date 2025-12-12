@@ -10,20 +10,18 @@ import { CheckCircle } from 'lucide-react'
 
 interface ExecutiveSummaryData {
   executive_summary: {
-    total_sessions: number
-    completed_sessions: number
-    critical_findings: number
+    total_scans: number
+    total_vulnerabilities: number
+    severity_distribution: Record<string, number>
     risk_level: string
     risk_score: number
-    scan_types_performed: string[]
+    key_findings: string[]
   }
-  key_findings: Array<{
-    finding: string
-    scan_type: string
-    target: string
-    timestamp?: string
-  }>
-  recommendations: string[]
+  metadata?: {
+    report_type: string
+    generated_at: string
+    workspace_id: number
+  }
 }
 
 interface ExecutiveSummaryProps {
@@ -38,74 +36,93 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ data }) => {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-blue-600">{data.executive_summary.total_sessions}</div>
-            <div className="text-sm text-gray-600">Sesiones Totales</div>
+            <div className="text-3xl font-bold text-blue-600">{data.executive_summary.total_scans}</div>
+            <div className="text-sm text-gray-400">Scans Totales</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600">{data.executive_summary.completed_sessions}</div>
-            <div className="text-sm text-gray-600">Completadas</div>
+            <div className="text-3xl font-bold text-green-600">{data.executive_summary.total_vulnerabilities}</div>
+            <div className="text-sm text-gray-400">Vulnerabilidades</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-red-600">{data.executive_summary.critical_findings}</div>
-            <div className="text-sm text-gray-600">Hallazgos Críticos</div>
+            <div className={`text-3xl font-bold ${
+              data.executive_summary.risk_level === 'Critical' ? 'text-red-600' :
+              data.executive_summary.risk_level === 'High' ? 'text-orange-600' :
+              data.executive_summary.risk_level === 'Medium' ? 'text-yellow-600' :
+              'text-green-600'
+            }`}>
+              {data.executive_summary.risk_score}
+            </div>
+            <div className="text-sm text-gray-400">Puntuación de Riesgo</div>
           </div>
-          <div className={`text-center p-2 rounded ${
-            data.executive_summary.risk_level === 'CRITICAL' ? 'bg-red-100 text-red-800' :
-            data.executive_summary.risk_level === 'HIGH' ? 'bg-orange-100 text-orange-800' :
-            data.executive_summary.risk_level === 'MEDIUM' ? 'bg-yellow-100 text-yellow-800' :
-            'bg-green-100 text-green-800'
-          }`}>
-            <div className="text-2xl font-bold">{data.executive_summary.risk_score}</div>
-            <div className="text-sm">{data.executive_summary.risk_level}</div>
+          <div className="text-center">
+            <div className={`text-lg font-bold px-2 py-1 rounded ${
+              data.executive_summary.risk_level === 'Critical' ? 'bg-red-900 text-red-200' :
+              data.executive_summary.risk_level === 'High' ? 'bg-orange-900 text-orange-200' :
+              data.executive_summary.risk_level === 'Medium' ? 'bg-yellow-900 text-yellow-200' :
+              'bg-green-900 text-green-200'
+            }`}>
+              {data.executive_summary.risk_level}
+            </div>
+            <div className="text-sm text-gray-400">Nivel de Riesgo</div>
           </div>
         </div>
 
-        <div className="mb-4">
-          <h4 className="font-semibold mb-2">Tipos de Escaneo Realizados:</h4>
-          <div className="flex flex-wrap gap-2">
-            {data.executive_summary.scan_types_performed.map((type, idx) => (
-              <span key={idx} className="px-3 py-1 bg-blue-100 text-blue-800 rounded text-sm">
-                {type.replace('_', ' ')}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {data.key_findings.length > 0 && (
-        <div className="bg-gray-800 border border-red-500 rounded-lg p-6">
-          <h3 className="text-xl font-bold text-red-400 mb-4">🔴 Hallazgos Críticos</h3>
+        <div className="bg-gray-900 p-4 rounded-lg">
+          <h4 className="text-lg font-semibold text-green-400 mb-2">🔍 Hallazgos Clave</h4>
           <div className="space-y-2">
-            {data.key_findings.map((finding, idx) => (
-              <div key={idx} className="border border-red-300 rounded p-3 bg-red-50">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <div className="font-medium text-red-800">{finding.finding}</div>
-                    <div className="text-sm text-red-600">
-                      {finding.scan_type} - {finding.target}
-                    </div>
-                  </div>
-                  <div className="text-sm text-red-500">
-                    {finding.timestamp ? new Date(finding.timestamp).toLocaleDateString() : 'N/A'}
-                  </div>
+            {data.executive_summary.key_findings.map((finding, index) => (
+              <div key={index} className="flex items-start space-x-2">
+                <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-gray-300">{finding}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      )}
-
-      <div className="bg-gray-800 border border-blue-500 rounded-lg p-6">
-        <h3 className="text-xl font-bold text-blue-400 mb-4">📝 Recomendaciones</h3>
-        <ul className="space-y-2">
-          {data.recommendations.map((rec, idx) => (
-            <li key={idx} className="flex items-start gap-2">
-              <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-              <span className="text-blue-700">{rec}</span>
-            </li>
-          ))}
-        </ul>
       </div>
+
+        <div className="bg-gray-900 p-4 rounded-lg">
+          <h4 className="text-lg font-semibold text-blue-400 mb-2">📊 Distribución por Severidad</h4>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {Object.entries(data.executive_summary.severity_distribution).map(([severity, count]) => (
+              <div key={severity} className="text-center">
+                <div className={`text-2xl font-bold ${
+                  severity === 'critical' ? 'text-red-400' :
+                  severity === 'high' ? 'text-orange-400' :
+                  severity === 'medium' ? 'text-yellow-400' :
+                  severity === 'low' ? 'text-blue-400' :
+                  'text-gray-400'
+                }`}>
+                  {count as number}
+                </div>
+                <div className="text-sm text-gray-400 capitalize">{severity}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {data.metadata && (
+          <div className="mt-4 p-4 bg-gray-900 rounded">
+            <h4 className="text-lg font-semibold text-purple-400 mb-2">📄 Información del Reporte</h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div>
+                <span className="text-gray-400">Tipo:</span>
+                <span className="ml-2 text-gray-200 capitalize">{data.metadata.report_type}</span>
+              </div>
+              <div>
+                <span className="text-gray-400">Workspace:</span>
+                <span className="ml-2 text-gray-200">#{data.metadata.workspace_id}</span>
+              </div>
+              <div>
+                <span className="text-gray-400">Generado:</span>
+                <span className="ml-2 text-gray-200">
+                  {new Date(data.metadata.generated_at).toLocaleString()}
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
     </div>
   )
 }

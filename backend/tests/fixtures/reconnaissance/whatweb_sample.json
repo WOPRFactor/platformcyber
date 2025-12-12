@@ -1,0 +1,14 @@
+[
+  {
+    "target": "https://example.com",
+    "http_status": 200,
+    "plugins": {
+      "HTTPServer": {"string": ["nginx/1.18.0"]},
+      "X-Powered-By": {"string": ["PHP/7.4.3"]},
+      "JQuery": {"version": ["3.5.1"]},
+      "Bootstrap": {"version": ["4.5.0"]}
+    }
+  }
+]
+
+

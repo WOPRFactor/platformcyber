@@ -29,7 +29,11 @@ const Login: React.FC = () => {
       navigate('/')
     } catch (err: any) {
       console.error('❌ Error en login:', err)
-      console.error('Detalles del error:', err.response?.data)
+      console.error('Detalles del error:', {
+        message: err.message,
+        response: err.response?.data,
+        stack: err.stack
+      })
       setError(err.message || 'Error de autenticación')
     } finally {
       setLoading(false)
@@ -52,32 +56,45 @@ const Login: React.FC = () => {
         color: '#ffffff'
       }}
     >
-      <div className="max-w-md w-full">
+      {/* Banner de Testing - Fijo en la parte superior */}
+      <div className="fixed top-0 left-0 right-0 bg-yellow-500 text-black py-2 px-4 z-50 shadow-lg">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
+          <span className="font-bold text-lg animate-pulse">⚠️</span>
+          <span className="font-bold text-lg">PLATAFORMA DE TESTING - DEV4-IMPROVEMENTS</span>
+          <span className="font-bold text-lg animate-pulse">⚠️</span>
+        </div>
+      </div>
+
+      <div className="max-w-md w-full mt-16">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center border-4 border-yellow-300">
               <Terminal className="w-8 h-8 text-black" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-green-400 mb-2">
+          <h1 className="text-3xl font-bold text-yellow-400 mb-2">
             Factor X
           </h1>
-          <p className="text-green-600">
+          <p className="text-yellow-600 mb-2">
             Cybersecurity Suite v2.0
           </p>
+          {/* Badge de Testing */}
+          <div className="inline-flex items-center gap-2 bg-yellow-500/20 border-2 border-yellow-500 rounded-full px-4 py-1">
+            <span className="text-yellow-400 font-bold text-sm">🧪 TESTING ENVIRONMENT</span>
+          </div>
         </div>
 
         {/* Login Form */}
-        <div className="card">
-          <h2 className="text-xl font-bold text-green-400 mb-6 text-center">
+        <div className="card border-2 border-yellow-500/30">
+          <h2 className="text-xl font-bold text-yellow-400 mb-6 text-center">
             Acceso al Sistema
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Username */}
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-green-400 mb-1">
+              <label htmlFor="username" className="block text-sm font-medium text-yellow-400 mb-1">
                 Usuario
               </label>
               <input
@@ -95,7 +112,7 @@ const Login: React.FC = () => {
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-green-400 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-yellow-400 mb-1">
                 Contraseña
               </label>
               <div className="relative">
@@ -113,7 +130,7 @@ const Login: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-green-600 hover:text-green-400"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-yellow-600 hover:text-yellow-400"
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -139,19 +156,20 @@ const Login: React.FC = () => {
           </form>
 
           {/* Info adicional */}
-          <div className="mt-6 pt-4 border-t border-green-500/20">
-            <div className="text-xs text-green-600 text-center space-y-1">
-              <p>Usuario por defecto: <span className="text-green-400">admin</span></p>
-              <p>Contraseña: <span className="text-green-400">admin123</span></p>
-              <p className="text-red-400 font-bold">⚠️ Cambia la contraseña inmediatamente</p>
+          <div className="mt-6 pt-4 border-t border-yellow-500/20">
+            <div className="text-xs text-yellow-600 text-center space-y-1">
+              <p>Usuario por defecto: <span className="text-yellow-400">admin</span></p>
+              <p>Contraseña: <span className="text-yellow-400">admin123</span></p>
+              <p className="text-yellow-400 font-bold">🧪 Ambiente de Testing - Dev4-Improvements</p>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="text-center mt-8 text-xs text-green-600">
+        <div className="text-center mt-8 text-xs text-yellow-600">
           <p>Frontend React + TypeScript | Backend Flask + JWT</p>
           <p>Seguridad Empresarial | Factor X 🤖</p>
+          <p className="mt-2 font-bold text-yellow-400">⚠️ TESTING ENVIRONMENT - NO PRODUCTION ⚠️</p>
         </div>
       </div>
     </div>

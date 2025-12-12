@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Wed Dec 10 16:06:56 2025 as: /usr/lib/nmap/nmap --privileged -sV --script rdp-enum-encryption,rdp-ntlm-info -p 3389 -oA /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml kopernicus.tech
+Host: 66.97.42.227 (vps-1889901-x.dattaweb.com)	Status: Up
+Host: 66.97.42.227 (vps-1889901-x.dattaweb.com)	Ports: 3389/filtered/tcp//ms-wbt-server///
+# Nmap done at Wed Dec 10 16:07:03 2025 -- 1 IP address (1 host up) scanned in 6.69 seconds

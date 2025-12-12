@@ -1,0 +1,1 @@
+https://www.kopernicus.tech (GET)  # /usr/bin/sqlmap -u https://www.kopernicus.tech --batch --random-agent --level 1 --risk 1 --time-sec 5 --retries 2 --threads 3 --output-dir /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924

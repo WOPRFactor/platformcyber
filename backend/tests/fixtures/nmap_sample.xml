@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nmaprun scanner="nmap" args="nmap -sV -p 22,80,443,3306 192.168.1.100" start="1234567890" startstr="2024-01-01 10:00:00" version="7.94" xmloutputversion="1.06">
+  <scaninfo type="syn" protocol="tcp" numservices="4" services="22,80,443,3306"/>
+  <verbose level="0"/>
+  <debugging level="0"/>
+  <host starttime="1234567890" endtime="1234567900">
+    <status state="up" reason="echo-reply" reason_ttl="64"/>
+    <address addr="192.168.1.100" addrtype="ipv4"/>
+    <hostnames>
+      <hostname name="test.example.com" type="PTR"/>
+    </hostnames>
+    <ports>
+      <port protocol="tcp" portid="22">
+        <state state="open" reason="syn-ack" reason_ttl="64"/>
+        <service name="ssh" product="OpenSSH" version="8.2" extrainfo="protocol 2.0" method="probed" conf="10"/>
+      </port>
+      <port protocol="tcp" portid="80">
+        <state state="open" reason="syn-ack" reason_ttl="64"/>
+        <service name="http" product="Apache httpd" version="2.4.41" extrainfo="(Ubuntu)" method="probed" conf="10"/>
+      </port>
+      <port protocol="tcp" portid="443">
+        <state state="open" reason="syn-ack" reason_ttl="64"/>
+        <service name="https" product="Apache httpd" version="2.4.41" extrainfo="(Ubuntu)" method="probed" conf="10"/>
+      </port>
+      <port protocol="tcp" portid="3306">
+        <state state="open" reason="syn-ack" reason_ttl="64"/>
+        <service name="mysql" product="MySQL" version="8.0.33" method="probed" conf="10"/>
+      </port>
+    </ports>
+    <times srtt="1000" rttvar="5000" to="100000"/>
+  </host>
+</nmaprun>
+
+
+
+
+

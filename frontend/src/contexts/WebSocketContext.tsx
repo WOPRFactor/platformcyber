@@ -71,10 +71,11 @@ interface WebSocketProviderProps {
 }
 
 // Detectar URL del backend (misma lógica que client.ts)
+// DEV4-IMPROVEMENTS: Puerto 5001 para entorno de mejoras
 const isProductionEnv = import.meta.env.VITE_ENV === 'prod'
 const defaultWebSocketURL = isProductionEnv 
   ? 'http://192.168.0.11:5002'
-  : 'http://192.168.0.11:5000'
+  : 'http://192.168.0.11:5001'  // Puerto 5001 para dev4-improvements
 
 /**
  * WebSocket Provider Component
@@ -88,10 +89,11 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 
   // Initialize socket connection
   useEffect(() => {
-    console.log('🔌 Initializing WebSocket connection to:', url);
+    console.log('🔌 DEV4 Initializing WebSocket connection to:', url);
+    console.log('🔌 Expected port: 5001');
 
     const newSocket = io(url, {
-      transports: ['websocket', 'polling'],
+      transports: ['polling', 'websocket'],
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,

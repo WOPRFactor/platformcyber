@@ -1,8 +1,8 @@
 """
-Reporting Generators Package
-============================
+Generators Module
+=================
 
-Módulos para generación de secciones de reportes.
+Generadores de reportes en diferentes formatos.
 """
 
 from .metadata_generator import generate_metadata
@@ -26,4 +26,3 @@ __all__ = [
     'generate_remediation_roadmap',
     'generate_risk_assessment'
 ]
-

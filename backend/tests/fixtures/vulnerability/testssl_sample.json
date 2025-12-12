@@ -1,0 +1,21 @@
+{
+  "target": "example.com:443",
+  "protocols": {
+    "TLSv1.2": "offered",
+    "TLSv1.3": "offered",
+    "TLSv1.0": "offered",
+    "SSLv3": "offered"
+  },
+  "ciphers": [
+    {
+      "cipher": "ECDHE-RSA-AES256-GCM-SHA384",
+      "protocol": "TLSv1.2"
+    },
+    {
+      "cipher": "DES-CBC3-SHA",
+      "protocol": "TLSv1.0"
+    }
+  ]
+}
+
+

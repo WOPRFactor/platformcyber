@@ -34,97 +34,79 @@ const OwaspAuditor: React.FC = () => {
   const { isAuthenticated } = useAuth()
   const { currentWorkspace } = useWorkspace()
   const [target, setTarget] = useState('')
-  const [currentAudit, setCurrentAudit] = useState<OwaspResult | null>(null)
   const commandPreview = useCommandPreview()
   const { showPreview, previewData, previewToolName, closePreview, executePreview, openPreview } = commandPreview
 
-  // Simular datos de ejemplo
-  const mockResults: OwaspResult = {
-    id: 'audit-001',
-    target: '192.168.1.100',
-    status: 'completed',
-    progress: 100,
-    vulnerabilities: {
-      a01_access_control: 3,
-      a02_crypto_failures: 1,
-      a03_injection: 2,
-      a04_insecure_design: 0,
-      a05_misconfig: 4,
-      a06_vuln_components: 1,
-      a07_auth_failures: 2,
-      a08_integrity_failures: 0,
-      a09_logging_failures: 1,
-      a10_ssrf: 1
-    },
-    started_at: '2025-11-15T01:30:00Z',
-    completed_at: '2025-11-15T01:45:00Z'
-  }
-
   const startAuditMutation = useMutation({
     mutationFn: async (targetUrl: string) => {
-      const result = await owaspAPI.startAudit(targetUrl)
-      setCurrentAudit({
-        id: result.audit.id,
+      if (!currentWorkspace?.id) {
+        throw new Error('Workspace no seleccionado')
+      }
+
+      console.log('🚀 Iniciando auditoría OWASP:', { target: targetUrl, workspaceId: currentWorkspace.id })
+      
+      const result = await owaspAPI.createAudit({
         target: targetUrl,
-        status: 'running',
-        progress: 0,
-        vulnerabilities: {
-          a01_access_control: 0,
-          a02_crypto_failures: 0,
-          a03_injection: 0,
-          a04_insecure_design: 0,
-          a05_misconfig: 0,
-          a06_vuln_components: 0,
-          a07_auth_failures: 0,
-          a08_integrity_failures: 0,
-          a09_logging_failures: 0,
-          a10_ssrf: 0
-        },
-        started_at: result.audit.started_at
+        workspace_id: currentWorkspace.id
       })
 
-      // Simular progreso mientras la auditoría corre
-      const progressInterval = setInterval(() => {
-        setCurrentAudit(prev => {
-          if (!prev || prev.status === 'completed') {
-            clearInterval(progressInterval)
-            return prev
-          }
+      console.log('✅ Auditoría creada:', result)
 
-          const newProgress = Math.min(prev.progress + 10, 90)
-          return { ...prev, progress: newProgress }
-        })
-      }, 2000)
+      if (!result.success || !result.audit) {
+        throw new Error(result.error || 'Error al crear la auditoría')
+      }
 
-      // Verificar estado final después de un tiempo
-      setTimeout(async () => {
-        try {
-          const statusResult = await owaspAPI.getAuditStatus(result.audit.id)
-          setCurrentAudit(prev => prev ? {
-            ...prev,
-            ...statusResult.audit,
-            status: 'completed',
-            progress: 100
-          } : null)
-        } catch (error) {
-          console.error('Error obteniendo estado final:', error)
-          setCurrentAudit(prev => prev ? { ...prev, status: 'failed' } : null)
-        }
-      }, 10000)
+      // Limpiar el input después de crear la auditoría
+      setTarget('')
 
       return result
+    },
+    onError: (error: any) => {
+      console.error('❌ Error en startAuditMutation:', error)
+      toast.error(`Error al iniciar auditoría: ${error.message}`)
+    },
+    onSuccess: (data) => {
+      console.log('✅ Auditoría iniciada exitosamente:', data)
+      toast.success('Auditoría OWASP iniciada correctamente')
+      refetchAudits() // Refrescar lista de auditorías
     }
   })
 
   // Cargar categorías OWASP
-  const { data: categoriesData } = useQuery({
+  const { data: categoriesData, isLoading: categoriesLoading } = useQuery({
     queryKey: ['owasp-categories'],
-    queryFn: () => owaspAPI.getCategories(),
-    enabled: isAuthenticated
+    queryFn: async () => {
+      const data = await owaspAPI.getCategories()
+      console.log('✅ Categorías OWASP cargadas:', data)
+      return data
+    },
+    enabled: isAuthenticated,
+    onError: (error) => {
+      console.error('❌ Error cargando categorías OWASP:', error)
+    }
+  })
+
+  // Cargar auditorías existentes
+  const { data: auditsData, isLoading: auditsLoading, refetch: refetchAudits } = useQuery({
+    queryKey: ['owasp-audits', currentWorkspace?.id],
+    queryFn: () => owaspAPI.listAudits({ workspace_id: currentWorkspace?.id }),
+    enabled: isAuthenticated && !!currentWorkspace?.id,
+    refetchInterval: 5000, // Actualizar cada 5 segundos
+    onError: (error) => {
+      console.error('❌ Error cargando auditorías:', error)
+    }
   })
 
   const handleStartAudit = () => {
-    if (!target.trim()) return
+    if (!target.trim()) {
+      toast.error('Target es requerido')
+      return
+    }
+    if (!currentWorkspace?.id) {
+      toast.error('Workspace no seleccionado')
+      return
+    }
+    console.log('🚀 Iniciando auditoría directamente (sin preview)')
     startAuditMutation.mutate(target)
   }
 
@@ -185,9 +167,9 @@ const OwaspAuditor: React.FC = () => {
             className="flex-1 bg-gray-700 border border-gray-600 rounded px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-red-400"
           />
           <button
-            onClick={handleAuditWithPreview}
-            disabled={startAuditMutation.isPending || !target.trim()}
-            className="bg-red-600 hover:bg-red-700 disabled:bg-gray-600 px-6 py-2 rounded font-medium flex items-center space-x-2"
+            onClick={handleStartAudit}
+            disabled={startAuditMutation.isPending || !target.trim() || !currentWorkspace?.id}
+            className="bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:opacity-50 px-6 py-2 rounded font-medium flex items-center space-x-2"
           >
             {startAuditMutation.isPending ? (
               <RotateCcw className="w-4 h-4 animate-spin" />
@@ -198,8 +180,9 @@ const OwaspAuditor: React.FC = () => {
           </button>
           <button
             onClick={handleAuditWithPreview}
-            disabled={!target.trim()}
-            className="bg-gray-600 hover:bg-gray-700 px-6 py-2 rounded font-medium flex items-center space-x-2"
+            disabled={!target.trim() || !currentWorkspace?.id}
+            className="bg-gray-600 hover:bg-gray-700 disabled:bg-gray-600 disabled:opacity-50 px-6 py-2 rounded font-medium flex items-center space-x-2"
+            title="Ver preview del comando antes de ejecutar"
           >
             <Eye className="w-4 h-4" />
             <span>Preview</span>
@@ -207,88 +190,117 @@ const OwaspAuditor: React.FC = () => {
         </div>
       </div>
 
-      {/* Estado de auditoría actual */}
-      {currentAudit && (
-        <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
-          <h2 className="text-xl font-bold text-white mb-4">Auditoría en Progreso</h2>
 
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-300">Target: {currentAudit.target}</span>
-              <span className={`px-2 py-1 rounded text-sm ${
-                currentAudit.status === 'running' ? 'bg-yellow-600' :
-                currentAudit.status === 'completed' ? 'bg-green-600' : 'bg-red-600'
-              }`}>
-                {currentAudit.status === 'running' ? 'Ejecutándose' :
-                 currentAudit.status === 'completed' ? 'Completada' : 'Fallida'}
-              </span>
-            </div>
-
-            <div className="w-full bg-gray-700 rounded-full h-2">
-              <div
-                className="bg-red-600 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${currentAudit.progress}%` }}
-              ></div>
-            </div>
-
-            <div className="text-center text-gray-400">
-              {currentAudit.progress}% completado
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Resultados de ejemplo */}
+      {/* Lista de Auditorías */}
       <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
         <h2 className="text-xl font-bold text-white mb-4 flex items-center space-x-2">
           <FileText className="w-5 h-5" />
-          <span>Últimos Resultados</span>
+          <span>Auditorías OWASP</span>
+          {auditsLoading && <span className="text-sm text-gray-400">(Cargando...)</span>}
         </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {Object.entries(mockResults.vulnerabilities).map(([category, count]) => (
-            <div key={category} className="bg-gray-700 rounded-lg p-4 text-center">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                {getRiskIcon(count)}
-                <span className="text-sm text-gray-300 uppercase">{category}</span>
-              </div>
-              <div className={`text-2xl font-bold ${getRiskColor(count)}`}>
-                {count}
-              </div>
-              <div className="text-xs text-gray-500">vulnerabilidades</div>
-            </div>
-          ))}
-        </div>
+        {auditsLoading ? (
+          <div className="text-center py-8 text-gray-400">
+            Cargando auditorías...
+          </div>
+        ) : auditsData && auditsData.length > 0 ? (
+          <div className="space-y-4">
+            {auditsData.map((audit: any) => {
+              const vulnerabilities = audit.vulnerabilities || {}
+              const totalVulns = Object.values(vulnerabilities).reduce((sum: number, count: any) => sum + (count || 0), 0)
+              
+              return (
+                <div key={audit.id} className="bg-gray-700 rounded-lg p-4 border border-gray-600">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h3 className="text-white font-semibold">{audit.target}</h3>
+                      <p className="text-gray-400 text-sm">
+                        ID: {audit.id} • {new Date(audit.started_at).toLocaleString()}
+                      </p>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <span className={`px-3 py-1 rounded text-sm ${
+                        audit.status === 'completed' ? 'bg-green-600' :
+                        audit.status === 'running' ? 'bg-yellow-600' :
+                        audit.status === 'failed' ? 'bg-red-600' : 'bg-gray-600'
+                      }`}>
+                        {audit.status}
+                      </span>
+                      {audit.status === 'running' && (
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {audit.status === 'running' && (
+                    <div className="mb-3">
+                      <div className="w-full bg-gray-600 rounded-full h-2">
+                        <div
+                          className="bg-yellow-600 h-2 rounded-full transition-all"
+                          style={{ width: `${audit.progress || 0}%` }}
+                        ></div>
+                      </div>
+                      <p className="text-xs text-gray-400 mt-1">{audit.progress || 0}% completado</p>
+                    </div>
+                  )}
 
-        <div className="mt-6 text-center">
-          <button className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded text-sm">
-            Ver Reporte Completo
-          </button>
-        </div>
+                  {totalVulns > 0 && (
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mt-3">
+                      {Object.entries(vulnerabilities).slice(0, 5).map(([category, count]: [string, any]) => (
+                        count > 0 && (
+                          <div key={category} className="bg-gray-600 rounded p-2 text-center">
+                            <div className={`text-lg font-bold ${getRiskColor(count)}`}>
+                              {count}
+                            </div>
+                            <div className="text-xs text-gray-400 uppercase">{category.replace('a0', 'A').replace('_', ' ')}</div>
+                          </div>
+                        )
+                      ))}
+                    </div>
+                  )}
+
+                  {audit.status === 'completed' && totalVulns === 0 && (
+                    <p className="text-green-400 text-sm">✅ No se encontraron vulnerabilidades</p>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="text-center py-8 text-gray-400">
+            <p>No hay auditorías realizadas aún.</p>
+            <p className="text-sm mt-2">Inicia una auditoría usando el formulario de arriba.</p>
+          </div>
+        )}
       </div>
 
       {/* Información sobre OWASP Top 10 */}
       <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
         <h2 className="text-xl font-bold text-white mb-4">OWASP Top 10 - Categorías</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-          {categoriesData?.categories && Object.entries(categoriesData.categories).map(([key, category]: [string, any]) => (
-            <div key={key}>
-              <h3 className={`font-semibold mb-2 ${
-                category.severity === 'critical' ? 'text-red-400' :
-                category.severity === 'high' ? 'text-orange-400' :
-                category.severity === 'medium' ? 'text-yellow-400' : 'text-green-400'
-              }`}>
-                {key.toUpperCase()} - {category.name}
-              </h3>
-              <p className="text-gray-400">{category.description}</p>
-            </div>
-          ))}
-        </div>
-
-        {!categoriesData?.categories && (
+        {categoriesLoading ? (
           <div className="text-center text-gray-500 py-8">
             Cargando categorías OWASP...
+          </div>
+        ) : categoriesData ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            {Object.entries(categoriesData).map(([key, category]: [string, any]) => (
+              <div key={key} className="border border-gray-700 rounded p-3">
+                <h3 className="font-semibold mb-2 text-red-400">
+                  {key.toUpperCase()} - {category.name}
+                </h3>
+                <p className="text-gray-400">{category.description}</p>
+                {category.tests && category.tests.length > 0 && (
+                  <div className="mt-2">
+                    <p className="text-xs text-gray-500">Tests: {category.tests.join(', ')}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center text-red-500 py-8">
+            Error cargando categorías OWASP. Revisa la consola.
           </div>
         )}
       </div>
