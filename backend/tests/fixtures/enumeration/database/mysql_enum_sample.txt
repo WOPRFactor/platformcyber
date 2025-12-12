@@ -1,0 +1,20 @@
+MySQL version: 8.0.25
+
+Databases:
+- information_schema
+- mysql
+- performance_schema
+- testdb
+- appdb
+
+Users:
+- root@localhost
+- admin@%
+- appuser@localhost
+
+Tables in appdb:
+- users
+- products
+- orders
+
+

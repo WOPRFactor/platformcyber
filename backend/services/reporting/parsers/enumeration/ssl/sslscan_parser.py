@@ -142,3 +142,4 @@ class SSLScanParser(BaseParser):
             return findings
 
 
+

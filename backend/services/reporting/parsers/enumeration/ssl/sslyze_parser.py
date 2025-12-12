@@ -149,3 +149,4 @@ class SSLyzeParser(BaseParser):
             return findings
 
 
+

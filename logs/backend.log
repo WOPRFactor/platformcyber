@@ -827,3 +827,744 @@ WHERE users.id = ?
 2025-12-11 19:55:46,951 INFO sqlalchemy.engine.Engine COMMIT
 2025-12-11 19:55:46 - sqlalchemy.engine.Engine - INFO - COMMIT
 2025-12-11 19:56:27 - websockets - INFO - ❌ Cliente desconectado: W7ffMlu_UIglP0s-AAAC
+2025-12-11 20:37:22 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-11 20:37:22 - apscheduler.executors.default - INFO - Running job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-11 20:37:22 EST)" (scheduled at 2025-12-11 20:37:22.684120-05:00)
+2025-12-11 20:37:22 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-11 21:37:22.684120-05:00 (in 3599.996197 seconds)
+2025-12-11 20:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/logs/backend.log
+  Tamaño original: 0.00 MB
+  Tamaño nuevo: 0.00 MB
+  Líneas mantenidas: 0
+  Líneas eliminadas: 0
+2025-12-11 20:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/logs/backend.log
+  Tamaño original: 0.02 MB
+  Tamaño nuevo: 0.02 MB
+  Líneas mantenidas: 461
+  Líneas eliminadas: 0
+2025-12-11 20:37:22 - services.scheduler_service - INFO - 🧹 Logs limpiados (2 archivos): 0 líneas eliminadas, Tamaño: 0.0MB -> 0.0MB (manteniendo últimas 6 horas)
+2025-12-11 20:37:22 - apscheduler.executors.default - INFO - Job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-11 21:37:22 EST)" executed successfully
+2025-12-11 21:37:22 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-11 21:37:22 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-11 22:37:22.684120-05:00 (in 3599.996608 seconds)
+2025-12-11 21:37:22 - apscheduler.executors.default - INFO - Running job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-11 22:37:22 EST)" (scheduled at 2025-12-11 21:37:22.684120-05:00)
+2025-12-11 21:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/logs/backend.log
+  Tamaño original: 0.00 MB
+  Tamaño nuevo: 0.00 MB
+  Líneas mantenidas: 0
+  Líneas eliminadas: 0
+2025-12-11 21:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/logs/backend.log
+  Tamaño original: 0.02 MB
+  Tamaño nuevo: 0.02 MB
+  Líneas mantenidas: 461
+  Líneas eliminadas: 0
+2025-12-11 21:37:22 - services.scheduler_service - INFO - 🧹 Logs limpiados (2 archivos): 0 líneas eliminadas, Tamaño: 0.0MB -> 0.0MB (manteniendo últimas 6 horas)
+2025-12-11 21:37:22 - apscheduler.executors.default - INFO - Job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-11 22:37:22 EST)" executed successfully
+2025-12-11 22:37:22 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-11 22:37:22 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-11 23:37:22.684120-05:00 (in 3599.998527 seconds)
+2025-12-11 22:37:22 - apscheduler.executors.default - INFO - Running job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-11 23:37:22 EST)" (scheduled at 2025-12-11 22:37:22.684120-05:00)
+2025-12-11 22:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/logs/backend.log
+  Tamaño original: 0.00 MB
+  Tamaño nuevo: 0.00 MB
+  Líneas mantenidas: 0
+  Líneas eliminadas: 0
+2025-12-11 22:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/logs/backend.log
+  Tamaño original: 0.02 MB
+  Tamaño nuevo: 0.02 MB
+  Líneas mantenidas: 461
+  Líneas eliminadas: 0
+2025-12-11 22:37:22 - services.scheduler_service - INFO - 🧹 Logs limpiados (2 archivos): 0 líneas eliminadas, Tamaño: 0.0MB -> 0.0MB (manteniendo últimas 6 horas)
+2025-12-11 22:37:22 - apscheduler.executors.default - INFO - Job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-11 23:37:22 EST)" executed successfully
+2025-12-11 23:37:22 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-11 23:37:22 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-12 00:37:22.684120-05:00 (in 3599.997579 seconds)
+2025-12-11 23:37:22 - apscheduler.executors.default - INFO - Running job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-12 00:37:22 EST)" (scheduled at 2025-12-11 23:37:22.684120-05:00)
+2025-12-11 23:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/logs/backend.log
+  Tamaño original: 0.00 MB
+  Tamaño nuevo: 0.00 MB
+  Líneas mantenidas: 0
+  Líneas eliminadas: 0
+2025-12-11 23:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/logs/backend.log
+  Tamaño original: 0.02 MB
+  Tamaño nuevo: 0.02 MB
+  Líneas mantenidas: 461
+  Líneas eliminadas: 0
+2025-12-11 23:37:22 - services.scheduler_service - INFO - 🧹 Logs limpiados (2 archivos): 0 líneas eliminadas, Tamaño: 0.0MB -> 0.0MB (manteniendo últimas 6 horas)
+2025-12-11 23:37:22 - apscheduler.executors.default - INFO - Job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-12 00:37:22 EST)" executed successfully
+2025-12-12 00:37:22 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-12 00:37:22 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-12 01:37:22.684120-05:00 (in 3599.996972 seconds)
+2025-12-12 00:37:22 - apscheduler.executors.default - INFO - Running job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-12 01:37:22 EST)" (scheduled at 2025-12-12 00:37:22.684120-05:00)
+2025-12-12 00:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/logs/backend.log
+  Tamaño original: 0.00 MB
+  Tamaño nuevo: 0.00 MB
+  Líneas mantenidas: 0
+  Líneas eliminadas: 0
+2025-12-12 00:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/logs/backend.log
+  Tamaño original: 0.02 MB
+  Tamaño nuevo: 0.02 MB
+  Líneas mantenidas: 461
+  Líneas eliminadas: 0
+2025-12-12 00:37:22 - services.scheduler_service - INFO - 🧹 Logs limpiados (2 archivos): 0 líneas eliminadas, Tamaño: 0.0MB -> 0.0MB (manteniendo últimas 6 horas)
+2025-12-12 00:37:22 - apscheduler.executors.default - INFO - Job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-12 01:37:22 EST)" executed successfully
+2025-12-12 01:37:22 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-12 01:37:22 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-12 02:37:22.684120-05:00 (in 3599.997608 seconds)
+2025-12-12 01:37:22 - apscheduler.executors.default - INFO - Running job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-12 02:37:22 EST)" (scheduled at 2025-12-12 01:37:22.684120-05:00)
+2025-12-12 01:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/logs/backend.log
+  Tamaño original: 0.00 MB
+  Tamaño nuevo: 0.00 MB
+  Líneas mantenidas: 0
+  Líneas eliminadas: 0
+2025-12-12 01:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/logs/backend.log
+  Tamaño original: 0.02 MB
+  Tamaño nuevo: 0.02 MB
+  Líneas mantenidas: 461
+  Líneas eliminadas: 0
+2025-12-12 01:37:22 - services.scheduler_service - INFO - 🧹 Logs limpiados (2 archivos): 0 líneas eliminadas, Tamaño: 0.0MB -> 0.0MB (manteniendo últimas 6 horas)
+2025-12-12 01:37:22 - apscheduler.executors.default - INFO - Job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-12 02:37:22 EST)" executed successfully
+2025-12-12 02:37:22 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-12 02:37:22 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-12 03:37:22.684120-05:00 (in 3599.997095 seconds)
+2025-12-12 02:37:22 - apscheduler.executors.default - INFO - Running job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-12 03:37:22 EST)" (scheduled at 2025-12-12 02:37:22.684120-05:00)
+2025-12-12 02:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/logs/backend.log
+  Tamaño original: 0.00 MB
+  Tamaño nuevo: 0.00 MB
+  Líneas mantenidas: 0
+  Líneas eliminadas: 0
+2025-12-12 02:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/logs/backend.log
+  Tamaño original: 0.02 MB
+  Tamaño nuevo: 0.02 MB
+  Líneas mantenidas: 461
+  Líneas eliminadas: 0
+2025-12-12 02:37:22 - services.scheduler_service - INFO - 🧹 Logs limpiados (2 archivos): 0 líneas eliminadas, Tamaño: 0.0MB -> 0.0MB (manteniendo últimas 6 horas)
+2025-12-12 02:37:22 - apscheduler.executors.default - INFO - Job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-12 03:37:22 EST)" executed successfully
+2025-12-12 03:37:22 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-12 03:37:22 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-12 04:37:22.684120-05:00 (in 3599.996745 seconds)
+2025-12-12 03:37:22 - apscheduler.executors.default - INFO - Running job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-12 04:37:22 EST)" (scheduled at 2025-12-12 03:37:22.684120-05:00)
+2025-12-12 03:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/logs/backend.log
+  Tamaño original: 0.00 MB
+  Tamaño nuevo: 0.00 MB
+  Líneas mantenidas: 0
+  Líneas eliminadas: 0
+2025-12-12 03:37:22 - utils.log_cleaner - INFO - Log limpiado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/logs/backend.log
+  Tamaño original: 0.02 MB
+  Tamaño nuevo: 0.02 MB
+  Líneas mantenidas: 461
+  Líneas eliminadas: 0
+2025-12-12 03:37:22 - services.scheduler_service - INFO - 🧹 Logs limpiados (2 archivos): 0 líneas eliminadas, Tamaño: 0.0MB -> 0.0MB (manteniendo últimas 6 horas)
+2025-12-12 03:37:22 - apscheduler.executors.default - INFO - Job "Log cleanup task (trigger: interval[1:00:00], next run at: 2025-12-12 04:37:22 EST)" executed successfully
+2025-12-12 03:47:00 - __main__ - INFO - 🌐 REQUEST: POST /api/v1/auth/login
+2025-12-12 03:47:00 - __main__ - INFO -    JSON Body: {'username': 'admin', 'password': 'admin123'}
+2025-12-12 03:47:00,559 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:00 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:00,559 INFO sqlalchemy.engine.Engine SELECT id, username, email, password_hash, role, is_active, is_verified FROM users WHERE username = ?
+2025-12-12 03:47:00 - sqlalchemy.engine.Engine - INFO - SELECT id, username, email, password_hash, role, is_active, is_verified FROM users WHERE username = ?
+2025-12-12 03:47:00,559 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] ('admin',)
+2025-12-12 03:47:00 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] ('admin',)
+2025-12-12 03:47:01 - api.v1.auth - DEBUG - Password check para admin: True
+2025-12-12 03:47:01,277 INFO sqlalchemy.engine.Engine UPDATE users SET last_login = ? WHERE id = ?
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - UPDATE users SET last_login = ? WHERE id = ?
+2025-12-12 03:47:01,278 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (datetime.datetime(2025, 12, 12, 8, 47, 1, 277190), 1)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (datetime.datetime(2025, 12, 12, 8, 47, 1, 277190), 1)
+2025-12-12 03:47:01,279 INFO sqlalchemy.engine.Engine INSERT INTO audit_logs (user_id, action, resource_type, resource_id, ip_address, user_agent, success, error_message, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - INSERT INTO audit_logs (user_id, action, resource_type, resource_id, ip_address, user_agent, success, error_message, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-12-12 03:47:01,280 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (1, 'login_success', None, None, '192.168.0.6', None, 1, None, '2025-12-12 08:47:01.279586')
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (1, 'login_success', None, None, '192.168.0.6', None, 1, None, '2025-12-12 08:47:01.279586')
+2025-12-12 03:47:01,280 INFO sqlalchemy.engine.Engine COMMIT
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-12 03:47:01 - api.v1.auth - INFO - Login exitoso: admin
+2025-12-12 03:47:01 - utils.compression - DEBUG - 📦 Compressed response: 862B → 560B (35.0% reduction)
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/workspaces/
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:01,478 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:01,479 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
+2025-12-12 03:47:01,479 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (1,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (1,)
+2025-12-12 03:47:01 - utils.compression - DEBUG - 📦 Compressed response: 3064B → 705B (77.0% reduction)
+2025-12-12 03:47:01,482 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:01 - websockets - INFO - ✅ Cliente conectado: QHFpzO8oEFaqt2NuAAAH
+emitting event "connection_established" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - socketio.server - INFO - emitting event "connection_established" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/system/health
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/owasp/audits
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:01 - services.owasp_service - INFO - 📋 Listando auditorías: 0 encontradas
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/scanning/sessions
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'workspace_id': '10'}
+2025-12-12 03:47:01,742 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:01,746 INFO sqlalchemy.engine.Engine SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.user_id = ? AND scans.workspace_id = ? ORDER BY scans.created_at DESC
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/workspaces/10/dashboard/vulnerabilities
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.user_id = ? AND scans.workspace_id = ? ORDER BY scans.created_at DESC
+2025-12-12 03:47:01,749 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:01,751 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] ('1', 10)
+2025-12-12 03:47:01,752 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] ('1', 10)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01,763 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/workspaces/10/dashboard/stats
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/workspaces/10/dashboard/timeline
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/workspaces/10/dashboard/trends
+2025-12-12 03:47:01,774 INFO sqlalchemy.engine.Engine SELECT vulnerabilities.id AS vulnerabilities_id, vulnerabilities.title AS vulnerabilities_title, vulnerabilities.description AS vulnerabilities_description, vulnerabilities.cve_id AS vulnerabilities_cve_id, vulnerabilities.cwe_id AS vulnerabilities_cwe_id, vulnerabilities.severity AS vulnerabilities_severity, vulnerabilities.cvss_score AS vulnerabilities_cvss_score, vulnerabilities.target AS vulnerabilities_target, vulnerabilities.port AS vulnerabilities_port, vulnerabilities.service AS vulnerabilities_service, vulnerabilities.proof_of_concept AS vulnerabilities_proof_of_concept, vulnerabilities.remediation AS vulnerabilities_remediation, vulnerabilities."references" AS vulnerabilities_references, vulnerabilities.status AS vulnerabilities_status, vulnerabilities.discovered_at AS vulnerabilities_discovered_at, vulnerabilities.updated_at AS vulnerabilities_updated_at, vulnerabilities.workspace_id AS vulnerabilities_workspace_id 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ?
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:01,793 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT vulnerabilities.id AS vulnerabilities_id, vulnerabilities.title AS vulnerabilities_title, vulnerabilities.description AS vulnerabilities_description, vulnerabilities.cve_id AS vulnerabilities_cve_id, vulnerabilities.cwe_id AS vulnerabilities_cwe_id, vulnerabilities.severity AS vulnerabilities_severity, vulnerabilities.cvss_score AS vulnerabilities_cvss_score, vulnerabilities.target AS vulnerabilities_target, vulnerabilities.port AS vulnerabilities_port, vulnerabilities.service AS vulnerabilities_service, vulnerabilities.proof_of_concept AS vulnerabilities_proof_of_concept, vulnerabilities.remediation AS vulnerabilities_remediation, vulnerabilities."references" AS vulnerabilities_references, vulnerabilities.status AS vulnerabilities_status, vulnerabilities.discovered_at AS vulnerabilities_discovered_at, vulnerabilities.updated_at AS vulnerabilities_updated_at, vulnerabilities.workspace_id AS vulnerabilities_workspace_id 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ?
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/workspaces/10/dashboard/top-vulnerabilities
+2025-12-12 03:47:01,794 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01 - socketio.server - INFO - received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01,794 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01,798 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:01,802 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01,820 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - socketio.server - INFO - QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:01,823 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:01 - socketio.server - INFO - received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01,832 INFO sqlalchemy.engine.Engine ROLLBACK
+QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:01,846 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01 - socketio.server - INFO - QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - websockets - INFO - 👥 Cliente QHFpzO8oEFaqt2NuAAAH joined room: workspace_10
+2025-12-12 03:47:01,852 INFO sqlalchemy.engine.Engine SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.workspace_id = ? AND scans.created_at >= ? ORDER BY scans.created_at DESC
+emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:01,853 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01,855 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - websockets - INFO - 👥 Cliente QHFpzO8oEFaqt2NuAAAH joined room: workspace_10
+emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - socketio.server - INFO - received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:01,859 INFO sqlalchemy.engine.Engine SELECT date(vulnerabilities.updated_at) AS date, vulnerabilities.severity AS vulnerabilities_severity, count(vulnerabilities.id) AS count 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ? AND vulnerabilities.updated_at >= ? GROUP BY date(vulnerabilities.updated_at), vulnerabilities.severity
+2025-12-12 03:47:01 - utils.compression - DEBUG - 📦 Compressed response: 141324B → 14293B (89.9% reduction)
+2025-12-12 03:47:01,864 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.workspace_id = ? AND scans.created_at >= ? ORDER BY scans.created_at DESC
+2025-12-12 03:47:01,867 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10, '2025-11-12 03:47:01.850318')
+received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - socketio.server - INFO - emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01,870 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:01 - socketio.server - INFO - emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01,879 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT date(vulnerabilities.updated_at) AS date, vulnerabilities.severity AS vulnerabilities_severity, count(vulnerabilities.id) AS count 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ? AND vulnerabilities.updated_at >= ? GROUP BY date(vulnerabilities.updated_at), vulnerabilities.severity
+2025-12-12 03:47:01 - socketio.server - INFO - QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:01,881 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10, '2025-11-12 03:47:01.858301')
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/workspaces/10/dashboard/risk-matrix
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10, '2025-11-12 03:47:01.850318')
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10, '2025-11-12 03:47:01.858301')
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01,888 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - socketio.server - INFO - received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01,892 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - websockets - INFO - 👥 Cliente QHFpzO8oEFaqt2NuAAAH joined room: workspace_10
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01,900 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:01,902 INFO sqlalchemy.engine.Engine SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.workspace_id = ?
+emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/workspaces/10/logs
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:01 - socketio.server - INFO - QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:01,911 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01 - socketio.server - INFO - emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'limit': '500', 'page': '1', 'per_page': '500', 'workspace_id': '1'}
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.workspace_id = ?
+2025-12-12 03:47:01,920 INFO sqlalchemy.engine.Engine SELECT vulnerabilities.id AS vulnerabilities_id, vulnerabilities.title AS vulnerabilities_title, vulnerabilities.description AS vulnerabilities_description, vulnerabilities.cve_id AS vulnerabilities_cve_id, vulnerabilities.cwe_id AS vulnerabilities_cwe_id, vulnerabilities.severity AS vulnerabilities_severity, vulnerabilities.cvss_score AS vulnerabilities_cvss_score, vulnerabilities.target AS vulnerabilities_target, vulnerabilities.port AS vulnerabilities_port, vulnerabilities.service AS vulnerabilities_service, vulnerabilities.proof_of_concept AS vulnerabilities_proof_of_concept, vulnerabilities.remediation AS vulnerabilities_remediation, vulnerabilities."references" AS vulnerabilities_references, vulnerabilities.status AS vulnerabilities_status, vulnerabilities.discovered_at AS vulnerabilities_discovered_at, vulnerabilities.updated_at AS vulnerabilities_updated_at, vulnerabilities.workspace_id AS vulnerabilities_workspace_id 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ?
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01,928 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/workspaces/10/sessions
+2025-12-12 03:47:01,928 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01,929 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - websockets - INFO - 👥 Cliente QHFpzO8oEFaqt2NuAAAH joined room: workspace_10
+emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - socketio.server - INFO - emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT vulnerabilities.id AS vulnerabilities_id, vulnerabilities.title AS vulnerabilities_title, vulnerabilities.description AS vulnerabilities_description, vulnerabilities.cve_id AS vulnerabilities_cve_id, vulnerabilities.cwe_id AS vulnerabilities_cwe_id, vulnerabilities.severity AS vulnerabilities_severity, vulnerabilities.cvss_score AS vulnerabilities_cvss_score, vulnerabilities.target AS vulnerabilities_target, vulnerabilities.port AS vulnerabilities_port, vulnerabilities.service AS vulnerabilities_service, vulnerabilities.proof_of_concept AS vulnerabilities_proof_of_concept, vulnerabilities.remediation AS vulnerabilities_remediation, vulnerabilities."references" AS vulnerabilities_references, vulnerabilities.status AS vulnerabilities_status, vulnerabilities.discovered_at AS vulnerabilities_discovered_at, vulnerabilities.updated_at AS vulnerabilities_updated_at, vulnerabilities.workspace_id AS vulnerabilities_workspace_id 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ?
+2025-12-12 03:47:01,935 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01,937 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:01,941 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:01,945 INFO sqlalchemy.engine.Engine SELECT vulnerabilities.id AS vulnerabilities_id, vulnerabilities.title AS vulnerabilities_title, vulnerabilities.description AS vulnerabilities_description, vulnerabilities.cve_id AS vulnerabilities_cve_id, vulnerabilities.cwe_id AS vulnerabilities_cwe_id, vulnerabilities.severity AS vulnerabilities_severity, vulnerabilities.cvss_score AS vulnerabilities_cvss_score, vulnerabilities.target AS vulnerabilities_target, vulnerabilities.port AS vulnerabilities_port, vulnerabilities.service AS vulnerabilities_service, vulnerabilities.proof_of_concept AS vulnerabilities_proof_of_concept, vulnerabilities.remediation AS vulnerabilities_remediation, vulnerabilities."references" AS vulnerabilities_references, vulnerabilities.status AS vulnerabilities_status, vulnerabilities.discovered_at AS vulnerabilities_discovered_at, vulnerabilities.updated_at AS vulnerabilities_updated_at, vulnerabilities.workspace_id AS vulnerabilities_workspace_id 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ?
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01,948 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01,951 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT vulnerabilities.id AS vulnerabilities_id, vulnerabilities.title AS vulnerabilities_title, vulnerabilities.description AS vulnerabilities_description, vulnerabilities.cve_id AS vulnerabilities_cve_id, vulnerabilities.cwe_id AS vulnerabilities_cwe_id, vulnerabilities.severity AS vulnerabilities_severity, vulnerabilities.cvss_score AS vulnerabilities_cvss_score, vulnerabilities.target AS vulnerabilities_target, vulnerabilities.port AS vulnerabilities_port, vulnerabilities.service AS vulnerabilities_service, vulnerabilities.proof_of_concept AS vulnerabilities_proof_of_concept, vulnerabilities.remediation AS vulnerabilities_remediation, vulnerabilities."references" AS vulnerabilities_references, vulnerabilities.status AS vulnerabilities_status, vulnerabilities.discovered_at AS vulnerabilities_discovered_at, vulnerabilities.updated_at AS vulnerabilities_updated_at, vulnerabilities.workspace_id AS vulnerabilities_workspace_id 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ?
+2025-12-12 03:47:01,954 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01,957 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
+FROM workspace_logs 
+WHERE workspace_logs.workspace_id = ?) AS anon_1
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:01,959 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:01,960 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
+FROM workspace_logs 
+WHERE workspace_logs.workspace_id = ?) AS anon_1
+2025-12-12 03:47:01,988 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:02,001 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:01 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/workspaces/10/evidence
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:01 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:02,006 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:02 - utils.compression - DEBUG - 📦 Compressed response: 77691B → 4721B (93.9% reduction)
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:02,007 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:02 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:02,008 INFO sqlalchemy.engine.Engine SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
+FROM workspace_logs 
+WHERE workspace_logs.workspace_id = ? ORDER BY workspace_logs.timestamp DESC
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
+FROM workspace_logs 
+WHERE workspace_logs.workspace_id = ? ORDER BY workspace_logs.timestamp DESC
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:02,021 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:02,022 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10, 500, 0)
+2025-12-12 03:47:02,029 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10, 500, 0)
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:02,030 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:02,033 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:02,053 INFO sqlalchemy.engine.Engine SELECT vulnerabilities.id AS vulnerabilities_id, vulnerabilities.title AS vulnerabilities_title, vulnerabilities.description AS vulnerabilities_description, vulnerabilities.cve_id AS vulnerabilities_cve_id, vulnerabilities.cwe_id AS vulnerabilities_cwe_id, vulnerabilities.severity AS vulnerabilities_severity, vulnerabilities.cvss_score AS vulnerabilities_cvss_score, vulnerabilities.target AS vulnerabilities_target, vulnerabilities.port AS vulnerabilities_port, vulnerabilities.service AS vulnerabilities_service, vulnerabilities.proof_of_concept AS vulnerabilities_proof_of_concept, vulnerabilities.remediation AS vulnerabilities_remediation, vulnerabilities."references" AS vulnerabilities_references, vulnerabilities.status AS vulnerabilities_status, vulnerabilities.discovered_at AS vulnerabilities_discovered_at, vulnerabilities.updated_at AS vulnerabilities_updated_at, vulnerabilities.workspace_id AS vulnerabilities_workspace_id 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ?
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - SELECT vulnerabilities.id AS vulnerabilities_id, vulnerabilities.title AS vulnerabilities_title, vulnerabilities.description AS vulnerabilities_description, vulnerabilities.cve_id AS vulnerabilities_cve_id, vulnerabilities.cwe_id AS vulnerabilities_cwe_id, vulnerabilities.severity AS vulnerabilities_severity, vulnerabilities.cvss_score AS vulnerabilities_cvss_score, vulnerabilities.target AS vulnerabilities_target, vulnerabilities.port AS vulnerabilities_port, vulnerabilities.service AS vulnerabilities_service, vulnerabilities.proof_of_concept AS vulnerabilities_proof_of_concept, vulnerabilities.remediation AS vulnerabilities_remediation, vulnerabilities."references" AS vulnerabilities_references, vulnerabilities.status AS vulnerabilities_status, vulnerabilities.discovered_at AS vulnerabilities_discovered_at, vulnerabilities.updated_at AS vulnerabilities_updated_at, vulnerabilities.workspace_id AS vulnerabilities_workspace_id 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ?
+2025-12-12 03:47:02,054 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:02,057 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+received event "leave_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:02 - utils.compression - DEBUG - 📦 Compressed response: 218417B → 24982B (88.6% reduction)
+2025-12-12 03:47:02,111 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:02 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:02 - socketio.server - INFO - received event "leave_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+QHFpzO8oEFaqt2NuAAAH is leaving room workspace_10 [/]
+received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:02 - socketio.server - INFO - QHFpzO8oEFaqt2NuAAAH is leaving room workspace_10 [/]
+2025-12-12 03:47:02 - socketio.server - INFO - received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:02 - websockets - INFO - 👋 Cliente QHFpzO8oEFaqt2NuAAAH left room: workspace_10
+emitting event "left_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:02 - socketio.server - INFO - QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:02 - socketio.server - INFO - emitting event "left_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:02 - websockets - INFO - 👥 Cliente QHFpzO8oEFaqt2NuAAAH joined room: workspace_10
+emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:02 - socketio.server - INFO - emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "leave_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:02 - socketio.server - INFO - received event "leave_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+QHFpzO8oEFaqt2NuAAAH is leaving room workspace_10 [/]
+2025-12-12 03:47:02 - socketio.server - INFO - QHFpzO8oEFaqt2NuAAAH is leaving room workspace_10 [/]
+2025-12-12 03:47:02 - websockets - INFO - 👋 Cliente QHFpzO8oEFaqt2NuAAAH left room: workspace_10
+emitting event "left_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:02 - socketio.server - INFO - emitting event "left_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:02 - socketio.server - INFO - received event "join_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:02 - socketio.server - INFO - QHFpzO8oEFaqt2NuAAAH is entering room workspace_10 [/]
+2025-12-12 03:47:02 - websockets - INFO - 👥 Cliente QHFpzO8oEFaqt2NuAAAH joined room: workspace_10
+emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:02 - socketio.server - INFO - emitting event "joined_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "leave_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:04 - socketio.server - INFO - received event "leave_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+QHFpzO8oEFaqt2NuAAAH is leaving room workspace_10 [/]
+received event "leave_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:04 - socketio.server - INFO - QHFpzO8oEFaqt2NuAAAH is leaving room workspace_10 [/]
+2025-12-12 03:47:04 - websockets - INFO - 👋 Cliente QHFpzO8oEFaqt2NuAAAH left room: workspace_10
+emitting event "left_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:04 - socketio.server - INFO - emitting event "left_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:04 - socketio.server - INFO - received event "leave_workspace" from QHFpzO8oEFaqt2NuAAAH [/]
+QHFpzO8oEFaqt2NuAAAH is leaving room workspace_10 [/]
+2025-12-12 03:47:04 - socketio.server - INFO - QHFpzO8oEFaqt2NuAAAH is leaving room workspace_10 [/]
+2025-12-12 03:47:04 - websockets - INFO - 👋 Cliente QHFpzO8oEFaqt2NuAAAH left room: workspace_10
+emitting event "left_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:04 - socketio.server - INFO - emitting event "left_workspace" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:05 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/history
+2025-12-12 03:47:05 - __main__ - INFO -    Query Params: {'limit': '20', 'offset': '0', 'workspace_id': '10'}
+2025-12-12 03:47:05,009 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:05 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:05,011 INFO sqlalchemy.engine.Engine SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:05 - sqlalchemy.engine.Engine - INFO - SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:05,012 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10, 50, 0)
+2025-12-12 03:47:05 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10, 50, 0)
+2025-12-12 03:47:05,031 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:05 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:05,032 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:05 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10,)
+2025-12-12 03:47:05 - utils.compression - DEBUG - 📦 Compressed response: 21028B → 2453B (88.3% reduction)
+2025-12-12 03:47:05,037 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:05 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:06 - __main__ - INFO - 🌐 REQUEST: POST /api/v1/reporting/generate-v2
+2025-12-12 03:47:06 - __main__ - INFO -    JSON Body: {'workspace_id': 10, 'report_type': 'technical', 'format': 'pdf'}
+2025-12-12 03:47:06,732 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:06 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:06,732 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:06 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:06,733 INFO sqlalchemy.engine.Engine [cached since 2.914e+04s ago] (10,)
+2025-12-12 03:47:06 - sqlalchemy.engine.Engine - INFO - [cached since 2.914e+04s ago] (10,)
+emitting event "tool_log" to workspace_10 [/]
+2025-12-12 03:47:06 - socketio.server - INFO - emitting event "tool_log" to workspace_10 [/]
+2025-12-12 03:47:06 - websockets.events - DEBUG - 📝 Tool log emitted: [REPORTING] Iniciando generación asíncrona de reporte technica...
+2025-12-12 03:47:06,775 INFO sqlalchemy.engine.Engine INSERT INTO workspace_logs (workspace_id, source, level, message, timestamp, task_id, log_metadata) VALUES (?, ?, ?, ?, ?, ?, ?)
+2025-12-12 03:47:06 - sqlalchemy.engine.Engine - INFO - INSERT INTO workspace_logs (workspace_id, source, level, message, timestamp, task_id, log_metadata) VALUES (?, ?, ?, ?, ?, ?, ?)
+2025-12-12 03:47:06,776 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (10, 'REPORTING', 'INFO', 'Iniciando generación asíncrona de reporte technical (V2)', '2025-12-12 08:47:06.774952', None, '{"task_id": "947278ed-1be8-4445-bdfb-190cc88a7aa3", "user_id": "1"}')
+2025-12-12 03:47:06 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (10, 'REPORTING', 'INFO', 'Iniciando generación asíncrona de reporte technical (V2)', '2025-12-12 08:47:06.774952', None, '{"task_id": "947278ed-1be8-4445-bdfb-190cc88a7aa3", "user_id": "1"}')
+2025-12-12 03:47:06,777 INFO sqlalchemy.engine.Engine COMMIT
+2025-12-12 03:47:06 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-12 03:47:06 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:06 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:08 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:08 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:10 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:10 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:12 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:12 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:14 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:14 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:16 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:16 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:18 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:18 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:20 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:20 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:22 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:22 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:24 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:24 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:26 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:26 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:26 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:26 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:28 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:28 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:30 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:30 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:32 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/status/947278ed-1be8-4445-bdfb-190cc88a7aa3
+2025-12-12 03:47:32 - __main__ - INFO -    Query Params: {'workspace_id': '1'}
+2025-12-12 03:47:32 - utils.compression - DEBUG - 📦 Compressed response: 1050B → 498B (52.6% reduction)
+2025-12-12 03:47:32 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/history
+2025-12-12 03:47:32 - __main__ - INFO -    Query Params: {'limit': '20', 'offset': '0', 'workspace_id': '10'}
+2025-12-12 03:47:32,890 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:32,891 INFO sqlalchemy.engine.Engine SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:32,891 INFO sqlalchemy.engine.Engine [cached since 2.916e+04s ago] (10, 50, 0)
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - [cached since 2.916e+04s ago] (10, 50, 0)
+2025-12-12 03:47:32,920 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:32,920 INFO sqlalchemy.engine.Engine [cached since 2.916e+04s ago] (10,)
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - [cached since 2.916e+04s ago] (10,)
+2025-12-12 03:47:32 - utils.compression - DEBUG - 📦 Compressed response: 21475B → 2454B (88.6% reduction)
+2025-12-12 03:47:32,924 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:32 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/history
+2025-12-12 03:47:32 - __main__ - INFO -    Query Params: {'limit': '20', 'offset': '0', 'workspace_id': '10'}
+2025-12-12 03:47:32,946 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:32,947 INFO sqlalchemy.engine.Engine SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:32,947 INFO sqlalchemy.engine.Engine [cached since 2.916e+04s ago] (10, 50, 0)
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - [cached since 2.916e+04s ago] (10, 50, 0)
+2025-12-12 03:47:32,963 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:32,964 INFO sqlalchemy.engine.Engine [cached since 2.916e+04s ago] (10,)
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - [cached since 2.916e+04s ago] (10,)
+2025-12-12 03:47:32 - utils.compression - DEBUG - 📦 Compressed response: 21475B → 2454B (88.6% reduction)
+2025-12-12 03:47:32,968 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:32 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/history
+2025-12-12 03:47:32 - __main__ - INFO -    Query Params: {'limit': '20', 'offset': '0', 'workspace_id': '10'}
+2025-12-12 03:47:32,978 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:32,979 INFO sqlalchemy.engine.Engine SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:32,979 INFO sqlalchemy.engine.Engine [cached since 2.916e+04s ago] (10, 50, 0)
+2025-12-12 03:47:32 - sqlalchemy.engine.Engine - INFO - [cached since 2.916e+04s ago] (10, 50, 0)
+2025-12-12 03:47:33,003 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:33 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-12 03:47:33,003 INFO sqlalchemy.engine.Engine [cached since 2.916e+04s ago] (10,)
+2025-12-12 03:47:33 - sqlalchemy.engine.Engine - INFO - [cached since 2.916e+04s ago] (10,)
+2025-12-12 03:47:33 - utils.compression - DEBUG - 📦 Compressed response: 21475B → 2454B (88.6% reduction)
+2025-12-12 03:47:33,008 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:33 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-12 03:47:35 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/reporting/download/37
+2025-12-12 03:47:35,274 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 03:47:35 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 03:47:35,275 INFO sqlalchemy.engine.Engine SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.id = ?
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:35 - sqlalchemy.engine.Engine - INFO - SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.id = ?
+ LIMIT ? OFFSET ?
+2025-12-12 03:47:35,276 INFO sqlalchemy.engine.Engine [cached since 2.913e+04s ago] (37, 1, 0)
+2025-12-12 03:47:35 - sqlalchemy.engine.Engine - INFO - [cached since 2.913e+04s ago] (37, 1, 0)
+2025-12-12 03:47:35,280 INFO sqlalchemy.engine.Engine ROLLBACK
+2025-12-12 03:47:35 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:51 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:47:51 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:48:16 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:48:16 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:48:41 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:48:41 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:49:06 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:49:06 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:49:31 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:49:31 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:50:19 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:50:19 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:51:19 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:51:19 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:52:19 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:52:19 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:53:19 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:53:19 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:54:19 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:54:19 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:55:19 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:55:19 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:56:19 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:56:19 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:57:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:57:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:58:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:58:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:59:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 03:59:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:00:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:00:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:01:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:01:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:02:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:02:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:03:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:03:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:04:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:04:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:05:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:05:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:06:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:06:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:07:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:07:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:08:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:08:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:09:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:09:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:10:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:10:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:11:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:11:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:12:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:12:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:13:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:13:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:14:20 - socketio.server - INFO - received event "ping" from QHFpzO8oEFaqt2NuAAAH [/]
+emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
+2025-12-12 04:14:20 - socketio.server - INFO - emitting event "pong" to QHFpzO8oEFaqt2NuAAAH [/]
