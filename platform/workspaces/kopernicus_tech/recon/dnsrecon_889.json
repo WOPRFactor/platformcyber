@@ -1,0 +1,137 @@
+[
+    {
+        "arguments": "/usr/bin/dnsrecon -d kopernicus.tech -t std -j /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/dnsrecon_889.json",
+        "date": "2025-12-09 15:01:48.826325",
+        "type": "ScanInfo"
+    },
+    {
+        "address": "200.58.97.2",
+        "domain": "kopernicus.tech",
+        "mname": "ns9.hostmar.com",
+        "type": "SOA"
+    },
+    {
+        "Version": "root@dnsded01.dattaweb.com)\"",
+        "address": "200.58.97.2",
+        "domain": "kopernicus.tech",
+        "recursive": "True",
+        "target": "ns9.hostmar.com",
+        "type": "NS"
+    },
+    {
+        "Version": "root@dnsded01.dattaweb.com)\"",
+        "address": "200.58.96.2",
+        "domain": "kopernicus.tech",
+        "recursive": "True",
+        "target": "ns10.hostmar.com",
+        "type": "NS"
+    },
+    {
+        "address": "192.178.223.27",
+        "domain": "kopernicus.tech",
+        "exchange": "aspmx2.googlemail.com",
+        "type": "MX"
+    },
+    {
+        "address": "64.233.190.26",
+        "domain": "kopernicus.tech",
+        "exchange": "aspmx.l.google.com",
+        "type": "MX"
+    },
+    {
+        "address": "142.250.102.26",
+        "domain": "kopernicus.tech",
+        "exchange": "aspmx4.googlemail.com",
+        "type": "MX"
+    },
+    {
+        "address": "173.194.76.26",
+        "domain": "kopernicus.tech",
+        "exchange": "aspmx3.googlemail.com",
+        "type": "MX"
+    },
+    {
+        "address": "192.178.213.27",
+        "domain": "kopernicus.tech",
+        "exchange": "aspmx5.googlemail.com",
+        "type": "MX"
+    },
+    {
+        "address": "192.178.223.27",
+        "domain": "kopernicus.tech",
+        "exchange": "alt1.aspmx.l.google.com",
+        "type": "MX"
+    },
+    {
+        "address": "173.194.76.26",
+        "domain": "kopernicus.tech",
+        "exchange": "alt2.aspmx.l.google.com",
+        "type": "MX"
+    },
+    {
+        "address": "2a00:1450:4009:c0f::1a",
+        "domain": "kopernicus.tech",
+        "exchange": "aspmx2.googlemail.com",
+        "type": "MX"
+    },
+    {
+        "address": "2800:3f0:4003:c00::1a",
+        "domain": "kopernicus.tech",
+        "exchange": "aspmx.l.google.com",
+        "type": "MX"
+    },
+    {
+        "address": "2a00:1450:4025:402::1b",
+        "domain": "kopernicus.tech",
+        "exchange": "aspmx4.googlemail.com",
+        "type": "MX"
+    },
+    {
+        "address": "2a00:1450:400c:c00::1b",
+        "domain": "kopernicus.tech",
+        "exchange": "aspmx3.googlemail.com",
+        "type": "MX"
+    },
+    {
+        "address": "2a00:1450:4013:c1e::1b",
+        "domain": "kopernicus.tech",
+        "exchange": "aspmx5.googlemail.com",
+        "type": "MX"
+    },
+    {
+        "address": "2a00:1450:4009:c0f::1a",
+        "domain": "kopernicus.tech",
+        "exchange": "alt1.aspmx.l.google.com",
+        "type": "MX"
+    },
+    {
+        "address": "2a00:1450:400c:c00::1a",
+        "domain": "kopernicus.tech",
+        "exchange": "alt2.aspmx.l.google.com",
+        "type": "MX"
+    },
+    {
+        "address": "66.97.42.227",
+        "domain": "kopernicus.tech",
+        "name": "kopernicus.tech",
+        "type": "A"
+    },
+    {
+        "domain": "kopernicus.tech",
+        "name": "kopernicus.tech",
+        "strings": "v=spf1 include:_spf.mailersend.net include:_spf.google.com ~all",
+        "type": "TXT"
+    },
+    {
+        "domain": "kopernicus.tech",
+        "name": "kopernicus.tech",
+        "strings": "MS=3B738C2F4512F066016A37B6355E1EE11818B87A",
+        "type": "TXT"
+    },
+    {
+        "domain": "kopernicus.tech",
+        "name": "_dmarc.kopernicus.tech",
+        "strings": "v=DMARC1; p=quarantine; rua=mailto:abuso@kopernicus.tech ; ruf=mailto:abuso@kopernicus.tech",
+        "type": "TXT"
+    }
+]

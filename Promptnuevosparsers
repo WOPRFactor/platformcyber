@@ -1,0 +1,563 @@
+# PROMPT PARA CURSOR - IMPLEMENTACIÓN PARSERS DE RECONOCIMIENTO
+
+---
+
+## 📋 CONTEXTO
+
+Necesito implementar 21 parsers nuevos para la fase de reconocimiento del módulo de reportería.
+
+**Estado actual:**
+- ✅ 5 parsers ya funcionando (Subfinder, Amass, Nmap, Nuclei, Nikto)
+- ✅ Sistema de parsers con BaseParser y ParserManager
+- ❌ Faltan 21 parsers de reconocimiento
+
+**Objetivo:**
+Implementar los 21 parsers faltantes siguiendo la guía técnica completa.
+
+---
+
+## 📚 DOCUMENTACIÓN DE REFERENCIA
+
+**Lee primero**: `GUIA_PARSERS_RECONNAISSANCE.md`
+
+Este documento contiene:
+- Código completo de los 21 parsers
+- Estructura de directorios
+- Tests unitarios
+- Fixtures de ejemplo
+- Registro en ParserManager
+
+---
+
+## 🎯 INSTRUCCIONES DE IMPLEMENTACIÓN
+
+### **IMPORTANTE: IMPLEMENTAR POR FASES**
+
+NO implementes todo de una vez. Vamos fase por fase para validar que cada grupo funciona correctamente.
+
+---
+
+## 🚀 FASE 1: SUBDOMAIN PARSERS (4 parsers)
+
+### **Prioridad: CRÍTICA**
+### **Tiempo estimado: 1 hora**
+
+**Tareas:**
+
+1. ✅ **Crear estructura de directorios**:
+```
+services/reporting/parsers/reconnaissance/
+├── __init__.py
+└── subdomain/
+    ├── __init__.py
+    ├── assetfinder_parser.py
+    ├── sublist3r_parser.py
+    ├── findomain_parser.py
+    └── crtsh_parser.py
+```
+
+2. ✅ **Implementar los 4 parsers**:
+   - Copia EXACTAMENTE el código de la sección "PARSERS DE SUBDOMINIOS" de la guía
+   - AssetfinderParser (líneas 89-153)
+   - Sublist3rParser (líneas 159-215)
+   - FindomainParser (líneas 221-268)
+   - CrtshParser (líneas 274-321)
+
+3. ✅ **Registrar en ParserManager**:
+   - Abre `services/reporting/parsers/parser_manager.py`
+   - Agrega imports:
+   ```python
+   from .reconnaissance.subdomain.assetfinder_parser import AssetfinderParser
+   from .reconnaissance.subdomain.sublist3r_parser import Sublist3rParser
+   from .reconnaissance.subdomain.findomain_parser import FindomainParser
+   from .reconnaissance.subdomain.crtsh_parser import CrtshParser
+   ```
+   - En `_register_parsers()`, agrega:
+   ```python
+   # Subdomain parsers
+   self.parsers.extend([
+       AssetfinderParser(),
+       Sublist3rParser(),
+       FindomainParser(),
+       CrtshParser(),
+   ])
+   ```
+
+4. ✅ **Crear tests**:
+   - Crea `tests/unit/test_subdomain_parsers.py`
+   - Copia la clase `TestSubdomainParsers` de la guía (líneas 1950-1978)
+
+5. ✅ **Crear fixtures**:
+   - Crea `tests/fixtures/reconnaissance/`
+   - Crea archivos:
+     - `assetfinder_sample.txt`
+     - `sublist3r_sample.txt`
+     - `findomain_sample.txt`
+     - `crtsh_sample.txt`
+   - Contenido ejemplo (3-5 subdominios por archivo):
+   ```txt
+   api.example.com
+   www.example.com
+   mail.example.com
+   ```
+
+6. ✅ **Ejecutar tests**:
+```bash
+pytest tests/unit/test_subdomain_parsers.py -v
+```
+
+**ESPERA MI VALIDACIÓN antes de continuar con FASE 2.**
+
+---
+
+## 🔍 FASE 2: DNS PARSERS (4 parsers)
+
+### **Prioridad: ALTA**
+### **Tiempo estimado: 1.5 horas**
+
+**Después de que yo valide FASE 1, continúa con:**
+
+1. ✅ **Crear estructura**:
+```
+services/reporting/parsers/reconnaissance/
+└── dns/
+    ├── __init__.py
+    ├── dnsrecon_parser.py
+    ├── fierce_parser.py
+    ├── dnsenum_parser.py
+    └── traceroute_parser.py
+```
+
+2. ✅ **Implementar los 4 parsers**:
+   - DNSReconParser (líneas 327-459) - JSON complejo
+   - FierceParser (líneas 465-599) - TXT con regex
+   - DNSEnumParser (líneas 605-736) - TXT con secciones
+   - TracerouteParser (líneas 742-894) - TXT con saltos
+
+3. ✅ **Registrar en ParserManager**
+
+4. ✅ **Crear tests**: `test_dns_parsers.py`
+
+5. ✅ **Crear fixtures**:
+   - `dnsrecon_sample.json` (formato JSON de la guía línea 339)
+   - `fierce_sample.txt` (formato TXT de la guía línea 477)
+   - `dnsenum_sample.txt`
+   - `traceroute_sample.txt`
+
+6. ✅ **Ejecutar tests**:
+```bash
+pytest tests/unit/test_dns_parsers.py -v
+```
+
+**ESPERA MI VALIDACIÓN antes de continuar con FASE 3.**
+
+---
+
+## 🔎 FASE 3: OSINT PARSERS (5 parsers)
+
+### **Prioridad: ALTA**
+### **Tiempo estimado: 2 horas**
+
+**Después de validar FASE 2:**
+
+1. ✅ **Crear estructura**:
+```
+services/reporting/parsers/reconnaissance/
+└── osint/
+    ├── __init__.py
+    ├── shodan_parser.py
+    ├── censys_parser.py
+    ├── theharvester_parser.py
+    ├── hunterio_parser.py
+    └── wayback_parser.py
+```
+
+2. ✅ **Implementar los 5 parsers**:
+   - ShodanParser (líneas 900-1058) - JSON con vulnerabilidades
+   - CensysParser (líneas 1064-1171) - JSON con certificados
+   - TheHarvesterParser (líneas 1177-1316) - JSON con emails/hosts
+   - HunterioParser (líneas 1322-1466) - JSON con confidence
+   - WaybackParser (líneas 1472-1579) - TXT con timestamps
+
+3. ✅ **Registrar en ParserManager**
+
+4. ✅ **Crear tests**: `test_osint_parsers.py`
+
+5. ✅ **Crear fixtures** (JSON y TXT según formato de la guía)
+
+6. ✅ **Ejecutar tests**:
+```bash
+pytest tests/unit/test_osint_parsers.py -v
+```
+
+**ESPERA MI VALIDACIÓN antes de continuar con FASE 4.**
+
+---
+
+## 🌐 FASE 4: WEB PARSERS (2 parsers)
+
+### **Prioridad: MEDIA**
+### **Tiempo estimado: 45 minutos**
+
+**Después de validar FASE 3:**
+
+1. ✅ **Crear estructura**:
+```
+services/reporting/parsers/reconnaissance/
+└── web/
+    ├── __init__.py
+    ├── whatweb_parser.py
+    └── webcrawler_parser.py
+```
+
+2. ✅ **Implementar los 2 parsers**:
+   - WhatWebParser (líneas 1585-1724) - JSON con plugins
+   - WebCrawlerParser (líneas 1730-1883) - TXT con clasificación
+
+3. ✅ **Registrar en ParserManager**
+
+4. ✅ **Crear tests**: `test_web_parsers.py`
+
+5. ✅ **Crear fixtures**
+
+6. ✅ **Ejecutar tests**
+
+**ESPERA MI VALIDACIÓN antes de continuar con FASE 5.**
+
+---
+
+## 🔐 FASE 5: OTHER PARSERS (3 parsers)
+
+### **Prioridad: ALTA (SecretsParser es crítico)**
+### **Tiempo estimado: 1 hora**
+
+**Después de validar FASE 4:**
+
+1. ✅ **Crear estructura**:
+```
+services/reporting/parsers/reconnaissance/
+└── other/
+    ├── __init__.py
+    ├── whois_parser.py
+    ├── googledorks_parser.py
+    └── secrets_parser.py
+```
+
+2. ✅ **Implementar los 3 parsers**:
+   - WhoisParser (líneas 1889-2012)
+   - GoogleDorksParser (líneas 2018-2154) - Clasificación crítica
+   - SecretsParser (líneas 2160-2299) - CRÍTICO: API keys, passwords
+
+3. ✅ **Registrar en ParserManager**
+
+4. ✅ **Crear tests**: `test_other_parsers.py`
+
+5. ✅ **Crear fixtures**
+
+6. ✅ **Ejecutar tests**
+
+**ESPERA MI VALIDACIÓN final.**
+
+---
+
+## ✅ VALIDACIÓN FINAL
+
+Después de completar las 5 fases:
+
+1. ✅ **Ejecutar TODOS los tests**:
+```bash
+pytest tests/unit/test_*_parsers.py -v
+```
+
+2. ✅ **Verificar ParserManager**:
+```python
+from services.reporting.parsers.parser_manager import ParserManager
+
+pm = ParserManager()
+print(f"Total parsers: {len(pm.parsers)}")
+# Debe mostrar: 26 (5 existentes + 21 nuevos)
+```
+
+3. ✅ **Test end-to-end**:
+   - Generar un reporte desde el frontend
+   - Verificar logs: `tail -f logs/flask.log | grep "Parsed"`
+   - Debe mostrar mensajes como:
+     - "Assetfinder: Parsed X subdomains"
+     - "DNSRecon: Parsed X DNS records"
+     - "Shodan: Parsed X service discoveries"
+     - etc.
+
+4. ✅ **Verificar reporte generado**:
+   - Abrir PDF
+   - Verificar que incluye findings de las nuevas herramientas
+   - Verificar categorías: reconnaissance, dns_enumeration, osint, etc.
+
+---
+
+## ⚠️ CONSIDERACIONES IMPORTANTES
+
+### **Manejo de Errores**
+- TODOS los parsers deben tener try/except
+- Nunca dejar que un parser falle todo el sistema
+- Loguear errores con `logger.error()`
+
+### **Validación de Archivos**
+- Método `can_parse()` debe ser preciso
+- Verificar extensión (.txt, .json)
+- Verificar palabra clave en nombre de archivo
+
+### **Formato de Findings**
+- SIEMPRE usar `ParsedFinding` de `base_parser`
+- Campos obligatorios: title, severity, description, category
+- Campo `raw_data` SIEMPRE debe incluir: `{'tool': 'nombre_herramienta'}`
+
+### **Severidades**
+- `critical`: Secrets expuestos, backups .sql
+- `high`: Vulnerabilidades conocidas (Shodan), configuraciones sensibles
+- `medium`: URLs sensibles, logs expuestos
+- `low`: Emails con alta confidence, paths admin
+- `info`: Subdominios, DNS records, fingerprinting
+
+### **Categorías**
+- `reconnaissance`: Subdominios, WHOIS, IPs
+- `dns_enumeration`: DNS records, name servers
+- `osint`: Shodan, Censys, emails, historical data
+- `web_reconnaissance`: Fingerprinting, crawling
+- `web_vulnerability`: URLs sensibles
+- `information_disclosure`: Google Dorks
+- `secrets_exposure`: API keys, passwords, tokens
+
+---
+
+## 🧪 ESTRUCTURA DE TESTS
+
+Cada archivo de tests debe seguir este patrón:
+
+```python
+import pytest
+from pathlib import Path
+from services.reporting.parsers.reconnaissance.CATEGORIA import parser_module
+
+FIXTURES_DIR = Path(__file__).parent.parent / 'fixtures' / 'reconnaissance'
+
+class TestNombreParsers:
+    """Tests para parsers de CATEGORIA."""
+    
+    def test_nombre_parser(self):
+        """Test NombreParser."""
+        parser = parser_module.NombreParser()
+        fixture_file = FIXTURES_DIR / 'nombre_sample.txt'
+        
+        findings = parser.parse(fixture_file)
+        
+        assert len(findings) > 0
+        assert all(f.category == 'expected_category' for f in findings)
+        assert all('tool' in f.raw_data for f in findings)
+```
+
+---
+
+## 📦 ESTRUCTURA DE FIXTURES
+
+Cada fixture debe ser MÍNIMO pero VÁLIDO:
+
+**JSON fixtures**:
+```json
+{
+  "campo_requerido": "valor",
+  "lista": ["item1", "item2"]
+}
+```
+
+**TXT fixtures**:
+```txt
+linea1.example.com
+linea2.example.com
+linea3.example.com
+```
+
+**NO NECESITAS archivos gigantes**, con 3-5 líneas/objetos es suficiente.
+
+---
+
+## 🚨 PROBLEMAS COMUNES Y SOLUCIONES
+
+### **Problema 1: ImportError en tests**
+```bash
+# Solución: Agregar __init__.py en todos los directorios
+touch services/reporting/parsers/reconnaissance/__init__.py
+touch services/reporting/parsers/reconnaissance/subdomain/__init__.py
+# etc.
+```
+
+### **Problema 2: Fixtures no encontrados**
+```bash
+# Solución: Verificar que exista el directorio
+mkdir -p tests/fixtures/reconnaissance
+```
+
+### **Problema 3: Parser no se registra**
+```python
+# Solución: Verificar imports en parser_manager.py
+# Deben estar TODOS los nuevos parsers importados
+```
+
+### **Problema 4: JSON inválido en fixtures**
+```bash
+# Solución: Validar JSON antes de guardar
+python -m json.tool fixture.json
+```
+
+---
+
+## 📊 MÉTRICAS DE ÉXITO
+
+Al finalizar, debes tener:
+
+- ✅ **21 parsers nuevos** implementados
+- ✅ **26 parsers totales** registrados en ParserManager
+- ✅ **Todos los tests passing** (0 failures)
+- ✅ **Logs sin errores** al generar reportes
+- ✅ **Reportes incluyen findings** de las nuevas herramientas
+- ✅ **Cobertura de código** >85% en nuevos parsers
+
+---
+
+## 🎯 WORKFLOW RECOMENDADO
+
+### **Por cada FASE:**
+
+1. **Implementar código** (copiar de la guía)
+2. **Registrar en ParserManager**
+3. **Crear tests**
+4. **Crear fixtures mínimos**
+5. **Ejecutar tests**: `pytest tests/unit/test_FASE_parsers.py -v`
+6. **Si tests fallan**: Revisar código, fixtures, imports
+7. **Si tests pasan**: Avisar para validación manual
+8. **Esperar confirmación** antes de siguiente fase
+
+### **NO HAGAS:**
+- ❌ Implementar todas las fases de una
+- ❌ Saltar tests
+- ❌ Inventar código (usa el de la guía)
+- ❌ Avanzar sin validación
+
+### **SÍ HACE:**
+- ✅ Una fase a la vez
+- ✅ Tests después de cada fase
+- ✅ Copiar código exacto de la guía
+- ✅ Esperar validación entre fases
+
+---
+
+## 📝 COMANDO INICIAL PARA CURSOR
+
+```
+Hola Cursor,
+
+Lee completo el archivo GUIA_PARSERS_RECONNAISSANCE.md.
+
+Luego implementa la FASE 1 (Subdomain Parsers) siguiendo estas instrucciones:
+
+1. Crea estructura: services/reporting/parsers/reconnaissance/subdomain/
+2. Implementa los 4 parsers copiando el código de la guía
+3. Registra en ParserManager
+4. Crea tests y fixtures
+5. Ejecuta tests
+
+Después de completar FASE 1, avísame para que yo valide antes de continuar con FASE 2.
+
+NO implementes FASE 2, 3, 4 o 5 hasta que yo te confirme.
+
+Empieza creando la estructura de directorios del subdomain/.
+```
+
+---
+
+## 🎁 BONUS: VERIFICACIÓN RÁPIDA
+
+Después de cada fase, ejecuta este script para verificar:
+
+```python
+# verify_phase.py
+from services.reporting.parsers.parser_manager import ParserManager
+
+pm = ParserManager()
+
+# Contar parsers por categoría
+recon_parsers = [p for p in pm.parsers if 'reconnaissance' in str(type(p).__module__)]
+
+print(f"Total parsers: {len(pm.parsers)}")
+print(f"Reconnaissance parsers: {len(recon_parsers)}")
+print("\nReconnaissance parsers list:")
+for p in recon_parsers:
+    print(f"  - {type(p).__name__}")
+```
+
+**Output esperado después de FASE 1:**
+```
+Total parsers: 9 (5 existentes + 4 nuevos)
+Reconnaissance parsers: 4
+  - AssetfinderParser
+  - Sublist3rParser
+  - FindomainParser
+  - CrtshParser
+```
+
+---
+
+## ✅ CHECKLIST FINAL
+
+### **Después de completar las 5 fases:**
+
+- [ ] 21 parsers implementados
+- [ ] ParserManager tiene 26 parsers totales
+- [ ] Todos los tests passing
+- [ ] Fixtures creados (mínimo 3-5 líneas/archivo)
+- [ ] Logs sin errores
+- [ ] Reporte generado incluye nuevos findings
+- [ ] Verificación manual exitosa
+
+---
+
+## 🆘 SI ALGO FALLA
+
+1. **Revisa logs**: `tail -f logs/flask.log`
+2. **Ejecuta tests con verbose**: `pytest -vv`
+3. **Verifica imports**: Todos los `__init__.py` creados
+4. **Compara con guía**: El código debe ser idéntico
+5. **Pregúntame**: Con el error completo y stack trace
+
+---
+
+## 🚀 RESULTADO ESPERADO
+
+Al finalizar las 5 fases:
+
+**Antes:**
+- 5 parsers
+- Reportes con 50-100 findings
+
+**Después:**
+- 26 parsers
+- Reportes con 200-500 findings
+- Cobertura completa de reconocimiento
+
+**Beneficio:** Reportes 3-5x más completos 🎯
+
+---
+
+**Versión**: 1.0  
+**Fecha**: 10 Diciembre 2025  
+**Autor**: Claude AI
+
+---
+
+## 📞 CONTACTO
+
+Si tenés dudas en alguna fase, avisame con:
+- Número de fase
+- Qué estás intentando hacer
+- Error completo (si hay)
+
+¡Éxito con la implementación! 💪

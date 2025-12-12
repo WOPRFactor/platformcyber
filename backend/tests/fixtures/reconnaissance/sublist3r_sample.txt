@@ -1,7 +1,0 @@
-www.example.com
-cpanel.example.com
-mail.example.com
-webdisk.example.com
-webmail.example.com
-
-

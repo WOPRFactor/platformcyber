@@ -1,0 +1,27 @@
+{
+  "total": 2,
+  "matches": [
+    {
+      "ip_str": "192.0.2.1",
+      "port": 443,
+      "product": "nginx",
+      "version": "1.18.0",
+      "os": "Linux",
+      "hostnames": ["example.com"],
+      "location": {
+        "country_code": "US",
+        "city": "San Francisco"
+      },
+      "vulns": ["CVE-2021-44228"]
+    },
+    {
+      "ip_str": "192.0.2.2",
+      "port": 80,
+      "product": "Apache",
+      "version": "2.4.41",
+      "hostnames": ["www.example.com"]
+    }
+  ]
+}
+
+

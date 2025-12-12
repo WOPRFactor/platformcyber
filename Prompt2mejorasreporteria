@@ -1,0 +1,406 @@
+# PROMPT PARA CURSOR - MEJORAS MÓDULO DE REPORTERÍA
+
+---
+
+## 📋 CONTEXTO
+
+Tengo un módulo de reportería V2 funcional que:
+- ✅ Genera reportes en PDF con ReportLab
+- ✅ Parsea 5 herramientas (Nmap, Nuclei, Nikto, Subfinder, Amass)
+- ✅ Usa Celery para procesamiento asíncrono
+- ✅ Tiene frontend React funcional
+
+**Problemas actuales**:
+- ❌ Los reportes NO se guardan en la base de datos
+- ❌ PDFs tienen diseño básico (solo texto)
+- ❌ No hay gráficos ni visualizaciones
+
+---
+
+## 🎯 OBJETIVO
+
+Implementar 3 mejoras siguiendo la documentación técnica completa en:
+**`GUIA_IMPLEMENTACION_MEJORAS_REPORTERIA.md`**
+
+---
+
+## 📝 INSTRUCCIONES PARA CURSOR
+
+### **IMPORTANTE: LEER PRIMERO LA GUÍA**
+
+Antes de generar código, lee el documento completo:
+`GUIA_IMPLEMENTACION_MEJORAS_REPORTERIA.md`
+
+Este documento contiene:
+- Especificaciones técnicas detalladas
+- Código completo de ejemplo
+- Estructura de archivos
+- Tests a implementar
+- Validaciones necesarias
+
+---
+
+## 🚀 IMPLEMENTACIÓN EN 3 FASES
+
+### **FASE 1: GUARDAR REPORTES EN BASE DE DATOS** 
+**Prioridad: CRÍTICA**  
+**Tiempo estimado: 30-60 minutos**
+
+**Tareas**:
+1. ✅ Extender modelo `Report` (ver sección 1.1 de la guía)
+   - Agregar campos: `version`, `is_latest`, `file_hash`, `files_processed`, `tools_used`, `generation_time_seconds`
+   - Agregar métodos: `calculate_file_hash()`, `verify_integrity()`, `to_dict()`
+
+2. ✅ Crear `ReportRepository` (ver sección 1.2)
+   - Ubicación: `repositories/report_repository.py`
+   - Métodos: `create()`, `find_by_id()`, `find_by_workspace()`, `update_status()`, `delete()`
+
+3. ✅ Modificar tarea Celery (ver sección 1.3)
+   - Archivo: `services/reporting/reporting_tasks.py`
+   - Importar `ReportRepository`
+   - Agregar parámetro `user_id` a la función
+   - Después de generar PDF, llamar a `report_repo.create(...)` con todos los datos
+   - Retornar `report_id` en el resultado (además de `report_path`)
+
+4. ✅ Actualizar endpoint de generación (ver sección 1.4)
+   - Obtener `user_id` del JWT: `user_id = get_jwt_identity()`
+   - Pasar `user_id` a la tarea Celery
+
+5. ✅ Crear endpoint `/list/<workspace_id>` (ver sección 1.5)
+   - GET para listar reportes de un workspace
+   - Retorna lista de reportes con metadata
+
+6. ✅ Actualizar endpoint `/download` (ver sección 1.6)
+   - Soportar descarga por `report_id` (nuevo)
+   - Mantener descarga por `report_path` (legacy)
+
+7. ✅ Crear migración de BD (ver sección 1.7)
+   - Si uso Flask-Migrate: `flask db migrate -m "Add fields to Report"`
+   - Si no: ejecutar SQL manualmente
+
+8. ✅ Actualizar frontend (opcional, ver sección 1.8)
+   - Usar `report_id` en lugar de `report_path` para descargar
+
+**Validación (Checklist sección 1.9)**:
+- [ ] Generar reporte → Aparece en BD
+- [ ] Endpoint `/list/<workspace_id>` retorna reportes
+- [ ] Descargar por `report_id` funciona
+
+---
+
+### **FASE 2: MIGRAR A WEASYPRINT PARA PDFs PROFESIONALES**
+**Prioridad: ALTA**  
+**Tiempo estimado: 2-3 horas**
+
+**Pre-requisito**: Instalar dependencias
+```bash
+pip install weasyprint==60.2
+# Dependencias del sistema (si faltan):
+sudo apt-get install -y libpango-1.0-0 libpangocairo-1.0-0 libgdk-pixbuf2.0-0
+```
+
+**Tareas**:
+1. ✅ Crear `WeasyPrintPDFGenerator` (ver sección 2.2)
+   - Ubicación: `services/reporting/generators/pdf_generator_weasy.py`
+   - Usar Jinja2 para templates
+   - Método principal: `generate_technical_report()`
+   - Incluir método `_get_pdf_stylesheet()` con CSS
+
+2. ✅ Crear template HTML (ver sección 2.3)
+   - Ubicación: `services/reporting/templates/technical/report_weasy.html`
+   - **COPIAR EXACTAMENTE** el template de la guía
+   - Incluye: portada, resumen ejecutivo, stats, hallazgos detallados
+
+3. ✅ Modificar tarea Celery (ver sección 2.4)
+   - Cambiar de `SimplePDFGenerator` a `WeasyPrintPDFGenerator`
+   - Comentar/eliminar imports de ReportLab
+
+4. ✅ Test manual (ver sección 2.5)
+   - Crear `test_weasyprint.py` temporal
+   - Generar PDF de prueba con datos mock
+
+**Validación (Checklist sección 2.6)**:
+- [ ] PDF se genera sin errores
+- [ ] Diseño se ve profesional (colores, estilos)
+- [ ] Portada incluida
+- [ ] Severidades con colores correctos
+- [ ] No hay elementos cortados entre páginas
+
+---
+
+### **FASE 3: AGREGAR GRÁFICOS CON PLOTLY**
+**Prioridad: MEDIA**  
+**Tiempo estimado: 1-2 horas**
+
+**Pre-requisito**: Instalar dependencias
+```bash
+pip install plotly==5.18.0 kaleido==0.2.1
+```
+
+**Tareas**:
+1. ✅ Crear `ChartBuilder` (ver sección 3.2)
+   - Ubicación: `services/reporting/utils/chart_builder.py`
+   - Métodos:
+     - `create_severity_pie_chart()` - Pie chart de severidades
+     - `create_category_bar_chart()` - Bar chart de categorías
+     - `create_risk_gauge()` - Gauge del risk score
+     - `generate_all_charts()` - Genera todos y los guarda como PNG
+
+2. ✅ Integrar en el generador (ver sección 3.3)
+   - Modificar `WeasyPrintPDFGenerator`
+   - Instanciar `ChartBuilder` en `__init__`
+   - Generar gráficos antes de renderizar template
+   - Pasar paths de imágenes al template
+
+3. ✅ Actualizar template HTML
+   - Agregar sección de visualizaciones
+   - Incluir imágenes de gráficos con `<img src="{{ charts.risk_gauge }}">`
+
+**Validación (Checklist sección 3.4)**:
+- [ ] Gráficos se generan como PNG
+- [ ] PDF incluye los 3 gráficos
+- [ ] Imágenes se ven bien (no pixeladas)
+- [ ] Colores correctos por severidad
+
+---
+
+## ⚠️ CONSIDERACIONES IMPORTANTES
+
+### **Manejo de Errores**
+- Todos los métodos deben tener try/except
+- Loguear errores con `logger.error()`
+- No dejar que falle la generación completa si un gráfico falla
+
+### **Rutas de Archivos**
+- Usar `Path` de `pathlib` (no strings)
+- Validar que archivos existan antes de leer
+- Sanitizar nombres de archivos
+
+### **Performance**
+- No cargar archivos grandes en memoria completos
+- Limitar cantidad de findings en el PDF (ej: top 100)
+- Gráficos guardar como PNG (no SVG inline)
+
+### **Seguridad**
+- Validar `user_id` del JWT
+- Verificar permisos de workspace
+- Sanitizar inputs en queries
+
+---
+
+## 🧪 TESTING
+
+### **Tests Unitarios a Crear**
+
+**1. Test de Repository** (`tests/unit/test_report_repository.py`):
+```python
+def test_create_report(db_session):
+    """Test crear un reporte."""
+    repo = ReportRepository()
+    report = repo.create(
+        title="Test Report",
+        report_type="technical",
+        format="pdf",
+        workspace_id=1,
+        created_by=1,
+        file_path="/tmp/test.pdf",
+        total_findings=10
+    )
+    assert report.id is not None
+    assert report.status == "completed"
+```
+
+**2. Test de WeasyPrint** (`tests/unit/test_weasyprint_generator.py`):
+```python
+def test_generate_pdf():
+    """Test generar PDF."""
+    generator = WeasyPrintPDFGenerator()
+    # ... (ver guía sección Testing)
+```
+
+**3. Test de Gráficos** (`tests/unit/test_chart_builder.py`):
+```python
+def test_create_pie_chart():
+    """Test crear pie chart."""
+    builder = ChartBuilder()
+    # ... (ver guía sección Testing)
+```
+
+### **Validación Manual**
+
+Después de cada fase, hacer test end-to-end:
+1. Ir al frontend
+2. Seleccionar workspace
+3. Generar reporte
+4. Descargar PDF
+5. Abrir y verificar contenido
+
+---
+
+## 📦 ESTRUCTURA DE ARCHIVOS ESPERADA
+
+```
+services/reporting/
+├── generators/
+│   ├── pdf_generator_simple.py      # Existente (ReportLab) - mantener por ahora
+│   └── pdf_generator_weasy.py       # NUEVO (WeasyPrint)
+├── templates/
+│   └── technical/
+│       ├── report.html              # Existente - mantener
+│       └── report_weasy.html        # NUEVO
+├── utils/                            # NUEVO directorio
+│   └── chart_builder.py             # NUEVO
+├── reporting_tasks.py                # MODIFICAR
+└── routes.py                         # MODIFICAR
+
+repositories/
+└── report_repository.py              # NUEVO (o modificar si existe)
+
+models/
+└── report.py                         # MODIFICAR (agregar campos)
+
+tests/
+└── unit/
+    ├── test_report_repository.py    # NUEVO
+    ├── test_weasyprint_generator.py # NUEVO
+    └── test_chart_builder.py        # NUEVO
+```
+
+---
+
+## 🎯 ORDEN DE IMPLEMENTACIÓN RECOMENDADO
+
+**Día 1 - Funcionalidad crítica**:
+1. ✅ FASE 1 completa (BD)
+2. ✅ Tests de FASE 1
+3. ✅ Validación manual
+
+**Día 2 - Mejora visual**:
+1. ✅ FASE 2 completa (WeasyPrint)
+2. ✅ Tests de FASE 2
+3. ✅ Validación manual
+
+**Día 3 - Gráficos**:
+1. ✅ FASE 3 completa (Plotly)
+2. ✅ Tests de FASE 3
+3. ✅ Validación final completa
+
+---
+
+## 🚨 PROBLEMAS COMUNES Y SOLUCIONES
+
+### **Problema 1: WeasyPrint no instala**
+```bash
+# Solución: Instalar dependencias del sistema primero
+sudo apt-get update
+sudo apt-get install -y build-essential python3-dev libpango-1.0-0 libpangocairo-1.0-0
+pip install weasyprint
+```
+
+### **Problema 2: Kaleido falla al generar PNGs**
+```bash
+# Solución: Instalar versión específica
+pip uninstall kaleido
+pip install kaleido==0.2.1
+```
+
+### **Problema 3: CSS no se aplica en PDF**
+- Usar CSS inline en el template HTML
+- WeasyPrint no soporta todos los CSS modernos
+- Verificar que estilos estén en `<style>` tags dentro del HTML
+
+### **Problema 4: Imágenes no aparecen en PDF**
+- Usar rutas absolutas para imágenes
+- Verificar que archivos PNG existan antes de renderizar
+- Usar `file://` o rutas relativas correctas
+
+---
+
+## ✅ CHECKLIST FINAL DE VALIDACIÓN
+
+### **Funcionalidad**
+- [ ] Reportes se guardan en BD con todos los campos
+- [ ] Endpoint `/list/<workspace_id>` retorna reportes
+- [ ] Descarga por `report_id` funciona
+- [ ] PDFs se generan con WeasyPrint
+- [ ] Diseño del PDF es profesional
+- [ ] Gráficos aparecen en el PDF
+
+### **Tests**
+- [ ] Tests unitarios de repository passing
+- [ ] Tests unitarios de WeasyPrint passing
+- [ ] Tests unitarios de ChartBuilder passing
+- [ ] Test end-to-end funcional
+
+### **Performance**
+- [ ] Generación de reporte < 5 segundos (workspace pequeño)
+- [ ] PDF tamaño razonable (< 5MB para 100 findings)
+- [ ] No memory leaks en generación
+
+### **Seguridad**
+- [ ] `user_id` validado del JWT
+- [ ] Paths sanitizados (no path traversal)
+- [ ] Permisos de workspace verificados
+
+---
+
+## 📚 REFERENCIAS
+
+- **Guía completa**: `GUIA_IMPLEMENTACION_MEJORAS_REPORTERIA.md`
+- **WeasyPrint docs**: https://doc.courtbouillon.org/weasyprint/
+- **Plotly docs**: https://plotly.com/python/
+- **Flask-SQLAlchemy**: https://flask-sqlalchemy.palletsprojects.com/
+
+---
+
+## 🆘 SI ALGO FALLA
+
+1. **Revisar logs**: `logs/celery.log` y `logs/flask.log`
+2. **Verificar dependencias**: `pip list | grep -E "weasyprint|plotly"`
+3. **Rollback**: Ver sección "Rollback Plan" en la guía
+4. **Pedir ayuda**: Incluir error completo y stack trace
+
+---
+
+## 💡 TIPS PARA CURSOR
+
+- **Lee la guía completa primero**: No empieces a codear sin leerla
+- **Copia el código de ejemplo**: Está probado y funciona
+- **No inventes**: Sigue las especificaciones exactamente
+- **Valida cada fase**: No avances sin validar la anterior
+- **Usa los tests**: Están diseñados para verificar todo
+
+---
+
+## 🎯 RESULTADO ESPERADO
+
+Al finalizar las 3 fases, el sistema debe:
+
+✅ **Guardar reportes en BD** con historial completo  
+✅ **Generar PDFs profesionales** con diseño bonito  
+✅ **Incluir gráficos visuales** (pie chart, bar chart, gauge)  
+✅ **Pasar todos los tests** (unitarios e integración)  
+✅ **Funcionar end-to-end** desde el frontend  
+
+---
+
+## 🚀 ¡LISTO PARA EMPEZAR!
+
+**Instrucción final para Cursor**:
+
+```
+Lee completo el archivo GUIA_IMPLEMENTACION_MEJORAS_REPORTERIA.md 
+y luego implementa la FASE 1 (Guardar Reportes en BD) siguiendo 
+todas las especificaciones y código de ejemplo. 
+
+Después de implementar cada archivo, avísame para validar antes 
+de continuar con el siguiente.
+
+Empieza por extender el modelo Report.
+```
+
+---
+
+**Versión**: 1.0  
+**Fecha**: 10 Diciembre 2025  
+**Autor**: Claude AI

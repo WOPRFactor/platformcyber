@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Wed Dec 10 16:07:47 2025 as: /usr/lib/nmap/nmap -&#45;privileged -sV -&#45;script pgsql-brute -p 5432 -oA /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/tmp/enumeration/nmap_postgresql_916.xml kopernicus.tech -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -&#45;privileged -sV -&#45;script pgsql-brute -p 5432 -oA /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/tmp/enumeration/nmap_postgresql_916.xml kopernicus.tech" start="1765400867" startstr="Wed Dec 10 16:07:47 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="5432"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="unknown-response" reason_ttl="0"/>
+<address addr="66.97.42.227" addrtype="ipv4"/>
+<hostnames>
+<hostname name="kopernicus.tech" type="user"/>
+</hostnames>
+</hosthint>
+<host starttime="1765400873" endtime="1765400873"><status state="up" reason="reset" reason_ttl="248"/>
+<address addr="66.97.42.227" addrtype="ipv4"/>
+<hostnames>
+<hostname name="kopernicus.tech" type="user"/>
+<hostname name="vps-1889901-x.dattaweb.com" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="5432"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="postgresql" method="table" conf="3"/></port>
+</ports>
+<times srtt="10200" rttvar="10200" to="100000"/>
+</host>
+<runstats><finished time="1765400874" timestr="Wed Dec 10 16:07:54 2025" summary="Nmap done at Wed Dec 10 16:07:54 2025; 1 IP address (1 host up) scanned in 6.58 seconds" elapsed="6.58" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

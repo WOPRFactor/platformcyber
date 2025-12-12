@@ -1,0 +1,8 @@
+Domain Name: EXAMPLE.TECH
+Creation Date: 2020-06-24T10:15:05.0Z
+Registry Expiry Date: 2026-06-24T23:59:59.0Z
+Registrar: Example Registrar
+Name Server: NS1.EXAMPLE.COM
+Name Server: NS2.EXAMPLE.COM
+
+

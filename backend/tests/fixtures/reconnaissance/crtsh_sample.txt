@@ -1,7 +1,0 @@
-*.example.com
-example.com
-www.example.com
-mail.example.com
-api.example.com
-
-

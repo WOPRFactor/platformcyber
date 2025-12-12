@@ -1,0 +1,1121 @@
+2025-12-04 12:21:33 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-04 12:21:33 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 12:21:33 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-04 12:21:33 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-04 12:21:33 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-04 12:21:33 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-04 12:21:33 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-04 12:21:33 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-04 12:21:33 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-04 12:21:33 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-04 12:21:33 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-04 13:21:14 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-04 13:21:14 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-04 13:21:14 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-04 13:21:14 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-04 13:21:14 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-04 13:21:14 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-04 13:21:14 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-04 13:21:14 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-04 13:21:14 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-04 13:21:14 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-04 13:21:14 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-04 13:21:14 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-04 14:21:14.878023-05:00 (in 3599.979743 seconds)
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - [generated in 0.00061s] (10,)
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - SELECT date(vulnerabilities.updated_at) AS date, vulnerabilities.severity AS vulnerabilities_severity, count(vulnerabilities.id) AS count 
+FROM vulnerabilities 
+WHERE vulnerabilities.workspace_id = ? AND vulnerabilities.updated_at >= ? GROUP BY date(vulnerabilities.updated_at), vulnerabilities.severity
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - [generated in 0.00077s] (10, '2025-11-04 13:21:15.074965')
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - [cached since 0.03582s ago] (10,)
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
+FROM workspace_logs 
+WHERE workspace_logs.workspace_id = ?) AS anon_1
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - [generated in 0.00112s] (10,)
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - SELECT workspace_logs.level AS workspace_logs_level, count(workspace_logs.id) AS count 
+FROM workspace_logs 
+WHERE workspace_logs.workspace_id = ? GROUP BY workspace_logs.level
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - [generated in 0.00103s] (10,)
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - SELECT workspace_logs.source AS workspace_logs_source, count(workspace_logs.id) AS count 
+FROM workspace_logs 
+WHERE workspace_logs.workspace_id = ? GROUP BY workspace_logs.source
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - [generated in 0.00151s] (10,)
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - SELECT date(workspace_logs.timestamp) AS date, count(workspace_logs.id) AS count 
+FROM workspace_logs 
+WHERE workspace_logs.workspace_id = ? AND workspace_logs.timestamp >= ? GROUP BY date(workspace_logs.timestamp) ORDER BY date(workspace_logs.timestamp)
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - [generated in 0.00076s] (10, '2025-11-04 13:21:15.141922')
+2025-12-04 13:21:15 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 06:01:21 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 06:01:21 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 06:01:21 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 06:01:21 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 06:01:21 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 06:01:21 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 06:01:21 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 07:01:21.682002-05:00 (in 3599.999029 seconds)
+2025-12-05 06:01:21 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 06:01:21 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 06:01:21 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 06:01:21 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 07:01:21.682002-05:00 (in 3599.997292 seconds)
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - [generated in 0.00053s] (776,)
+2025-12-05 06:01:21 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 06:01:44 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 06:01:44 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 06:01:44 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 06:01:44 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 06:01:44 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 06:01:44 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 06:01:44 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 07:01:44.777301-05:00 (in 3599.999079 seconds)
+2025-12-05 06:01:44 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 06:01:44 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 06:01:44 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 06:01:44 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 07:01:44.777301-05:00 (in 3599.991009 seconds)
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+ LIMIT ? OFFSET ?
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - [generated in 0.00060s] (776, 1, 0)
+2025-12-05 06:01:44 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 06:02:18 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 06:02:18 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 06:02:18 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 06:02:18 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 06:02:18 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 06:02:18 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 06:02:18 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 06:02:18 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 06:02:18 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 06:02:18 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 07:02:18.910190-05:00 (in 3599.996723 seconds)
+2025-12-05 06:02:18 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 06:02:18 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 07:02:18.910190-05:00 (in 3599.989921 seconds)
+2025-12-05 06:02:19 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 06:02:19 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+ LIMIT ? OFFSET ?
+2025-12-05 06:02:19 - sqlalchemy.engine.Engine - INFO - [generated in 0.00145s] (776, 1, 0)
+2025-12-05 06:02:19 - sqlalchemy.engine.Engine - INFO - UPDATE scans SET progress=?, output=? WHERE scans.id = ?
+2025-12-05 06:02:19 - sqlalchemy.engine.Engine - INFO - [generated in 0.00166s] (10, 'Test', 776)
+2025-12-05 06:02:19 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 06:02:19 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 06:02:19 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+ LIMIT ? OFFSET ?
+2025-12-05 06:02:19 - sqlalchemy.engine.Engine - INFO - [cached since 0.04401s ago] (776, 1, 0)
+2025-12-05 06:02:19 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:18:32 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:18:32 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:18:32 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:18:32 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:18:32 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-05 07:18:32 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:18:32 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:18:32 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:18:32 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:18:32 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:18:32 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:18:32.072600-05:00 (in 3599.982516 seconds)
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? ORDER BY scans.started_at DESC
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - [generated in 0.00109s] ('running',)
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.started_at >= ? ORDER BY scans.started_at DESC
+ LIMIT ? OFFSET ?
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - [generated in 0.00218s] ('2025-12-04 07:18:32.230410', 10, 0)
+2025-12-05 07:18:32 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:18:42 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:18:42 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:18:42 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:18:42 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:18:42 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:18:42 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:18:42 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:18:42 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:18:42 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:18:42 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:18:42.950752-05:00 (in 3599.996387 seconds)
+2025-12-05 07:18:42 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:18:42 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:18:42.950752-05:00 (in 3599.973763 seconds)
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans) AS anon_1
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - [generated in 0.00108s] ()
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - [generated in 0.00111s] ('running',)
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - [cached since 0.005768s ago] ('completed',)
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - [cached since 0.008998s ago] ('failed',)
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.scan_type = ?) AS anon_1
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - [generated in 0.00188s] ('enumeration',)
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.scan_type = ? AND scans.status = ?) AS anon_1
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - [generated in 0.00083s] ('enumeration', 'running')
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? AND scans.progress = ?) AS anon_1
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - [generated in 0.00119s] ('running', 0)
+2025-12-05 07:18:43 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:19:03 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:19:03 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:19:03 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:19:03 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:19:03 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-05 07:19:03 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:19:03 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:19:03 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:19:03 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:19:03 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:19:03 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:19:03.681875-05:00 (in 3599.973222 seconds)
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - [generated in 0.00242s] ('running',)
+2025-12-05 07:19:03 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:19:34 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:19:34 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:19:34 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:19:34 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:19:34 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-05 07:19:34 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:19:34 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:19:34 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:19:34 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:19:34 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:19:34 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:19:34.297597-05:00 (in 3599.978876 seconds)
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? AND scans.started_at < ?
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - [generated in 0.00198s] ('running', '2025-12-05 06:19:34.298634')
+2025-12-05 07:19:34 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:20:00 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:20:00 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:20:00 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:20:00 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:20:00 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:20:00 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:20:00 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:20:00 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:20:00 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:20:00.490696-05:00 (in 3599.985508 seconds)
+2025-12-05 07:20:00 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:20:00 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:20:00.490696-05:00 (in 3599.984725 seconds)
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? AND scans.started_at < ?
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - [generated in 0.00166s] ('running', '2025-12-05 11:20:00.494447')
+2025-12-05 07:20:00 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:20:10 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:20:10 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:20:10 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:20:10 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:20:10 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-05 07:20:10 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:20:10 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:20:10 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:20:10 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:20:10 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:20:10 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:20:10.089557-05:00 (in 3599.990515 seconds)
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? AND scans.progress = ? AND scans.started_at < ?
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - [generated in 0.00125s] ('running', 5, '2025-12-05 07:10:10.090709')
+2025-12-05 07:20:10 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:21:48 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:21:48 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:21:48 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:21:48 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:21:48 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-05 07:21:48 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:21:48 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:21:48 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:21:48 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:21:48 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:21:48 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:21:48.280912-05:00 (in 3599.976992 seconds)
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [generated in 0.00058s] (786,)
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - UPDATE scans SET status=?, error=?, completed_at=? WHERE scans.id = ?
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [generated in 0.00327s] ('cancelled', 'Scan cancelled - stuck in running state for too long', '2025-12-05 07:21:48.579200', 786)
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [cached since 0.02117s ago] (787,)
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - UPDATE scans SET status=?, error=?, completed_at=? WHERE scans.id = ?
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [cached since 0.009456s ago] ('cancelled', 'Scan cancelled - stuck in running state for too long', '2025-12-05 07:21:48.597625', 787)
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [cached since 0.02511s ago] (788,)
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - UPDATE scans SET status=?, error=?, completed_at=? WHERE scans.id = ?
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - [cached since 0.01324s ago] ('cancelled', 'Scan cancelled - stuck in running state for too long', '2025-12-05 07:21:48.601347', 788)
+2025-12-05 07:21:48 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:23:38 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:23:38 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:23:38 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:23:38 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:23:38 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:23:38 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:23:38 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:23:38 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:23:38 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:23:38.620163-05:00 (in 3599.998245 seconds)
+2025-12-05 07:23:38 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:23:38 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:23:38.620163-05:00 (in 3599.976836 seconds)
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - [generated in 0.00159s] ('running',)
+2025-12-05 07:23:38 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:25:52 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:25:52 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:25:52 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:25:52 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:25:52 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-05 07:25:52 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:25:52 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:25:52 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:25:52 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:25:52 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:25:52 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:25:52.633369-05:00 (in 3599.979459 seconds)
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - [generated in 0.00097s] ('running',)
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - [cached since 0.007159s ago] ('cancelled',)
+2025-12-05 07:25:52 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:26:11 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:26:11 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:26:11 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:26:11 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:26:11 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:26:11 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:26:11 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:26:11 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:26:11 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:26:11.447102-05:00 (in 3599.997812 seconds)
+2025-12-05 07:26:11 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:26:11 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:26:11.447102-05:00 (in 3599.984838 seconds)
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - [generated in 0.00055s] ('cancelled',)
+2025-12-05 07:26:11 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:28:59 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:28:59 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:28:59 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:28:59 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:28:59 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-05 07:28:59 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:28:59 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:28:59 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:28:59 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:28:59 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:28:59 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:28:59.593004-05:00 (in 3599.974658 seconds)
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? ORDER BY scans.started_at DESC
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [generated in 0.00321s] ('running',)
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.started_at >= ? ORDER BY scans.started_at DESC
+ LIMIT ? OFFSET ?
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [generated in 0.00590s] ('2025-12-05 06:28:59.941114', 10, 0)
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans) AS anon_1
+2025-12-05 07:28:59 - sqlalchemy.engine.Engine - INFO - [generated in 0.00512s] ()
+2025-12-05 07:29:00 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:29:00 - sqlalchemy.engine.Engine - INFO - [generated in 0.00749s] ('completed',)
+2025-12-05 07:29:00 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:29:00 - sqlalchemy.engine.Engine - INFO - [cached since 0.01186s ago] ('failed',)
+2025-12-05 07:29:00 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:29:00 - sqlalchemy.engine.Engine - INFO - [cached since 0.01589s ago] ('cancelled',)
+2025-12-05 07:29:00 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:29:11 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:29:11 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:29:11 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:29:11 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:29:11 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:29:11 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:29:11 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:29:11.869925-05:00 (in 3599.998523 seconds)
+2025-12-05 07:29:11 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:29:11 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:29:11 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:29:11 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:29:11.869925-05:00 (in 3599.997253 seconds)
+2025-12-05 07:29:11 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:29:12 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? AND scans.started_at < ?
+2025-12-05 07:29:12 - sqlalchemy.engine.Engine - INFO - [generated in 0.00074s] ('running', '2025-12-05 07:19:11.873234')
+2025-12-05 07:29:12 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:29:35 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:29:35 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:29:35 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:29:35 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:29:35 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:29:35 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:29:35 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:29:35 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:29:35.157647-05:00 (in 3599.997456 seconds)
+2025-12-05 07:29:35 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:29:35 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:29:35 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:29:35.157647-05:00 (in 3599.985307 seconds)
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [generated in 0.00525s] (789,)
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - UPDATE scans SET status=?, error=?, completed_at=? WHERE scans.id = ?
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [generated in 0.00210s] ('cancelled', 'Scan cancelled - stuck in running state', '2025-12-05 07:29:35.330682', 789)
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [generated in 0.00137s] (789,)
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - [generated in 0.00279s] ('running',)
+2025-12-05 07:29:35 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:29:48 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:29:48 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:29:48 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:29:48 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:29:48 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:29:48 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:29:48 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:29:48 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:29:48 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:29:48.542102-05:00 (in 3599.990510 seconds)
+2025-12-05 07:29:48 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:29:48 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:29:48.542102-05:00 (in 3599.989988 seconds)
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - [generated in 0.00127s] ('running',)
+2025-12-05 07:29:48 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:33:59 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:33:59 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:33:59 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:33:59 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:33:59 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:33:59 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:33:59 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:33:59.495473-05:00 (in 3599.996660 seconds)
+2025-12-05 07:33:59 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:33:59 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:33:59 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:33:59 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:33:59.495473-05:00 (in 3599.985397 seconds)
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? ORDER BY scans.started_at DESC
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [generated in 0.00104s] ('running',)
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans ORDER BY scans.started_at DESC
+ LIMIT ? OFFSET ?
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [generated in 0.00074s] (5, 0)
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans) AS anon_1
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [generated in 0.00392s] ()
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [generated in 0.00097s] ('completed',)
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [cached since 0.01374s ago] ('failed',)
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [cached since 0.01998s ago] ('cancelled',)
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? AND scans.started_at < ?
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - [generated in 0.00064s] ('running', '2025-12-05 07:28:59.745250')
+2025-12-05 07:33:59 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:34:16 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:34:16 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:34:16 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:34:16 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:34:16 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:34:16 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:34:16 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:34:16 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:34:16 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:34:16.777878-05:00 (in 3599.991770 seconds)
+2025-12-05 07:34:16 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:34:16 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:34:16.777878-05:00 (in 3599.976570 seconds)
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:34:16 - sqlalchemy.engine.Engine - INFO - [generated in 0.00172s] ('running',)
+2025-12-05 07:34:17 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?
+2025-12-05 07:34:17 - sqlalchemy.engine.Engine - INFO - [generated in 0.00126s] ('running',)
+2025-12-05 07:34:17 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:34:40 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:34:40 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:34:40 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:34:40 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:34:40 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:34:40 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-05 07:34:40 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:34:40 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:34:40 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:34:40 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:34:40 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:34:40.902074-05:00 (in 3599.998424 seconds)
+2025-12-05 07:34:40 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - [generated in 0.00591s] (790,)
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - UPDATE scans SET status=?, error=?, completed_at=? WHERE scans.id = ?
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - [generated in 0.00059s] ('cancelled', 'Scan cancelled - stuck in running state', '2025-12-05 07:34:41.143467', 790)
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - [generated in 0.00075s] (790,)
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - [generated in 0.00226s] ('running',)
+2025-12-05 07:34:41 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:35:01 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:35:01 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:35:01 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:35:01 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:35:01 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:35:01 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:35:01 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:35:01.482823-05:00 (in 3599.999173 seconds)
+2025-12-05 07:35:01 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:35:01 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:35:01 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:35:01 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:35:01.482823-05:00 (in 3599.992533 seconds)
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ?) AS anon_1
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - [generated in 0.00621s] ('running',)
+2025-12-05 07:35:01 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:36:06 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:36:06 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:36:06 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:36:06 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:36:06 - apscheduler.scheduler - DEBUG - No jobs; waiting until a job is added
+2025-12-05 07:36:06 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:36:06 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:36:06 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:36:06 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:36:06 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:36:06 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:36:06.060934-05:00 (in 3599.998340 seconds)
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.scan_type = ? ORDER BY scans.started_at DESC
+ LIMIT ? OFFSET ?
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - [generated in 0.00111s] ('enumeration', 10, 0)
+2025-12-05 07:36:06 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:36:34 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:36:34 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:36:34 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:36:34 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:36:34 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:36:34 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:36:34 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:36:34 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:36:34 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:36:34.250256-05:00 (in 3599.998612 seconds)
+2025-12-05 07:36:34 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:36:34 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:36:34.250256-05:00 (in 3599.991596 seconds)
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? AND scans.started_at >= ? ORDER BY scans.started_at DESC
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - [generated in 0.00096s] ('completed', '2025-12-05 06:36:34.395491')
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.status = ? ORDER BY scans.started_at DESC
+ LIMIT ? OFFSET ?
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - [generated in 0.00098s] ('completed', 5, 0)
+2025-12-05 07:36:34 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:37:10 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:37:10 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:37:10 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:37:10 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:37:10 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:37:10 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:37:10 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:37:10.158552-05:00 (in 3599.998647 seconds)
+2025-12-05 07:37:10 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:37:10 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:37:10 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:37:10.158552-05:00 (in 3599.997169 seconds)
+2025-12-05 07:37:10 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.scan_type = ? AND JSON_QUOTE(JSON_EXTRACT(scans.options, ?)) IN (?, ?) AND scans.started_at >= ? ORDER BY scans.started_at DESC
+ LIMIT ? OFFSET ?
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - [generated in 0.00075s] ('enumeration', '$."tool"', 'enum4linux', 'smbclient', '2025-12-05 05:37:10.264590', 5, 0)
+2025-12-05 07:37:10 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-12-05 07:48:18 - app - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/logs/app.log
+2025-12-05 07:48:18 - app - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-05 07:48:18 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-05 07:48:18 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-05 07:48:18 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:48:18 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-05 07:48:18 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-05 07:48:18 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-05 07:48:18 - app - INFO - ✅ Aplicación iniciada en modo development
+2025-12-05 07:48:18 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:48:18.931308-05:00 (in 3599.990759 seconds)
+2025-12-05 07:48:18 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-05 07:48:18 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-05 08:48:18.931308-05:00 (in 3599.973238 seconds)
+2025-12-05 07:48:19 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-05 07:48:19 - sqlalchemy.engine.Engine - INFO - SELECT scans.id AS scans_id, scans.scan_type AS scans_scan_type, scans.target AS scans_target, scans.status AS scans_status, scans.options AS scans_options, scans.progress AS scans_progress, scans.output AS scans_output, scans.error AS scans_error, scans.started_at AS scans_started_at, scans.completed_at AS scans_completed_at, scans.created_at AS scans_created_at, scans.workspace_id AS scans_workspace_id, scans.user_id AS scans_user_id 
+FROM scans 
+WHERE scans.id = ?
+2025-12-05 07:48:19 - sqlalchemy.engine.Engine - INFO - [generated in 0.00100s] (791,)
+2025-12-05 07:48:19 - sqlalchemy.engine.Engine - INFO - ROLLBACK

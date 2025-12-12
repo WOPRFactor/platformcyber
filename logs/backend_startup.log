@@ -41,6 +41,20 @@ Traceback (most recent call last):
     from services.reporting.utils.helpers import calculate_duration
   File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/utils/__init__.py", line 8, in <module>
     from .chart_builder import ChartBuilder
-  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/utils/chart_builder.py", line 14, in <module>
-    import plotly.graph_objects as go
-ModuleNotFoundError: No module named 'plotly'
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/utils/chart_builder.py", line 15, in <module>
+    import plotly.express as px
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/venv/lib/python3.13/site-packages/plotly/express/__init__.py", line 12, in <module>
+        raise ImportError(
+    ...<12 lines>...
+        )
+ImportError: Plotly Express requires numpy to be installed. You can install numpy using pip with:
+
+$ pip install numpy
+
+Or install Plotly Express and its dependencies directly with:
+
+$ pip install "plotly[express]"
+
+You can also use Plotly Graph Objects to create a large number of charts without installing
+numpy. See examples here: https://plotly.com/python/graph-objects/
+

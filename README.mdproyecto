@@ -1,0 +1,272 @@
+# 🚀 Cybersecurity Suite v3.0 - Refactorizada
+
+**Factor X** - Nueva arquitectura limpia y escalable
+
+---
+
+## 📋 Resumen
+
+Esta es la versión **completamente refactorizada** de la Cybersecurity Suite, implementando mejores prácticas de arquitectura de software, separación de responsabilidades y código limpio.
+
+### ✨ Mejoras principales sobre v2.0:
+
+- ✅ **Arquitectura por capas** (Backend)
+- ✅ **Atomic Design** (Frontend)
+- ✅ **Archivos < 300 líneas** (mantenibilidad)
+- ✅ **Testing completo** (80%+ coverage)
+- ✅ **PostgreSQL** (escalabilidad)
+- ✅ **Celery + Redis** (tareas asíncronas)
+- ✅ **Docker Compose** (infraestructura reproducible)
+- ✅ **CI/CD** (deploy automatizado)
+
+---
+
+## 🏗️ Arquitectura
+
+### Backend (Python/Flask)
+
+```
+backend/
+├── api/                    # Endpoints REST (routing)
+│   ├── v1/                 # API version 1
+│   └── v2/                 # API version 2 (futuro)
+├── services/               # Lógica de negocio
+│   ├── scanning/           # Servicios de escaneo
+│   ├── exploitation/       # Servicios de explotación
+│   ├── vulnerability/      # Servicios de vulnerabilidades
+│   ├── reporting/          # Servicios de reportes
+│   └── auth/               # Servicios de autenticación
+├── models/                 # Modelos de dominio (SQLAlchemy)
+├── repositories/           # Acceso a datos (patrón repository)
+├── utils/                  # Utilidades compartidas
+│   ├── parsers/            # Parsers de herramientas (nmap, nikto, etc)
+│   ├── validators/         # Validadores de datos
+│   └── commands/           # Ejecutores de comandos externos
+├── tests/                  # Tests completos
+│   ├── unit/               # Tests unitarios
+│   ├── integration/        # Tests de integración
+│   └── e2e/                # Tests end-to-end
+├── migrations/             # Migraciones de BD (Alembic)
+├── config/                 # Configuración centralizada
+└── app.py                  # Aplicación principal (< 200 líneas)
+```
+
+### Frontend (React/TypeScript)
+
+```
+frontend/src/
+├── components/             # Componentes reutilizables
+│   ├── atoms/              # Componentes básicos (Button, Input)
+│   ├── molecules/          # Componentes compuestos (SearchBar)
+│   ├── organisms/          # Componentes complejos (Table, Panel)
+│   └── templates/          # Layouts de página
+├── features/               # Módulos por funcionalidad
+│   ├── scanning/           # Feature completo de scanning
+│   │   ├── components/     # Componentes específicos
+│   │   ├── hooks/          # Custom hooks
+│   │   ├── services/       # API calls
+│   │   └── types.ts        # TypeScript types
+│   ├── exploitation/       # Feature de explotación
+│   ├── vulnerability/      # Feature de vulnerabilidades
+│   ├── reporting/          # Feature de reportes
+│   └── auth/               # Feature de autenticación
+├── services/               # Capa de servicios (API client)
+├── hooks/                  # Custom hooks globales
+├── contexts/               # React contexts
+├── pages/                  # Páginas principales (orquestación)
+├── types/                  # TypeScript types globales
+└── utils/                  # Utilidades compartidas
+```
+
+---
+
+## 🚀 Inicio Rápido
+
+### Prerrequisitos
+
+- Python 3.11+
+- Node.js 18+
+- Docker & Docker Compose
+- PostgreSQL 15+
+- Redis 7+
+
+### Instalación
+
+```bash
+# 1. Clonar y entrar al directorio
+cd environments/dev3-refactor/platform
+
+# 2. Levantar infraestructura
+docker-compose up -d
+
+# 3. Instalar dependencias backend
+cd backend
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# 4. Migrar base de datos
+alembic upgrade head
+
+# 5. Instalar dependencias frontend
+cd ../frontend
+npm install
+
+# 6. Iniciar desarrollo
+# Terminal 1: Backend
+cd backend && python app.py
+
+# Terminal 2: Frontend
+cd frontend && npm run dev
+```
+
+### Acceso
+
+- **Frontend**: http://localhost:5180
+- **Backend API**: http://localhost:5010
+- **API Docs**: http://localhost:5010/docs
+- **Redis**: localhost:6379
+- **PostgreSQL**: localhost:5432
+
+---
+
+## 🧪 Testing
+
+### Backend
+
+```bash
+cd backend
+
+# Tests unitarios
+pytest tests/unit -v
+
+# Tests de integración
+pytest tests/integration -v
+
+# Tests E2E
+pytest tests/e2e -v
+
+# Coverage
+pytest --cov=. --cov-report=html
+```
+
+### Frontend
+
+```bash
+cd frontend
+
+# Tests unitarios
+npm test
+
+# Tests con coverage
+npm test -- --coverage
+
+# Tests E2E (Playwright)
+npm run test:e2e
+```
+
+---
+
+## 📦 Stack Tecnológico
+
+### Backend
+- **Framework**: Flask 3.0
+- **ORM**: SQLAlchemy 2.0
+- **Migrations**: Alembic
+- **Auth**: Flask-JWT-Extended
+- **Validation**: Pydantic
+- **Testing**: pytest
+- **Tasks**: Celery + Redis
+- **DB**: PostgreSQL 15
+
+### Frontend
+- **Framework**: React 18
+- **Language**: TypeScript 5
+- **Bundler**: Vite 5
+- **State**: React Query + Zustand
+- **Routing**: React Router 6
+- **UI**: Tailwind CSS + shadcn/ui
+- **Forms**: React Hook Form + Zod
+- **Testing**: Vitest + Testing Library
+
+### Infrastructure
+- **Containerization**: Docker + Docker Compose
+- **Reverse Proxy**: Nginx
+- **Monitoring**: Prometheus + Grafana
+- **Logging**: ELK Stack
+- **CI/CD**: GitHub Actions
+
+---
+
+## 📚 Documentación
+
+Toda la documentación está en `docs/`:
+
+- **Architecture**: Diagramas y decisiones de arquitectura
+- **API**: Documentación completa de endpoints (OpenAPI)
+- **Guides**: Guías de desarrollo y deployment
+- **ADR**: Architecture Decision Records
+
+---
+
+## 🔄 Migración desde v2.0
+
+Ver guía completa: `docs/guides/migration-from-v2.md`
+
+**Resumen:**
+1. v2.0 y v3.0 pueden correr en paralelo
+2. Migración por módulos (uno a uno)
+3. Testing exhaustivo antes de mover a producción
+4. Rollback plan documentado
+
+---
+
+## 🤝 Contribución
+
+1. Fork el proyecto
+2. Crear feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push al branch (`git push origin feature/AmazingFeature`)
+5. Abrir Pull Request
+
+**Estándares de código:**
+- Backend: PEP 8, type hints, docstrings
+- Frontend: ESLint + Prettier, TypeScript strict
+- Tests: Coverage > 80%
+- Commits: Conventional Commits
+
+---
+
+## 📝 Estado del Proyecto
+
+| Módulo | Estado | Coverage | Docs |
+|--------|--------|----------|------|
+| Auth | 🟡 En desarrollo | 0% | ⬜ Pendiente |
+| Scanning | ⬜ Pendiente | 0% | ⬜ Pendiente |
+| Vulnerability | ⬜ Pendiente | 0% | ⬜ Pendiente |
+| Exploitation | ⬜ Pendiente | 0% | ⬜ Pendiente |
+| Reporting | ⬜ Pendiente | 0% | ⬜ Pendiente |
+
+**Leyenda:**
+- 🟢 Completo
+- 🟡 En desarrollo
+- ⬜ Pendiente
+
+---
+
+## 📞 Contacto
+
+**Factor X Team**
+- Email: factorx@cybersecurity.dev
+- Docs: https://docs.cybersecurity.dev
+- Issues: https://github.com/cybersecurity/suite/issues
+
+---
+
+**🤖 Factor X - Construyendo el futuro del pentesting automatizado**
+
+Versión: 3.0.0-alpha
+Última actualización: 22 de Noviembre de 2025
+
+
+

@@ -1,0 +1,10 @@
+# Nmap 7.95 scan initiated Fri Dec  5 10:45:35 2025 as: /usr/lib/nmap/nmap --privileged -sV --script pgsql-brute -p 5432 -oA /home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/tmp/enumeration/nmap_postgresql_823.xml kopernicus.tech
+Nmap scan report for kopernicus.tech (66.97.42.227)
+Host is up (0.0079s latency).
+rDNS record for 66.97.42.227: vps-1889901-x.dattaweb.com
+
+PORT     STATE    SERVICE    VERSION
+5432/tcp filtered postgresql
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Fri Dec  5 10:45:41 2025 -- 1 IP address (1 host up) scanned in 6.53 seconds

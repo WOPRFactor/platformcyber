@@ -1,0 +1,1551 @@
+"""
+Scanning Service
+================
+
+Servicio completo para escaneo de puertos y servicios.
+
+Herramientas integradas:
+- Nmap (todos los tipos de scan)
+- RustScan (fast port scanning)
+- Masscan (internet-scale scanner)
+- Naabu (port discovery)
+"""
+
+import subprocess
+import logging
+import json
+import threading
+from typing import Dict, Any, Optional, List
+from pathlib import Path
+from datetime import datetime
+
+from utils.validators import CommandSanitizer, IPValidator
+from utils.commands import SafeNmap, SafeMasscan
+from utils.parsers.nmap_parser import NmapParser, RustScanParser, MasscanParser
+from utils.workspace_logger import log_to_workspace
+from repositories import ScanRepository
+from models import db
+from services.enumeration import (
+    SMBEnumerationService,
+    NetworkServicesEnumerationService,
+    DatabaseEnumerationService,
+    SSLEnumerationService
+)
+
+logger = logging.getLogger(__name__)
+
+
+class ScanningService:
+    """Servicio completo de escaneo de puertos y servicios."""
+    
+    def __init__(self, scan_repository: ScanRepository = None):
+        """Inicializa el servicio."""
+        self.scan_repo = scan_repository or ScanRepository()
+        # output_dir se obtiene dinámicamente por workspace
+        # Mantener fallback para compatibilidad (usar tmp del proyecto)
+        from utils.workspace_filesystem import PROJECT_TMP_DIR
+        self.output_dir = PROJECT_TMP_DIR / 'scans'
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.nmap_parser = NmapParser()
+        self.rustscan_parser = RustScanParser()
+        self.masscan_parser = MasscanParser()
+        
+        # Inicializar servicios de enumeración
+        # enum_output_dir se obtiene dinámicamente por workspace
+        from utils.workspace_filesystem import PROJECT_TMP_DIR
+        enum_output_dir = PROJECT_TMP_DIR / 'enumeration'
+        self.smb_enum = SMBEnumerationService(self.scan_repo, enum_output_dir)
+        self.network_enum = NetworkServicesEnumerationService(self.scan_repo, enum_output_dir)
+        self.database_enum = DatabaseEnumerationService(self.scan_repo, enum_output_dir)
+        self.ssl_enum = SSLEnumerationService(self.scan_repo, enum_output_dir)
+    
+    # ============================================
+    # NMAP SCANS (Todos los tipos)
+    # ============================================
+    
+    def start_nmap_scan(
+        self,
+        target: str,
+        scan_type: str,
+        workspace_id: int,
+        user_id: int,
+        ports: Optional[str] = None,
+        scripts: Optional[List[str]] = None,
+        os_detection: bool = False,
+        version_detection: bool = False
+    ) -> Dict[str, Any]:
+        """
+        Inicia un escaneo Nmap completo.
+        
+        Args:
+            target: Target (IP, CIDR, hostname)
+            scan_type: Tipo (discovery, stealth, comprehensive, quick, vuln, udp)
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            ports: Puertos específicos (ej: "22,80,443" o "1-1000")
+            scripts: Scripts NSE a ejecutar
+            os_detection: Activar detección de OS
+            version_detection: Activar detección de versiones
+        """
+        # Validar target
+        CommandSanitizer.validate_target(target)
+        
+        # Crear scan
+        scan = self.scan_repo.create(
+            scan_type='port_scan',
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            options={
+                'tool': 'nmap',
+                'scan_type': scan_type,
+                'ports': ports,
+                'scripts': scripts,
+                'os_detection': os_detection,
+                'version_detection': version_detection
+            }
+        )
+        
+        try:
+            # Obtener directorio del workspace dinámicamente
+            from utils.workspace_filesystem import get_workspace_output_dir_from_scan
+            workspace_output_dir = get_workspace_output_dir_from_scan(scan.id, 'scans')
+            output_file = str(workspace_output_dir / f'nmap_{scan.id}')
+            
+            # Construir comando según tipo
+            if scan_type == 'discovery':
+                # Host discovery (ping scan)
+                command = SafeNmap.build_discovery_scan(target, output_file)
+            
+            elif scan_type == 'quick':
+                # Quick scan de top 100 puertos
+                command = [
+                    'nmap',
+                    '-T4',  # Aggressive timing
+                    '--top-ports', '100',
+                    '-oX', f'{output_file}.xml',
+                    '-oN', f'{output_file}.txt',
+                    target
+                ]
+            
+            elif scan_type == 'stealth':
+                # SYN scan sigiloso
+                command = SafeNmap.build_stealth_scan(
+                    target,
+                    ports or 'top-1000',
+                    output_file
+                )
+            
+            elif scan_type == 'comprehensive':
+                # Scan completo con detección de versiones y OS
+                command = [
+                    'nmap',
+                    '-sS',  # SYN scan
+                    '-sV',  # Version detection
+                    '-O',   # OS detection
+                    '-T4',
+                    '--osscan-guess',
+                    '-p', ports or '1-65535',
+                    '-oX', f'{output_file}.xml',
+                    '-oN', f'{output_file}.txt',
+                    target
+                ]
+            
+            elif scan_type == 'service':
+                # Service scan: detección de servicios y versiones
+                command = [
+                    'nmap',
+                    '-sV',  # Version detection
+                    '-O',   # OS detection
+                    '-T4',
+                    '--top-ports', '1000',  # Top 1000 puertos
+                    '-oX', f'{output_file}.xml',
+                    '-oN', f'{output_file}.txt',
+                    target
+                ]
+            
+            elif scan_type == 'os':
+                # OS detection scan: solo detección de sistema operativo
+                command = [
+                    'nmap',
+                    '-O',   # OS detection
+                    '--osscan-guess',
+                    '-T4',
+                    '--top-ports', '1000',  # Top 1000 puertos para OS detection
+                    '-oX', f'{output_file}.xml',
+                    '-oN', f'{output_file}.txt',
+                    target
+                ]
+            
+            elif scan_type == 'vuln':
+                # Vulnerability scan con scripts NSE
+                command = SafeNmap.build_vuln_scan(target, ports, output_file)
+            
+            elif scan_type == 'udp':
+                # UDP scan
+                command = SafeNmap.build_udp_scan(target, output_file)
+            
+            elif scan_type == 'custom':
+                # Custom scan con opciones específicas
+                command = ['nmap']
+                
+                if version_detection:
+                    command.append('-sV')
+                if os_detection:
+                    command.append('-O')
+                if scripts:
+                    command.extend(['--script', ','.join(scripts)])
+                if ports:
+                    command.extend(['-p', ports])
+                
+                command.extend([
+                    '-oX', f'{output_file}.xml',
+                    '-oN', f'{output_file}.txt',
+                    target
+                ])
+            
+            else:
+                raise ValueError(f'Invalid scan_type: {scan_type}')
+            
+            # Sanitizar
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            log_to_workspace(
+                workspace_id=workspace_id,
+                source='NMAP',
+                level='INFO',
+                message=f"Starting Nmap {scan_type} scan {scan.id}",
+                metadata={'scan_id': scan.id, 'target': target, 'scan_type': scan_type}
+            )
+            
+            # Ejecutar con threading (sin Celery para evitar dependencias)
+            import threading
+            
+            log_to_workspace(
+                workspace_id=workspace_id,
+                source='NMAP',
+                level='INFO',
+                message=f"Iniciando escaneo Nmap: scan_id={scan.id}, target={target}",
+                metadata={'scan_id': scan.id, 'target': target, 'scan_type': scan_type}
+            )
+            
+            # Ejecutar en thread separado
+            thread = threading.Thread(
+                target=self._execute_scan,
+                args=(scan.id, sanitized_cmd, output_file, 'nmap')
+            )
+            thread.daemon = True
+            thread.start()
+            
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': 'nmap',
+                'scan_type': scan_type,
+                'target': target
+            }
+            
+        except Exception as e:
+            log_to_workspace(
+                workspace_id=workspace_id,
+                source='NMAP',
+                level='ERROR',
+                message=f"Error starting Nmap scan: {str(e)}",
+                metadata={'target': target, 'error': str(e)}
+            )
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    def preview_nmap_scan(
+        self,
+        target: str,
+        scan_type: str,
+        workspace_id: int,
+        ports: Optional[str] = None,
+        scripts: Optional[List[str]] = None,
+        os_detection: bool = False,
+        version_detection: bool = False
+    ) -> Dict[str, Any]:
+        """
+        Preview del comando Nmap (sin ejecutar).
+        
+        Args:
+            target: Target (IP, CIDR, hostname)
+            scan_type: Tipo (discovery, stealth, comprehensive, quick, vuln, udp)
+            workspace_id: ID del workspace
+            ports: Puertos específicos (ej: "22,80,443" o "1-1000")
+            scripts: Scripts NSE a ejecutar
+            os_detection: Activar detección de OS
+            version_detection: Activar detección de versiones
+        
+        Returns:
+            Dict con información del comando que se ejecutaría
+        """
+        # Validar target
+        CommandSanitizer.validate_target(target)
+        
+        # Simular output_file (no se crea realmente)
+        output_file = f'/workspaces/workspace_{workspace_id}/scans/nmap_{{scan_id}}'
+        
+        # Construir comando según tipo (misma lógica que start_nmap_scan)
+        if scan_type == 'discovery':
+            command = SafeNmap.build_discovery_scan(target, output_file)
+        elif scan_type == 'quick':
+            command = [
+                'nmap',
+                '-T4',
+                '--top-ports', '100',
+                '-oX', f'{output_file}.xml',
+                '-oN', f'{output_file}.txt',
+                target
+            ]
+        elif scan_type == 'stealth':
+            command = SafeNmap.build_stealth_scan(
+                target,
+                ports or 'top-1000',
+                output_file
+            )
+        elif scan_type == 'comprehensive':
+            command = [
+                'nmap',
+                '-sS',
+                '-sV',
+                '-O',
+                '-T4',
+                '--osscan-guess',
+                '-p', ports or '1-65535',
+                '-oX', f'{output_file}.xml',
+                '-oN', f'{output_file}.txt',
+                target
+            ]
+        elif scan_type == 'service':
+            command = [
+                'nmap',
+                '-sV',
+                '-O',
+                '-T4',
+                '--top-ports', '1000',
+                '-oX', f'{output_file}.xml',
+                '-oN', f'{output_file}.txt',
+                target
+            ]
+        elif scan_type == 'os':
+            command = [
+                'nmap',
+                '-O',
+                '--osscan-guess',
+                '-T4',
+                '--top-ports', '1000',
+                '-oX', f'{output_file}.xml',
+                '-oN', f'{output_file}.txt',
+                target
+            ]
+        elif scan_type == 'vuln':
+            command = SafeNmap.build_vuln_scan(target, ports, output_file)
+        elif scan_type == 'udp':
+            command = SafeNmap.build_udp_scan(target, output_file)
+        elif scan_type == 'custom':
+            command = ['nmap']
+            if version_detection:
+                command.append('-sV')
+            if os_detection:
+                command.append('-O')
+            if scripts:
+                command.extend(['--script', ','.join(scripts)])
+            if ports:
+                command.extend(['-p', ports])
+            command.extend([
+                '-oX', f'{output_file}.xml',
+                '-oN', f'{output_file}.txt',
+                target
+            ])
+        else:
+            raise ValueError(f'Invalid scan_type: {scan_type}')
+        
+        command_str = ' '.join([str(c) for c in command])
+        
+        # Timeout estimado por tipo de scan
+        timeout_map = {
+            'discovery': 300,
+            'quick': 120,
+            'stealth': 600,
+            'comprehensive': 3600,
+            'service': 1800,
+            'os': 1200,
+            'vuln': 2400,
+            'udp': 1800,
+            'custom': 1800
+        }
+        
+        warnings = []
+        suggestions = []
+        
+        if scan_type == 'comprehensive' and not ports:
+            warnings.append('Escaneo completo sin límite de puertos puede tardar mucho tiempo')
+            suggestions.append('Considera especificar un rango de puertos específico')
+        
+        if scan_type == 'vuln':
+            suggestions.append('Este escaneo puede ser detectado por sistemas de seguridad')
+        
+        return {
+            'command': command,
+            'command_string': command_str,
+            'parameters': {
+                'tool': 'nmap',
+                'target': target,
+                'scan_type': scan_type,
+                'ports': ports,
+                'scripts': scripts,
+                'os_detection': os_detection,
+                'version_detection': version_detection
+            },
+            'estimated_timeout': timeout_map.get(scan_type, 1800),
+            'output_file': f'{output_file}.xml',
+            'warnings': warnings,
+            'suggestions': suggestions
+        }
+    
+    # ============================================
+    # RUSTSCAN (Fast scanning)
+    # ============================================
+    
+    def start_rustscan(
+        self,
+        target: str,
+        workspace_id: int,
+        user_id: int,
+        batch_size: int = 4000,
+        timeout: int = 1500,
+        ulimit: int = 5000
+    ) -> Dict[str, Any]:
+        """
+        Inicia RustScan (escaneo ultra-rápido).
+        
+        Args:
+            target: Target (IP o hostname)
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            batch_size: Tamaño del batch
+            timeout: Timeout en ms
+            ulimit: Límite de file descriptors
+        """
+        CommandSanitizer.validate_target(target)
+        
+        scan = self.scan_repo.create(
+            scan_type='port_scan',
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            options={
+                'tool': 'rustscan',
+                'batch_size': batch_size,
+                'timeout': timeout,
+                'ulimit': ulimit
+            }
+        )
+        
+        try:
+            # Verificar que RustScan esté instalado ANTES de iniciar el thread
+            import shutil
+            import os
+            rustscan_path = None
+            
+            # Buscar RustScan en ubicaciones accesibles
+            # PRIMERO: Buscar en PATH del sistema
+            rustscan_path = shutil.which('rustscan')
+            
+            # Si no está en PATH, intentar ejecutar usando shell del usuario para obtener PATH completo
+            if not rustscan_path:
+                try:
+                    # Intentar obtener PATH del usuario usando bash login shell
+                    result = subprocess.run(
+                        ['bash', '-l', '-c', 'which rustscan'],
+                        capture_output=True,
+                        text=True,
+                        timeout=3,
+                        env=os.environ.copy()
+                    )
+                    if result.returncode == 0 and result.stdout.strip():
+                        rustscan_path = result.stdout.strip()
+                except Exception:
+                    pass
+            
+            # Si aún no está, intentar ejecutar directamente para verificar si está disponible
+            if not rustscan_path:
+                try:
+                    # Intentar ejecutar rustscan directamente (puede estar en PATH del sistema pero no del proceso)
+                    result = subprocess.run(
+                        ['rustscan', '--help'],
+                        capture_output=True,
+                        text=True,
+                        timeout=2,
+                        env=os.environ.copy()
+                    )
+                    if result.returncode == 0 or 'RustScan' in result.stdout or 'RustScan' in result.stderr:
+                        rustscan_path = 'rustscan'  # Si funciona, usar el nombre directamente
+                except (subprocess.TimeoutExpired, FileNotFoundError, Exception):
+                    pass
+            
+            # Si aún no está, intentar con which usando subprocess
+            if not rustscan_path:
+                try:
+                    result = subprocess.run(
+                        ['which', 'rustscan'],
+                        capture_output=True,
+                        text=True,
+                        timeout=2,
+                        env=os.environ.copy()
+                    )
+                    if result.returncode == 0 and result.stdout.strip():
+                        rustscan_path = result.stdout.strip()
+                except Exception:
+                    pass
+            
+            # Si aún no está, buscar en ubicaciones comunes accesibles (intentando ejecutar directamente)
+            if not rustscan_path:
+                common_paths = [
+                    '/usr/local/bin/rustscan',  # Prioridad: ubicación estándar del sistema
+                    '/usr/bin/rustscan',
+                    os.path.expanduser('~/.cargo/bin/rustscan'),  # Cargo del usuario actual
+                    os.path.expanduser('~/.local/bin/rustscan'),    # Local del usuario actual
+                    '/opt/rustscan/rustscan',
+                    '/snap/bin/rustscan',
+                    '/home/kali/.cargo/bin/rustscan',
+                    '/home/kali/.local/bin/rustscan'
+                ]
+                for path in common_paths:
+                    # Intentar ejecutar directamente sin verificar existencia (puede haber problemas de permisos)
+                    try:
+                        result = subprocess.run(
+                            [path, '--help'],
+                            capture_output=True,
+                            text=True,
+                            timeout=2
+                        )
+                        if result.returncode == 0 or 'RustScan' in result.stdout or 'RustScan' in result.stderr:
+                            rustscan_path = path
+                            logger.info(f"RustScan encontrado en: {path}")
+                            break
+                    except (subprocess.TimeoutExpired, PermissionError, FileNotFoundError, Exception):
+                        # Continuar con la siguiente ruta
+                        continue
+            
+            # Si aún no se encuentra, usar 'rustscan' directamente
+            # El error se manejará cuando se intente ejecutar el comando
+            if not rustscan_path:
+                rustscan_path = 'rustscan'
+                logger.info(f"RustScan no encontrado en ubicaciones estándar, usando 'rustscan' directamente")
+            
+            # Obtener directorio del workspace dinámicamente
+            from utils.workspace_filesystem import get_workspace_output_dir_from_scan
+            workspace_output_dir = get_workspace_output_dir_from_scan(scan.id, 'scans')
+            output_file = str(workspace_output_dir / f'rustscan_{scan.id}.txt')
+            
+            # Usar la ruta encontrada de rustscan
+            rustscan_executable = rustscan_path if rustscan_path else 'rustscan'
+            
+            command = [
+                rustscan_executable,
+                '-a', target,
+                '-b', str(batch_size),
+                '-t', str(timeout),
+                '--ulimit', str(ulimit),
+                '--greppable'
+            ]
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            log_to_workspace(
+                workspace_id=workspace_id,
+                source='RUSTSCAN',
+                level='INFO',
+                message=f"Starting RustScan {scan.id}",
+                metadata={'scan_id': scan.id, 'target': target}
+            )
+            
+            thread = threading.Thread(
+                target=self._execute_scan,
+                args=(scan.id, sanitized_cmd, output_file, 'rustscan')
+            )
+            thread.daemon = True
+            thread.start()
+            
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': 'rustscan',
+                'target': target
+            }
+            
+        except Exception as e:
+            log_to_workspace(
+                workspace_id=workspace_id,
+                source='RUSTSCAN',
+                level='ERROR',
+                message=f"Error starting RustScan: {str(e)}",
+                metadata={'target': target, 'error': str(e)}
+            )
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    # ============================================
+    # MASSCAN (Internet-scale scanning)
+    # ============================================
+    
+    def start_masscan(
+        self,
+        target: str,
+        ports: str,
+        workspace_id: int,
+        user_id: int,
+        rate: int = 1000,
+        environment: str = 'internal'
+    ) -> Dict[str, Any]:
+        """
+        Inicia Masscan (scan masivo).
+        
+        Args:
+            target: Target (IP, CIDR)
+            ports: Puertos (ej: "1-65535" o "80,443,8080")
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            rate: Rate de paquetes/segundo
+            environment: internal/external/stealth
+        """
+        CommandSanitizer.validate_target(target)
+        
+        scan = self.scan_repo.create(
+            scan_type='port_scan',
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            options={
+                'tool': 'masscan',
+                'ports': ports,
+                'rate': rate,
+                'environment': environment
+            }
+        )
+        
+        try:
+            # Obtener directorio del workspace dinámicamente
+            from utils.workspace_filesystem import get_workspace_output_dir_from_scan
+            workspace_output_dir = get_workspace_output_dir_from_scan(scan.id, 'scans')
+            output_file = str(workspace_output_dir / f'masscan_{scan.id}.json')
+            
+            # Usar SafeMasscan para rate limiting seguro
+            command = SafeMasscan.build_scan(target, ports, environment, output_file)
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            log_to_workspace(
+                workspace_id=workspace_id,
+                source='MASSCAN',
+                level='INFO',
+                message=f"Starting Masscan {scan.id} with rate {rate}",
+                metadata={'scan_id': scan.id, 'target': target, 'rate': rate}
+            )
+            
+            thread = threading.Thread(
+                target=self._execute_scan,
+                args=(scan.id, sanitized_cmd, output_file, 'masscan')
+            )
+            thread.daemon = True
+            thread.start()
+            
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': 'masscan',
+                'target': target,
+                'rate': rate
+            }
+            
+        except Exception as e:
+            log_to_workspace(
+                workspace_id=workspace_id,
+                source='MASSCAN',
+                level='ERROR',
+                message=f"Error starting Masscan: {str(e)}",
+                metadata={'target': target, 'error': str(e)}
+            )
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    # Alias para compatibilidad con el endpoint
+    def start_masscan_scan(self, *args, **kwargs):
+        """Alias para start_masscan para compatibilidad con el endpoint."""
+        return self.start_masscan(*args, **kwargs)
+    
+    # ============================================
+    # NAABU (Fast port discovery)
+    # ============================================
+    
+    def start_naabu(
+        self,
+        target: str,
+        workspace_id: int,
+        user_id: int,
+        top_ports: Optional[int] = None,
+        rate: int = 1000,
+        verify: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Inicia Naabu (port discovery rápido).
+        
+        Args:
+            target: Target
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            top_ports: Top N puertos (100, 1000, etc)
+            rate: Rate de paquetes/segundo
+            verify: Verificar puertos abiertos
+        """
+        CommandSanitizer.validate_target(target)
+        
+        scan = self.scan_repo.create(
+            scan_type='port_scan',
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            options={
+                'tool': 'naabu',
+                'top_ports': top_ports,
+                'rate': rate,
+                'verify': verify
+            }
+        )
+        
+        try:
+            # Obtener directorio del workspace dinámicamente
+            from utils.workspace_filesystem import get_workspace_output_dir_from_scan
+            workspace_output_dir = get_workspace_output_dir_from_scan(scan.id, 'scans')
+            output_file = str(workspace_output_dir / f'naabu_{scan.id}.txt')
+            
+            command = [
+                'naabu',
+                '-host', target,
+                '-rate', str(rate),
+                '-o', output_file,
+                '-json'
+            ]
+            
+            if top_ports:
+                command.extend(['-top-ports', str(top_ports)])
+            
+            if verify:
+                command.append('-verify')
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            log_to_workspace(
+                workspace_id=workspace_id,
+                source='NAABU',
+                level='INFO',
+                message=f"Starting Naabu {scan.id}",
+                metadata={'scan_id': scan.id, 'target': target}
+            )
+            
+            thread = threading.Thread(
+                target=self._execute_scan,
+                args=(scan.id, sanitized_cmd, output_file, 'naabu')
+            )
+            thread.daemon = True
+            thread.start()
+            
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': 'naabu',
+                'target': target
+            }
+            
+        except Exception as e:
+            log_to_workspace(
+                workspace_id=workspace_id,
+                source='NAABU',
+                level='ERROR',
+                message=f"Error starting Naabu: {str(e)}",
+                metadata={'target': target, 'error': str(e)}
+            )
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    # ============================================
+    # OBTENER RESULTADOS Y PARSEAR
+    # ============================================
+    
+    def get_scan_status(self, scan_id: int) -> Dict[str, Any]:
+        """Obtiene estado del scan."""
+        scan = self.scan_repo.find_by_id(scan_id)
+        
+        if not scan:
+            raise ValueError(f'Scan {scan_id} not found')
+        
+        return {
+            'scan_id': scan.id,
+            'status': scan.status,
+            'progress': scan.progress,
+            'target': scan.target,
+            'scan_type': scan.scan_type,
+            'tool': scan.options.get('tool'),
+            'started_at': scan.started_at.isoformat() if scan.started_at else None,
+            'completed_at': scan.completed_at.isoformat() if scan.completed_at else None,
+            'error': scan.error
+        }
+    
+    def get_scan_results(self, scan_id: int) -> Dict[str, Any]:
+        """
+        Obtiene y parsea resultados del scan.
+        
+        Args:
+            scan_id: ID del escaneo
+        
+        Returns:
+            Dict con resultados parseados
+        """
+        scan = self.scan_repo.find_by_id(scan_id)
+        
+        if not scan:
+            raise ValueError(f'Scan {scan_id} not found')
+        
+        if scan.status != 'completed':
+            return {
+                'scan_id': scan_id,
+                'status': scan.status,
+                'message': 'Scan not completed yet'
+            }
+        
+        tool = scan.options.get('tool')
+        
+        # Parsear según herramienta
+        try:
+            if tool == 'nmap':
+                xml_file = str(self.output_dir / f'nmap_{scan_id}.xml')
+                results = self.nmap_parser.parse_xml(xml_file)
+                
+                # Extraer vulnerabilidades si hay
+                vulnerabilities = self.nmap_parser.extract_vulnerabilities(results)
+                if vulnerabilities:
+                    results['vulnerabilities'] = vulnerabilities
+            
+            elif tool == 'rustscan':
+                output_file = str(workspace_output_dir / f'rustscan_{scan_id}.txt')
+                with open(output_file, 'r') as f:
+                    output = f.read()
+                results = self.rustscan_parser.parse_output(output)
+            
+            elif tool == 'masscan':
+                output_file = str(workspace_output_dir / f'masscan_{scan_id}.json')
+                with open(output_file, 'r') as f:
+                    output = f.read()
+                results = self.masscan_parser.parse_output(output)
+            
+            elif tool == 'naabu':
+                output_file = str(workspace_output_dir / f'naabu_{scan_id}.txt')
+                with open(output_file, 'r') as f:
+                    output = f.read()
+                # Naabu output es JSON
+                results = json.loads(output) if output else {}
+            
+            else:
+                results = {'error': f'Unknown tool: {tool}'}
+            
+            return {
+                'scan_id': scan_id,
+                'status': 'completed',
+                'tool': tool,
+                'results': results,
+                'scan_info': {
+                    'target': scan.target,
+                    'started_at': scan.started_at.isoformat() if scan.started_at else None,
+                    'completed_at': scan.completed_at.isoformat() if scan.completed_at else None
+                }
+            }
+            
+        except Exception as e:
+            scan = self.scan_repo.find_by_id(scan_id)
+            if scan:
+                log_to_workspace(
+                    workspace_id=scan.workspace_id,
+                    source='BACKEND',
+                    level='WARNING',
+                    message=f"Error parsing scan results {scan_id}: {str(e)}",
+                    metadata={'scan_id': scan_id}
+                )
+            return {
+                'scan_id': scan_id,
+                'error': f'Failed to parse results: {str(e)}'
+            }
+    
+    # ============================================
+    # HELPERS PRIVADOS
+    # ============================================
+    
+    def _execute_scan(
+        self,
+        scan_id: int,
+        command: list,
+        output_file: str,
+        tool: str
+    ) -> None:
+        """
+        Ejecuta scan en thread separado.
+        
+        Args:
+            scan_id: ID del escaneo
+            command: Comando a ejecutar
+            output_file: Archivo de salida
+            tool: Herramienta (para logging)
+        """
+        from celery_app import get_flask_app
+        import time
+        
+        app = get_flask_app()
+        
+        with app.app_context():
+            try:
+                scan = self.scan_repo.find_by_id(scan_id)
+                if not scan:
+                    logger.error(f"Scan {scan_id} not found")
+                    return
+                
+                workspace_id = scan.workspace_id
+                
+                # Verificar que la herramienta existe antes de ejecutar
+                import shutil
+                import os
+                tool_name = command[0] if command else None
+                if tool_name:
+                    tool_path = None
+                    
+                    # Si es una ruta absoluta, intentar ejecutarla directamente
+                    if tool_name.startswith('/'):
+                        # Es una ruta absoluta, intentar ejecutarla para verificar
+                        permission_error = False
+                        try:
+                            result = subprocess.run(
+                                [tool_name, '--help'],
+                                capture_output=True,
+                                text=True,
+                                timeout=2
+                            )
+                            if result.returncode == 0 or 'RustScan' in result.stdout or 'RustScan' in result.stderr or 'Masscan' in result.stdout or 'Naabu' in result.stdout:
+                                tool_path = tool_name  # La ruta funciona
+                        except PermissionError:
+                            # Si hay PermissionError pero es una ruta absoluta, usar de todas formas
+                            # (el usuario puede haber confirmado que existe)
+                            permission_error = True
+                            tool_path = tool_name
+                            logger.warning(f"Herramienta {tool_name} tiene problemas de permisos, pero se usará de todas formas")
+                        except (subprocess.TimeoutExpired, FileNotFoundError, Exception):
+                            # Si falla por otra razón, intentar verificar si el archivo existe
+                            try:
+                                if os.path.isfile(tool_name) or os.access(tool_name, os.F_OK):
+                                    tool_path = tool_name  # El archivo existe, usarlo de todas formas
+                            except Exception:
+                                pass
+                        
+                        # Si hubo PermissionError, usar la ruta de todas formas
+                        if permission_error:
+                            tool_path = tool_name
+                    
+                    # Si no es ruta absoluta o no se encontró, buscar en PATH
+                    if not tool_path:
+                        tool_path = shutil.which(tool_name)
+                    
+                    if not tool_path:
+                        error_msg = f"Herramienta '{tool_name}' no encontrada en el PATH."
+                        if tool_name == 'rustscan' or 'rustscan' in tool_name.lower():
+                            error_msg += " Instala RustScan con: cargo install rustscan o descarga el binario desde https://github.com/RustScan/RustScan"
+                        elif tool_name == 'masscan' or 'masscan' in tool_name.lower():
+                            error_msg += " Instala Masscan con: apt install masscan o desde https://github.com/robertdavidgraham/masscan"
+                        elif tool_name == 'naabu' or 'naabu' in tool_name.lower():
+                            error_msg += " Instala Naabu con: go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest"
+                        
+                        self.scan_repo.update_status(scan, 'failed', error_msg)
+                        log_to_workspace(
+                            workspace_id=workspace_id,
+                            source=tool.upper(),
+                            level='ERROR',
+                            message=error_msg,
+                            metadata={'scan_id': scan_id, 'tool': tool_name}
+                        )
+                        return
+                
+                log_to_workspace(
+                    workspace_id=workspace_id,
+                    source=tool.upper(),
+                    level='INFO',
+                    message=f"Executing {tool} scan {scan_id}",
+                    metadata={'scan_id': scan_id, 'command': ' '.join(command)}
+                )
+                
+                # Actualizar progreso inicial
+                self.scan_repo.update_progress(scan, 0, f'Iniciando escaneo {tool}...')
+                
+                # Timeout según herramienta
+                timeout_map = {
+                    'nmap': 3600,      # 1 hora
+                    'rustscan': 300,   # 5 minutos
+                    'masscan': 1800,   # 30 minutos
+                    'naabu': 600       # 10 minutos
+                }
+                timeout = timeout_map.get(tool, 1800)
+                
+                # Para Masscan: intentar sin sudo primero, si falla por permisos, reintentar con sudo -n
+                original_command = command
+                if tool == 'masscan' and command[0] != 'sudo':
+                    # Ya intentamos sin sudo, si falla por permisos, intentaremos con sudo -n
+                    pass
+                
+                # Ejecutar con Popen para monitorear progreso
+                process = subprocess.Popen(
+                command,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                text=True,
+                env=CommandSanitizer.get_safe_env()
+            )
+                
+                # Guardar PID para poder cancelar
+                self.scan_repo.update_options(scan, {'pid': process.pid, 'command_str': ' '.join(command), 'tool': tool})
+                self.scan_repo.update_progress(scan, 25, f'Escaneando con {tool}...')
+                
+                # Monitorear progreso mientras se ejecuta
+                start_time = time.time()
+                last_update = start_time
+                
+                while process.poll() is None:
+                    elapsed = time.time() - start_time
+                    
+                    # Actualizar progreso cada 10 segundos
+                    if time.time() - last_update >= 10:
+                        # Calcular progreso basado en tiempo transcurrido
+                        if tool == 'nmap':
+                            # Para nmap quick scan, estimar ~2-5 minutos
+                            estimated_time = 300  # 5 minutos para quick scan
+                            progress = min(25 + int((elapsed / estimated_time) * 60), 85)
+                        else:
+                            progress = min(25 + int((elapsed / timeout) * 60), 85)
+                        
+                        elapsed_min = int(elapsed / 60)
+                        elapsed_sec = int(elapsed % 60)
+                        status_msg = f"Ejecutando {tool}... ({elapsed_min}m {elapsed_sec}s)"
+                        
+                        scan = self.scan_repo.find_by_id(scan_id)
+                        if scan:
+                            self.scan_repo.update_progress(scan, progress, status_msg)
+                        last_update = time.time()
+                    
+                    # Verificar timeout
+                    if elapsed > timeout:
+                        process.terminate()
+                        process.wait(timeout=5)
+                        raise subprocess.TimeoutExpired(command, timeout)
+                    
+                    time.sleep(2)  # Verificar cada 2 segundos
+                
+                # Obtener resultado
+                stdout, stderr = process.communicate()
+                result = type('Result', (), {
+                    'returncode': process.returncode,
+                    'stdout': stdout,
+                    'stderr': stderr
+                })()
+                
+                # Guardar output si no se guardó automáticamente
+                if not Path(output_file).exists() and result.stdout:
+                    with open(output_file, 'w') as f:
+                        f.write(result.stdout)
+                
+                # Actualizar scan
+                scan = self.scan_repo.find_by_id(scan_id)
+                
+                if result.returncode == 0:
+                    self.scan_repo.update_status(scan, 'completed')
+                    self.scan_repo.update_progress(scan, 100, result.stdout[:1000] if result.stdout else 'Completado')
+                    log_to_workspace(
+                        workspace_id=scan.workspace_id,
+                        source=tool.upper(),
+                        level='SUCCESS',
+                        message=f"{tool} scan {scan_id} completed successfully",
+                        metadata={'scan_id': scan_id}
+                    )
+                else:
+                        error_msg = result.stderr or result.stdout or "Unknown error"
+                        # Verificar si es un error de permisos para Masscan
+                        if tool == 'masscan':
+                            # Si el error es de permisos y no usamos sudo, intentar con sudo -n
+                            if ('permission denied' in error_msg.lower() or 'need to sudo' in error_msg.lower() or 'run as root' in error_msg.lower()) and original_command[0] != 'sudo':
+                                import shutil
+                                sudo_path = shutil.which('sudo')
+                                if sudo_path:
+                                    logger.info(f"Masscan falló por permisos, reintentando con sudo -n...")
+                                    # Reintentar con sudo -n (no-password, requiere configuración en sudoers)
+                                    sudo_cmd = [sudo_path, '-n'] + original_command
+                                    try:
+                                        sudo_process = subprocess.Popen(
+                                            sudo_cmd,
+                                            stdout=subprocess.PIPE,
+                                            stderr=subprocess.PIPE,
+                                            text=True,
+                                            env=CommandSanitizer.get_safe_env()
+                                        )
+                                        # Esperar a que termine
+                                        sudo_stdout, sudo_stderr = sudo_process.communicate(timeout=timeout)
+                                        if sudo_process.returncode == 0:
+                                            # Guardar output
+                                            if not Path(output_file).exists() and sudo_stdout:
+                                                with open(output_file, 'w') as f:
+                                                    f.write(sudo_stdout)
+                                            self.scan_repo.update_status(scan, 'completed')
+                                            self.scan_repo.update_progress(scan, 100, 'Completado')
+                                            log_to_workspace(
+                                                workspace_id=scan.workspace_id,
+                                                source=tool.upper(),
+                                                level='SUCCESS',
+                                                message=f"{tool} scan {scan_id} completed successfully (with sudo)",
+                                                metadata={'scan_id': scan_id}
+                                            )
+                                            return
+                                        else:
+                                            error_msg = sudo_stderr or sudo_stdout or error_msg
+                                    except Exception as e:
+                                        logger.error(f"Error al reintentar con sudo -n: {e}")
+                            
+                            # Mensaje de error mejorado
+                            if 'password is required' in error_msg.lower() or 'terminal is required' in error_msg.lower():
+                                error_msg = (
+                                    f"Masscan requiere permisos de root. sudo está pidiendo contraseña. "
+                                    f"Soluciones: 1) Configura capabilities: sudo setcap cap_net_raw,cap_net_admin=eip /usr/bin/masscan, "
+                                    f"2) Configura sudo sin contraseña para masscan en /etc/sudoers: kali ALL=(ALL) NOPASSWD: /usr/bin/masscan, "
+                                    f"o 3) Ejecuta el backend con permisos de root."
+                                )
+                            elif 'permission denied' in error_msg.lower() or 'need to sudo' in error_msg.lower() or 'run as root' in error_msg.lower():
+                                error_msg = (
+                                    f"Masscan requiere permisos de root para usar raw sockets. "
+                                    f"Error: {error_msg}. "
+                                    f"Soluciones: 1) Configura capabilities: sudo setcap cap_net_raw,cap_net_admin=eip /usr/bin/masscan, "
+                                    f"2) Configura sudo sin contraseña para masscan, o 3) Ejecuta el backend con sudo."
+                                )
+                self.scan_repo.update_status(scan, 'failed', error_msg)
+                log_to_workspace(
+                    workspace_id=scan.workspace_id,
+                    source=tool.upper(),
+                    level='ERROR',
+                    message=f"{tool} scan {scan_id} failed: {error_msg}",
+                    metadata={'scan_id': scan_id, 'error': error_msg}
+                )
+                
+            except subprocess.TimeoutExpired:
+                scan = self.scan_repo.find_by_id(scan_id)
+                if scan:
+                    self.scan_repo.update_status(scan, 'failed', f'Timeout exceeded ({timeout}s)')
+                    log_to_workspace(
+                        workspace_id=scan.workspace_id,
+                        source=tool.upper(),
+                        level='ERROR',
+                        message=f"{tool} scan {scan_id} timeout",
+                        metadata={'scan_id': scan_id, 'timeout': timeout}
+                    )
+                        
+            except PermissionError as e:
+                scan = self.scan_repo.find_by_id(scan_id)
+                if scan:
+                    # Mensaje específico para PermissionError con RustScan
+                    if 'rustscan' in str(e).lower() or tool == 'rustscan':
+                        error_msg = f"Permission denied: No se puede ejecutar RustScan. " \
+                                   f"Instala RustScan con: cargo install rustscan o copia el binario a /usr/local/bin/rustscan"
+                    else:
+                        error_msg = f"Permission denied: {str(e)}. Verifica los permisos del ejecutable."
+                    self.scan_repo.update_status(scan, 'failed', error_msg)
+                    log_to_workspace(
+                        workspace_id=scan.workspace_id,
+                        source=tool.upper(),
+                        level='ERROR',
+                        message=f"{tool} scan {scan_id} error: {error_msg}",
+                        metadata={'scan_id': scan_id, 'error': error_msg}
+                    )
+            except Exception as e:
+                scan = self.scan_repo.find_by_id(scan_id)
+                if scan:
+                    # Verificar si el error contiene "Permission denied"
+                    error_str = str(e)
+                    if 'permission denied' in error_str.lower() or 'errno 13' in error_str.lower() or 'need to sudo' in error_str.lower() or 'run as root' in error_str.lower():
+                        if 'rustscan' in error_str.lower() or tool == 'rustscan':
+                            error_msg = f"Permission denied: No se puede ejecutar RustScan. " \
+                                       f"Instala RustScan con: cargo install rustscan o copia el binario a /usr/local/bin/rustscan"
+                        elif tool == 'masscan':
+                            error_msg = (
+                                f"Masscan requiere permisos de root para usar raw sockets. "
+                                f"Error: {error_str}. "
+                                f"Soluciones: 1) Ejecuta el backend con sudo, 2) Configura capabilities: "
+                                f"sudo setcap cap_net_raw,cap_net_admin=eip /usr/bin/masscan, "
+                                f"o 3) Configura sudo sin contraseña para masscan."
+                            )
+                        else:
+                            error_msg = f"Permission denied: {error_str}. Verifica los permisos del ejecutable."
+                    else:
+                        error_msg = error_str
+                    self.scan_repo.update_status(scan, 'failed', error_msg)
+                    log_to_workspace(
+                        workspace_id=scan.workspace_id,
+                        source=tool.upper(),
+                        level='ERROR',
+                        message=f"{tool} scan {scan_id} error: {error_msg}",
+                        metadata={'scan_id': scan_id, 'error': error_msg}
+                    )
+    
+    # ============================================
+    # ENUMERACIÓN SMB/CIFS - Delegación
+    # ============================================
+    
+    def start_enum4linux(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a SMBEnumerationService."""
+        return self.smb_enum.start_enum4linux(target, workspace_id, user_id, **kwargs)
+    
+    def start_smbmap(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a SMBEnumerationService."""
+        return self.smb_enum.start_smbmap(target, workspace_id, user_id, **kwargs)
+    
+    def start_smbclient(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a SMBEnumerationService."""
+        return self.smb_enum.start_smbclient(target, workspace_id, user_id, **kwargs)
+    
+    # ============================================
+    # ENUMERACIÓN SERVICIOS DE RED - Delegación
+    # ============================================
+    
+    def start_ssh_enum(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a NetworkServicesEnumerationService."""
+        return self.network_enum.start_ssh_enum(target, workspace_id, user_id, **kwargs)
+    
+    def start_ftp_enum(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a NetworkServicesEnumerationService."""
+        return self.network_enum.start_ftp_enum(target, workspace_id, user_id, **kwargs)
+    
+    def start_smtp_enum(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a NetworkServicesEnumerationService."""
+        return self.network_enum.start_smtp_enum(target, workspace_id, user_id, **kwargs)
+    
+    def start_dns_enum(
+        self, target: str, workspace_id: int, user_id: int, domain: Optional[str] = None, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a NetworkServicesEnumerationService."""
+        return self.network_enum.start_dns_enum(target, workspace_id, user_id, domain=domain, **kwargs)
+    
+    def start_snmp_enum(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a NetworkServicesEnumerationService."""
+        return self.network_enum.start_snmp_enum(target, workspace_id, user_id, **kwargs)
+    
+    def start_ldap_enum(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a NetworkServicesEnumerationService."""
+        return self.network_enum.start_ldap_enum(target, workspace_id, user_id, **kwargs)
+    
+    def start_rdp_enum(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a NetworkServicesEnumerationService."""
+        return self.network_enum.start_rdp_enum(target, workspace_id, user_id, **kwargs)
+    
+    # ============================================
+    # PREVIEW METHODS - ENUMERATION
+    # ============================================
+    
+    def preview_ftp_enum(
+        self, target: str, workspace_id: int, port: int = 21
+    ) -> Dict[str, Any]:
+        """Preview del comando FTP enum."""
+        return self.network_enum.preview_ftp_enum(target, workspace_id, port)
+    
+    def preview_dns_enum(
+        self, target: str, workspace_id: int, domain: Optional[str] = None, tool: str = 'nmap', port: int = 53
+    ) -> Dict[str, Any]:
+        """Preview del comando DNS enum."""
+        return self.network_enum.preview_dns_enum(target, workspace_id, domain, tool, port)
+    
+    def preview_rdp_enum(
+        self, target: str, workspace_id: int, port: int = 3389
+    ) -> Dict[str, Any]:
+        """Preview del comando RDP enum."""
+        return self.network_enum.preview_rdp_enum(target, workspace_id, port)
+    
+    def preview_enum4linux(
+        self, target: str, workspace_id: int, use_ng: bool = True, all: bool = False
+    ) -> Dict[str, Any]:
+        """Preview del comando enum4linux."""
+        return self.smb_enum.preview_enum4linux(target, workspace_id, use_ng, all)
+    
+    def preview_smbmap(
+        self, target: str, workspace_id: int, username: Optional[str] = None,
+        password: Optional[str] = None, hash: Optional[str] = None,
+        recursive: bool = False, share: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Preview del comando smbmap."""
+        return self.smb_enum.preview_smbmap(target, workspace_id, username, password, hash, recursive, share)
+    
+    def preview_smbclient(
+        self, target: str, workspace_id: int, share: str,
+        username: Optional[str] = None, password: Optional[str] = None, command: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Preview del comando smbclient."""
+        return self.smb_enum.preview_smbclient(target, workspace_id, share, username, password, command)
+    
+    # ============================================
+    # ENUMERACIÓN BASES DE DATOS - Delegación
+    # ============================================
+    
+    def start_mysql_enum(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a DatabaseEnumerationService."""
+        return self.database_enum.start_mysql_enum(target, workspace_id, user_id, **kwargs)
+    
+    def start_postgresql_enum(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a DatabaseEnumerationService."""
+        return self.database_enum.start_postgresql_enum(target, workspace_id, user_id, **kwargs)
+    
+    def start_redis_enum(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a DatabaseEnumerationService."""
+        return self.database_enum.start_redis_enum(target, workspace_id, user_id, **kwargs)
+    
+    def start_mongodb_enum(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a DatabaseEnumerationService."""
+        return self.database_enum.start_mongodb_enum(target, workspace_id, user_id, **kwargs)
+    
+    # ============================================
+    # ANÁLISIS SSL/TLS - Delegación
+    # ============================================
+    
+    def start_sslscan(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a SSLEnumerationService."""
+        return self.ssl_enum.start_sslscan(target, workspace_id, user_id, **kwargs)
+    
+    def start_sslyze(
+        self, target: str, workspace_id: int, user_id: int, **kwargs
+    ) -> Dict[str, Any]:
+        """Delega a SSLEnumerationService."""
+        return self.ssl_enum.start_sslyze(target, workspace_id, user_id, **kwargs)
+    
+    def preview_rustscan(
+        self,
+        target: str,
+        workspace_id: int,
+        batch_size: int = 4000,
+        timeout: int = 1500,
+        ulimit: int = 5000
+    ) -> Dict[str, Any]:
+        """Preview del comando RustScan."""
+        CommandSanitizer.validate_target(target)
+        
+        output_file = f'/workspaces/workspace_{workspace_id}/scans/rustscan_{{scan_id}}.txt'
+        command = [
+            'rustscan',
+            '-a', target,
+            '--batch-size', str(batch_size),
+            '--timeout', str(timeout),
+            '--ulimit', str(ulimit),
+            '--', '-sV', '-oN', output_file
+        ]
+        command_str = ' '.join([str(c) for c in command])
+        
+        return {
+            'command': command,
+            'command_string': command_str,
+            'parameters': {
+                'tool': 'rustscan',
+                'target': target,
+                'batch_size': batch_size,
+                'timeout': timeout,
+                'ulimit': ulimit
+            },
+            'estimated_timeout': 300,
+            'output_file': output_file,
+            'warnings': [],
+            'suggestions': []
+        }
+    
+    def preview_masscan(
+        self,
+        target: str,
+        ports: str,
+        workspace_id: int,
+        rate: int = 1000,
+        environment: str = 'internal'
+    ) -> Dict[str, Any]:
+        """Preview del comando Masscan."""
+        CommandSanitizer.validate_target(target)
+        
+        output_file = f'/workspaces/workspace_{workspace_id}/scans/masscan_{{scan_id}}.json'
+        command = SafeMasscan.build_scan(target, ports, environment, output_file)
+        command_str = ' '.join([str(c) for c in command])
+        
+        warnings = []
+        if rate > 10000:
+            warnings.append('Rate muy alto puede causar problemas de red')
+        
+        return {
+            'command': command,
+            'command_string': command_str,
+            'parameters': {
+                'tool': 'masscan',
+                'target': target,
+                'ports': ports,
+                'rate': rate,
+                'environment': environment
+            },
+            'estimated_timeout': 1800,
+            'output_file': output_file,
+            'warnings': warnings,
+            'suggestions': []
+        }
+    
+    def preview_naabu(
+        self,
+        target: str,
+        workspace_id: int,
+        top_ports: Optional[int] = None,
+        rate: int = 1000,
+        verify: bool = True
+    ) -> Dict[str, Any]:
+        """Preview del comando Naabu."""
+        CommandSanitizer.validate_target(target)
+        
+        output_file = f'/workspaces/workspace_{workspace_id}/scans/naabu_{{scan_id}}.txt'
+        command = [
+            'naabu',
+            '-host', target,
+            '-rate', str(rate),
+            '-o', output_file,
+            '-json'
+        ]
+        
+        if top_ports:
+            command.extend(['-top-ports', str(top_ports)])
+        
+        if verify:
+            command.append('-verify')
+        
+        command_str = ' '.join([str(c) for c in command])
+        
+        return {
+            'command': command,
+            'command_string': command_str,
+            'parameters': {
+                'tool': 'naabu',
+                'target': target,
+                'top_ports': top_ports,
+                'rate': rate,
+                'verify': verify
+            },
+            'estimated_timeout': 600,
+            'output_file': output_file,
+            'warnings': [],
+            'suggestions': []
+        }
+
+    def preview_rustscan(
+        self,
+        target: str,
+        workspace_id: int,
+        batch_size: int = 4000,
+        timeout: int = 1500,
+        ulimit: int = 5000
+    ) -> Dict[str, Any]:
+        """Preview del comando RustScan."""
+        CommandSanitizer.validate_target(target)
+        
+        output_file = f'/workspaces/workspace_{workspace_id}/scans/rustscan_{{scan_id}}.txt'
+        command = [
+            'rustscan',
+            '-a', target,
+            '--batch-size', str(batch_size),
+            '--timeout', str(timeout),
+            '--ulimit', str(ulimit),
+            '--', '-sV', '-oN', output_file
+        ]
+        command_str = ' '.join([str(c) for c in command])
+        
+        return {
+            'command': command,
+            'command_string': command_str,
+            'parameters': {
+                'tool': 'rustscan',
+                'target': target,
+                'batch_size': batch_size,
+                'timeout': timeout,
+                'ulimit': ulimit
+            },
+            'estimated_timeout': 300,
+            'output_file': output_file,
+            'warnings': [],
+            'suggestions': []
+        }
+    
+    def preview_masscan(
+        self,
+        target: str,
+        ports: str,
+        workspace_id: int,
+        rate: int = 1000,
+        environment: str = 'internal'
+    ) -> Dict[str, Any]:
+        """Preview del comando Masscan."""
+        CommandSanitizer.validate_target(target)
+        
+        output_file = f'/workspaces/workspace_{workspace_id}/scans/masscan_{{scan_id}}.json'
+        command = SafeMasscan.build_scan(target, ports, environment, output_file)
+        command_str = ' '.join([str(c) for c in command])
+        
+        warnings = []
+        if rate > 10000:
+            warnings.append('Rate muy alto puede causar problemas de red')
+        
+        return {
+            'command': command,
+            'command_string': command_str,
+            'parameters': {
+                'tool': 'masscan',
+                'target': target,
+                'ports': ports,
+                'rate': rate,
+                'environment': environment
+            },
+            'estimated_timeout': 1800,
+            'output_file': output_file,
+            'warnings': warnings,
+            'suggestions': []
+        }

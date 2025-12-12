@@ -1,0 +1,7 @@
+https://example.com/admin/config.php
+https://example.com/backup/db_backup.sql
+https://example.com/.env
+https://example.com/phpinfo.php
+https://example.com/error.log
+
+

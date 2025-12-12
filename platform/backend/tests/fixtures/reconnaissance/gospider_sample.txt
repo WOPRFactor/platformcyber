@@ -1,0 +1,8 @@
+https://example.com/
+https://example.com/about
+https://example.com/api/v1/users
+https://example.com/admin/login
+https://example.com/static/js/app.js
+https://example.com/config.php
+
+

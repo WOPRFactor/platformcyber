@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Reporte Técnico - {{ metadata.workspace.name }}{% endblock %}
+
+{% block content %}
+<div class="report-content">
+    <!-- Resumen Ejecutivo -->
+    <section class="executive-summary">
+        <h2>Resumen Ejecutivo</h2>
+        <div class="risk-score">
+            <h3>Risk Score: {{ risk_metrics.risk_score }}/10</h3>
+            <p class="risk-level {{ risk_metrics.risk_level }}">{{ risk_metrics.risk_level|upper }}</p>
+        </div>
+        <div class="statistics-grid">
+            <div class="stat-card">
+                <h4>Total Findings</h4>
+                <p class="stat-value">{{ statistics.total_findings }}</p>
+            </div>
+            <div class="stat-card">
+                <h4>Targets Únicos</h4>
+                <p class="stat-value">{{ statistics.unique_targets }}</p>
+            </div>
+            <div class="stat-card">
+                <h4>Vulnerabilidades</h4>
+                <p class="stat-value">{{ risk_metrics.vulnerabilities_only }}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Distribución por Severidad -->
+    <section class="severity-distribution">
+        <h2>Distribución por Severidad</h2>
+        <div class="severity-stats">
+            {% for severity, count in statistics.by_severity.items() %}
+            {% if count > 0 %}
+            <div class="severity-item {{ severity }}">
+                <span class="severity-label">{{ severity_labels[severity] }}</span>
+                <span class="severity-count">{{ count }}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Findings por Categoría -->
+    <section class="findings-by-category">
+        <h2>Hallazgos por Categoría</h2>
+        {% for category, findings in findings_by_category.items() %}
+        <div class="category-section">
+            <h3>{{ category|replace('_', ' ')|title }}</h3>
+            <p class="category-count">{{ findings|length }} hallazgos</p>
+            
+            <table class="findings-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Severidad</th>
+                        <th>Target</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for finding in findings %}
+                    <tr class="finding-row severity-{{ finding.severity }}">
+                        <td class="finding-title">{{ finding.title }}</td>
+                        <td class="finding-severity">
+                            <span class="severity-badge {{ finding.severity }}">{{ finding.severity|upper }}</span>
+                        </td>
+                        <td class="finding-target">{{ finding.affected_target }}</td>
+                        <td class="finding-description">{{ finding.description[:100] }}{% if finding.description|length > 100 %}...{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+    </section>
+
+    <!-- Detalles Técnicos -->
+    <section class="technical-details">
+        <h2>Detalles Técnicos</h2>
+        {% for category, findings in findings_by_category.items() %}
+        {% for finding in findings %}
+        <div class="finding-detail">
+            <h4>{{ finding.title }}</h4>
+            <div class="finding-meta">
+                <span class="severity-badge {{ finding.severity }}">{{ finding.severity|upper }}</span>
+                <span class="category-badge">{{ finding.category }}</span>
+                <span class="target-badge">{{ finding.affected_target }}</span>
+            </div>
+            <p class="finding-description-full">{{ finding.description }}</p>
+            {% if finding.evidence %}
+            <div class="finding-evidence">
+                <strong>Evidencia:</strong>
+                <pre>{{ finding.evidence }}</pre>
+            </div>
+            {% endif %}
+            {% if finding.remediation %}
+            <div class="finding-remediation">
+                <strong>Remediación:</strong>
+                <p>{{ finding.remediation }}</p>
+            </div>
+            {% endif %}
+            {% if finding.cve_id %}
+            <div class="finding-cve">
+                <strong>CVE:</strong> {{ finding.cve_id }}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}
+

@@ -1,0 +1,10 @@
+# Nmap 7.95 scan initiated Wed Dec 10 16:06:49 2025 as: /usr/lib/nmap/nmap --privileged -sV --script dns-zone-transfer,dns-recursion -p 53 -oA /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml kopernicus.tech
+Nmap scan report for kopernicus.tech (66.97.42.227)
+Host is up (0.014s latency).
+rDNS record for 66.97.42.227: vps-1889901-x.dattaweb.com
+
+PORT   STATE    SERVICE VERSION
+53/tcp filtered domain
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed Dec 10 16:06:56 2025 -- 1 IP address (1 host up) scanned in 6.65 seconds

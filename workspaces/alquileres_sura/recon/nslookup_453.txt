@@ -1,8 +1,0 @@
-unknown query type: {'client': {}}
-Server:		8.8.8.8
-Address:	8.8.8.8#53
-
-Non-authoritative answer:
-Name:	alquilersura.com.uy
-Address: 216.246.112.39
-

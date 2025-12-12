@@ -1,0 +1,630 @@
+"""
+Container Security Service
+===========================
+
+Servicio completo para pentesting de contenedores y Kubernetes.
+
+Herramientas integradas:
+- Trivy (Container vulnerability scanner)
+- Grype (Vulnerability scanner for container images)
+- Syft (SBOM generator)
+- Kube-hunter (Kubernetes penetration testing)
+- Kube-bench (CIS Kubernetes Benchmark)
+- Kubescape (Kubernetes security platform)
+"""
+
+import subprocess
+import logging
+import json
+import threading
+from typing import Dict, Any, List, Optional
+from pathlib import Path
+from datetime import datetime
+
+from utils.validators import CommandSanitizer
+from utils.parsers.container_parser import (
+    TrivyParser, GrypeParser, SyftParser,
+    KubeHunterParser, KubeBenchParser, KubescapeParser
+)
+from repositories import ScanRepository
+
+logger = logging.getLogger(__name__)
+
+
+class ContainerService:
+    """Servicio completo para container & kubernetes security."""
+    
+    def __init__(self, scan_repository: ScanRepository = None):
+        """Inicializa el servicio."""
+        self.scan_repo = scan_repository or ScanRepository()
+        from utils.workspace_filesystem import PROJECT_TMP_DIR
+        self.output_dir = PROJECT_TMP_DIR / 'container_security'
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Parsers
+        self.trivy_parser = TrivyParser()
+        self.grype_parser = GrypeParser()
+        self.syft_parser = SyftParser()
+        self.kubehunter_parser = KubeHunterParser()
+        self.kubebench_parser = KubeBenchParser()
+        self.kubescape_parser = KubescapeParser()
+    
+    # ============================================
+    # TRIVY (Container Vulnerability Scanner)
+    # ============================================
+    
+    def scan_image_trivy(
+        self,
+        image: str,
+        workspace_id: int,
+        user_id: int,
+        severity: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
+        """
+        Escanea imagen Docker con Trivy.
+        
+        Args:
+            image: Nombre de la imagen (ej: nginx:latest)
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            severity: Severidades a reportar (CRITICAL, HIGH, MEDIUM, LOW)
+        """
+        scan = self.scan_repo.create(
+            scan_type='container_security',
+            target=image,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            options={
+                'tool': 'trivy',
+                'scan_type': 'image',
+                'severity': severity or ['CRITICAL', 'HIGH']
+            }
+        )
+        
+        try:
+            output_file = str(self.output_dir / f'trivy_{scan.id}.json')
+            
+            command = [
+                'trivy', 'image',
+                '--format', 'json',
+                '--output', output_file
+            ]
+            
+            if severity:
+                command.extend(['--severity', ','.join(severity)])
+            
+            command.append(image)
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting Trivy image scan {scan.id}")
+            
+            thread = threading.Thread(
+                target=self._execute_scan,
+                args=(scan.id, sanitized_cmd, output_file, 'trivy')
+            )
+            thread.daemon = True
+            thread.start()
+            
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': 'trivy',
+                'target': image
+            }
+            
+        except Exception as e:
+            logger.error(f"Error starting Trivy: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    # ============================================
+    # GRYPE (Vulnerability Scanner)
+    # ============================================
+    
+    def scan_image_grype(
+        self,
+        image: str,
+        workspace_id: int,
+        user_id: int,
+        scope: str = 'all-layers'
+    ) -> Dict[str, Any]:
+        """
+        Escanea imagen con Grype.
+        
+        Args:
+            image: Nombre de la imagen
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            scope: Scope del scan ('all-layers' o 'squashed')
+        """
+        scan = self.scan_repo.create(
+            scan_type='container_security',
+            target=image,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            options={
+                'tool': 'grype',
+                'scope': scope
+            }
+        )
+        
+        try:
+            output_file = str(self.output_dir / f'grype_{scan.id}.json')
+            
+            command = [
+                'grype',
+                image,
+                '--output', 'json',
+                '--file', output_file,
+                '--scope', scope
+            ]
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting Grype scan {scan.id}")
+            
+            thread = threading.Thread(
+                target=self._execute_scan,
+                args=(scan.id, sanitized_cmd, output_file, 'grype')
+            )
+            thread.daemon = True
+            thread.start()
+            
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': 'grype',
+                'target': image
+            }
+            
+        except Exception as e:
+            logger.error(f"Error starting Grype: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    # ============================================
+    # SYFT (SBOM Generator)
+    # ============================================
+    
+    def generate_sbom(
+        self,
+        image: str,
+        workspace_id: int,
+        user_id: int,
+        output_format: str = 'spdx-json'
+    ) -> Dict[str, Any]:
+        """
+        Genera SBOM (Software Bill of Materials) con Syft.
+        
+        Args:
+            image: Nombre de la imagen
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            output_format: Formato de salida (spdx-json, cyclonedx-json, syft-json)
+        """
+        scan = self.scan_repo.create(
+            scan_type='container_security',
+            target=image,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            options={
+                'tool': 'syft',
+                'action': 'sbom',
+                'format': output_format
+            }
+        )
+        
+        try:
+            output_file = str(self.output_dir / f'syft_{scan.id}.json')
+            
+            command = [
+                'syft',
+                image,
+                '--output', f'{output_format}={output_file}'
+            ]
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting Syft SBOM generation {scan.id}")
+            
+            # Ejecutar sync (rápido)
+            result = subprocess.run(
+                sanitized_cmd,
+                capture_output=True,
+                text=True,
+                timeout=300,
+                env=CommandSanitizer.get_safe_env()
+            )
+            
+            if result.returncode == 0:
+                self.scan_repo.update_status(scan, 'completed')
+                self.scan_repo.update_progress(scan, 100, 'SBOM generated')
+                
+                with open(output_file, 'r') as f:
+                    results = self.syft_parser.parse_sbom(f.read())
+                
+                return {
+                    'scan_id': scan.id,
+                    'status': 'completed',
+                    'tool': 'syft',
+                    'target': image,
+                    'sbom_file': output_file,
+                    'results': results
+                }
+            else:
+                self.scan_repo.update_status(scan, 'failed', result.stderr)
+                raise Exception(result.stderr)
+                
+        except Exception as e:
+            logger.error(f"Error generating SBOM: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    # ============================================
+    # KUBE-HUNTER (Kubernetes Penetration Testing)
+    # ============================================
+    
+    def run_kubehunter(
+        self,
+        workspace_id: int,
+        user_id: int,
+        mode: str = 'remote',
+        remote_host: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Ejecuta Kube-hunter para pentest de Kubernetes.
+        
+        Args:
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            mode: Modo de ejecución ('remote', 'internal', 'network')
+            remote_host: Host remoto (si mode=remote)
+        """
+        target = remote_host or 'kubernetes-cluster'
+        
+        scan = self.scan_repo.create(
+            scan_type='container_security',
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            options={
+                'tool': 'kube-hunter',
+                'mode': mode,
+                'remote_host': remote_host
+            }
+        )
+        
+        try:
+            output_file = str(self.output_dir / f'kubehunter_{scan.id}.json')
+            
+            command = ['kube-hunter', '--report', 'json']
+            
+            if mode == 'remote' and remote_host:
+                command.extend(['--remote', remote_host])
+            elif mode == 'internal':
+                command.append('--pod')
+            elif mode == 'network':
+                command.append('--cidr')
+                # Requiere CIDR adicional
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting Kube-hunter {scan.id}")
+            
+            thread = threading.Thread(
+                target=self._execute_scan,
+                args=(scan.id, sanitized_cmd, output_file, 'kube-hunter')
+            )
+            thread.daemon = True
+            thread.start()
+            
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': 'kube-hunter',
+                'target': target,
+                'mode': mode
+            }
+            
+        except Exception as e:
+            logger.error(f"Error starting Kube-hunter: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    # ============================================
+    # KUBE-BENCH (CIS Benchmark)
+    # ============================================
+    
+    def run_kubebench(
+        self,
+        workspace_id: int,
+        user_id: int,
+        targets: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
+        """
+        Ejecuta Kube-bench (CIS Kubernetes Benchmark).
+        
+        Args:
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            targets: Targets específicos (master, node, etcd, etc.)
+        """
+        scan = self.scan_repo.create(
+            scan_type='container_security',
+            target='kubernetes-cluster',
+            workspace_id=workspace_id,
+            user_id=user_id,
+            options={
+                'tool': 'kube-bench',
+                'targets': targets or ['master', 'node']
+            }
+        )
+        
+        try:
+            output_file = str(self.output_dir / f'kubebench_{scan.id}.json')
+            
+            command = ['kube-bench', 'run', '--json', '--outputfile', output_file]
+            
+            if targets:
+                command.extend(['--targets', ','.join(targets)])
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting Kube-bench {scan.id}")
+            
+            # Ejecutar sync
+            result = subprocess.run(
+                sanitized_cmd,
+                capture_output=True,
+                text=True,
+                timeout=300,
+                env=CommandSanitizer.get_safe_env()
+            )
+            
+            # Kube-bench siempre retorna exit code != 0 si encuentra issues
+            # Así que no validamos returncode
+            
+            if Path(output_file).exists():
+                self.scan_repo.update_status(scan, 'completed')
+                self.scan_repo.update_progress(scan, 100, 'Kube-bench completed')
+                
+                with open(output_file, 'r') as f:
+                    results = self.kubebench_parser.parse_results(f.read())
+                
+                return {
+                    'scan_id': scan.id,
+                    'status': 'completed',
+                    'tool': 'kube-bench',
+                    'results': results
+                }
+            else:
+                self.scan_repo.update_status(scan, 'failed', result.stderr)
+                raise Exception('Kube-bench output not found')
+                
+        except Exception as e:
+            logger.error(f"Error running Kube-bench: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    # ============================================
+    # KUBESCAPE (Kubernetes Security Platform)
+    # ============================================
+    
+    def run_kubescape(
+        self,
+        workspace_id: int,
+        user_id: int,
+        framework: str = 'nsa',
+        namespace: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Ejecuta Kubescape para security scanning de K8s.
+        
+        Args:
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            framework: Framework a usar (nsa, mitre, armobest)
+            namespace: Namespace específico (opcional)
+        """
+        target = namespace or 'all-namespaces'
+        
+        scan = self.scan_repo.create(
+            scan_type='container_security',
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            options={
+                'tool': 'kubescape',
+                'framework': framework,
+                'namespace': namespace
+            }
+        )
+        
+        try:
+            output_file = str(self.output_dir / f'kubescape_{scan.id}.json')
+            
+            command = ['kubescape', 'scan', 'framework', framework, '--format', 'json', '--output', output_file]
+            
+            if namespace:
+                command.extend(['--namespace', namespace])
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting Kubescape {scan.id}")
+            
+            # Ejecutar sync
+            result = subprocess.run(
+                sanitized_cmd,
+                capture_output=True,
+                text=True,
+                timeout=600,
+                env=CommandSanitizer.get_safe_env()
+            )
+            
+            if result.returncode == 0 or Path(output_file).exists():
+                self.scan_repo.update_status(scan, 'completed')
+                self.scan_repo.update_progress(scan, 100, 'Kubescape completed')
+                
+                with open(output_file, 'r') as f:
+                    results = self.kubescape_parser.parse_results(f.read())
+                
+                return {
+                    'scan_id': scan.id,
+                    'status': 'completed',
+                    'tool': 'kubescape',
+                    'framework': framework,
+                    'results': results
+                }
+            else:
+                self.scan_repo.update_status(scan, 'failed', result.stderr)
+                raise Exception(result.stderr)
+                
+        except Exception as e:
+            logger.error(f"Error running Kubescape: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    # ============================================
+    # OBTENER RESULTADOS
+    # ============================================
+    
+    def get_scan_results(self, scan_id: int) -> Dict[str, Any]:
+        """Obtiene y parsea resultados de container security scan."""
+        scan = self.scan_repo.find_by_id(scan_id)
+        
+        if not scan:
+            raise ValueError(f'Scan {scan_id} not found')
+        
+        if scan.status != 'completed':
+            return {
+                'scan_id': scan_id,
+                'status': scan.status,
+                'message': 'Scan not completed yet'
+            }
+        
+        tool = scan.options.get('tool')
+        
+        try:
+            if tool == 'trivy':
+                output_file = self.output_dir / f'trivy_{scan_id}.json'
+                with open(output_file, 'r') as f:
+                    results = self.trivy_parser.parse_image_scan(f.read())
+            
+            elif tool == 'grype':
+                output_file = self.output_dir / f'grype_{scan_id}.json'
+                with open(output_file, 'r') as f:
+                    results = self.grype_parser.parse_results(f.read())
+            
+            elif tool == 'syft':
+                output_file = self.output_dir / f'syft_{scan_id}.json'
+                with open(output_file, 'r') as f:
+                    results = self.syft_parser.parse_sbom(f.read())
+            
+            elif tool == 'kube-hunter':
+                output_file = self.output_dir / f'kubehunter_{scan_id}.json'
+                with open(output_file, 'r') as f:
+                    results = self.kubehunter_parser.parse_results(f.read())
+            
+            elif tool == 'kube-bench':
+                output_file = self.output_dir / f'kubebench_{scan_id}.json'
+                with open(output_file, 'r') as f:
+                    results = self.kubebench_parser.parse_results(f.read())
+            
+            elif tool == 'kubescape':
+                output_file = self.output_dir / f'kubescape_{scan_id}.json'
+                with open(output_file, 'r') as f:
+                    results = self.kubescape_parser.parse_results(f.read())
+            
+            else:
+                results = {'error': f'Unknown tool: {tool}'}
+            
+            return {
+                'scan_id': scan_id,
+                'status': 'completed',
+                'tool': tool,
+                'results': results,
+                'scan_info': {
+                    'target': scan.target,
+                    'started_at': scan.started_at.isoformat() if scan.started_at else None,
+                    'completed_at': scan.completed_at.isoformat() if scan.completed_at else None
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Error parsing container security results {scan_id}: {e}")
+            return {
+                'scan_id': scan_id,
+                'error': f'Failed to parse results: {str(e)}'
+            }
+    
+    # ============================================
+    # HELPERS PRIVADOS
+    # ============================================
+    
+    def _execute_scan(
+        self,
+        scan_id: int,
+        command: list,
+        output_file: str,
+        tool: str
+    ) -> None:
+        """Ejecuta container security scan en thread separado."""
+        try:
+            logger.info(f"Executing {tool} {scan_id}: {' '.join(command)}")
+            
+            # Timeouts
+            timeout_map = {
+                'trivy': 600,        # 10 min
+                'grype': 600,        # 10 min
+                'syft': 300,         # 5 min
+                'kube-hunter': 900,  # 15 min
+                'kube-bench': 300,   # 5 min
+                'kubescape': 600     # 10 min
+            }
+            timeout = timeout_map.get(tool, 600)
+            
+            result = subprocess.run(
+                command,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                env=CommandSanitizer.get_safe_env()
+            )
+            
+            # Guardar output si no existe
+            if not Path(output_file).exists() and result.stdout:
+                with open(output_file, 'w') as f:
+                    f.write(result.stdout)
+            
+            scan = self.scan_repo.find_by_id(scan_id)
+            
+            # Algunos tools retornan != 0 cuando encuentran vulnerabilidades
+            # Validamos si el archivo de salida existe
+            if result.returncode == 0 or Path(output_file).exists():
+                self.scan_repo.update_status(scan, 'completed')
+                self.scan_repo.update_progress(scan, 100, result.stdout[:1000])
+                logger.info(f"{tool} {scan_id} completed")
+            else:
+                error_msg = result.stderr or "Unknown error"
+                self.scan_repo.update_status(scan, 'failed', error_msg)
+                logger.error(f"{tool} {scan_id} failed: {error_msg}")
+                
+        except subprocess.TimeoutExpired:
+            scan = self.scan_repo.find_by_id(scan_id)
+            self.scan_repo.update_status(scan, 'failed', f'Timeout ({timeout}s)')
+            logger.error(f"{tool} {scan_id} timeout")
+            
+        except Exception as e:
+            scan = self.scan_repo.find_by_id(scan_id)
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            logger.error(f"{tool} {scan_id} error: {e}", exc_info=True)
+
+
+

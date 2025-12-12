@@ -1,9 +1,0 @@
-{
-  "hosts": ["www.example.com", "api.example.com"],
-  "emails": ["admin@example.com"],
-  "ips": ["192.0.2.1"],
-  "urls": ["https://www.example.com"],
-  "interesting_urls": ["https://example.com/admin"]
-}
-
-

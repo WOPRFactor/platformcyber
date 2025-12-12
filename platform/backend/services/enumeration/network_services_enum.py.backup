@@ -1,0 +1,632 @@
+"""
+Network Services Enumeration Service
+====================================
+
+Servicios para enumeración de servicios de red:
+- SSH (ssh-audit, Nmap scripts)
+- FTP (Nmap scripts)
+- SMTP (smtp-user-enum, Nmap scripts)
+- DNS (Zone transfer, Nmap scripts)
+- SNMP (snmpwalk, onesixtyone, Nmap scripts)
+- LDAP (ldapsearch, Nmap scripts)
+- RDP (Nmap scripts)
+"""
+
+import logging
+from typing import Dict, Any, Optional, List
+from pathlib import Path
+
+from utils.validators import CommandSanitizer, DomainValidator
+from utils.commands import SafeNmap
+from .base import BaseEnumerationService
+
+logger = logging.getLogger(__name__)
+
+
+class NetworkServicesEnumerationService(BaseEnumerationService):
+    """Servicio para enumeración de servicios de red."""
+    
+    def start_ssh_enum(
+        self,
+        target: str,
+        workspace_id: int,
+        user_id: int,
+        tool: str = 'nmap',
+        port: int = 22
+    ) -> Dict[str, Any]:
+        """
+        Enumeración SSH.
+        
+        Args:
+            target: IP objetivo
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            tool: 'nmap' o 'ssh-audit'
+            port: Puerto SSH (default: 22)
+        
+        Returns:
+            Dict con información del escaneo
+        """
+        CommandSanitizer.validate_target(target)
+        
+        scan = self._create_scan(
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            tool=tool,
+            options={'port': port, 'service': 'ssh'}
+        )
+        
+        try:
+            if tool == 'ssh-audit':
+                output_file = str(self.output_dir / f'ssh-audit_{scan.id}.txt')
+                command = ['ssh-audit', f'{target}:{port}']
+            else:  # nmap
+                output_file = str(self.output_dir / f'nmap_ssh_{scan.id}.xml')
+                scripts = ['ssh-hostkey', 'ssh2-enum-algos', 'ssh-auth-methods']
+                command = SafeNmap.build_script_scan(
+                    target=target,
+                    port=port,
+                    scripts=scripts,
+                    output_file=output_file
+                )
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting {tool} SSH enum {scan.id}")
+            
+            self._start_scan_thread(scan.id, sanitized_cmd, output_file, tool)
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': tool,
+                'target': target,
+                'port': port
+            }
+            
+        except Exception as e:
+            logger.error(f"Error starting SSH enum: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    def start_ftp_enum(
+        self,
+        target: str,
+        workspace_id: int,
+        user_id: int,
+        port: int = 21
+    ) -> Dict[str, Any]:
+        """
+        Enumeración FTP con Nmap scripts.
+        
+        Args:
+            target: IP objetivo
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            port: Puerto FTP (default: 21)
+        
+        Returns:
+            Dict con información del escaneo
+        """
+        CommandSanitizer.validate_target(target)
+        
+        scan = self._create_scan(
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            tool='nmap',
+            options={'port': port, 'service': 'ftp'}
+        )
+        
+        try:
+            output_file = str(self.output_dir / f'nmap_ftp_{scan.id}.xml')
+            scripts = ['ftp-anon', 'ftp-bounce', 'ftp-syst']
+            
+            command = SafeNmap.build_script_scan(
+                target=target,
+                port=port,
+                scripts=scripts,
+                output_file=output_file
+            )
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting Nmap FTP enum {scan.id}")
+            
+            self._start_scan_thread(scan.id, sanitized_cmd, output_file, 'nmap')
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': 'nmap',
+                'target': target,
+                'port': port
+            }
+            
+        except Exception as e:
+            logger.error(f"Error starting FTP enum: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    def start_smtp_enum(
+        self,
+        target: str,
+        workspace_id: int,
+        user_id: int,
+        tool: str = 'nmap',
+        port: int = 25,
+        users_file: Optional[str] = None,
+        mode: str = 'VRFY'
+    ) -> Dict[str, Any]:
+        """
+        Enumeración SMTP.
+        
+        Args:
+            target: IP objetivo
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            tool: 'nmap' o 'smtp-user-enum'
+            port: Puerto SMTP (default: 25)
+            users_file: Archivo de usuarios (para smtp-user-enum)
+            mode: Modo VRFY o RCPT (para smtp-user-enum)
+        
+        Returns:
+            Dict con información del escaneo
+        """
+        CommandSanitizer.validate_target(target)
+        
+        scan = self._create_scan(
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            tool=tool,
+            options={'port': port, 'service': 'smtp'}
+        )
+        
+        try:
+            if tool == 'smtp-user-enum':
+                if not users_file:
+                    raise ValueError('users_file is required for smtp-user-enum')
+                output_file = str(self.output_dir / f'smtp-user-enum_{scan.id}.txt')
+                command = ['smtp-user-enum', '-M', mode, '-U', users_file, '-t', target]
+            else:  # nmap
+                output_file = str(self.output_dir / f'nmap_smtp_{scan.id}.xml')
+                scripts = ['smtp-commands', 'smtp-enum-users', 'smtp-open-relay']
+                command = SafeNmap.build_script_scan(
+                    target=target,
+                    port=port,
+                    scripts=scripts,
+                    output_file=output_file
+                )
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting {tool} SMTP enum {scan.id}")
+            
+            self._start_scan_thread(scan.id, sanitized_cmd, output_file, tool)
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': tool,
+                'target': target,
+                'port': port
+            }
+            
+        except Exception as e:
+            logger.error(f"Error starting SMTP enum: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    def start_dns_enum(
+        self,
+        target: str,
+        workspace_id: int,
+        user_id: int,
+        domain: Optional[str] = None,
+        tool: str = 'nmap',
+        port: int = 53
+    ) -> Dict[str, Any]:
+        """
+        Enumeración DNS.
+        
+        Args:
+            target: IP del servidor DNS o dominio
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            domain: Dominio a enumerar (opcional, si no se proporciona se usa target)
+            tool: 'nmap' o 'dig'
+            port: Puerto DNS (default: 53)
+        
+        Returns:
+            Dict con información del escaneo
+        """
+        CommandSanitizer.validate_target(target)
+        
+        # Si no se proporciona domain, intentar usar target como domain
+        if not domain:
+            # Si target parece ser un dominio, usarlo
+            if DomainValidator.is_valid_domain(target):
+                domain = target
+            else:
+                # Si es una IP, necesitamos un domain
+                raise ValueError('domain is required when target is an IP address')
+        
+        DomainValidator.is_valid_domain(domain)
+        
+        scan = self._create_scan(
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            tool=tool,
+            options={'port': port, 'service': 'dns', 'domain': domain}
+        )
+        
+        try:
+            if tool == 'dig':
+                output_file = str(self.output_dir / f'dig_zone_{scan.id}.txt')
+                command = ['dig', '@' + target, 'axfr', domain]
+            else:  # nmap
+                output_file = str(self.output_dir / f'nmap_dns_{scan.id}.xml')
+                scripts = ['dns-zone-transfer', 'dns-recursion']
+                command = SafeNmap.build_script_scan(
+                    target=target,
+                    port=port,
+                    scripts=scripts,
+                    output_file=output_file
+                )
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting {tool} DNS enum {scan.id}")
+            
+            self._start_scan_thread(scan.id, sanitized_cmd, output_file, tool)
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': tool,
+                'target': target,
+                'domain': domain
+            }
+            
+        except Exception as e:
+            logger.error(f"Error starting DNS enum: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    def start_snmp_enum(
+        self,
+        target: str,
+        workspace_id: int,
+        user_id: int,
+        tool: str = 'nmap',
+        port: int = 161,
+        community: str = 'public',
+        community_file: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Enumeración SNMP.
+        
+        Args:
+            target: IP objetivo
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            tool: 'nmap', 'snmpwalk' o 'onesixtyone'
+            port: Puerto SNMP (default: 161)
+            community: Community string (default: public)
+            community_file: Archivo de communities (para onesixtyone)
+        
+        Returns:
+            Dict con información del escaneo
+        """
+        CommandSanitizer.validate_target(target)
+        
+        scan = self._create_scan(
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            tool=tool,
+            options={'port': port, 'service': 'snmp'}
+        )
+        
+        try:
+            if tool == 'snmpwalk':
+                output_file = str(self.output_dir / f'snmpwalk_{scan.id}.txt')
+                command = ['snmpwalk', '-v2c', '-c', community, target]
+            elif tool == 'onesixtyone':
+                if not community_file:
+                    raise ValueError('community_file is required for onesixtyone')
+                output_file = str(self.output_dir / f'onesixtyone_{scan.id}.txt')
+                command = ['onesixtyone', '-c', community_file, target]
+            else:  # nmap
+                output_file = str(self.output_dir / f'nmap_snmp_{scan.id}.xml')
+                scripts = ['snmp-info', 'snmp-brute', 'snmp-processes']
+                command = SafeNmap.build_script_scan(
+                    target=target,
+                    port=port,
+                    scripts=scripts,
+                    output_file=output_file,
+                    udp=True
+                )
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting {tool} SNMP enum {scan.id}")
+            
+            self._start_scan_thread(scan.id, sanitized_cmd, output_file, tool)
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': tool,
+                'target': target,
+                'port': port
+            }
+            
+        except Exception as e:
+            logger.error(f"Error starting SNMP enum: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    def start_ldap_enum(
+        self,
+        target: str,
+        workspace_id: int,
+        user_id: int,
+        tool: str = 'nmap',
+        port: int = 389,
+        base_dn: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Enumeración LDAP.
+        
+        Args:
+            target: IP objetivo
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            tool: 'nmap' o 'ldapsearch'
+            port: Puerto LDAP (default: 389)
+            base_dn: Base DN para ldapsearch (opcional)
+        
+        Returns:
+            Dict con información del escaneo
+        """
+        CommandSanitizer.validate_target(target)
+        
+        scan = self._create_scan(
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            tool=tool,
+            options={'port': port, 'service': 'ldap'}
+        )
+        
+        try:
+            if tool == 'ldapsearch':
+                output_file = str(self.output_dir / f'ldapsearch_{scan.id}.txt')
+                command = ['ldapsearch', '-x', '-H', f'ldap://{target}', '-b', base_dn or '']
+            else:  # nmap
+                output_file = str(self.output_dir / f'nmap_ldap_{scan.id}.xml')
+                scripts = ['ldap-rootdse', 'ldap-search']
+                command = SafeNmap.build_script_scan(
+                    target=target,
+                    port=port,
+                    scripts=scripts,
+                    output_file=output_file
+                )
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting {tool} LDAP enum {scan.id}")
+            
+            self._start_scan_thread(scan.id, sanitized_cmd, output_file, tool)
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': tool,
+                'target': target,
+                'port': port
+            }
+            
+        except Exception as e:
+            logger.error(f"Error starting LDAP enum: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    def start_rdp_enum(
+        self,
+        target: str,
+        workspace_id: int,
+        user_id: int,
+        port: int = 3389
+    ) -> Dict[str, Any]:
+        """
+        Enumeración RDP con Nmap scripts.
+        
+        Args:
+            target: IP objetivo
+            workspace_id: ID del workspace
+            user_id: ID del usuario
+            port: Puerto RDP (default: 3389)
+        
+        Returns:
+            Dict con información del escaneo
+        """
+        CommandSanitizer.validate_target(target)
+        
+        scan = self._create_scan(
+            target=target,
+            workspace_id=workspace_id,
+            user_id=user_id,
+            tool='nmap',
+            options={'port': port, 'service': 'rdp'}
+        )
+        
+        try:
+            output_file = str(self.output_dir / f'nmap_rdp_{scan.id}.xml')
+            scripts = ['rdp-enum-encryption', 'rdp-ntlm-info']
+            
+            command = SafeNmap.build_script_scan(
+                target=target,
+                port=port,
+                scripts=scripts,
+                output_file=output_file
+            )
+            
+            sanitized_cmd = CommandSanitizer.sanitize_command(command[0], command[1:])
+            
+            logger.info(f"Starting Nmap RDP enum {scan.id}")
+            
+            self._start_scan_thread(scan.id, sanitized_cmd, output_file, 'nmap')
+            self.scan_repo.update_status(scan, 'running')
+            
+            return {
+                'scan_id': scan.id,
+                'status': 'running',
+                'tool': 'nmap',
+                'target': target,
+                'port': port
+            }
+            
+        except Exception as e:
+            logger.error(f"Error starting RDP enum: {e}")
+            self.scan_repo.update_status(scan, 'failed', str(e))
+            raise
+    
+    # ============================================
+    # PREVIEW METHODS
+    # ============================================
+    
+    def preview_ftp_enum(
+        self,
+        target: str,
+        workspace_id: int,
+        port: int = 21
+    ) -> Dict[str, Any]:
+        """Preview del comando FTP enum."""
+        CommandSanitizer.validate_target(target)
+        
+        output_file = f'/workspaces/workspace_{workspace_id}/enumeration/nmap_ftp_{{scan_id}}.xml'
+        scripts = ['ftp-anon', 'ftp-bounce', 'ftp-syst']
+        
+        command = SafeNmap.build_script_scan(
+            target=target,
+            port=port,
+            scripts=scripts,
+            output_file=output_file
+        )
+        
+        command_str = ' '.join([str(c) for c in command])
+        
+        return {
+            'command': command,
+            'command_string': command_str,
+            'parameters': {
+                'tool': 'nmap',
+                'target': target,
+                'port': port,
+                'service': 'ftp',
+                'scripts': scripts
+            },
+            'estimated_timeout': 300,
+            'output_file': output_file,
+            'warnings': [],
+            'suggestions': []
+        }
+    
+    def preview_dns_enum(
+        self,
+        target: str,
+        workspace_id: int,
+        domain: Optional[str] = None,
+        tool: str = 'nmap',
+        port: int = 53
+    ) -> Dict[str, Any]:
+        """Preview del comando DNS enum."""
+        CommandSanitizer.validate_target(target)
+        
+        if not domain:
+            if DomainValidator.is_valid_domain(target):
+                domain = target
+            else:
+                raise ValueError('domain is required when target is an IP address')
+        
+        DomainValidator.is_valid_domain(domain)
+        
+        if tool == 'dig':
+            output_file = f'/workspaces/workspace_{workspace_id}/enumeration/dig_zone_{{scan_id}}.txt'
+            command = ['dig', '@' + target, 'axfr', domain]
+        else:  # nmap
+            output_file = f'/workspaces/workspace_{workspace_id}/enumeration/nmap_dns_{{scan_id}}.xml'
+            scripts = ['dns-zone-transfer', 'dns-recursion']
+            command = SafeNmap.build_script_scan(
+                target=target,
+                port=port,
+                scripts=scripts,
+                output_file=output_file
+            )
+        
+        command_str = ' '.join([str(c) for c in command])
+        
+        return {
+            'command': command,
+            'command_string': command_str,
+            'parameters': {
+                'tool': tool,
+                'target': target,
+                'domain': domain,
+                'port': port,
+                'service': 'dns'
+            },
+            'estimated_timeout': 300,
+            'output_file': output_file,
+            'warnings': [],
+            'suggestions': []
+        }
+    
+    def preview_rdp_enum(
+        self,
+        target: str,
+        workspace_id: int,
+        port: int = 3389
+    ) -> Dict[str, Any]:
+        """Preview del comando RDP enum."""
+        CommandSanitizer.validate_target(target)
+        
+        output_file = f'/workspaces/workspace_{workspace_id}/enumeration/nmap_rdp_{{scan_id}}.xml'
+        scripts = ['rdp-enum-encryption', 'rdp-ntlm-info']
+        
+        command = SafeNmap.build_script_scan(
+            target=target,
+            port=port,
+            scripts=scripts,
+            output_file=output_file
+        )
+        
+        command_str = ' '.join([str(c) for c in command])
+        
+        return {
+            'command': command,
+            'command_string': command_str,
+            'parameters': {
+                'tool': 'nmap',
+                'target': target,
+                'port': port,
+                'service': 'rdp',
+                'scripts': scripts
+            },
+            'estimated_timeout': 300,
+            'output_file': output_file,
+            'warnings': [],
+            'suggestions': []
+        }
+

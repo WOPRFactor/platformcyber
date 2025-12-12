@@ -1,8 +1,0 @@
-SNMPv2-MIB::sysDescr.0 = STRING: Linux server 5.4.0-74-generic
-SNMPv2-MIB::sysContact.0 = STRING: admin@example.com
-SNMPv2-MIB::sysName.0 = STRING: server01
-SNMPv2-MIB::sysLocation.0 = STRING: Data Center A
-IF-MIB::ifDescr.1 = STRING: eth0
-IF-MIB::ifDescr.2 = STRING: eth1
-
-

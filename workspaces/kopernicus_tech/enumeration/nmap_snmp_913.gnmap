@@ -1,4 +1,0 @@
-# Nmap 7.95 scan initiated Wed Dec 10 16:06:52 2025 as: /usr/lib/nmap/nmap --privileged -sU -sV --script snmp-info,snmp-brute,snmp-processes -p 161 -oA /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913 kopernicus.tech
-Host: 66.97.42.227 (vps-1889901-x.dattaweb.com)	Status: Up
-Host: 66.97.42.227 (vps-1889901-x.dattaweb.com)	Ports: 161/open|filtered/udp//snmp///
-# Nmap done at Wed Dec 10 16:08:49 2025 -- 1 IP address (1 host up) scanned in 117.29 seconds

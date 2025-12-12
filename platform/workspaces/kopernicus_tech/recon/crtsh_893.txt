@@ -1,0 +1,9 @@
+*.kopernicus.tech
+assurant.kopernicus.tech
+fravega.kopernicus.tech
+kopernicus.tech
+macro.kopernicus.tech
+www.assurant.kopernicus.tech
+www.fravega.kopernicus.tech
+www.kopernicus.tech
+www.macro.kopernicus.tech

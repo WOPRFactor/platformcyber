@@ -1,4 +1,0 @@
-# Nmap 7.95 scan initiated Wed Dec 10 16:07:47 2025 as: /usr/lib/nmap/nmap --privileged -sV --script pgsql-brute -p 5432 -oA /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/tmp/enumeration/nmap_postgresql_916.xml kopernicus.tech
-Host: 66.97.42.227 (vps-1889901-x.dattaweb.com)	Status: Up
-Host: 66.97.42.227 (vps-1889901-x.dattaweb.com)	Ports: 5432/filtered/tcp//postgresql///
-# Nmap done at Wed Dec 10 16:07:54 2025 -- 1 IP address (1 host up) scanned in 6.58 seconds

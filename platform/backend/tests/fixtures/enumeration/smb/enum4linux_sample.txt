@@ -1,0 +1,25 @@
+Starting enum4linux v0.9.1 on Sun Dec  7 05:20:19 2025
+
+=========================================( Target Information )=========================================
+Target ........... 192.168.1.100
+Workgroup/Domain .. WORKGROUP
+OS ................ Windows 10 Enterprise 19042
+
+=========================================( Share Enumeration )=========================================
+Share name       Type      Comment
+---------       ----      -------
+ADMIN$          Disk      Remote Admin
+C$              Disk      Default share
+IPC$            IPC       Remote IPC
+Shared          Disk      Public Share
+
+=========================================( Groups on 192.168.1.100 )=========================================
+group:[Administrators] rid:[0x220]
+group:[Users] rid:[0x221]
+
+=========================================( Users on 192.168.1.100 )=========================================
+index: 0x1 RID: 0x3f2 acb: 0x00000010 Account: Administrator
+index: 0x2 RID: 0x3f3 acb: 0x00000010 Account: user1
+
+
+

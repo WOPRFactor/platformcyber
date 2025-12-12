@@ -1,0 +1,18 @@
+NS: ns4711.banahosting.com. ns4710.banahosting.com.
+SOA: ns4710.banahosting.com. (216.246.112.35)
+Zone: failure
+Wildcard: failure
+Found: ftp.alquilersura.com.uy. (216.246.112.39)
+Nearby:
+{'216.246.112.34': 'single-4710.banahosting.com.',
+ '216.246.112.35': 'ns4710.banahosting.com.',
+ '216.246.112.36': 'ns4711.banahosting.com.',
+ '216.246.112.37': 'single-4710.banahosting.com.',
+ '216.246.112.38': 'single-4710.banahosting.com.',
+ '216.246.112.39': 'single-4710.banahosting.com.',
+ '216.246.112.40': 'single-4710.banahosting.com.',
+ '216.246.112.41': 'single-4710.banahosting.com.',
+ '216.246.112.42': 'single-4710.banahosting.com.',
+ '216.246.112.43': 'single-4710.banahosting.com.',
+ '216.246.112.44': 'single-4710.banahosting.com.'}
+Found: mail.alquilersura.com.uy. (216.246.112.39)

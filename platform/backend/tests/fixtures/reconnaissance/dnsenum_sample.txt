@@ -1,0 +1,21 @@
+dnsenum.pl VERSION:1.2.6
+
+-----   example.com   -----
+
+Host's addresses:
+__________________
+
+example.com.                             5       IN      A        192.0.2.1
+
+Name Servers:
+______________
+
+ns1.example.com.                         5       IN      A        192.0.2.10
+ns2.example.com.                         5       IN      A        192.0.2.11
+
+Mail (MX) Servers:
+___________________
+
+mail.example.com.                        10      IN      A        192.0.2.20
+
+
