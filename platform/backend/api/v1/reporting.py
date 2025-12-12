@@ -1094,3 +1094,52 @@ def download_by_path():
         import traceback
         logger.error(traceback.format_exc())
         return jsonify({'error': str(e)}), 500
+
+
+@reporting_bp.route('/delete/<int:report_id>', methods=['DELETE'])
+@jwt_required()
+def delete_report(report_id):
+    """
+    Elimina un reporte generado.
+    
+    Args:
+        report_id: ID del reporte a eliminar
+    
+    Returns:
+        {
+            "success": true,
+            "message": "Report deleted successfully"
+        }
+    """
+    try:
+        report = ReportRepository.find_by_id(report_id)
+        
+        if not report:
+            return jsonify({
+                'success': False,
+                'error': 'Report not found'
+            }), 404
+        
+        # Eliminar reporte (incluye archivo si existe)
+        success = ReportRepository.delete(report_id, delete_file=True)
+        
+        if success:
+            logger.info(f"Report {report_id} deleted successfully")
+            return jsonify({
+                'success': True,
+                'message': 'Report deleted successfully'
+            }), 200
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'Failed to delete report'
+            }), 500
+        
+    except Exception as e:
+        logger.error(f"Error deleting report {report_id}: {e}")
+        import traceback
+        logger.error(traceback.format_exc())
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500

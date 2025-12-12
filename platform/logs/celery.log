@@ -722,3 +722,1037 @@ WHERE reports.id = ?
 [2025-12-12 03:47:31,667: INFO/ForkPoolWorker-1] ROLLBACK
 [2025-12-12 03:47:31,670: INFO/ForkPoolWorker-1] Report V2 generated successfully for workspace 10: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_034706.pdf (ID: 37)
 [2025-12-12 03:47:31,673: INFO/ForkPoolWorker-1] Task tasks.reporting.generate_report_v2[947278ed-1be8-4445-bdfb-190cc88a7aa3] succeeded in 24.89331505598966s: {'report_id': 37, 'workspace_id': 10, 'report_path': '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_034706.pdf', 'file_size': 175759, 'total_findings': 119, 'risk_score': 2.86, 'completed_at': '2025-12-12T08:47:31.670835'}
+[2025-12-12 07:42:56,683: INFO/MainProcess] Task tasks.reporting.generate_report_v2[3f37308c-c140-4192-a21b-3dcd7ce94fa7] received
+[2025-12-12 07:42:56,702: WARNING/ForkPoolWorker-1] 2025-12-12 07:42:56,701 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+[2025-12-12 07:42:56,701: INFO/ForkPoolWorker-1] BEGIN (implicit)
+[2025-12-12 07:42:56,708: WARNING/ForkPoolWorker-1] 2025-12-12 07:42:56,708 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+[2025-12-12 07:42:56,708: INFO/ForkPoolWorker-1] SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+[2025-12-12 07:42:56,708: WARNING/ForkPoolWorker-1] 2025-12-12 07:42:56,708 INFO sqlalchemy.engine.Engine [generated in 0.00057s] (10,)
+[2025-12-12 07:42:56,708: INFO/ForkPoolWorker-1] [generated in 0.00057s] (10,)
+[2025-12-12 07:42:56,715: WARNING/ForkPoolWorker-1] 2025-12-12 07:42:56,715 INFO sqlalchemy.engine.Engine ROLLBACK
+[2025-12-12 07:42:56,715: INFO/ForkPoolWorker-1] ROLLBACK
+[2025-12-12 07:42:56,719: INFO/ForkPoolWorker-1] Registered 44 parsers
+[2025-12-12 07:42:56,720: INFO/ForkPoolWorker-1] WeasyPrint PDF Generator initialized with templates from: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/templates
+[2025-12-12 07:42:56,720: INFO/ForkPoolWorker-1] WeasyPrint PDF Generator initialized with templates from: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/templates
+[2025-12-12 07:42:56,727: INFO/ForkPoolWorker-1] Scanning workspace directory: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech
+[2025-12-12 07:42:56,732: INFO/ForkPoolWorker-1] Found 11 files in recon
+[2025-12-12 07:42:56,742: INFO/ForkPoolWorker-1] Found 16 files in scans
+[2025-12-12 07:42:56,753: INFO/ForkPoolWorker-1] Found 30 files in enumeration
+[2025-12-12 07:42:56,757: INFO/ForkPoolWorker-1] Found 8 files in vuln_scans
+[2025-12-12 07:42:56,758: INFO/ForkPoolWorker-1] Total files found: 65
+[2025-12-12 07:42:56,760: INFO/ForkPoolWorker-1] DNSRecon: Parsed 21 DNS records
+[2025-12-12 07:42:56,760: INFO/ForkPoolWorker-1] Parsed 21 findings from dnsrecon_889.json
+[2025-12-12 07:42:56,762: INFO/ForkPoolWorker-1] DNSEnum: Parsed 14 DNS records
+[2025-12-12 07:42:56,762: INFO/ForkPoolWorker-1] Parsed 14 findings from dnsenum_897.txt
+[2025-12-12 07:42:56,763: INFO/ForkPoolWorker-1] Findomain: Parsed 4 subdomains
+[2025-12-12 07:42:56,763: INFO/ForkPoolWorker-1] Parsed 4 findings from findomain_894.txt
+[2025-12-12 07:42:56,764: INFO/ForkPoolWorker-1] WHOIS: Parsed information for kopernicus.tech
+[2025-12-12 07:42:56,764: INFO/ForkPoolWorker-1] Parsed 1 findings from whois_888.txt
+[2025-12-12 07:42:56,764: INFO/ForkPoolWorker-1] Assetfinder: Parsed 3 subdomains from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/assetfinder_891.txt
+[2025-12-12 07:42:56,765: INFO/ForkPoolWorker-1] Parsed 3 findings from assetfinder_891.txt
+[2025-12-12 07:42:56,765: INFO/ForkPoolWorker-1] crt.sh: Parsed 9 subdomains
+[2025-12-12 07:42:56,766: INFO/ForkPoolWorker-1] Parsed 9 findings from crtsh_893.txt
+[2025-12-12 07:42:56,766: INFO/ForkPoolWorker-1] Fierce: Parsed 31 DNS findings
+[2025-12-12 07:42:56,767: INFO/ForkPoolWorker-1] Parsed 31 findings from fierce_896.txt
+[2025-12-12 07:42:56,767: INFO/ForkPoolWorker-1] Sublist3r: Parsed 13 subdomains
+[2025-12-12 07:42:56,767: INFO/ForkPoolWorker-1] Parsed 13 findings from sublist3r_892.txt
+[2025-12-12 07:42:56,768: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/host_895.txt
+[2025-12-12 07:42:56,768: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/host_895.txt: no suitable parser
+[2025-12-12 07:42:56,769: INFO/ForkPoolWorker-1] Traceroute: Parsed 16 hops
+[2025-12-12 07:42:56,769: INFO/ForkPoolWorker-1] Parsed 16 findings from traceroute_898.txt
+[2025-12-12 07:42:56,771: INFO/ForkPoolWorker-1] Parsed 8 subdomains from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/subfinder_890.txt
+[2025-12-12 07:42:56,771: INFO/ForkPoolWorker-1] Parsed 8 findings from subfinder_890.txt
+[2025-12-12 07:42:56,787: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.xml
+[2025-12-12 07:42:56,788: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_901.xml
+[2025-12-12 07:42:56,788: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.txt
+[2025-12-12 07:42:56,789: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.txt: no suitable parser
+[2025-12-12 07:42:56,789: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.nmap
+[2025-12-12 07:42:56,789: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.nmap: no suitable parser
+[2025-12-12 07:42:56,790: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.nmap
+[2025-12-12 07:42:56,790: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.nmap: no suitable parser
+[2025-12-12 07:42:56,792: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_900.xml
+[2025-12-12 07:42:56,792: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_900.xml
+[2025-12-12 07:42:56,795: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_902.xml
+[2025-12-12 07:42:56,795: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_902.xml
+[2025-12-12 07:42:56,808: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.xml
+[2025-12-12 07:42:56,809: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_922.xml
+[2025-12-12 07:42:56,809: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_900.txt
+[2025-12-12 07:42:56,810: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_900.txt: no suitable parser
+[2025-12-12 07:42:56,811: INFO/ForkPoolWorker-1] RustScan: Parsed 0 open ports
+[2025-12-12 07:42:56,811: INFO/ForkPoolWorker-1] Parsed 0 findings from rustscan_904.txt
+[2025-12-12 07:42:56,816: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.xml
+[2025-12-12 07:42:56,817: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_899.xml
+[2025-12-12 07:42:56,817: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.gnmap
+[2025-12-12 07:42:56,818: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.gnmap: no suitable parser
+[2025-12-12 07:42:56,818: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.gnmap
+[2025-12-12 07:42:56,818: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.gnmap: no suitable parser
+[2025-12-12 07:42:56,819: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_902.txt
+[2025-12-12 07:42:56,819: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_902.txt: no suitable parser
+[2025-12-12 07:42:56,822: INFO/ForkPoolWorker-1] Parsed 10 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.xml
+[2025-12-12 07:42:56,822: INFO/ForkPoolWorker-1] Parsed 10 findings from nmap_903.xml
+[2025-12-12 07:42:56,823: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.nmap
+[2025-12-12 07:42:56,823: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.nmap: no suitable parser
+[2025-12-12 07:42:56,823: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.gnmap
+[2025-12-12 07:42:56,824: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.gnmap: no suitable parser
+[2025-12-12 07:42:56,824: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.gnmap
+[2025-12-12 07:42:56,824: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.gnmap: no suitable parser
+[2025-12-12 07:42:56,825: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml: syntax error: line 1, column 0
+[2025-12-12 07:42:56,826: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 07:42:56,826: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_smtp_911.xml
+[2025-12-12 07:42:56,827: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.xml: syntax error: line 1, column 0
+[2025-12-12 07:42:56,828: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 07:42:56,828: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_snmp_913.xml
+[2025-12-12 07:42:56,830: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.nmap
+[2025-12-12 07:42:56,830: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.nmap: no suitable parser
+[2025-12-12 07:42:56,830: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.nmap
+[2025-12-12 07:42:56,831: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.nmap: no suitable parser
+[2025-12-12 07:42:56,833: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml: syntax error: line 1, column 0
+[2025-12-12 07:42:56,834: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 07:42:56,835: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_rdp_915.xml
+[2025-12-12 07:42:56,835: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.gnmap
+[2025-12-12 07:42:56,835: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.gnmap: no suitable parser
+[2025-12-12 07:42:56,835: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.nmap
+[2025-12-12 07:42:56,835: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.nmap: no suitable parser
+[2025-12-12 07:42:56,835: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.gnmap
+[2025-12-12 07:42:56,835: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.gnmap: no suitable parser
+[2025-12-12 07:42:56,836: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml: syntax error: line 1, column 0
+[2025-12-12 07:42:56,837: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 07:42:56,837: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ftp_910.xml
+[2025-12-12 07:42:56,838: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml: syntax error: line 1, column 0
+[2025-12-12 07:42:56,838: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 07:42:56,839: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_dns_912.xml
+[2025-12-12 07:42:56,839: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml: syntax error: line 1, column 0
+[2025-12-12 07:42:56,840: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 07:42:56,840: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ssh_909.xml
+[2025-12-12 07:42:56,841: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.xml
+[2025-12-12 07:42:56,841: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_smtp_911.xml.xml
+[2025-12-12 07:42:56,844: INFO/ForkPoolWorker-1] Parsed 1 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.xml
+[2025-12-12 07:42:56,844: INFO/ForkPoolWorker-1] Parsed 1 findings from nmap_ftp_910.xml.xml
+[2025-12-12 07:42:56,845: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.xml
+[2025-12-12 07:42:56,845: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_dns_912.xml.xml
+[2025-12-12 07:42:56,846: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.xml
+[2025-12-12 07:42:56,846: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_rdp_915.xml.xml
+[2025-12-12 07:42:56,846: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.gnmap
+[2025-12-12 07:42:56,846: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.gnmap: no suitable parser
+[2025-12-12 07:42:56,847: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.xml
+[2025-12-12 07:42:56,848: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ldap_914.xml.xml
+[2025-12-12 07:42:56,848: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.nmap
+[2025-12-12 07:42:56,848: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.nmap: no suitable parser
+[2025-12-12 07:42:56,849: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.xml
+[2025-12-12 07:42:56,849: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ssh_909.xml.xml
+[2025-12-12 07:42:56,849: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.nmap
+[2025-12-12 07:42:56,849: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.nmap: no suitable parser
+[2025-12-12 07:42:56,849: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.gnmap
+[2025-12-12 07:42:56,849: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.gnmap: no suitable parser
+[2025-12-12 07:42:56,850: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml: syntax error: line 1, column 0
+[2025-12-12 07:42:56,851: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 07:42:56,851: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ldap_914.xml
+[2025-12-12 07:42:56,852: INFO/ForkPoolWorker-1] SMBMap: Parsed 0 SMB shares
+[2025-12-12 07:42:56,853: INFO/ForkPoolWorker-1] Parsed 0 findings from smbmap_907.txt
+[2025-12-12 07:42:56,853: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.nmap
+[2025-12-12 07:42:56,853: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.nmap: no suitable parser
+[2025-12-12 07:42:56,853: INFO/ForkPoolWorker-1] SSLScan: Parsed SSL/TLS configuration with 0 weak ciphers
+[2025-12-12 07:42:56,853: INFO/ForkPoolWorker-1] Parsed 0 findings from sslscan_919.txt
+[2025-12-12 07:42:56,854: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.nmap
+[2025-12-12 07:42:56,854: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.nmap: no suitable parser
+[2025-12-12 07:42:56,854: INFO/ForkPoolWorker-1] Enum4linux: Parsed 0 SMB findings
+[2025-12-12 07:42:56,854: INFO/ForkPoolWorker-1] Parsed 0 findings from enum4linux_906.txt
+[2025-12-12 07:42:56,854: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.gnmap
+[2025-12-12 07:42:56,854: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.gnmap: no suitable parser
+[2025-12-12 07:42:56,855: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.gnmap
+[2025-12-12 07:42:56,855: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.gnmap: no suitable parser
+[2025-12-12 07:42:56,855: INFO/ForkPoolWorker-1] Parsed 6 findings from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/nikto_921.json
+[2025-12-12 07:42:56,855: INFO/ForkPoolWorker-1] Parsed 6 findings from nikto_921.json
+[2025-12-12 07:42:56,855: ERROR/ForkPoolWorker-1] Error parsing testssl file /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/testssl_926.json: 'list' object has no attribute 'get'
+[2025-12-12 07:42:56,856: INFO/ForkPoolWorker-1] Parsed 0 findings from testssl_926.json
+[2025-12-12 07:42:56,856: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/testssl_926.html
+[2025-12-12 07:42:56,856: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/testssl_926.html: no suitable parser
+[2025-12-12 07:42:56,857: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/results-12102025_0409pm.csv
+[2025-12-12 07:42:56,857: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/results-12102025_0409pm.csv: no suitable parser
+[2025-12-12 07:42:56,857: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/log
+[2025-12-12 07:42:56,858: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/log: no suitable parser
+[2025-12-12 07:42:56,858: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/target.txt
+[2025-12-12 07:42:56,858: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/target.txt: no suitable parser
+[2025-12-12 07:42:56,858: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/log
+[2025-12-12 07:42:56,858: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/log: no suitable parser
+[2025-12-12 07:42:56,858: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/session.sqlite
+[2025-12-12 07:42:56,859: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/session.sqlite: no suitable parser
+[2025-12-12 07:42:56,860: INFO/ForkPoolWorker-1] Consolidating 182 findings
+[2025-12-12 07:42:56,861: INFO/ForkPoolWorker-1] Removed 63 duplicate findings
+[2025-12-12 07:42:56,861: INFO/ForkPoolWorker-1] After deduplication: 119 findings
+[2025-12-12 07:42:56,861: INFO/ForkPoolWorker-1] Consolidated into 4 categories
+[2025-12-12 07:42:56,862: INFO/ForkPoolWorker-1] Risk Score: 2.86 (low)
+[2025-12-12 07:42:56,863: INFO/ForkPoolWorker-1] Generating technical report with WeasyPrint: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_074256.pdf
+[2025-12-12 07:42:56,885: INFO/ForkPoolWorker-1] Chromium init'ed with kwargs {}
+[2025-12-12 07:42:56,890: INFO/ForkPoolWorker-1] Found chromium path: /usr/bin/chromium
+[2025-12-12 07:42:56,892: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmpu0pomkpm.
+[2025-12-12 07:42:56,893: INFO/ForkPoolWorker-1] Opening browser.
+[2025-12-12 07:42:56,894: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmpaahqxzlu.
+[2025-12-12 07:42:56,912: INFO/ForkPoolWorker-1] ldd failed. e: Command '['ldd', '/usr/bin/chromium']' returned non-zero exit status 1., stderr: None
+[2025-12-12 07:42:56,913: INFO/ForkPoolWorker-1] Temporary directory at: /tmp/tmpaahqxzlu
+[2025-12-12 07:42:57,912: INFO/ForkPoolWorker-1] Conforming 1 to file:///tmp/tmpu0pomkpm/index.html
+[2025-12-12 07:42:57,916: INFO/ForkPoolWorker-1] Waiting on all navigates
+[2025-12-12 07:43:02,344: INFO/ForkPoolWorker-1] All navigates done, putting them all in queue.
+[2025-12-12 07:43:02,345: INFO/ForkPoolWorker-1] Getting tab from queue (has 1)
+[2025-12-12 07:43:02,346: INFO/ForkPoolWorker-1] Got FB27
+[2025-12-12 07:43:02,346: INFO/ForkPoolWorker-1] Processing Distribucin_de_Hallazgos_por_Severidad.png
+[2025-12-12 07:43:02,346: INFO/ForkPoolWorker-1] Sending big command for Distribucin_de_Hallazgos_por_Severidad.png.
+[2025-12-12 07:43:02,995: INFO/ForkPoolWorker-1] Sent big command for Distribucin_de_Hallazgos_por_Severidad.png.
+[2025-12-12 07:43:02,996: INFO/ForkPoolWorker-1] Reloading tab FB27 before return.
+[2025-12-12 07:43:03,499: INFO/ForkPoolWorker-1] Putting tab FB27 back (queue size: 0).
+[2025-12-12 07:43:03,499: INFO/ForkPoolWorker-1] Waiting for all cleanups to finish.
+[2025-12-12 07:43:03,499: INFO/ForkPoolWorker-1] Exiting Kaleido
+[2025-12-12 07:43:03,499: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 07:43:03,504: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 07:43:03,505: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:03,506: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:03,506: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 07:43:03,506: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 07:43:03,741: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:03,742: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:03,742: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:03,742: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:03,743: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 07:43:03,743: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 07:43:03,744: INFO/ForkPoolWorker-1] Pie chart saved to: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts/severity_distribution.png
+[2025-12-12 07:43:03,761: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:03,762: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:03,769: INFO/ForkPoolWorker-1] Chromium init'ed with kwargs {}
+[2025-12-12 07:43:03,771: INFO/ForkPoolWorker-1] Found chromium path: /usr/bin/chromium
+[2025-12-12 07:43:03,771: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmp9twd7z1u.
+[2025-12-12 07:43:03,772: INFO/ForkPoolWorker-1] Opening browser.
+[2025-12-12 07:43:03,773: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmps5kjps8_.
+[2025-12-12 07:43:03,790: INFO/ForkPoolWorker-1] ldd failed. e: Command '['ldd', '/usr/bin/chromium']' returned non-zero exit status 1., stderr: None
+[2025-12-12 07:43:03,791: INFO/ForkPoolWorker-1] Temporary directory at: /tmp/tmps5kjps8_
+[2025-12-12 07:43:04,832: INFO/ForkPoolWorker-1] Conforming 1 to file:///tmp/tmp9twd7z1u/index.html
+[2025-12-12 07:43:04,833: INFO/ForkPoolWorker-1] Waiting on all navigates
+[2025-12-12 07:43:08,984: INFO/ForkPoolWorker-1] All navigates done, putting them all in queue.
+[2025-12-12 07:43:08,986: INFO/ForkPoolWorker-1] Getting tab from queue (has 1)
+[2025-12-12 07:43:08,988: INFO/ForkPoolWorker-1] Got DAB9
+[2025-12-12 07:43:08,988: INFO/ForkPoolWorker-1] Processing Hallazgos_por_Categora.png
+[2025-12-12 07:43:08,989: INFO/ForkPoolWorker-1] Sending big command for Hallazgos_por_Categora.png.
+[2025-12-12 07:43:09,651: INFO/ForkPoolWorker-1] Sent big command for Hallazgos_por_Categora.png.
+[2025-12-12 07:43:09,651: INFO/ForkPoolWorker-1] Reloading tab DAB9 before return.
+[2025-12-12 07:43:10,095: INFO/ForkPoolWorker-1] Putting tab DAB9 back (queue size: 0).
+[2025-12-12 07:43:10,096: INFO/ForkPoolWorker-1] Waiting for all cleanups to finish.
+[2025-12-12 07:43:10,096: INFO/ForkPoolWorker-1] Exiting Kaleido
+[2025-12-12 07:43:10,096: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 07:43:10,107: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 07:43:10,109: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:10,109: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:10,109: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 07:43:10,109: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 07:43:10,350: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:10,350: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:10,350: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:10,351: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:10,351: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 07:43:10,351: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 07:43:10,352: INFO/ForkPoolWorker-1] Bar chart saved to: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts/category_distribution.png
+[2025-12-12 07:43:10,368: INFO/ForkPoolWorker-1] Chromium init'ed with kwargs {}
+[2025-12-12 07:43:10,370: INFO/ForkPoolWorker-1] Found chromium path: /usr/bin/chromium
+[2025-12-12 07:43:10,371: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmpomyfqxsr.
+[2025-12-12 07:43:10,371: INFO/ForkPoolWorker-1] Opening browser.
+[2025-12-12 07:43:10,372: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmpus6uo4zy.
+[2025-12-12 07:43:10,391: INFO/ForkPoolWorker-1] ldd failed. e: Command '['ldd', '/usr/bin/chromium']' returned non-zero exit status 1., stderr: None
+[2025-12-12 07:43:10,391: INFO/ForkPoolWorker-1] Temporary directory at: /tmp/tmpus6uo4zy
+[2025-12-12 07:43:11,359: INFO/ForkPoolWorker-1] Conforming 1 to file:///tmp/tmpomyfqxsr/index.html
+[2025-12-12 07:43:11,361: INFO/ForkPoolWorker-1] Waiting on all navigates
+[2025-12-12 07:43:15,669: INFO/ForkPoolWorker-1] All navigates done, putting them all in queue.
+[2025-12-12 07:43:15,670: INFO/ForkPoolWorker-1] Getting tab from queue (has 1)
+[2025-12-12 07:43:15,678: INFO/ForkPoolWorker-1] Got 70ED
+[2025-12-12 07:43:15,678: INFO/ForkPoolWorker-1] Processing fig.png
+[2025-12-12 07:43:15,678: INFO/ForkPoolWorker-1] Sending big command for fig.png.
+[2025-12-12 07:43:16,003: INFO/ForkPoolWorker-1] Sent big command for fig.png.
+[2025-12-12 07:43:16,004: INFO/ForkPoolWorker-1] Reloading tab 70ED before return.
+[2025-12-12 07:43:16,644: INFO/ForkPoolWorker-1] Putting tab 70ED back (queue size: 0).
+[2025-12-12 07:43:16,644: INFO/ForkPoolWorker-1] Waiting for all cleanups to finish.
+[2025-12-12 07:43:16,644: INFO/ForkPoolWorker-1] Exiting Kaleido
+[2025-12-12 07:43:16,644: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 07:43:16,651: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 07:43:16,652: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:16,652: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:16,652: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 07:43:16,652: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 07:43:16,905: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:16,906: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:16,907: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:16,907: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:16,910: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 07:43:16,910: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 07:43:16,911: INFO/ForkPoolWorker-1] Risk gauge saved to: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts/risk_gauge.png
+[2025-12-12 07:43:16,913: INFO/ForkPoolWorker-1] Generated 3 charts in /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts
+[2025-12-12 07:43:16,915: INFO/ForkPoolWorker-1] Generated 3 charts for report
+[2025-12-12 07:43:16,935: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:16,935: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:16,936: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 07:43:16,936: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 07:43:17,243: WARNING/ForkPoolWorker-1] Ignored `overflow-x: auto` at 137:13, unknown property.
+[2025-12-12 07:43:21,897: INFO/ForkPoolWorker-1] PDF generated successfully: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_074256.pdf
+[2025-12-12 07:43:21,900: WARNING/ForkPoolWorker-1] 2025-12-12 07:43:21,900 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+[2025-12-12 07:43:21,900: INFO/ForkPoolWorker-1] BEGIN (implicit)
+[2025-12-12 07:43:21,904: WARNING/ForkPoolWorker-1] 2025-12-12 07:43:21,904 INFO sqlalchemy.engine.Engine INSERT INTO reports (title, report_type, format, version, is_latest, content, file_path, file_size, file_hash, total_findings, critical_count, high_count, medium_count, low_count, info_count, risk_score, files_processed, tools_used, generation_time_seconds, status, error_message, generated_at, created_at, updated_at, workspace_id, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[2025-12-12 07:43:21,904: INFO/ForkPoolWorker-1] INSERT INTO reports (title, report_type, format, version, is_latest, content, file_path, file_size, file_hash, total_findings, critical_count, high_count, medium_count, low_count, info_count, risk_score, files_processed, tools_used, generation_time_seconds, status, error_message, generated_at, created_at, updated_at, workspace_id, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[2025-12-12 07:43:21,905: WARNING/ForkPoolWorker-1] 2025-12-12 07:43:21,905 INFO sqlalchemy.engine.Engine [generated in 0.00088s] ('Reporte Technical - kopernicus.tech', 'technical', 'pdf', 1, 1, None, '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_074256.pdf', 175762, '5beed46e0790d37845dfc64b1079c9ecaa1b2ba62d7c3fa34e6c6a86e5c1afd5', 119, 0, 1, 0, 14, 104, 2.86, 65, '["findomain", "whois", "fierce", "sublist3r", "dnsrecon", "assetfinder", "traceroute", "subfinder", "crtsh", "dnsenum", "unknown"]', 25.204073667526245, 'completed', None, '2025-12-12 12:43:21.899995', '2025-12-12 12:43:21.904343', '2025-12-12 12:43:21.904354', 10, '1')
+[2025-12-12 07:43:21,905: INFO/ForkPoolWorker-1] [generated in 0.00088s] ('Reporte Technical - kopernicus.tech', 'technical', 'pdf', 1, 1, None, '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_074256.pdf', 175762, '5beed46e0790d37845dfc64b1079c9ecaa1b2ba62d7c3fa34e6c6a86e5c1afd5', 119, 0, 1, 0, 14, 104, 2.86, 65, '["findomain", "whois", "fierce", "sublist3r", "dnsrecon", "assetfinder", "traceroute", "subfinder", "crtsh", "dnsenum", "unknown"]', 25.204073667526245, 'completed', None, '2025-12-12 12:43:21.899995', '2025-12-12 12:43:21.904343', '2025-12-12 12:43:21.904354', 10, '1')
+[2025-12-12 07:43:21,906: WARNING/ForkPoolWorker-1] 2025-12-12 07:43:21,906 INFO sqlalchemy.engine.Engine COMMIT
+[2025-12-12 07:43:21,906: INFO/ForkPoolWorker-1] COMMIT
+[2025-12-12 07:43:21,920: WARNING/ForkPoolWorker-1] 2025-12-12 07:43:21,920 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+[2025-12-12 07:43:21,920: INFO/ForkPoolWorker-1] BEGIN (implicit)
+[2025-12-12 07:43:21,926: WARNING/ForkPoolWorker-1] 2025-12-12 07:43:21,926 INFO sqlalchemy.engine.Engine SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.id = ?
+[2025-12-12 07:43:21,926: INFO/ForkPoolWorker-1] SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.id = ?
+[2025-12-12 07:43:21,927: WARNING/ForkPoolWorker-1] 2025-12-12 07:43:21,927 INFO sqlalchemy.engine.Engine [generated in 0.00054s] (38,)
+[2025-12-12 07:43:21,927: INFO/ForkPoolWorker-1] [generated in 0.00054s] (38,)
+[2025-12-12 07:43:21,928: INFO/ForkPoolWorker-1] Report created: 38 - Reporte Technical - kopernicus.tech
+[2025-12-12 07:43:21,928: INFO/ForkPoolWorker-1] Report saved to database with ID: 38
+[2025-12-12 07:43:21,928: WARNING/ForkPoolWorker-1] 2025-12-12 07:43:21,928 INFO sqlalchemy.engine.Engine ROLLBACK
+[2025-12-12 07:43:21,928: INFO/ForkPoolWorker-1] ROLLBACK
+[2025-12-12 07:43:21,930: INFO/ForkPoolWorker-1] Report V2 generated successfully for workspace 10: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_074256.pdf (ID: 38)
+[2025-12-12 07:43:21,932: INFO/ForkPoolWorker-1] Task tasks.reporting.generate_report_v2[3f37308c-c140-4192-a21b-3dcd7ce94fa7] succeeded in 25.245614473999012s: {'report_id': 38, 'workspace_id': 10, 'report_path': '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_074256.pdf', 'file_size': 175762, 'total_findings': 119, 'risk_score': 2.86, 'completed_at': '2025-12-12T12:43:21.931119'}
+[2025-12-12 08:07:34,781: INFO/MainProcess] Task tasks.reporting.generate_report_v2[64458c3c-8575-4fdc-9feb-38f52f10e581] received
+[2025-12-12 08:07:34,794: WARNING/ForkPoolWorker-1] 2025-12-12 08:07:34,793 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+[2025-12-12 08:07:34,793: INFO/ForkPoolWorker-1] BEGIN (implicit)
+[2025-12-12 08:07:34,802: WARNING/ForkPoolWorker-1] 2025-12-12 08:07:34,802 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+[2025-12-12 08:07:34,802: INFO/ForkPoolWorker-1] SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+[2025-12-12 08:07:34,802: WARNING/ForkPoolWorker-1] 2025-12-12 08:07:34,802 INFO sqlalchemy.engine.Engine [generated in 0.00123s] (10,)
+[2025-12-12 08:07:34,802: INFO/ForkPoolWorker-1] [generated in 0.00123s] (10,)
+[2025-12-12 08:07:34,816: WARNING/ForkPoolWorker-1] 2025-12-12 08:07:34,815 INFO sqlalchemy.engine.Engine ROLLBACK
+[2025-12-12 08:07:34,815: INFO/ForkPoolWorker-1] ROLLBACK
+[2025-12-12 08:07:34,816: INFO/ForkPoolWorker-1] Registered 44 parsers
+[2025-12-12 08:07:34,816: INFO/ForkPoolWorker-1] WeasyPrint PDF Generator initialized with templates from: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/templates
+[2025-12-12 08:07:34,817: INFO/ForkPoolWorker-1] WeasyPrint PDF Generator initialized with templates from: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/templates
+[2025-12-12 08:07:34,822: INFO/ForkPoolWorker-1] Scanning workspace directory: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech
+[2025-12-12 08:07:34,830: INFO/ForkPoolWorker-1] Found 11 files in recon
+[2025-12-12 08:07:34,838: INFO/ForkPoolWorker-1] Found 16 files in scans
+[2025-12-12 08:07:34,850: INFO/ForkPoolWorker-1] Found 30 files in enumeration
+[2025-12-12 08:07:34,854: INFO/ForkPoolWorker-1] Found 8 files in vuln_scans
+[2025-12-12 08:07:34,855: INFO/ForkPoolWorker-1] Total files found: 65
+[2025-12-12 08:07:34,857: INFO/ForkPoolWorker-1] DNSRecon: Parsed 21 DNS records
+[2025-12-12 08:07:34,857: INFO/ForkPoolWorker-1] Parsed 21 findings from dnsrecon_889.json
+[2025-12-12 08:07:34,858: INFO/ForkPoolWorker-1] DNSEnum: Parsed 14 DNS records
+[2025-12-12 08:07:34,859: INFO/ForkPoolWorker-1] Parsed 14 findings from dnsenum_897.txt
+[2025-12-12 08:07:34,859: INFO/ForkPoolWorker-1] Findomain: Parsed 4 subdomains
+[2025-12-12 08:07:34,859: INFO/ForkPoolWorker-1] Parsed 4 findings from findomain_894.txt
+[2025-12-12 08:07:34,860: INFO/ForkPoolWorker-1] WHOIS: Parsed information for kopernicus.tech
+[2025-12-12 08:07:34,860: INFO/ForkPoolWorker-1] Parsed 1 findings from whois_888.txt
+[2025-12-12 08:07:34,860: INFO/ForkPoolWorker-1] Assetfinder: Parsed 3 subdomains from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/assetfinder_891.txt
+[2025-12-12 08:07:34,860: INFO/ForkPoolWorker-1] Parsed 3 findings from assetfinder_891.txt
+[2025-12-12 08:07:34,861: INFO/ForkPoolWorker-1] crt.sh: Parsed 9 subdomains
+[2025-12-12 08:07:34,861: INFO/ForkPoolWorker-1] Parsed 9 findings from crtsh_893.txt
+[2025-12-12 08:07:34,862: INFO/ForkPoolWorker-1] Fierce: Parsed 31 DNS findings
+[2025-12-12 08:07:34,862: INFO/ForkPoolWorker-1] Parsed 31 findings from fierce_896.txt
+[2025-12-12 08:07:34,862: INFO/ForkPoolWorker-1] Sublist3r: Parsed 13 subdomains
+[2025-12-12 08:07:34,863: INFO/ForkPoolWorker-1] Parsed 13 findings from sublist3r_892.txt
+[2025-12-12 08:07:34,863: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/host_895.txt
+[2025-12-12 08:07:34,863: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/host_895.txt: no suitable parser
+[2025-12-12 08:07:34,864: INFO/ForkPoolWorker-1] Traceroute: Parsed 16 hops
+[2025-12-12 08:07:34,864: INFO/ForkPoolWorker-1] Parsed 16 findings from traceroute_898.txt
+[2025-12-12 08:07:34,866: INFO/ForkPoolWorker-1] Parsed 8 subdomains from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/subfinder_890.txt
+[2025-12-12 08:07:34,866: INFO/ForkPoolWorker-1] Parsed 8 findings from subfinder_890.txt
+[2025-12-12 08:07:34,883: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.xml
+[2025-12-12 08:07:34,883: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_901.xml
+[2025-12-12 08:07:34,884: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.txt
+[2025-12-12 08:07:34,884: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.txt: no suitable parser
+[2025-12-12 08:07:34,884: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.nmap
+[2025-12-12 08:07:34,884: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.nmap: no suitable parser
+[2025-12-12 08:07:34,884: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.nmap
+[2025-12-12 08:07:34,885: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.nmap: no suitable parser
+[2025-12-12 08:07:34,887: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_900.xml
+[2025-12-12 08:07:34,887: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_900.xml
+[2025-12-12 08:07:34,889: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_902.xml
+[2025-12-12 08:07:34,889: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_902.xml
+[2025-12-12 08:07:34,903: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.xml
+[2025-12-12 08:07:34,903: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_922.xml
+[2025-12-12 08:07:34,903: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_900.txt
+[2025-12-12 08:07:34,904: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_900.txt: no suitable parser
+[2025-12-12 08:07:34,904: INFO/ForkPoolWorker-1] RustScan: Parsed 0 open ports
+[2025-12-12 08:07:34,904: INFO/ForkPoolWorker-1] Parsed 0 findings from rustscan_904.txt
+[2025-12-12 08:07:34,907: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.xml
+[2025-12-12 08:07:34,907: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_899.xml
+[2025-12-12 08:07:34,907: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.gnmap
+[2025-12-12 08:07:34,907: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.gnmap: no suitable parser
+[2025-12-12 08:07:34,907: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.gnmap
+[2025-12-12 08:07:34,908: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.gnmap: no suitable parser
+[2025-12-12 08:07:34,910: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_902.txt
+[2025-12-12 08:07:34,911: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_902.txt: no suitable parser
+[2025-12-12 08:07:34,913: INFO/ForkPoolWorker-1] Parsed 10 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.xml
+[2025-12-12 08:07:34,913: INFO/ForkPoolWorker-1] Parsed 10 findings from nmap_903.xml
+[2025-12-12 08:07:34,913: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.nmap
+[2025-12-12 08:07:34,913: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.nmap: no suitable parser
+[2025-12-12 08:07:34,914: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.gnmap
+[2025-12-12 08:07:34,914: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.gnmap: no suitable parser
+[2025-12-12 08:07:34,914: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.gnmap
+[2025-12-12 08:07:34,914: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.gnmap: no suitable parser
+[2025-12-12 08:07:34,914: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml: syntax error: line 1, column 0
+[2025-12-12 08:07:34,915: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:07:34,915: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_smtp_911.xml
+[2025-12-12 08:07:34,916: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.xml: syntax error: line 1, column 0
+[2025-12-12 08:07:34,917: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:07:34,917: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_snmp_913.xml
+[2025-12-12 08:07:34,919: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.nmap
+[2025-12-12 08:07:34,919: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.nmap: no suitable parser
+[2025-12-12 08:07:34,919: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.nmap
+[2025-12-12 08:07:34,919: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.nmap: no suitable parser
+[2025-12-12 08:07:34,919: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml: syntax error: line 1, column 0
+[2025-12-12 08:07:34,920: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:07:34,920: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_rdp_915.xml
+[2025-12-12 08:07:34,920: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.gnmap
+[2025-12-12 08:07:34,921: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.gnmap: no suitable parser
+[2025-12-12 08:07:34,921: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.nmap
+[2025-12-12 08:07:34,921: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.nmap: no suitable parser
+[2025-12-12 08:07:34,921: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.gnmap
+[2025-12-12 08:07:34,921: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.gnmap: no suitable parser
+[2025-12-12 08:07:34,922: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml: syntax error: line 1, column 0
+[2025-12-12 08:07:34,923: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:07:34,923: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ftp_910.xml
+[2025-12-12 08:07:34,923: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml: syntax error: line 1, column 0
+[2025-12-12 08:07:34,924: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:07:34,924: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_dns_912.xml
+[2025-12-12 08:07:34,924: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml: syntax error: line 1, column 0
+[2025-12-12 08:07:34,925: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:07:34,926: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ssh_909.xml
+[2025-12-12 08:07:34,926: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.xml
+[2025-12-12 08:07:34,927: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_smtp_911.xml.xml
+[2025-12-12 08:07:34,929: INFO/ForkPoolWorker-1] Parsed 1 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.xml
+[2025-12-12 08:07:34,930: INFO/ForkPoolWorker-1] Parsed 1 findings from nmap_ftp_910.xml.xml
+[2025-12-12 08:07:34,930: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.xml
+[2025-12-12 08:07:34,930: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_dns_912.xml.xml
+[2025-12-12 08:07:34,931: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.xml
+[2025-12-12 08:07:34,931: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_rdp_915.xml.xml
+[2025-12-12 08:07:34,932: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.gnmap
+[2025-12-12 08:07:34,932: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.gnmap: no suitable parser
+[2025-12-12 08:07:34,932: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.xml
+[2025-12-12 08:07:34,933: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ldap_914.xml.xml
+[2025-12-12 08:07:34,933: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.nmap
+[2025-12-12 08:07:34,933: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.nmap: no suitable parser
+[2025-12-12 08:07:34,934: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.xml
+[2025-12-12 08:07:34,934: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ssh_909.xml.xml
+[2025-12-12 08:07:34,934: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.nmap
+[2025-12-12 08:07:34,934: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.nmap: no suitable parser
+[2025-12-12 08:07:34,934: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.gnmap
+[2025-12-12 08:07:34,935: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.gnmap: no suitable parser
+[2025-12-12 08:07:34,935: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml: syntax error: line 1, column 0
+[2025-12-12 08:07:34,936: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:07:34,937: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ldap_914.xml
+[2025-12-12 08:07:34,942: INFO/ForkPoolWorker-1] SMBMap: Parsed 0 SMB shares
+[2025-12-12 08:07:34,942: INFO/ForkPoolWorker-1] Parsed 0 findings from smbmap_907.txt
+[2025-12-12 08:07:34,942: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.nmap
+[2025-12-12 08:07:34,942: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.nmap: no suitable parser
+[2025-12-12 08:07:34,943: INFO/ForkPoolWorker-1] SSLScan: Parsed SSL/TLS configuration with 0 weak ciphers
+[2025-12-12 08:07:34,943: INFO/ForkPoolWorker-1] Parsed 0 findings from sslscan_919.txt
+[2025-12-12 08:07:34,943: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.nmap
+[2025-12-12 08:07:34,943: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.nmap: no suitable parser
+[2025-12-12 08:07:34,943: INFO/ForkPoolWorker-1] Enum4linux: Parsed 0 SMB findings
+[2025-12-12 08:07:34,943: INFO/ForkPoolWorker-1] Parsed 0 findings from enum4linux_906.txt
+[2025-12-12 08:07:34,944: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.gnmap
+[2025-12-12 08:07:34,944: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.gnmap: no suitable parser
+[2025-12-12 08:07:34,944: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.gnmap
+[2025-12-12 08:07:34,944: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.gnmap: no suitable parser
+[2025-12-12 08:07:34,944: INFO/ForkPoolWorker-1] Parsed 6 findings from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/nikto_921.json
+[2025-12-12 08:07:34,945: INFO/ForkPoolWorker-1] Parsed 6 findings from nikto_921.json
+[2025-12-12 08:07:34,945: ERROR/ForkPoolWorker-1] Error parsing testssl file /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/testssl_926.json: 'list' object has no attribute 'get'
+[2025-12-12 08:07:34,945: INFO/ForkPoolWorker-1] Parsed 0 findings from testssl_926.json
+[2025-12-12 08:07:34,945: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/testssl_926.html
+[2025-12-12 08:07:34,945: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/testssl_926.html: no suitable parser
+[2025-12-12 08:07:34,947: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/results-12102025_0409pm.csv
+[2025-12-12 08:07:34,947: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/results-12102025_0409pm.csv: no suitable parser
+[2025-12-12 08:07:34,947: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/log
+[2025-12-12 08:07:34,948: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/log: no suitable parser
+[2025-12-12 08:07:34,948: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/target.txt
+[2025-12-12 08:07:34,948: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/target.txt: no suitable parser
+[2025-12-12 08:07:34,948: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/log
+[2025-12-12 08:07:34,948: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/log: no suitable parser
+[2025-12-12 08:07:34,948: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/session.sqlite
+[2025-12-12 08:07:34,949: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/session.sqlite: no suitable parser
+[2025-12-12 08:07:34,950: INFO/ForkPoolWorker-1] Consolidating 182 findings
+[2025-12-12 08:07:34,950: INFO/ForkPoolWorker-1] Removed 63 duplicate findings
+[2025-12-12 08:07:34,951: INFO/ForkPoolWorker-1] After deduplication: 119 findings
+[2025-12-12 08:07:34,951: INFO/ForkPoolWorker-1] Consolidated into 4 categories
+[2025-12-12 08:07:34,951: INFO/ForkPoolWorker-1] Risk Score: 2.86 (low)
+[2025-12-12 08:07:34,953: INFO/ForkPoolWorker-1] Generating technical report with WeasyPrint: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_080734.pdf
+[2025-12-12 08:07:34,979: INFO/ForkPoolWorker-1] Chromium init'ed with kwargs {}
+[2025-12-12 08:07:34,981: INFO/ForkPoolWorker-1] Found chromium path: /usr/bin/chromium
+[2025-12-12 08:07:34,981: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmpxsq9ja0i.
+[2025-12-12 08:07:34,982: INFO/ForkPoolWorker-1] Opening browser.
+[2025-12-12 08:07:34,983: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmp5x2axv70.
+[2025-12-12 08:07:35,001: INFO/ForkPoolWorker-1] ldd failed. e: Command '['ldd', '/usr/bin/chromium']' returned non-zero exit status 1., stderr: None
+[2025-12-12 08:07:35,002: INFO/ForkPoolWorker-1] Temporary directory at: /tmp/tmp5x2axv70
+[2025-12-12 08:07:36,071: INFO/ForkPoolWorker-1] Conforming 1 to file:///tmp/tmpxsq9ja0i/index.html
+[2025-12-12 08:07:36,072: INFO/ForkPoolWorker-1] Waiting on all navigates
+[2025-12-12 08:07:40,730: INFO/ForkPoolWorker-1] All navigates done, putting them all in queue.
+[2025-12-12 08:07:40,730: INFO/ForkPoolWorker-1] Getting tab from queue (has 1)
+[2025-12-12 08:07:40,731: INFO/ForkPoolWorker-1] Got DACB
+[2025-12-12 08:07:40,731: INFO/ForkPoolWorker-1] Processing Distribucin_de_Hallazgos_por_Severidad.png
+[2025-12-12 08:07:40,731: INFO/ForkPoolWorker-1] Sending big command for Distribucin_de_Hallazgos_por_Severidad.png.
+[2025-12-12 08:07:41,359: INFO/ForkPoolWorker-1] Sent big command for Distribucin_de_Hallazgos_por_Severidad.png.
+[2025-12-12 08:07:41,360: INFO/ForkPoolWorker-1] Reloading tab DACB before return.
+[2025-12-12 08:07:41,871: INFO/ForkPoolWorker-1] Putting tab DACB back (queue size: 0).
+[2025-12-12 08:07:41,871: INFO/ForkPoolWorker-1] Waiting for all cleanups to finish.
+[2025-12-12 08:07:41,871: INFO/ForkPoolWorker-1] Exiting Kaleido
+[2025-12-12 08:07:41,871: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:07:41,877: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:07:41,878: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:41,878: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:41,879: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:07:41,879: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:07:42,058: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:42,058: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:42,058: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:42,058: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:42,058: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:07:42,059: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:07:42,060: INFO/ForkPoolWorker-1] Pie chart saved to: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts/severity_distribution.png
+[2025-12-12 08:07:42,078: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:42,078: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:42,082: INFO/ForkPoolWorker-1] Chromium init'ed with kwargs {}
+[2025-12-12 08:07:42,084: INFO/ForkPoolWorker-1] Found chromium path: /usr/bin/chromium
+[2025-12-12 08:07:42,084: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmpppwb2g4o.
+[2025-12-12 08:07:42,084: INFO/ForkPoolWorker-1] Opening browser.
+[2025-12-12 08:07:42,085: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmp5trtyr7i.
+[2025-12-12 08:07:42,101: INFO/ForkPoolWorker-1] ldd failed. e: Command '['ldd', '/usr/bin/chromium']' returned non-zero exit status 1., stderr: None
+[2025-12-12 08:07:42,102: INFO/ForkPoolWorker-1] Temporary directory at: /tmp/tmp5trtyr7i
+[2025-12-12 08:07:43,167: INFO/ForkPoolWorker-1] Conforming 1 to file:///tmp/tmpppwb2g4o/index.html
+[2025-12-12 08:07:43,167: INFO/ForkPoolWorker-1] Waiting on all navigates
+[2025-12-12 08:07:48,239: INFO/ForkPoolWorker-1] All navigates done, putting them all in queue.
+[2025-12-12 08:07:48,241: INFO/ForkPoolWorker-1] Getting tab from queue (has 1)
+[2025-12-12 08:07:48,242: INFO/ForkPoolWorker-1] Got 518B
+[2025-12-12 08:07:48,243: INFO/ForkPoolWorker-1] Processing Hallazgos_por_Categora.png
+[2025-12-12 08:07:48,244: INFO/ForkPoolWorker-1] Sending big command for Hallazgos_por_Categora.png.
+[2025-12-12 08:07:48,751: INFO/ForkPoolWorker-1] Sent big command for Hallazgos_por_Categora.png.
+[2025-12-12 08:07:48,752: INFO/ForkPoolWorker-1] Reloading tab 518B before return.
+[2025-12-12 08:07:49,250: INFO/ForkPoolWorker-1] Putting tab 518B back (queue size: 0).
+[2025-12-12 08:07:49,250: INFO/ForkPoolWorker-1] Waiting for all cleanups to finish.
+[2025-12-12 08:07:49,252: INFO/ForkPoolWorker-1] Exiting Kaleido
+[2025-12-12 08:07:49,252: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:07:49,267: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:07:49,268: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:49,268: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:49,268: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:07:49,269: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:07:49,504: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:49,504: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:49,505: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:49,505: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:49,507: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:07:49,507: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:07:49,508: INFO/ForkPoolWorker-1] Bar chart saved to: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts/category_distribution.png
+[2025-12-12 08:07:49,525: INFO/ForkPoolWorker-1] Chromium init'ed with kwargs {}
+[2025-12-12 08:07:49,527: INFO/ForkPoolWorker-1] Found chromium path: /usr/bin/chromium
+[2025-12-12 08:07:49,528: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmplt5i_yqb.
+[2025-12-12 08:07:49,529: INFO/ForkPoolWorker-1] Opening browser.
+[2025-12-12 08:07:49,530: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmp4ilnylnj.
+[2025-12-12 08:07:49,547: INFO/ForkPoolWorker-1] ldd failed. e: Command '['ldd', '/usr/bin/chromium']' returned non-zero exit status 1., stderr: None
+[2025-12-12 08:07:49,548: INFO/ForkPoolWorker-1] Temporary directory at: /tmp/tmp4ilnylnj
+[2025-12-12 08:07:50,681: INFO/ForkPoolWorker-1] Conforming 1 to file:///tmp/tmplt5i_yqb/index.html
+[2025-12-12 08:07:50,681: INFO/ForkPoolWorker-1] Waiting on all navigates
+[2025-12-12 08:07:54,877: INFO/ForkPoolWorker-1] All navigates done, putting them all in queue.
+[2025-12-12 08:07:54,878: INFO/ForkPoolWorker-1] Getting tab from queue (has 1)
+[2025-12-12 08:07:54,878: INFO/ForkPoolWorker-1] Got 9617
+[2025-12-12 08:07:54,878: INFO/ForkPoolWorker-1] Processing fig.png
+[2025-12-12 08:07:54,878: INFO/ForkPoolWorker-1] Sending big command for fig.png.
+[2025-12-12 08:07:55,143: INFO/ForkPoolWorker-1] Sent big command for fig.png.
+[2025-12-12 08:07:55,144: INFO/ForkPoolWorker-1] Reloading tab 9617 before return.
+[2025-12-12 08:07:55,721: INFO/ForkPoolWorker-1] Putting tab 9617 back (queue size: 0).
+[2025-12-12 08:07:55,724: INFO/ForkPoolWorker-1] Waiting for all cleanups to finish.
+[2025-12-12 08:07:55,724: INFO/ForkPoolWorker-1] Exiting Kaleido
+[2025-12-12 08:07:55,725: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:07:55,733: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:07:55,734: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:55,738: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:55,738: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:07:55,739: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:07:55,963: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:55,964: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:55,964: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:55,965: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:55,966: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:07:55,966: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:07:55,968: INFO/ForkPoolWorker-1] Risk gauge saved to: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts/risk_gauge.png
+[2025-12-12 08:07:55,968: INFO/ForkPoolWorker-1] Generated 3 charts in /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts
+[2025-12-12 08:07:55,968: INFO/ForkPoolWorker-1] Generated 3 charts for report
+[2025-12-12 08:07:55,994: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:55,994: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:55,995: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:07:55,995: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:07:56,269: WARNING/ForkPoolWorker-1] Ignored `overflow-x: auto` at 137:13, unknown property.
+[2025-12-12 08:08:01,378: INFO/ForkPoolWorker-1] PDF generated successfully: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_080734.pdf
+[2025-12-12 08:08:01,381: WARNING/ForkPoolWorker-1] 2025-12-12 08:08:01,381 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+[2025-12-12 08:08:01,381: INFO/ForkPoolWorker-1] BEGIN (implicit)
+[2025-12-12 08:08:01,385: WARNING/ForkPoolWorker-1] 2025-12-12 08:08:01,385 INFO sqlalchemy.engine.Engine INSERT INTO reports (title, report_type, format, version, is_latest, content, file_path, file_size, file_hash, total_findings, critical_count, high_count, medium_count, low_count, info_count, risk_score, files_processed, tools_used, generation_time_seconds, status, error_message, generated_at, created_at, updated_at, workspace_id, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[2025-12-12 08:08:01,385: INFO/ForkPoolWorker-1] INSERT INTO reports (title, report_type, format, version, is_latest, content, file_path, file_size, file_hash, total_findings, critical_count, high_count, medium_count, low_count, info_count, risk_score, files_processed, tools_used, generation_time_seconds, status, error_message, generated_at, created_at, updated_at, workspace_id, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[2025-12-12 08:08:01,386: WARNING/ForkPoolWorker-1] 2025-12-12 08:08:01,386 INFO sqlalchemy.engine.Engine [generated in 0.00111s] ('Reporte Technical - kopernicus.tech', 'technical', 'pdf', 1, 1, None, '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_080734.pdf', 175757, '02ff2f7cb1acb77a28e26cd735a5be8e0f4f081d5b010efca86be23e57392905', 119, 0, 1, 0, 14, 104, 2.86, 65, '["findomain", "whois", "fierce", "sublist3r", "dnsrecon", "assetfinder", "traceroute", "subfinder", "crtsh", "dnsenum", "unknown"]', 26.588520765304565, 'completed', None, '2025-12-12 13:08:01.380803', '2025-12-12 13:08:01.385475', '2025-12-12 13:08:01.385486', 10, '1')
+[2025-12-12 08:08:01,386: INFO/ForkPoolWorker-1] [generated in 0.00111s] ('Reporte Technical - kopernicus.tech', 'technical', 'pdf', 1, 1, None, '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_080734.pdf', 175757, '02ff2f7cb1acb77a28e26cd735a5be8e0f4f081d5b010efca86be23e57392905', 119, 0, 1, 0, 14, 104, 2.86, 65, '["findomain", "whois", "fierce", "sublist3r", "dnsrecon", "assetfinder", "traceroute", "subfinder", "crtsh", "dnsenum", "unknown"]', 26.588520765304565, 'completed', None, '2025-12-12 13:08:01.380803', '2025-12-12 13:08:01.385475', '2025-12-12 13:08:01.385486', 10, '1')
+[2025-12-12 08:08:01,391: WARNING/ForkPoolWorker-1] 2025-12-12 08:08:01,391 INFO sqlalchemy.engine.Engine COMMIT
+[2025-12-12 08:08:01,391: INFO/ForkPoolWorker-1] COMMIT
+[2025-12-12 08:08:01,406: WARNING/ForkPoolWorker-1] 2025-12-12 08:08:01,406 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+[2025-12-12 08:08:01,406: INFO/ForkPoolWorker-1] BEGIN (implicit)
+[2025-12-12 08:08:01,410: WARNING/ForkPoolWorker-1] 2025-12-12 08:08:01,410 INFO sqlalchemy.engine.Engine SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.id = ?
+[2025-12-12 08:08:01,410: INFO/ForkPoolWorker-1] SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.id = ?
+[2025-12-12 08:08:01,410: WARNING/ForkPoolWorker-1] 2025-12-12 08:08:01,410 INFO sqlalchemy.engine.Engine [generated in 0.00090s] (39,)
+[2025-12-12 08:08:01,410: INFO/ForkPoolWorker-1] [generated in 0.00090s] (39,)
+[2025-12-12 08:08:01,412: INFO/ForkPoolWorker-1] Report created: 39 - Reporte Technical - kopernicus.tech
+[2025-12-12 08:08:01,412: INFO/ForkPoolWorker-1] Report saved to database with ID: 39
+[2025-12-12 08:08:01,413: WARNING/ForkPoolWorker-1] 2025-12-12 08:08:01,413 INFO sqlalchemy.engine.Engine ROLLBACK
+[2025-12-12 08:08:01,413: INFO/ForkPoolWorker-1] ROLLBACK
+[2025-12-12 08:08:01,416: INFO/ForkPoolWorker-1] Report V2 generated successfully for workspace 10: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_080734.pdf (ID: 39)
+[2025-12-12 08:08:01,418: INFO/ForkPoolWorker-1] Task tasks.reporting.generate_report_v2[64458c3c-8575-4fdc-9feb-38f52f10e581] succeeded in 26.63425925403135s: {'report_id': 39, 'workspace_id': 10, 'report_path': '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_080734.pdf', 'file_size': 175757, 'total_findings': 119, 'risk_score': 2.86, 'completed_at': '2025-12-12T13:08:01.416597'}
+[2025-12-12 08:12:58,890: INFO/MainProcess] Task tasks.reporting.generate_report_v2[23d89508-47e6-4d2c-a343-ab13cfababb8] received
+[2025-12-12 08:12:58,915: WARNING/ForkPoolWorker-1] 2025-12-12 08:12:58,915 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+[2025-12-12 08:12:58,915: INFO/ForkPoolWorker-1] BEGIN (implicit)
+[2025-12-12 08:12:58,922: WARNING/ForkPoolWorker-1] 2025-12-12 08:12:58,922 INFO sqlalchemy.engine.Engine SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+[2025-12-12 08:12:58,922: INFO/ForkPoolWorker-1] SELECT workspaces.id AS workspaces_id, workspaces.name AS workspaces_name, workspaces.description AS workspaces_description, workspaces.client_name AS workspaces_client_name, workspaces.client_contact AS workspaces_client_contact, workspaces.target_domain AS workspaces_target_domain, workspaces.target_ip AS workspaces_target_ip, workspaces.target_type AS workspaces_target_type, workspaces.in_scope AS workspaces_in_scope, workspaces.out_of_scope AS workspaces_out_of_scope, workspaces.start_date AS workspaces_start_date, workspaces.end_date AS workspaces_end_date, workspaces.notes AS workspaces_notes, workspaces.is_active AS workspaces_is_active, workspaces.status AS workspaces_status, workspaces.created_at AS workspaces_created_at, workspaces.updated_at AS workspaces_updated_at, workspaces.owner_id AS workspaces_owner_id 
+FROM workspaces 
+WHERE workspaces.id = ?
+[2025-12-12 08:12:58,924: WARNING/ForkPoolWorker-1] 2025-12-12 08:12:58,923 INFO sqlalchemy.engine.Engine [generated in 0.00242s] (10,)
+[2025-12-12 08:12:58,923: INFO/ForkPoolWorker-1] [generated in 0.00242s] (10,)
+[2025-12-12 08:12:58,927: WARNING/ForkPoolWorker-1] 2025-12-12 08:12:58,927 INFO sqlalchemy.engine.Engine ROLLBACK
+[2025-12-12 08:12:58,927: INFO/ForkPoolWorker-1] ROLLBACK
+[2025-12-12 08:12:58,928: INFO/ForkPoolWorker-1] Registered 44 parsers
+[2025-12-12 08:12:58,928: INFO/ForkPoolWorker-1] WeasyPrint PDF Generator initialized with templates from: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/templates
+[2025-12-12 08:12:58,928: INFO/ForkPoolWorker-1] WeasyPrint PDF Generator initialized with templates from: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/templates
+[2025-12-12 08:12:58,936: INFO/ForkPoolWorker-1] Scanning workspace directory: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech
+[2025-12-12 08:12:58,942: INFO/ForkPoolWorker-1] Found 11 files in recon
+[2025-12-12 08:12:58,949: INFO/ForkPoolWorker-1] Found 16 files in scans
+[2025-12-12 08:12:58,958: INFO/ForkPoolWorker-1] Found 30 files in enumeration
+[2025-12-12 08:12:58,962: INFO/ForkPoolWorker-1] Found 8 files in vuln_scans
+[2025-12-12 08:12:58,963: INFO/ForkPoolWorker-1] Total files found: 65
+[2025-12-12 08:12:58,964: INFO/ForkPoolWorker-1] DNSRecon: Parsed 21 DNS records
+[2025-12-12 08:12:58,965: INFO/ForkPoolWorker-1] Parsed 21 findings from dnsrecon_889.json
+[2025-12-12 08:12:58,967: INFO/ForkPoolWorker-1] DNSEnum: Parsed 14 DNS records
+[2025-12-12 08:12:58,967: INFO/ForkPoolWorker-1] Parsed 14 findings from dnsenum_897.txt
+[2025-12-12 08:12:58,968: INFO/ForkPoolWorker-1] Findomain: Parsed 4 subdomains
+[2025-12-12 08:12:58,968: INFO/ForkPoolWorker-1] Parsed 4 findings from findomain_894.txt
+[2025-12-12 08:12:58,968: INFO/ForkPoolWorker-1] WHOIS: Parsed information for kopernicus.tech
+[2025-12-12 08:12:58,968: INFO/ForkPoolWorker-1] Parsed 1 findings from whois_888.txt
+[2025-12-12 08:12:58,969: INFO/ForkPoolWorker-1] Assetfinder: Parsed 3 subdomains from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/assetfinder_891.txt
+[2025-12-12 08:12:58,969: INFO/ForkPoolWorker-1] Parsed 3 findings from assetfinder_891.txt
+[2025-12-12 08:12:58,969: INFO/ForkPoolWorker-1] crt.sh: Parsed 9 subdomains
+[2025-12-12 08:12:58,969: INFO/ForkPoolWorker-1] Parsed 9 findings from crtsh_893.txt
+[2025-12-12 08:12:58,971: INFO/ForkPoolWorker-1] Fierce: Parsed 31 DNS findings
+[2025-12-12 08:12:58,971: INFO/ForkPoolWorker-1] Parsed 31 findings from fierce_896.txt
+[2025-12-12 08:12:58,973: INFO/ForkPoolWorker-1] Sublist3r: Parsed 13 subdomains
+[2025-12-12 08:12:58,973: INFO/ForkPoolWorker-1] Parsed 13 findings from sublist3r_892.txt
+[2025-12-12 08:12:58,973: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/host_895.txt
+[2025-12-12 08:12:58,974: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/host_895.txt: no suitable parser
+[2025-12-12 08:12:58,974: INFO/ForkPoolWorker-1] Traceroute: Parsed 16 hops
+[2025-12-12 08:12:58,974: INFO/ForkPoolWorker-1] Parsed 16 findings from traceroute_898.txt
+[2025-12-12 08:12:58,976: INFO/ForkPoolWorker-1] Parsed 8 subdomains from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/recon/subfinder_890.txt
+[2025-12-12 08:12:58,976: INFO/ForkPoolWorker-1] Parsed 8 findings from subfinder_890.txt
+[2025-12-12 08:12:58,994: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.xml
+[2025-12-12 08:12:58,996: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_901.xml
+[2025-12-12 08:12:58,996: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.txt
+[2025-12-12 08:12:58,996: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.txt: no suitable parser
+[2025-12-12 08:12:58,997: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.nmap
+[2025-12-12 08:12:58,997: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.nmap: no suitable parser
+[2025-12-12 08:12:58,997: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.nmap
+[2025-12-12 08:12:58,997: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.nmap: no suitable parser
+[2025-12-12 08:12:58,999: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_900.xml
+[2025-12-12 08:12:58,999: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_900.xml
+[2025-12-12 08:12:59,001: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_902.xml
+[2025-12-12 08:12:59,002: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_902.xml
+[2025-12-12 08:12:59,017: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.xml
+[2025-12-12 08:12:59,017: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_922.xml
+[2025-12-12 08:12:59,018: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_900.txt
+[2025-12-12 08:12:59,018: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_900.txt: no suitable parser
+[2025-12-12 08:12:59,018: INFO/ForkPoolWorker-1] RustScan: Parsed 0 open ports
+[2025-12-12 08:12:59,018: INFO/ForkPoolWorker-1] Parsed 0 findings from rustscan_904.txt
+[2025-12-12 08:12:59,021: INFO/ForkPoolWorker-1] Parsed 9 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_899.xml
+[2025-12-12 08:12:59,021: INFO/ForkPoolWorker-1] Parsed 9 findings from nmap_899.xml
+[2025-12-12 08:12:59,021: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.gnmap
+[2025-12-12 08:12:59,021: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.gnmap: no suitable parser
+[2025-12-12 08:12:59,022: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.gnmap
+[2025-12-12 08:12:59,022: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_901.gnmap: no suitable parser
+[2025-12-12 08:12:59,023: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_902.txt
+[2025-12-12 08:12:59,023: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_902.txt: no suitable parser
+[2025-12-12 08:12:59,027: INFO/ForkPoolWorker-1] Parsed 10 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.xml
+[2025-12-12 08:12:59,027: INFO/ForkPoolWorker-1] Parsed 10 findings from nmap_903.xml
+[2025-12-12 08:12:59,027: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.nmap
+[2025-12-12 08:12:59,027: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_922.nmap: no suitable parser
+[2025-12-12 08:12:59,027: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.gnmap
+[2025-12-12 08:12:59,027: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/scans/nmap_903.gnmap: no suitable parser
+[2025-12-12 08:12:59,028: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.gnmap
+[2025-12-12 08:12:59,028: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.gnmap: no suitable parser
+[2025-12-12 08:12:59,028: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml: syntax error: line 1, column 0
+[2025-12-12 08:12:59,029: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:12:59,029: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_smtp_911.xml
+[2025-12-12 08:12:59,035: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.xml: syntax error: line 1, column 0
+[2025-12-12 08:12:59,036: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:12:59,036: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_snmp_913.xml
+[2025-12-12 08:12:59,038: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.nmap
+[2025-12-12 08:12:59,038: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.nmap: no suitable parser
+[2025-12-12 08:12:59,038: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.nmap
+[2025-12-12 08:12:59,038: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.nmap: no suitable parser
+[2025-12-12 08:12:59,039: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml: syntax error: line 1, column 0
+[2025-12-12 08:12:59,039: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:12:59,040: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_rdp_915.xml
+[2025-12-12 08:12:59,040: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.gnmap
+[2025-12-12 08:12:59,040: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.gnmap: no suitable parser
+[2025-12-12 08:12:59,040: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.nmap
+[2025-12-12 08:12:59,040: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.nmap: no suitable parser
+[2025-12-12 08:12:59,040: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.gnmap
+[2025-12-12 08:12:59,040: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.gnmap: no suitable parser
+[2025-12-12 08:12:59,041: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml: syntax error: line 1, column 0
+[2025-12-12 08:12:59,042: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:12:59,042: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ftp_910.xml
+[2025-12-12 08:12:59,042: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml: syntax error: line 1, column 0
+[2025-12-12 08:12:59,043: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:12:59,043: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_dns_912.xml
+[2025-12-12 08:12:59,044: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml: syntax error: line 1, column 0
+[2025-12-12 08:12:59,045: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:12:59,045: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ssh_909.xml
+[2025-12-12 08:12:59,046: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_smtp_911.xml.xml
+[2025-12-12 08:12:59,046: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_smtp_911.xml.xml
+[2025-12-12 08:12:59,050: INFO/ForkPoolWorker-1] Parsed 1 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.xml
+[2025-12-12 08:12:59,050: INFO/ForkPoolWorker-1] Parsed 1 findings from nmap_ftp_910.xml.xml
+[2025-12-12 08:12:59,051: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_dns_912.xml.xml
+[2025-12-12 08:12:59,051: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_dns_912.xml.xml
+[2025-12-12 08:12:59,052: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.xml
+[2025-12-12 08:12:59,052: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_rdp_915.xml.xml
+[2025-12-12 08:12:59,052: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.gnmap
+[2025-12-12 08:12:59,052: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.gnmap: no suitable parser
+[2025-12-12 08:12:59,053: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.xml
+[2025-12-12 08:12:59,058: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ldap_914.xml.xml
+[2025-12-12 08:12:59,059: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.nmap
+[2025-12-12 08:12:59,059: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.nmap: no suitable parser
+[2025-12-12 08:12:59,060: INFO/ForkPoolWorker-1] Parsed 0 open ports from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.xml
+[2025-12-12 08:12:59,061: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ssh_909.xml.xml
+[2025-12-12 08:12:59,061: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.nmap
+[2025-12-12 08:12:59,061: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ssh_909.xml.nmap: no suitable parser
+[2025-12-12 08:12:59,061: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.gnmap
+[2025-12-12 08:12:59,061: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.gnmap: no suitable parser
+[2025-12-12 08:12:59,062: ERROR/ForkPoolWorker-1] Error parsing Nmap XML /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml: syntax error: line 1, column 0
+[2025-12-12 08:12:59,063: ERROR/ForkPoolWorker-1] Traceback (most recent call last):
+  File "/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/services/reporting/parsers/scanning/nmap_parser.py", line 56, in parse
+    data = xmltodict.parse(content)
+  File "/home/kali/Proyectos/cybersecurity/environments/dev3-refactor/platform/backend/venv/lib/python3.13/site-packages/xmltodict.py", line 378, in parse
+    parser.Parse(xml_input, True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+xml.parsers.expat.ExpatError: syntax error: line 1, column 0
+
+[2025-12-12 08:12:59,063: INFO/ForkPoolWorker-1] Parsed 0 findings from nmap_ldap_914.xml
+[2025-12-12 08:12:59,064: INFO/ForkPoolWorker-1] SMBMap: Parsed 0 SMB shares
+[2025-12-12 08:12:59,065: INFO/ForkPoolWorker-1] Parsed 0 findings from smbmap_907.txt
+[2025-12-12 08:12:59,065: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.nmap
+[2025-12-12 08:12:59,065: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_snmp_913.nmap: no suitable parser
+[2025-12-12 08:12:59,066: INFO/ForkPoolWorker-1] SSLScan: Parsed SSL/TLS configuration with 0 weak ciphers
+[2025-12-12 08:12:59,066: INFO/ForkPoolWorker-1] Parsed 0 findings from sslscan_919.txt
+[2025-12-12 08:12:59,066: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.nmap
+[2025-12-12 08:12:59,066: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ftp_910.xml.nmap: no suitable parser
+[2025-12-12 08:12:59,066: INFO/ForkPoolWorker-1] Enum4linux: Parsed 0 SMB findings
+[2025-12-12 08:12:59,067: INFO/ForkPoolWorker-1] Parsed 0 findings from enum4linux_906.txt
+[2025-12-12 08:12:59,067: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.gnmap
+[2025-12-12 08:12:59,067: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_rdp_915.xml.gnmap: no suitable parser
+[2025-12-12 08:12:59,067: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.gnmap
+[2025-12-12 08:12:59,067: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/enumeration/nmap_ldap_914.xml.gnmap: no suitable parser
+[2025-12-12 08:12:59,068: INFO/ForkPoolWorker-1] Parsed 6 findings from /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/nikto_921.json
+[2025-12-12 08:12:59,068: INFO/ForkPoolWorker-1] Parsed 6 findings from nikto_921.json
+[2025-12-12 08:12:59,068: ERROR/ForkPoolWorker-1] Error parsing testssl file /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/testssl_926.json: 'list' object has no attribute 'get'
+[2025-12-12 08:12:59,068: INFO/ForkPoolWorker-1] Parsed 0 findings from testssl_926.json
+[2025-12-12 08:12:59,068: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/testssl_926.html
+[2025-12-12 08:12:59,068: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/testssl_926.html: no suitable parser
+[2025-12-12 08:12:59,070: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/results-12102025_0409pm.csv
+[2025-12-12 08:12:59,070: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/results-12102025_0409pm.csv: no suitable parser
+[2025-12-12 08:12:59,070: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/log
+[2025-12-12 08:12:59,070: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/log: no suitable parser
+[2025-12-12 08:12:59,071: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/target.txt
+[2025-12-12 08:12:59,071: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/target.txt: no suitable parser
+[2025-12-12 08:12:59,071: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/log
+[2025-12-12 08:12:59,071: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/log: no suitable parser
+[2025-12-12 08:12:59,071: WARNING/ForkPoolWorker-1] No parser found for /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/session.sqlite
+[2025-12-12 08:12:59,071: WARNING/ForkPoolWorker-1] Cannot parse /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/vuln_scans/sqlmap_924/www.kopernicus.tech/session.sqlite: no suitable parser
+[2025-12-12 08:12:59,073: INFO/ForkPoolWorker-1] Consolidating 182 findings
+[2025-12-12 08:12:59,074: INFO/ForkPoolWorker-1] Removed 63 duplicate findings
+[2025-12-12 08:12:59,074: INFO/ForkPoolWorker-1] After deduplication: 119 findings
+[2025-12-12 08:12:59,074: INFO/ForkPoolWorker-1] Consolidated into 4 categories
+[2025-12-12 08:12:59,074: INFO/ForkPoolWorker-1] Risk Score: 2.86 (low)
+[2025-12-12 08:12:59,076: INFO/ForkPoolWorker-1] Generating technical report with WeasyPrint: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_081259.pdf
+[2025-12-12 08:12:59,110: INFO/ForkPoolWorker-1] Chromium init'ed with kwargs {}
+[2025-12-12 08:12:59,113: INFO/ForkPoolWorker-1] Found chromium path: /usr/bin/chromium
+[2025-12-12 08:12:59,113: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmp1a8_5ip0.
+[2025-12-12 08:12:59,115: INFO/ForkPoolWorker-1] Opening browser.
+[2025-12-12 08:12:59,117: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmpphovhtdl.
+[2025-12-12 08:12:59,134: INFO/ForkPoolWorker-1] ldd failed. e: Command '['ldd', '/usr/bin/chromium']' returned non-zero exit status 1., stderr: None
+[2025-12-12 08:12:59,135: INFO/ForkPoolWorker-1] Temporary directory at: /tmp/tmpphovhtdl
+[2025-12-12 08:13:00,015: INFO/ForkPoolWorker-1] Conforming 1 to file:///tmp/tmp1a8_5ip0/index.html
+[2025-12-12 08:13:00,023: INFO/ForkPoolWorker-1] Waiting on all navigates
+[2025-12-12 08:13:05,357: INFO/ForkPoolWorker-1] All navigates done, putting them all in queue.
+[2025-12-12 08:13:05,358: INFO/ForkPoolWorker-1] Getting tab from queue (has 1)
+[2025-12-12 08:13:05,358: INFO/ForkPoolWorker-1] Got A67C
+[2025-12-12 08:13:05,358: INFO/ForkPoolWorker-1] Processing Distribucin_de_Hallazgos_por_Severidad.png
+[2025-12-12 08:13:05,358: INFO/ForkPoolWorker-1] Sending big command for Distribucin_de_Hallazgos_por_Severidad.png.
+[2025-12-12 08:13:05,913: INFO/ForkPoolWorker-1] Sent big command for Distribucin_de_Hallazgos_por_Severidad.png.
+[2025-12-12 08:13:05,914: INFO/ForkPoolWorker-1] Reloading tab A67C before return.
+[2025-12-12 08:13:06,389: INFO/ForkPoolWorker-1] Putting tab A67C back (queue size: 0).
+[2025-12-12 08:13:06,390: INFO/ForkPoolWorker-1] Waiting for all cleanups to finish.
+[2025-12-12 08:13:06,390: INFO/ForkPoolWorker-1] Exiting Kaleido
+[2025-12-12 08:13:06,390: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:13:06,400: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:13:06,401: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:06,404: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:06,405: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:13:06,405: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:13:06,634: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:06,634: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:06,635: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:06,636: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:06,636: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:13:06,636: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:13:06,639: INFO/ForkPoolWorker-1] Pie chart saved to: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts/severity_distribution.png
+[2025-12-12 08:13:06,663: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:06,664: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:06,669: INFO/ForkPoolWorker-1] Chromium init'ed with kwargs {}
+[2025-12-12 08:13:06,671: INFO/ForkPoolWorker-1] Found chromium path: /usr/bin/chromium
+[2025-12-12 08:13:06,671: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmp30jmx1a4.
+[2025-12-12 08:13:06,672: INFO/ForkPoolWorker-1] Opening browser.
+[2025-12-12 08:13:06,673: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmpbwcxgeb5.
+[2025-12-12 08:13:06,690: INFO/ForkPoolWorker-1] ldd failed. e: Command '['ldd', '/usr/bin/chromium']' returned non-zero exit status 1., stderr: None
+[2025-12-12 08:13:06,690: INFO/ForkPoolWorker-1] Temporary directory at: /tmp/tmpbwcxgeb5
+[2025-12-12 08:13:07,994: INFO/ForkPoolWorker-1] Conforming 1 to file:///tmp/tmp30jmx1a4/index.html
+[2025-12-12 08:13:07,999: INFO/ForkPoolWorker-1] Waiting on all navigates
+[2025-12-12 08:13:12,409: INFO/ForkPoolWorker-1] All navigates done, putting them all in queue.
+[2025-12-12 08:13:12,410: INFO/ForkPoolWorker-1] Getting tab from queue (has 1)
+[2025-12-12 08:13:12,410: INFO/ForkPoolWorker-1] Got 12AF
+[2025-12-12 08:13:12,410: INFO/ForkPoolWorker-1] Processing Hallazgos_por_Categora.png
+[2025-12-12 08:13:12,410: INFO/ForkPoolWorker-1] Sending big command for Hallazgos_por_Categora.png.
+[2025-12-12 08:13:12,985: INFO/ForkPoolWorker-1] Sent big command for Hallazgos_por_Categora.png.
+[2025-12-12 08:13:12,986: INFO/ForkPoolWorker-1] Reloading tab 12AF before return.
+[2025-12-12 08:13:13,466: INFO/ForkPoolWorker-1] Putting tab 12AF back (queue size: 0).
+[2025-12-12 08:13:13,467: INFO/ForkPoolWorker-1] Waiting for all cleanups to finish.
+[2025-12-12 08:13:13,467: INFO/ForkPoolWorker-1] Exiting Kaleido
+[2025-12-12 08:13:13,467: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:13:13,482: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:13:13,491: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:13,491: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:13,491: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:13:13,491: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:13:13,679: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:13,679: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:13,680: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:13,681: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:13,681: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:13:13,681: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:13:13,683: INFO/ForkPoolWorker-1] Bar chart saved to: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts/category_distribution.png
+[2025-12-12 08:13:13,706: INFO/ForkPoolWorker-1] Chromium init'ed with kwargs {}
+[2025-12-12 08:13:13,707: INFO/ForkPoolWorker-1] Found chromium path: /usr/bin/chromium
+[2025-12-12 08:13:13,708: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmpjeb8smb3.
+[2025-12-12 08:13:13,708: INFO/ForkPoolWorker-1] Opening browser.
+[2025-12-12 08:13:13,709: INFO/ForkPoolWorker-1] Temp directory created: /tmp/tmpwitc26h6.
+[2025-12-12 08:13:13,724: INFO/ForkPoolWorker-1] ldd failed. e: Command '['ldd', '/usr/bin/chromium']' returned non-zero exit status 1., stderr: None
+[2025-12-12 08:13:13,724: INFO/ForkPoolWorker-1] Temporary directory at: /tmp/tmpwitc26h6
+[2025-12-12 08:13:14,940: INFO/ForkPoolWorker-1] Conforming 1 to file:///tmp/tmpjeb8smb3/index.html
+[2025-12-12 08:13:14,940: INFO/ForkPoolWorker-1] Waiting on all navigates
+[2025-12-12 08:13:19,413: INFO/ForkPoolWorker-1] All navigates done, putting them all in queue.
+[2025-12-12 08:13:19,414: INFO/ForkPoolWorker-1] Getting tab from queue (has 1)
+[2025-12-12 08:13:19,414: INFO/ForkPoolWorker-1] Got 48CD
+[2025-12-12 08:13:19,414: INFO/ForkPoolWorker-1] Processing fig.png
+[2025-12-12 08:13:19,414: INFO/ForkPoolWorker-1] Sending big command for fig.png.
+[2025-12-12 08:13:19,703: INFO/ForkPoolWorker-1] Sent big command for fig.png.
+[2025-12-12 08:13:19,706: INFO/ForkPoolWorker-1] Reloading tab 48CD before return.
+[2025-12-12 08:13:20,246: INFO/ForkPoolWorker-1] Putting tab 48CD back (queue size: 0).
+[2025-12-12 08:13:20,246: INFO/ForkPoolWorker-1] Waiting for all cleanups to finish.
+[2025-12-12 08:13:20,247: INFO/ForkPoolWorker-1] Exiting Kaleido
+[2025-12-12 08:13:20,247: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:13:20,252: INFO/ForkPoolWorker-1] Closing browser.
+[2025-12-12 08:13:20,253: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:20,254: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:20,254: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:13:20,255: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:13:20,479: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:20,479: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:20,480: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:20,480: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:20,480: INFO/ForkPoolWorker-1] Cancelling tasks.
+[2025-12-12 08:13:20,480: INFO/ForkPoolWorker-1] Exiting Kaleido/Choreo
+[2025-12-12 08:13:20,482: INFO/ForkPoolWorker-1] Risk gauge saved to: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts/risk_gauge.png
+[2025-12-12 08:13:20,483: INFO/ForkPoolWorker-1] Generated 3 charts in /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/charts
+[2025-12-12 08:13:20,483: INFO/ForkPoolWorker-1] Generated 3 charts for report
+[2025-12-12 08:13:20,501: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:20,501: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:20,501: INFO/ForkPoolWorker-1] TemporaryDirectory.cleanup() worked.
+[2025-12-12 08:13:20,502: INFO/ForkPoolWorker-1] shutil.rmtree worked.
+[2025-12-12 08:13:20,816: WARNING/ForkPoolWorker-1] Ignored `overflow-x: auto` at 137:13, unknown property.
+[2025-12-12 08:13:26,063: INFO/ForkPoolWorker-1] PDF generated successfully: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_081259.pdf
+[2025-12-12 08:13:26,067: WARNING/ForkPoolWorker-1] 2025-12-12 08:13:26,067 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+[2025-12-12 08:13:26,067: INFO/ForkPoolWorker-1] BEGIN (implicit)
+[2025-12-12 08:13:26,071: WARNING/ForkPoolWorker-1] 2025-12-12 08:13:26,071 INFO sqlalchemy.engine.Engine INSERT INTO reports (title, report_type, format, version, is_latest, content, file_path, file_size, file_hash, total_findings, critical_count, high_count, medium_count, low_count, info_count, risk_score, files_processed, tools_used, generation_time_seconds, status, error_message, generated_at, created_at, updated_at, workspace_id, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[2025-12-12 08:13:26,071: INFO/ForkPoolWorker-1] INSERT INTO reports (title, report_type, format, version, is_latest, content, file_path, file_size, file_hash, total_findings, critical_count, high_count, medium_count, low_count, info_count, risk_score, files_processed, tools_used, generation_time_seconds, status, error_message, generated_at, created_at, updated_at, workspace_id, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+[2025-12-12 08:13:26,071: WARNING/ForkPoolWorker-1] 2025-12-12 08:13:26,071 INFO sqlalchemy.engine.Engine [generated in 0.00083s] ('Reporte Technical - kopernicus.tech', 'technical', 'pdf', 1, 1, None, '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_081259.pdf', 175759, '3dec32abd610be74aa2bb646d44e330418fa7814402ac19d66759bdf55bf91e5', 119, 0, 1, 0, 14, 104, 2.86, 65, '["findomain", "whois", "fierce", "sublist3r", "dnsrecon", "assetfinder", "traceroute", "subfinder", "crtsh", "dnsenum", "unknown"]', 27.152419328689575, 'completed', None, '2025-12-12 13:13:26.066405', '2025-12-12 13:13:26.070668', '2025-12-12 13:13:26.070680', 10, '1')
+[2025-12-12 08:13:26,071: INFO/ForkPoolWorker-1] [generated in 0.00083s] ('Reporte Technical - kopernicus.tech', 'technical', 'pdf', 1, 1, None, '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_081259.pdf', 175759, '3dec32abd610be74aa2bb646d44e330418fa7814402ac19d66759bdf55bf91e5', 119, 0, 1, 0, 14, 104, 2.86, 65, '["findomain", "whois", "fierce", "sublist3r", "dnsrecon", "assetfinder", "traceroute", "subfinder", "crtsh", "dnsenum", "unknown"]', 27.152419328689575, 'completed', None, '2025-12-12 13:13:26.066405', '2025-12-12 13:13:26.070668', '2025-12-12 13:13:26.070680', 10, '1')
+[2025-12-12 08:13:26,072: WARNING/ForkPoolWorker-1] 2025-12-12 08:13:26,072 INFO sqlalchemy.engine.Engine COMMIT
+[2025-12-12 08:13:26,072: INFO/ForkPoolWorker-1] COMMIT
+[2025-12-12 08:13:26,085: WARNING/ForkPoolWorker-1] 2025-12-12 08:13:26,085 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+[2025-12-12 08:13:26,085: INFO/ForkPoolWorker-1] BEGIN (implicit)
+[2025-12-12 08:13:26,088: WARNING/ForkPoolWorker-1] 2025-12-12 08:13:26,088 INFO sqlalchemy.engine.Engine SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.id = ?
+[2025-12-12 08:13:26,088: INFO/ForkPoolWorker-1] SELECT reports.id AS reports_id, reports.title AS reports_title, reports.report_type AS reports_report_type, reports.format AS reports_format, reports.version AS reports_version, reports.is_latest AS reports_is_latest, reports.content AS reports_content, reports.file_path AS reports_file_path, reports.file_size AS reports_file_size, reports.file_hash AS reports_file_hash, reports.total_findings AS reports_total_findings, reports.critical_count AS reports_critical_count, reports.high_count AS reports_high_count, reports.medium_count AS reports_medium_count, reports.low_count AS reports_low_count, reports.info_count AS reports_info_count, reports.risk_score AS reports_risk_score, reports.files_processed AS reports_files_processed, reports.tools_used AS reports_tools_used, reports.generation_time_seconds AS reports_generation_time_seconds, reports.status AS reports_status, reports.error_message AS reports_error_message, reports.generated_at AS reports_generated_at, reports.created_at AS reports_created_at, reports.updated_at AS reports_updated_at, reports.workspace_id AS reports_workspace_id, reports.created_by AS reports_created_by 
+FROM reports 
+WHERE reports.id = ?
+[2025-12-12 08:13:26,089: WARNING/ForkPoolWorker-1] 2025-12-12 08:13:26,088 INFO sqlalchemy.engine.Engine [generated in 0.00056s] (40,)
+[2025-12-12 08:13:26,088: INFO/ForkPoolWorker-1] [generated in 0.00056s] (40,)
+[2025-12-12 08:13:26,091: INFO/ForkPoolWorker-1] Report created: 40 - Reporte Technical - kopernicus.tech
+[2025-12-12 08:13:26,091: INFO/ForkPoolWorker-1] Report saved to database with ID: 40
+[2025-12-12 08:13:26,091: WARNING/ForkPoolWorker-1] 2025-12-12 08:13:26,091 INFO sqlalchemy.engine.Engine ROLLBACK
+[2025-12-12 08:13:26,091: INFO/ForkPoolWorker-1] ROLLBACK
+[2025-12-12 08:13:26,094: INFO/ForkPoolWorker-1] Report V2 generated successfully for workspace 10: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_081259.pdf (ID: 40)
+[2025-12-12 08:13:26,096: INFO/ForkPoolWorker-1] Task tasks.reporting.generate_report_v2[23d89508-47e6-4d2c-a343-ab13cfababb8] succeeded in 27.200610362982843s: {'report_id': 40, 'workspace_id': 10, 'report_path': '/home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/kopernicus_tech/reports/report_technical_20251212_081259.pdf', 'file_size': 175759, 'total_findings': 119, 'risk_score': 2.86, 'completed_at': '2025-12-12T13:13:26.094792'}
+
+worker: Warm shutdown (MainProcess)

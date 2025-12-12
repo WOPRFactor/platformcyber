@@ -377,11 +377,42 @@ export const getReportStatus = async (taskId: string): Promise<{
 }
 
 /**
+ * Elimina un reporte por ID
+ * @param reportId - ID del reporte a eliminar
+ * @returns Resultado de la eliminación
+ */
+export const deleteReport = async (reportId: number): Promise<{
+  success: boolean
+  message?: string
+  error?: string
+}> => {
+  const response = await api.delete<{
+    success: boolean
+    message?: string
+    error?: string
+  }>(`reporting/delete/${reportId}`)
+  return response.data
+}
+
+/**
+ * Descarga un reporte PDF por ID
+ * @param reportId - ID del reporte a descargar
+ * @returns Blob del archivo PDF
+ */
+export const downloadReportPDF = async (reportId: number): Promise<Blob> => {
+  const response = await api.get(`reporting/download/${reportId}`, {
+    responseType: 'blob'
+  })
+  return response.data
+}
+
+/**
  * Objeto API de reportes
  * Agrupa todas las funciones de gestión de reportes
  */
 export const reportingAPI = {
   listReports,
+  getReport,
   generateReport,
   generateExecutiveSummary,
   generateTechnicalReport,
@@ -391,7 +422,10 @@ export const reportingAPI = {
   exportToHTML,
   // Nuevo módulo V2
   generateReportV2,
-  getReportStatus
+  getReportStatus,
+  // Gestión de reportes
+  deleteReport,
+  downloadReportPDF
 }
 
 

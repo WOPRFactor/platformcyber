@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte Ejecutivo - {{ workspace_name }}</title>
+    <style>
+        /* =================================================================
+           ESTILOS PARA WEASYPRINT - REPORTE EJECUTIVO
+           ================================================================= */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+        
+        /* --- PORTADA EJECUTIVA --- */
+        .cover-page {
+            text-align: center;
+            padding-top: 250pt;
+            page-break-after: always;
+        }
+        
+        .cover-title {
+            font-size: 42pt;
+            color: #1a237e;
+            font-weight: bold;
+            margin-bottom: 20pt;
+            letter-spacing: -1pt;
+        }
+        
+        .cover-subtitle {
+            font-size: 24pt;
+            color: #5c6bc0;
+            margin-bottom: 60pt;
+            font-weight: 300;
+        }
+        
+        .cover-info {
+            font-size: 14pt;
+            color: #555;
+            line-height: 2.5;
+        }
+        
+        .cover-workspace {
+            font-size: 18pt;
+            color: #1a237e;
+            font-weight: bold;
+            margin-top: 40pt;
+        }
+        
+        /* --- RISK SCORE BOX EJECUTIVO --- */
+        .executive-risk-box {
+            background: linear-gradient(135deg, #1a237e 0%, #5c6bc0 100%);
+            color: white;
+            padding: 40pt;
+            border-radius: 15pt;
+            text-align: center;
+            margin: 30pt 0;
+            page-break-inside: avoid;
+            box-shadow: 0 4pt 6pt rgba(0,0,0,0.1);
+        }
+        
+        .executive-risk-label {
+            font-size: 16pt;
+            text-transform: uppercase;
+            letter-spacing: 3pt;
+            opacity: 0.9;
+            margin-bottom: 15pt;
+        }
+        
+        .executive-risk-score {
+            font-size: 72pt;
+            font-weight: bold;
+            margin: 20pt 0;
+            line-height: 1;
+        }
+        
+        .executive-risk-level {
+            font-size: 24pt;
+            text-transform: uppercase;
+            letter-spacing: 4pt;
+            font-weight: 300;
+            margin-top: 10pt;
+        }
+        
+        /* --- MÉTRICAS EJECUTIVAS --- */
+        .executive-metrics {
+            display: table;
+            width: 100%;
+            margin: 30pt 0;
+            border-collapse: separate;
+            border-spacing: 15pt;
+        }
+        
+        .executive-metric {
+            display: table-cell;
+            width: 25%;
+            background: #f5f7fa;
+            padding: 25pt;
+            text-align: center;
+            border-radius: 10pt;
+            border: 2pt solid #e0e7ff;
+            vertical-align: middle;
+        }
+        
+        .executive-metric-number {
+            font-size: 48pt;
+            font-weight: bold;
+            margin: 15pt 0;
+            line-height: 1;
+        }
+        
+        .executive-metric-number.critical { color: #e74c3c; }
+        .executive-metric-number.high { color: #e67e22; }
+        .executive-metric-number.medium { color: #f39c12; }
+        .executive-metric-number.info { color: #3498db; }
+        
+        .executive-metric-label {
+            font-size: 11pt;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1pt;
+            font-weight: bold;
+        }
+        
+        /* --- SECCIÓN EJECUTIVA --- */
+        .executive-section {
+            margin: 30pt 0;
+            page-break-inside: avoid;
+        }
+        
+        .executive-section-title {
+            font-size: 24pt;
+            color: #1a237e;
+            font-weight: bold;
+            margin-bottom: 20pt;
+            border-bottom: 3pt solid #5c6bc0;
+            padding-bottom: 10pt;
+        }
+        
+        .executive-text {
+            font-size: 12pt;
+            line-height: 1.8;
+            color: #444;
+            margin: 15pt 0;
+        }
+        
+        .executive-text strong {
+            color: #1a237e;
+            font-weight: bold;
+        }
+        
+        /* --- TOP VULNERABILITIES --- */
+        .top-vulnerabilities {
+            margin: 30pt 0;
+        }
+        
+        .vulnerability-card {
+            background: #fff;
+            border-left: 6pt solid #e74c3c;
+            padding: 20pt;
+            margin: 15pt 0;
+            border-radius: 5pt;
+            box-shadow: 0 2pt 4pt rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+        
+        .vulnerability-card.high {
+            border-left-color: #e67e22;
+        }
+        
+        .vulnerability-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8pt;
+        }
+        
+        .vulnerability-severity {
+            display: inline-block;
+            padding: 4pt 12pt;
+            border-radius: 15pt;
+            font-size: 9pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10pt;
+        }
+        
+        .vulnerability-severity.critical {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .vulnerability-severity.high {
+            background: #e67e22;
+            color: white;
+        }
+        
+        .vulnerability-description {
+            font-size: 11pt;
+            color: #555;
+            line-height: 1.6;
+            margin: 10pt 0;
+        }
+        
+        .vulnerability-impact {
+            font-size: 10pt;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 8pt;
+        }
+        
+        /* --- RECOMENDACIONES --- */
+        .recommendations {
+            background: #f8f9fa;
+            padding: 25pt;
+            border-radius: 10pt;
+            margin: 30pt 0;
+            border: 2pt solid #e0e7ff;
+        }
+        
+        .recommendation-item {
+            margin: 15pt 0;
+            padding-left: 25pt;
+            position: relative;
+        }
+        
+        .recommendation-item::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #5c6bc0;
+            font-weight: bold;
+            font-size: 14pt;
+        }
+        
+        .recommendation-priority {
+            display: inline-block;
+            padding: 3pt 8pt;
+            border-radius: 10pt;
+            font-size: 8pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-left: 8pt;
+        }
+        
+        .recommendation-priority.high {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .recommendation-priority.medium {
+            background: #f39c12;
+            color: white;
+        }
+        
+        /* --- GRÁFICOS EJECUTIVOS --- */
+        .executive-charts {
+            text-align: center;
+            margin: 30pt 0;
+        }
+        
+        .executive-chart {
+            margin: 20pt auto;
+            max-width: 600px;
+        }
+        
+        /* --- TABLA RESUMEN EJECUTIVO --- */
+        .executive-summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25pt 0;
+            background: white;
+        }
+        
+        .executive-summary-table th {
+            background: #1a237e;
+            color: white;
+            padding: 12pt;
+            text-align: left;
+            font-weight: bold;
+            font-size: 11pt;
+        }
+        
+        .executive-summary-table td {
+            padding: 10pt 12pt;
+            border-bottom: 1pt solid #e0e0e0;
+            font-size: 11pt;
+        }
+        
+        .executive-summary-table tr:hover {
+            background: #f5f7fa;
+        }
+        
+        /* --- ALERTAS EJECUTIVAS --- */
+        .executive-alert {
+            background: #fff3cd;
+            border-left: 5pt solid #ffc107;
+            padding: 20pt;
+            margin: 20pt 0;
+            border-radius: 5pt;
+            page-break-inside: avoid;
+        }
+        
+        .executive-alert.critical {
+            background: #f8d7da;
+            border-left-color: #e74c3c;
+        }
+        
+        .executive-alert-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 8pt;
+        }
+        
+        .executive-alert.critical .executive-alert-title {
+            color: #721c24;
+        }
+        
+        /* --- PAGINACIÓN --- */
+        @page {
+            size: A4;
+            margin: 2.5cm;
+            
+            @top-center {
+                content: "Reporte Ejecutivo de Seguridad";
+                font-family: Arial, sans-serif;
+                font-size: 9pt;
+                color: #5c6bc0;
+            }
+            
+            @bottom-right {
+                content: "Página " counter(page) " de " counter(pages);
+                font-family: Arial, sans-serif;
+                font-size: 9pt;
+                color: #999;
+            }
+        }
+        
+        h1 {
+            font-size: 28pt;
+            color: #1a237e;
+            margin: 30pt 0 20pt 0;
+            font-weight: bold;
+        }
+        
+        h2 {
+            font-size: 20pt;
+            color: #5c6bc0;
+            margin: 25pt 0 15pt 0;
+            font-weight: bold;
+        }
+        
+        h3 {
+            font-size: 16pt;
+            color: #7e8cc0;
+            margin: 20pt 0 10pt 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- =================================================================
+         PORTADA EJECUTIVA
+         ================================================================= -->
+    <div class="cover-page">
+        <div class="cover-title">Reporte Ejecutivo</div>
+        <div class="cover-subtitle">Evaluación de Seguridad</div>
+        
+        <div class="cover-info">
+            <div class="cover-workspace">{{ workspace_name }}</div>
+            <div style="margin-top: 30pt;">
+                Fecha: {{ report_date }}<br>
+                Hora: {{ report_time }}
+            </div>
+        </div>
+    </div>
+    
+    <!-- =================================================================
+         RESUMEN EJECUTIVO
+         ================================================================= -->
+    <h1>Resumen Ejecutivo</h1>
+    
+    <!-- Risk Score Prominente -->
+    <div class="executive-risk-box">
+        <div class="executive-risk-label">Puntuación de Riesgo Global</div>
+        <div class="executive-risk-score">{{ "%.1f"|format(risk_score) }}/10</div>
+        <div class="executive-risk-level">{{ risk_level.upper() }}</div>
+    </div>
+    
+    <!-- Texto Ejecutivo -->
+    <div class="executive-section">
+        <div class="executive-text">
+            <p>
+                Este reporte presenta un análisis ejecutivo de la evaluación de seguridad realizada 
+                en <strong>{{ workspace_name }}</strong>. El análisis identificó 
+                <strong>{{ total_findings }} hallazgos</strong> de seguridad distribuidos en diferentes 
+                niveles de severidad.
+            </p>
+            
+            {% if severity_distribution.get('critical', 0) > 0 %}
+            <div class="executive-alert critical" style="margin-top: 20pt;">
+                <div class="executive-alert-title">⚠️ Atención Requerida</div>
+                <p>
+                    Se identificaron <strong>{{ severity_distribution.get('critical', 0) }} vulnerabilidades críticas</strong> 
+                    que representan un riesgo significativo y requieren remediación inmediata. 
+                    Se recomienda revisar la sección de "Vulnerabilidades Prioritarias" para más detalles.
+                </p>
+            </div>
+            {% endif %}
+            
+            {% if severity_distribution.get('high', 0) > 0 %}
+            <p style="margin-top: 15pt;">
+                Adicionalmente, se encontraron <strong>{{ severity_distribution.get('high', 0) }} vulnerabilidades de alta severidad</strong> 
+                que deben ser abordadas en el corto plazo.
+            </p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Métricas Ejecutivas -->
+    <h2>Métricas Clave</h2>
+    <div class="executive-metrics">
+        <div class="executive-metric">
+            <div class="executive-metric-number critical">{{ severity_distribution.get('critical', 0) or 0 }}</div>
+            <div class="executive-metric-label">Críticas</div>
+        </div>
+        <div class="executive-metric">
+            <div class="executive-metric-number high">{{ severity_distribution.get('high', 0) or 0 }}</div>
+            <div class="executive-metric-label">Altas</div>
+        </div>
+        <div class="executive-metric">
+            <div class="executive-metric-number medium">{{ severity_distribution.get('medium', 0) or 0 }}</div>
+            <div class="executive-metric-label">Medias</div>
+        </div>
+        <div class="executive-metric">
+            <div class="executive-metric-number info">{{ (severity_distribution.get('low', 0) or 0) + (severity_distribution.get('info', 0) or 0) }}</div>
+            <div class="executive-metric-label">Bajas/Info</div>
+        </div>
+    </div>
+    
+    <!-- Gráficos Ejecutivos -->
+    {% if charts %}
+    <h2>Visualizaciones</h2>
+    <div class="executive-charts">
+        {% if charts.risk_gauge %}
+        <div class="executive-chart">
+            <img src="file://{{ charts.risk_gauge }}" alt="Risk Gauge" style="max-width: 100%;">
+        </div>
+        {% endif %}
+        
+        <div style="display: table; width: 100%; margin: 30pt 0;">
+            {% if charts.severity_pie %}
+            <div style="display: table-cell; width: 50%; padding: 15pt; text-align: center; vertical-align: middle;">
+                <img src="file://{{ charts.severity_pie }}" alt="Distribución de Severidad" style="width: 100%; max-width: 400px;">
+            </div>
+            {% endif %}
+            
+            {% if charts.category_bar %}
+            <div style="display: table-cell; width: 50%; padding: 15pt; text-align: center; vertical-align: middle;">
+                <img src="file://{{ charts.category_bar }}" alt="Distribución por Categoría" style="width: 100%; max-width: 400px;">
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Gráficos avanzados para ejecutivo -->
+        {% if charts.severity_heatmap %}
+        <div class="executive-chart" style="margin-top: 30pt;">
+            <h3 style="font-size: 16pt; margin-bottom: 15pt; color: #1a237e;">Mapa de Calor: Severidad por Categoría</h3>
+            <img src="file://{{ charts.severity_heatmap }}" alt="Severity Heatmap" style="max-width: 100%;">
+        </div>
+        {% endif %}
+        
+        {% if charts.stacked_bar %}
+        <div class="executive-chart" style="margin-top: 30pt;">
+            <h3 style="font-size: 16pt; margin-bottom: 15pt; color: #1a237e;">Distribución Detallada por Severidad</h3>
+            <img src="file://{{ charts.stacked_bar }}" alt="Stacked Bar Chart" style="max-width: 100%;">
+        </div>
+        {% endif %}
+        
+        {% if charts.category_treemap %}
+        <div class="executive-chart" style="margin-top: 30pt;">
+            <h3 style="font-size: 16pt; margin-bottom: 15pt; color: #1a237e;">Visualización Jerárquica de Categorías</h3>
+            <img src="file://{{ charts.category_treemap }}" alt="Category Treemap" style="max-width: 100%;">
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <!-- Tabla Resumen Ejecutivo -->
+    <h2>Resumen de Métricas</h2>
+    <table class="executive-summary-table">
+        <tr>
+            <th>Métrica</th>
+            <th>Valor</th>
+        </tr>
+        <tr>
+            <td><strong>Total de Hallazgos</strong></td>
+            <td>{{ total_findings }}</td>
+        </tr>
+        <tr>
+            <td><strong>Archivos Procesados</strong></td>
+            <td>{{ total_files }}</td>
+        </tr>
+        <tr>
+            <td><strong>Targets Únicos</strong></td>
+            <td>{{ unique_targets }}</td>
+        </tr>
+        <tr>
+            <td><strong>Herramientas Utilizadas</strong></td>
+            <td>{{ tools_used|join(', ') if tools_used else 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td><strong>Tiempo de Generación</strong></td>
+            <td>{{ "%.2f"|format(generation_time) }} segundos</td>
+        </tr>
+    </table>
+    
+    <!-- Nueva página -->
+    <div style="page-break-before: always;"></div>
+    
+    <!-- =================================================================
+         VULNERABILIDADES PRIORITARIAS (Top 5 Críticas/Altas)
+         ================================================================= -->
+    <h1>Vulnerabilidades Prioritarias</h1>
+    
+    <div class="executive-section">
+        <div class="executive-text">
+            <p>
+                Esta sección presenta las <strong>5 vulnerabilidades más críticas</strong> identificadas durante 
+                la evaluación. Estas vulnerabilidades requieren atención inmediata debido a su alto impacto 
+                en la seguridad del sistema.
+            </p>
+        </div>
+    </div>
+    
+    {% if top_critical_findings %}
+        {% for finding in top_critical_findings[:5] %}
+        <div class="vulnerability-card {{ finding.severity }}">
+            <div class="vulnerability-title">{{ finding.title }}</div>
+            <div class="vulnerability-severity {{ finding.severity }}">{{ finding.severity.upper() }}</div>
+            
+            {% if finding.description %}
+            <div class="vulnerability-description">
+                {{ finding.description[:300] }}{% if finding.description|length > 300 %}...{% endif %}
+            </div>
+            {% endif %}
+            
+            {% if finding.affected_target %}
+            <div style="margin-top: 10pt; font-size: 10pt; color: #666;">
+                <strong>Target:</strong> {{ finding.affected_target }}
+            </div>
+            {% endif %}
+            
+            {% if finding.remediation %}
+            <div style="margin-top: 10pt; padding: 10pt; background: #f8f9fa; border-radius: 5pt;">
+                <strong style="color: #5c6bc0;">Recomendación:</strong>
+                <div style="margin-top: 5pt; font-size: 10pt;">{{ finding.remediation[:200] }}{% if finding.remediation|length > 200 %}...{% endif %}</div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="executive-alert">
+            <div class="executive-alert-title">✅ Sin Vulnerabilidades Críticas</div>
+            <p>No se identificaron vulnerabilidades críticas o de alta severidad en esta evaluación.</p>
+        </div>
+    {% endif %}
+    
+    <!-- Nueva página -->
+    <div style="page-break-before: always;"></div>
+    
+    <!-- =================================================================
+         RECOMENDACIONES EJECUTIVAS
+         ================================================================= -->
+    <h1>Recomendaciones Estratégicas</h1>
+    
+    <div class="recommendations">
+        {% if severity_distribution.get('critical', 0) > 0 %}
+        <div class="recommendation-item">
+            <strong>Remediación Inmediata de Vulnerabilidades Críticas</strong>
+            <span class="recommendation-priority high">Alta Prioridad</span>
+            <div style="margin-top: 5pt; font-size: 10pt; color: #666;">
+                Abordar las {{ severity_distribution.get('critical', 0) }} vulnerabilidades críticas identificadas 
+                dentro de los próximos 7 días para reducir el riesgo de seguridad significativamente.
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if severity_distribution.get('high', 0) > 0 %}
+        <div class="recommendation-item">
+            <strong>Plan de Remediation para Vulnerabilidades de Alta Severidad</strong>
+            <span class="recommendation-priority high">Alta Prioridad</span>
+            <div style="margin-top: 5pt; font-size: 10pt; color: #666;">
+                Desarrollar e implementar un plan de remediación para las {{ severity_distribution.get('high', 0) }} 
+                vulnerabilidades de alta severidad en un plazo de 30 días.
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if severity_distribution.get('medium', 0) > 0 %}
+        <div class="recommendation-item">
+            <strong>Revisión Periódica de Vulnerabilidades Medias</strong>
+            <span class="recommendation-priority medium">Media Prioridad</span>
+            <div style="margin-top: 5pt; font-size: 10pt; color: #666;">
+                Establecer un proceso de revisión y remediación continua para las vulnerabilidades de severidad media 
+                como parte del programa de seguridad regular.
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="recommendation-item">
+            <strong>Implementar Monitoreo Continuo</strong>
+            <span class="recommendation-priority medium">Media Prioridad</span>
+            <div style="margin-top: 5pt; font-size: 10pt; color: #666;">
+                Establecer un programa de monitoreo continuo de seguridad para detectar y responder 
+                proactivamente a nuevas vulnerabilidades.
+            </div>
+        </div>
+        
+        <div class="recommendation-item">
+            <strong>Capacitación del Equipo</strong>
+            <span class="recommendation-priority medium">Media Prioridad</span>
+            <div style="margin-top: 5pt; font-size: 10pt; color: #666;">
+                Proporcionar capacitación en seguridad al equipo técnico sobre las mejores prácticas 
+                de remediación y prevención de vulnerabilidades.
+            </div>
+        </div>
+    </div>
+    
+    <!-- =================================================================
+         CONCLUSIÓN EJECUTIVA
+         ================================================================= -->
+    <div class="executive-section" style="margin-top: 40pt;">
+        <h2>Conclusión</h2>
+        <div class="executive-text">
+            <p>
+                La evaluación de seguridad de <strong>{{ workspace_name }}</strong> ha identificado 
+                áreas que requieren atención para mejorar la postura de seguridad general. 
+                Con un Risk Score de <strong>{{ "%.1f"|format(risk_score) }}/10</strong>, 
+                se recomienda implementar las recomendaciones priorizadas en este reporte.
+            </p>
+            
+            <p style="margin-top: 15pt;">
+                Para obtener información técnica detallada sobre todos los hallazgos, 
+                consulte el <strong>Reporte Técnico</strong> correspondiente.
+            </p>
+        </div>
+    </div>
+    
+</body>
+</html>
+

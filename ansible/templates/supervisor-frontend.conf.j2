@@ -1,0 +1,12 @@
+[program:cybersecurity-{{ environment }}-frontend]
+command=npm run dev
+directory={{ env_dirs[environment].frontend }}
+user={{ app_user }}
+autostart=true
+autorestart=true
+redirect_stderr=true
+stdout_logfile={{ env_dirs[environment].logs }}/frontend.log
+stdout_logfile_maxbytes=50MB
+stdout_logfile_backups=5
+environment=NODE_ENV="{{ environment }}",VITE_PORT="{{ frontend_port }}",VITE_API_URL="http://localhost:{{ backend_port }}/api/v1"
+

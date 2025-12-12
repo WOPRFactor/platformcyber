@@ -6,9 +6,12 @@ Generador de gráficos para reportes usando Plotly.
 Crea visualizaciones profesionales en formato PNG para incluir en PDFs.
 
 Gráficos soportados:
-- Pie Chart: Distribución de severidades
-- Bar Chart: Hallazgos por categoría
-- Gauge: Risk Score visual
+- Pie Chart: Distribución de severidades (mejorado)
+- Bar Chart: Hallazgos por categoría (mejorado)
+- Gauge: Risk Score visual (mejorado)
+- Heatmap: Severidad por categoría (nuevo)
+- Treemap: Visualización jerárquica de categorías (nuevo)
+- Stacked Bar: Severidad dentro de cada categoría (nuevo)
 """
 
 import plotly.graph_objects as go
@@ -66,35 +69,45 @@ class ChartBuilder:
                 logger.warning("No data for pie chart")
                 return None
             
-            # Crear gráfico
+            # Crear gráfico mejorado con mejor diseño
             fig = go.Figure(data=[
                 go.Pie(
                     labels=labels,
                     values=values,
-                    marker=dict(colors=colors),
-                    textinfo='label+value+percent',
-                    textfont=dict(size=14),
-                    hole=0.3  # Donut chart
+                    marker=dict(
+                        colors=colors,
+                        line=dict(color='#ffffff', width=2)
+                    ),
+                    textinfo='label+percent',
+                    textposition='outside',
+                    textfont=dict(size=12, color='#2c3e50'),
+                    hovertemplate='<b>%{label}</b><br>Valor: %{value}<br>Porcentaje: %{percent}<extra></extra>',
+                    hole=0.4  # Donut chart más elegante
                 )
             ])
             
             fig.update_layout(
                 title=dict(
                     text="Distribución de Hallazgos por Severidad",
-                    font=dict(size=18, color='#2c3e50')
+                    font=dict(size=20, color='#2c3e50', family='Arial, sans-serif'),
+                    x=0.5,
+                    xanchor='center'
                 ),
                 showlegend=True,
                 legend=dict(
                     orientation="h",
                     yanchor="bottom",
-                    y=-0.2,
+                    y=-0.15,
                     xanchor="center",
-                    x=0.5
+                    x=0.5,
+                    font=dict(size=11, color='#555'),
+                    itemclick="toggleothers"
                 ),
-                width=600,
-                height=400,
+                width=700,
+                height=500,
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
+                plot_bgcolor='rgba(0,0,0,0)',
+                margin=dict(t=60, b=60, l=20, r=20)
             )
             
             # Guardar como PNG
@@ -143,37 +156,54 @@ class ChartBuilder:
             sorted_data = sorted(zip(categories, counts), key=lambda x: x[1], reverse=True)
             categories, counts = zip(*sorted_data) if sorted_data else ([], [])
             
-            # Crear gráfico
+            # Crear gráfico mejorado con gradientes y mejor diseño
             fig = go.Figure(data=[
                 go.Bar(
                     x=list(categories),
                     y=list(counts),
                     marker=dict(
-                        color='#3498db',
-                        line=dict(color='#2c3e50', width=1)
+                        color=list(counts),
+                        colorscale='Blues',
+                        showscale=False,
+                        line=dict(color='#2c3e50', width=1.5),
+                        gradient=dict(
+                            type='vertical',
+                            color=['#e3f2fd', '#2196f3']
+                        )
                     ),
                     text=list(counts),
-                    textposition='outside'
+                    textposition='outside',
+                    textfont=dict(size=12, color='#2c3e50', family='Arial'),
+                    hovertemplate='<b>%{x}</b><br>Hallazgos: %{y}<extra></extra>'
                 )
             ])
             
             fig.update_layout(
                 title=dict(
                     text="Hallazgos por Categoría",
-                    font=dict(size=18, color='#2c3e50')
+                    font=dict(size=20, color='#2c3e50', family='Arial, sans-serif'),
+                    x=0.5,
+                    xanchor='center'
                 ),
                 xaxis=dict(
-                    title="Categoría",
-                    tickangle=-45
+                    title=dict(text="Categoría", font=dict(size=13, color='#555')),
+                    tickangle=-45,
+                    tickfont=dict(size=11, color='#666'),
+                    gridcolor='rgba(0,0,0,0.1)',
+                    linecolor='#ddd'
                 ),
                 yaxis=dict(
-                    title="Cantidad de Hallazgos"
+                    title=dict(text="Cantidad de Hallazgos", font=dict(size=13, color='#555')),
+                    tickfont=dict(size=11, color='#666'),
+                    gridcolor='rgba(0,0,0,0.1)',
+                    linecolor='#ddd'
                 ),
-                width=800,
-                height=500,
+                width=900,
+                height=550,
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(248,249,250,1)',
-                showlegend=False
+                plot_bgcolor='rgba(255,255,255,1)',
+                showlegend=False,
+                margin=dict(t=70, b=100, l=80, r=40)
             )
             
             # Guardar como PNG
@@ -251,10 +281,11 @@ class ChartBuilder:
             ))
             
             fig.update_layout(
-                width=500,
-                height=400,
+                width=600,
+                height=500,
                 paper_bgcolor='rgba(0,0,0,0)',
-                font={'color': "#2c3e50", 'family': "Arial"}
+                font={'color': "#2c3e50", 'family': "Arial, sans-serif", 'size': 12},
+                margin=dict(t=60, b=60, l=40, r=40)
             )
             
             # Guardar como PNG
@@ -267,6 +298,289 @@ class ChartBuilder:
             
         except Exception as e:
             logger.error(f"Error creating risk gauge: {e}", exc_info=True)
+            return None
+    
+    def create_severity_heatmap(
+        self,
+        findings_by_category: Dict[str, List],
+        output_path: Optional[Path] = None
+    ) -> Optional[str]:
+        """
+        Crea un heatmap mostrando la distribución de severidades por categoría.
+        
+        Args:
+            findings_by_category: Dict con findings organizados por categoría
+            output_path: Ruta donde guardar la imagen PNG (opcional)
+            
+        Returns:
+            str: Path a la imagen PNG si output_path fue especificado,
+                 None si no hay datos o si falla
+        """
+        try:
+            # Preparar datos para el heatmap
+            categories = []
+            severities = ['critical', 'high', 'medium', 'low', 'info']
+            severity_labels = ['Critical', 'High', 'Medium', 'Low', 'Info']
+            
+            # Contar severidades por categoría
+            data_matrix = []
+            for category, findings in findings_by_category.items():
+                categories.append(category.replace('_', ' ').title())
+                row = []
+                for severity in severities:
+                    count = sum(1 for f in findings if f.severity == severity)
+                    row.append(count)
+                data_matrix.append(row)
+            
+            if not data_matrix or not categories:
+                logger.warning("No data for heatmap")
+                return None
+            
+            # Crear heatmap con paleta mejorada de alto contraste
+            # Colores más oscuros desde el inicio para evitar mezclarse con el fondo
+            fig = go.Figure(data=go.Heatmap(
+                z=data_matrix,
+                x=severity_labels,
+                y=categories,
+                colorscale=[
+                    [0, '#2d5016'],      # Verde oscuro (bajo) - mejor contraste
+                    [0.25, '#1e3a8a'],  # Azul oscuro
+                    [0.5, '#b45309'],   # Amarillo oscuro/naranja
+                    [0.75, '#991b1b'],  # Rojo oscuro
+                    [1, '#7f1d1d']      # Rojo muy oscuro (crítico)
+                ],
+                text=[[str(val) if val > 0 else '' for val in row] for row in data_matrix],
+                texttemplate='%{text}',
+                textfont=dict(size=14, color='white', family='Arial, sans-serif', weight='bold'),
+                colorbar=dict(
+                    title=dict(text="Cantidad", font=dict(size=12, color='#2c3e50')),
+                    tickfont=dict(size=10, color='#555'),
+                    thickness=15,
+                    len=0.5
+                ),
+                hovertemplate='<b>%{y}</b><br>Severidad: %{x}<br>Cantidad: %{z}<extra></extra>',
+                showscale=True
+            ))
+            
+            fig.update_layout(
+                title=dict(
+                    text="Distribución de Severidad por Categoría",
+                    font=dict(size=20, color='#2c3e50', family='Arial, sans-serif'),
+                    x=0.5,
+                    xanchor='center'
+                ),
+                xaxis=dict(
+                    title=dict(text="Severidad", font=dict(size=13, color='#555')),
+                    tickfont=dict(size=11, color='#666'),
+                    gridcolor='rgba(0,0,0,0.1)',
+                    linecolor='#ddd'
+                ),
+                yaxis=dict(
+                    title=dict(text="Categoría", font=dict(size=13, color='#555')),
+                    tickfont=dict(size=11, color='#666'),
+                    gridcolor='rgba(0,0,0,0.1)',
+                    linecolor='#ddd'
+                ),
+                width=800,
+                height=max(400, len(categories) * 40),
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(248,249,250,1)',  # Fondo gris muy claro para mejor contraste
+                margin=dict(t=70, b=60, l=150, r=80)
+            )
+            
+            # Guardar como PNG
+            if output_path:
+                fig.write_image(str(output_path), format='png')
+                logger.info(f"Heatmap saved to: {output_path}")
+                return str(output_path)
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error creating heatmap: {e}", exc_info=True)
+            return None
+    
+    def create_category_treemap(
+        self,
+        findings_by_category: Dict[str, List],
+        output_path: Optional[Path] = None
+    ) -> Optional[str]:
+        """
+        Crea un treemap mostrando la distribución jerárquica de hallazgos por categoría.
+        
+        Args:
+            findings_by_category: Dict con findings organizados por categoría
+            output_path: Ruta donde guardar la imagen PNG (opcional)
+            
+        Returns:
+            str: Path a la imagen PNG si output_path fue especificado,
+                 None si no hay datos o si falla
+        """
+        try:
+            # Preparar datos para treemap
+            labels = []
+            parents = []
+            values = []
+            colors_list = []
+            
+            # Colores para diferentes categorías
+            category_colors = [
+                '#3498db', '#e67e22', '#9b59b6', '#1abc9c', '#f39c12',
+                '#e74c3c', '#34495e', '#16a085', '#27ae60', '#2980b9'
+            ]
+            
+            total_findings = sum(len(findings) for findings in findings_by_category.values())
+            if total_findings == 0:
+                logger.warning("No data for treemap")
+                return None
+            
+            # Agregar categorías
+            for idx, (category, findings) in enumerate(findings_by_category.items()):
+                category_label = category.replace('_', ' ').title()
+                count = len(findings)
+                if count > 0:
+                    labels.append(f"{category_label}<br>({count})")
+                    parents.append("")
+                    values.append(count)
+                    colors_list.append(category_colors[idx % len(category_colors)])
+            
+            # Crear treemap
+            fig = go.Figure(go.Treemap(
+                labels=labels,
+                parents=parents,
+                values=values,
+                marker=dict(
+                    colors=colors_list,
+                    line=dict(color='white', width=2)
+                ),
+                textinfo='label+value',
+                textfont=dict(size=14, color='white', family='Arial'),
+                hovertemplate='<b>%{label}</b><br>Hallazgos: %{value}<br>Porcentaje: %{percentParent:.1%}<extra></extra>'
+            ))
+            
+            fig.update_layout(
+                title=dict(
+                    text="Distribución de Hallazgos por Categoría (Treemap)",
+                    font=dict(size=20, color='#2c3e50', family='Arial, sans-serif'),
+                    x=0.5,
+                    xanchor='center'
+                ),
+                width=900,
+                height=600,
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(255,255,255,1)',
+                margin=dict(t=70, b=40, l=40, r=40)
+            )
+            
+            # Guardar como PNG
+            if output_path:
+                fig.write_image(str(output_path), format='png')
+                logger.info(f"Treemap saved to: {output_path}")
+                return str(output_path)
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error creating treemap: {e}", exc_info=True)
+            return None
+    
+    def create_stacked_bar_chart(
+        self,
+        findings_by_category: Dict[str, List],
+        output_path: Optional[Path] = None
+    ) -> Optional[str]:
+        """
+        Crea un gráfico de barras apiladas mostrando severidad dentro de cada categoría.
+        
+        Args:
+            findings_by_category: Dict con findings organizados por categoría
+            output_path: Ruta donde guardar la imagen PNG (opcional)
+            
+        Returns:
+            str: Path a la imagen PNG si output_path fue especificado,
+                 None si no hay datos o si falla
+        """
+        try:
+            # Preparar datos
+            categories = []
+            severities = ['critical', 'high', 'medium', 'low', 'info']
+            severity_labels = ['Critical', 'High', 'Medium', 'Low', 'Info']
+            
+            # Contar severidades por categoría
+            data_by_severity = {sev: [] for sev in severities}
+            
+            for category, findings in findings_by_category.items():
+                categories.append(category.replace('_', ' ').title())
+                for severity in severities:
+                    count = sum(1 for f in findings if f.severity == severity)
+                    data_by_severity[severity].append(count)
+            
+            if not categories:
+                logger.warning("No data for stacked bar chart")
+                return None
+            
+            # Crear gráfico apilado
+            fig = go.Figure()
+            
+            for severity, label in zip(severities, severity_labels):
+                fig.add_trace(go.Bar(
+                    name=label,
+                    x=categories,
+                    y=data_by_severity[severity],
+                    marker=dict(
+                        color=self.SEVERITY_COLORS[severity],
+                        line=dict(color='#ffffff', width=1)
+                    ),
+                    text=data_by_severity[severity],
+                    textposition='inside',
+                    textfont=dict(size=10, color='white'),
+                    hovertemplate=f'<b>{label}</b><br>%{{x}}<br>Cantidad: %{{y}}<extra></extra>'
+                ))
+            
+            fig.update_layout(
+                title=dict(
+                    text="Distribución de Severidad por Categoría (Barras Apiladas)",
+                    font=dict(size=20, color='#2c3e50', family='Arial, sans-serif'),
+                    x=0.5,
+                    xanchor='center'
+                ),
+                xaxis=dict(
+                    title=dict(text="Categoría", font=dict(size=13, color='#555')),
+                    tickangle=-45,
+                    tickfont=dict(size=11, color='#666'),
+                    gridcolor='rgba(0,0,0,0.1)'
+                ),
+                yaxis=dict(
+                    title=dict(text="Cantidad de Hallazgos", font=dict(size=13, color='#555')),
+                    tickfont=dict(size=11, color='#666'),
+                    gridcolor='rgba(0,0,0,0.1)'
+                ),
+                barmode='stack',
+                legend=dict(
+                    orientation="h",
+                    yanchor="bottom",
+                    y=-0.25,
+                    xanchor="center",
+                    x=0.5,
+                    font=dict(size=11, color='#555')
+                ),
+                width=1000,
+                height=600,
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(255,255,255,1)',
+                margin=dict(t=70, b=120, l=80, r=40)
+            )
+            
+            # Guardar como PNG
+            if output_path:
+                fig.write_image(str(output_path), format='png')
+                logger.info(f"Stacked bar chart saved to: {output_path}")
+                return str(output_path)
+            
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error creating stacked bar chart: {e}", exc_info=True)
             return None
     
     def generate_all_charts(
@@ -315,6 +629,24 @@ class ChartBuilder:
             gauge_result = self.create_risk_gauge(risk_score, gauge_path)
             if gauge_result:
                 charts['risk_gauge'] = gauge_result
+            
+            # Heatmap de severidad por categoría
+            heatmap_path = output_dir / 'severity_heatmap.png'
+            heatmap_result = self.create_severity_heatmap(findings_by_category, heatmap_path)
+            if heatmap_result:
+                charts['severity_heatmap'] = heatmap_result
+            
+            # Treemap de categorías
+            treemap_path = output_dir / 'category_treemap.png'
+            treemap_result = self.create_category_treemap(findings_by_category, treemap_path)
+            if treemap_result:
+                charts['category_treemap'] = treemap_result
+            
+            # Stacked bar chart
+            stacked_bar_path = output_dir / 'stacked_bar_chart.png'
+            stacked_bar_result = self.create_stacked_bar_chart(findings_by_category, stacked_bar_path)
+            if stacked_bar_result:
+                charts['stacked_bar'] = stacked_bar_result
             
             logger.info(f"Generated {len(charts)} charts in {output_dir}")
             return charts

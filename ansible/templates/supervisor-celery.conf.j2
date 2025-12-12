@@ -1,0 +1,12 @@
+[program:cybersecurity-{{ environment }}-celery]
+command={{ env_dirs[environment].backend }}/venv/bin/celery -A celery_app worker --loglevel=info --concurrency=4
+directory={{ env_dirs[environment].backend }}
+user={{ app_user }}
+autostart=true
+autorestart=true
+redirect_stderr=true
+stdout_logfile={{ env_dirs[environment].logs }}/celery.log
+stdout_logfile_maxbytes=50MB
+stdout_logfile_backups=5
+environment=FLASK_ENV="{{ environment }}",DATABASE_URL="postgresql://pentest_{{ environment }}_user:{{ db_password }}@localhost:{{ postgres_port }}/pentest_{{ environment }}",REDIS_URL="redis://localhost:{{ redis_port }}/{{ '1' if environment == 'dev' else '2' }}"
+

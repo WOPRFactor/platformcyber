@@ -200,22 +200,154 @@ class ParserManager:
         Returns:
             Lista de findings parseados (vacía si no hay parser o falla)
         """
+        findings, _ = self.parse_file_with_parser(file_path)
+        return findings
+    
+    def parse_file_with_parser(self, file_path: Path) -> tuple[List[ParsedFinding], Optional[str]]:
+        """
+        Parsea un archivo usando el parser apropiado y retorna también el nombre del parser.
+        
+        Args:
+            file_path: Ruta al archivo
+            
+        Returns:
+            Tupla (findings, parser_name):
+            - findings: Lista de findings parseados (vacía si no hay parser o falla)
+            - parser_name: Nombre de la herramienta detectada (ej: 'nmap', 'nuclei') o None
+        """
         parser = self.get_parser(file_path)
         
         if parser is None:
             self.logger.warning(
                 f"Cannot parse {file_path}: no suitable parser"
             )
-            return []
+            # Intentar extraer del nombre del archivo como fallback
+            parser_name = self._extract_tool_from_filename(file_path)
+            return [], parser_name
         
         try:
             findings = parser.parse(file_path)
+            parser_name = self._get_tool_name_from_parser(parser)
             self.logger.info(
-                f"Parsed {len(findings)} findings from {file_path.name}"
+                f"Parsed {len(findings)} findings from {file_path.name} using {parser_name}"
             )
-            return findings
+            return findings, parser_name
         except Exception as e:
             self.logger.error(f"Error parsing {file_path}: {e}")
             import traceback
             self.logger.error(traceback.format_exc())
-            return []
+            parser_name = self._get_tool_name_from_parser(parser) if parser else None
+            return [], parser_name
+    
+    def _get_tool_name_from_parser(self, parser: BaseParser) -> str:
+        """
+        Extrae el nombre de la herramienta del nombre de la clase del parser.
+        
+        Ejemplos:
+        - NmapParser -> 'nmap'
+        - NucleiParser -> 'nuclei'
+        - Enum4linuxParser -> 'enum4linux'
+        - SSHAuditParser -> 'ssh_audit'
+        
+        Args:
+            parser: Instancia del parser
+            
+        Returns:
+            Nombre de la herramienta en minúsculas
+        """
+        class_name = parser.__class__.__name__
+        
+        # Remover 'Parser' del final
+        if class_name.endswith('Parser'):
+            tool_name = class_name[:-6]  # Remover 'Parser'
+        else:
+            tool_name = class_name
+        
+        # Convertir PascalCase a snake_case y luego a minúsculas simples
+        # Ej: Enum4linuxParser -> Enum4linux -> enum4linux
+        # Ej: SSHAuditParser -> SSHAudit -> ssh_audit
+        import re
+        # Insertar guión bajo antes de mayúsculas seguidas de minúsculas
+        tool_name = re.sub(r'(?<!^)(?=[A-Z][a-z])', '_', tool_name)
+        # Convertir a minúsculas
+        tool_name = tool_name.lower()
+        
+        # Casos especiales conocidos
+        tool_mapping = {
+            'ssh_audit': 'ssh-audit',
+            'dns_zone': 'dns-zone-transfer',
+            'smtp_enum': 'smtp-enum',
+            'ldap_search': 'ldapsearch',
+            'one_sixty_one': 'onesixtyone',
+            'snmp_walk': 'snmpwalk',
+            'mysql_enum': 'mysql-enum',
+            'postgresql_enum': 'postgresql-enum',
+            'redis_enum': 'redis-enum',
+            'enum4linux': 'enum4linux',
+            'smb_map': 'smbmap',
+            'smb_client': 'smbclient',
+            'ssl_scan': 'sslscan',
+            'ssl_yze': 'sslyze',
+            'test_ssl': 'testssl',
+            'dns_recon': 'dnsrecon',
+            'dns_enum': 'dnsenum',
+            'the_harvester': 'theharvester',
+            'google_dorks': 'googledorks',
+            'web_crawler': 'webcrawler',
+            'what_web': 'whatweb',
+            'sub_list3r': 'sublist3r',
+            'crt_sh': 'crtsh',
+            'owasp_zap': 'owasp-zap',
+            'wp_scan': 'wpscan',
+            'sql_map': 'sqlmap',
+        }
+        
+        return tool_mapping.get(tool_name, tool_name)
+    
+    def _extract_tool_from_filename(self, file_path: Path) -> Optional[str]:
+        """
+        Intenta extraer el nombre de la herramienta del nombre del archivo.
+        
+        Ejemplos:
+        - nmap_scan.xml -> 'nmap'
+        - nuclei_results.jsonl -> 'nuclei'
+        - nikto_output.json -> 'nikto'
+        
+        Args:
+            file_path: Ruta al archivo
+            
+        Returns:
+            Nombre de la herramienta detectado o None
+        """
+        filename = file_path.name.lower()
+        
+        # Lista de herramientas conocidas y patrones
+        tool_patterns = {
+            'nmap': ['nmap', 'nmap_scan', 'nmap_result'],
+            'nuclei': ['nuclei', 'nuclei_result', 'nuclei_output'],
+            'nikto': ['nikto', 'nikto_result', 'nikto_output'],
+            'subfinder': ['subfinder', 'subfinder_result'],
+            'amass': ['amass', 'amass_result'],
+            'masscan': ['masscan', 'masscan_result'],
+            'rustscan': ['rustscan', 'rustscan_result'],
+            'naabu': ['naabu', 'naabu_result'],
+            'sqlmap': ['sqlmap', 'sqlmap_result'],
+            'wpscan': ['wpscan', 'wp_scan'],
+            'enum4linux': ['enum4linux', 'enum4linux_result'],
+            'smbmap': ['smbmap', 'smbmap_result'],
+            'sslscan': ['sslscan', 'sslscan_result'],
+            'sslyze': ['sslyze', 'sslyze_result'],
+            'testssl': ['testssl', 'testssl_result'],
+            'ssh-audit': ['ssh_audit', 'ssh-audit'],
+            'dnsrecon': ['dnsrecon', 'dns_recon'],
+            'theharvester': ['theharvester', 'the_harvester'],
+            'shodan': ['shodan', 'shodan_result'],
+            'censys': ['censys', 'censys_result'],
+        }
+        
+        for tool_name, patterns in tool_patterns.items():
+            for pattern in patterns:
+                if pattern in filename:
+                    return tool_name
+        
+        return None

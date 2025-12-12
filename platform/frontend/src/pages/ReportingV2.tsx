@@ -58,7 +58,7 @@ const ReportingV2: React.FC = () => {
           {/* Historial de reportes */}
           <ReportsHistory
             workspaceId={currentWorkspace?.id}
-            reports={reports}
+            reports={reports?.reports || []}
             reportsLoading={reportsLoading}
             onRefresh={() => refetchReports()}
           />

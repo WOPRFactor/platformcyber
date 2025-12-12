@@ -5,8 +5,8 @@
  * Componente para mostrar historial de reportes generados.
  */
 
-import React from 'react'
-import { Download, Loader } from 'lucide-react'
+import React, { useState, useMemo } from 'react'
+import { Download, Trash2, Loader, Filter, X } from 'lucide-react'
 import LoadingSpinner from '../../../components/LoadingSpinner'
 import { reportingAPI } from '../../../lib/api/reporting'
 import { toast } from 'sonner'
@@ -38,122 +38,122 @@ const ReportsHistory: React.FC<ReportsHistoryProps> = ({
   reportsLoading,
   onRefresh
 }) => {
+  // Asegurar que reports sea un array
+  const reportsArray = Array.isArray(reports) ? reports : (reports?.reports || [])
+  const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [deletingAll, setDeletingAll] = useState(false)
+  const [filterType, setFilterType] = useState<'all' | 'executive' | 'technical' | 'compliance' | 'full'>('all')
+
+  // Filtrar reportes por tipo
+  const filteredReports = useMemo(() => {
+    if (filterType === 'all') {
+      return reportsArray
+    }
+    return reportsArray.filter((report: ReportHistoryItem) => report.report_type === filterType)
+  }, [reportsArray, filterType])
+
   const handleDownloadReport = async (report: ReportHistoryItem) => {
     try {
-      // Obtener el reporte completo
-      const response = await reportingAPI.getReport(report.id)
+      // Descargar el PDF real del servidor
+      const blob = await reportingAPI.downloadReportPDF(report.id)
       
-      if (response.status === 'success' && response.report.content) {
-        // Generar HTML del reporte
-        const htmlContent = generateReportHTML(response.report.content)
-        
-        // Crear blob y descargar
-        const blob = new Blob([htmlContent], { type: 'text/html' })
-        const url = URL.createObjectURL(blob)
-        const link = document.createElement('a')
-        link.href = url
-        link.download = `${report.title.replace(/\s+/g, '-')}-${report.id}.html`
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
-        URL.revokeObjectURL(url)
-        
-        toast.success('Reporte descargado exitosamente')
-      } else {
-        toast.error('No se pudo obtener el contenido del reporte')
-      }
+      // Crear URL del blob y descargar
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `${report.title.replace(/\s+/g, '-')}-${report.id}.pdf`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+      
+      toast.success('Reporte descargado exitosamente')
     } catch (error: any) {
       console.error('Error descargando reporte:', error)
       toast.error(`Error descargando reporte: ${error.message || 'Error desconocido'}`)
     }
   }
-  
-  const generateReportHTML = (reportData: any): string => {
-    const reportType = reportData.metadata?.report_type || 'full'
-    const workspaceName = reportData.metadata?.workspace_id || 'Unknown'
-    const generatedAt = reportData.metadata?.generated_at 
-      ? new Date(reportData.metadata.generated_at).toLocaleString('es-AR')
-      : new Date().toLocaleString('es-AR')
-    
-    let html = `<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Pentesting</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background: #1a1a1a; color: #e0e0e0; }
-        .container { max-width: 1200px; margin: 0 auto; background: #2a2a2a; padding: 30px; border-radius: 8px; }
-        h1 { color: #4ade80; border-bottom: 2px solid #4ade80; padding-bottom: 10px; }
-        h2 { color: #60a5fa; margin-top: 30px; }
-        h3 { color: #a78bfa; }
-        .metadata { background: #1a1a1a; padding: 15px; border-radius: 5px; margin: 20px 0; }
-        .stat { display: inline-block; margin: 10px 20px 10px 0; padding: 10px 20px; background: #3a3a3a; border-radius: 5px; }
-        .stat-value { font-size: 24px; font-weight: bold; color: #4ade80; }
-        .stat-label { font-size: 12px; color: #9ca3af; }
-        .finding { background: #2a2a2a; padding: 15px; margin: 10px 0; border-left: 4px solid #4ade80; border-radius: 4px; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #3a3a3a; }
-        th { background: #1a1a1a; color: #4ade80; }
-        .severity-critical { color: #ef4444; }
-        .severity-high { color: #f97316; }
-        .severity-medium { color: #eab308; }
-        .severity-low { color: #3b82f6; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>📊 Reporte de Pentesting</h1>
-        <div class="metadata">
-            <p><strong>Workspace:</strong> ${workspaceName}</p>
-            <p><strong>Tipo de Reporte:</strong> ${reportType.toUpperCase()}</p>
-            <p><strong>Generado:</strong> ${generatedAt}</p>
-        </div>`
-    
-    // Agregar resumen ejecutivo si existe
-    if (reportData.executive_summary) {
-      const es = reportData.executive_summary
-      html += `
-        <h2>📈 Resumen Ejecutivo</h2>
-        <div class="stat">
-            <div class="stat-value">${es.total_scans || 0}</div>
-            <div class="stat-label">Scans Totales</div>
-        </div>
-        <div class="stat">
-            <div class="stat-value">${es.total_vulnerabilities || 0}</div>
-            <div class="stat-label">Vulnerabilidades</div>
-        </div>
-        <div class="stat">
-            <div class="stat-value">${es.risk_score || 0}</div>
-            <div class="stat-label">Puntuación de Riesgo</div>
-        </div>
-        <div class="stat">
-            <div class="stat-value">${es.risk_level || 'N/A'}</div>
-            <div class="stat-label">Nivel de Riesgo</div>
-        </div>`
-      
-      if (es.severity_distribution) {
-        html += `<h3>Distribución por Severidad</h3><table><tr><th>Severidad</th><th>Cantidad</th></tr>`
-        Object.entries(es.severity_distribution).forEach(([severity, count]) => {
-          html += `<tr><td class="severity-${severity}">${severity.toUpperCase()}</td><td>${count}</td></tr>`
-        })
-        html += `</table>`
-      }
-      
-      if (es.key_findings && Array.isArray(es.key_findings)) {
-        html += `<h3>Hallazgos Clave</h3>`
-        es.key_findings.forEach((finding: string) => {
-          html += `<div class="finding">${finding}</div>`
-        })
-      }
+
+  const handleDeleteReport = async (report: ReportHistoryItem) => {
+    // Confirmar eliminación
+    if (!window.confirm(`¿Estás seguro de que deseas eliminar el reporte "${report.title}"?`)) {
+      return
     }
+
+    setDeletingId(report.id)
+    try {
+      const result = await reportingAPI.deleteReport(report.id)
+      
+      if (result.success) {
+        toast.success('Reporte eliminado exitosamente')
+        // Recargar lista de reportes
+        onRefresh()
+      } else {
+        toast.error(result.error || 'Error al eliminar el reporte')
+      }
+    } catch (error: any) {
+      console.error('Error eliminando reporte:', error)
+      const errorMessage = error.response?.data?.error || error.response?.data?.message || error.message || 'Error desconocido'
+      toast.error(`Error eliminando reporte: ${errorMessage}`)
+    } finally {
+      setDeletingId(null)
+    }
+  }
+
+  const handleDeleteAll = async () => {
+    const reportsToDelete = filteredReports.length > 0 ? filteredReports : reportsArray
+    const count = reportsToDelete.length
     
-    html += `
-    </div>
-</body>
-</html>`
+    if (count === 0) {
+      toast.info('No hay reportes para eliminar')
+      return
+    }
+
+    const message = filterType !== 'all' 
+      ? `¿Estás seguro de que deseas eliminar todos los ${count} reportes de tipo "${filterType}"?`
+      : `¿Estás seguro de que deseas eliminar TODOS los ${count} reportes? Esta acción no se puede deshacer.`
     
-    return html
+    if (!window.confirm(message)) {
+      return
+    }
+
+    setDeletingAll(true)
+    let successCount = 0
+    let errorCount = 0
+
+    try {
+      // Eliminar todos los reportes en paralelo
+      const deletePromises = reportsToDelete.map(async (report: ReportHistoryItem) => {
+        try {
+          const result = await reportingAPI.deleteReport(report.id)
+          if (result.success) {
+            successCount++
+          } else {
+            errorCount++
+          }
+        } catch (error) {
+          errorCount++
+          console.error(`Error eliminando reporte ${report.id}:`, error)
+        }
+      })
+
+      await Promise.all(deletePromises)
+
+      if (successCount > 0) {
+        toast.success(`${successCount} reporte${successCount > 1 ? 's' : ''} eliminado${successCount > 1 ? 's' : ''} exitosamente`)
+      }
+      if (errorCount > 0) {
+        toast.error(`${errorCount} reporte${errorCount > 1 ? 's' : ''} no se pudieron eliminar`)
+      }
+
+      // Recargar lista de reportes
+      onRefresh()
+    } catch (error: any) {
+      console.error('Error eliminando reportes:', error)
+      toast.error(`Error al eliminar reportes: ${error.message || 'Error desconocido'}`)
+    } finally {
+      setDeletingAll(false)
+    }
   }
 
   return (
@@ -165,21 +165,74 @@ const ReportsHistory: React.FC<ReportsHistoryProps> = ({
             Reportes generados y disponibles para descarga
           </p>
         </div>
-        <button
-          onClick={onRefresh}
-          className="btn-secondary px-4 py-2"
-          title="Actualizar lista de reportes"
-        >
-          🔄 Refresh
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Filtro por tipo de reporte */}
+          <div className="flex items-center gap-2">
+            <Filter className="w-4 h-4 text-gray-400" />
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value as typeof filterType)}
+              className="bg-gray-900 border border-gray-700 text-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-green-500"
+            >
+              <option value="all">Todos los tipos</option>
+              <option value="technical">Técnico</option>
+              <option value="executive">Ejecutivo</option>
+              <option value="compliance">Cumplimiento</option>
+              <option value="full">Completo</option>
+            </select>
+            {filterType !== 'all' && (
+              <button
+                onClick={() => setFilterType('all')}
+                className="text-gray-400 hover:text-gray-300 p-1"
+                title="Limpiar filtro"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+          {filteredReports && filteredReports.length > 0 && (
+            <button
+              onClick={handleDeleteAll}
+              disabled={deletingAll || reportsLoading}
+              className="bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors"
+              title={filterType !== 'all' ? `Eliminar todos los reportes de tipo ${filterType}` : 'Eliminar todos los reportes'}
+            >
+              {deletingAll ? (
+                <>
+                  <Loader className="w-4 h-4 animate-spin" />
+                  Eliminando...
+                </>
+              ) : (
+                <>
+                  <Trash2 className="w-4 h-4" />
+                  Eliminar {filterType !== 'all' ? `Todos (${filteredReports.length})` : 'Todos'}
+                </>
+              )}
+            </button>
+          )}
+          <button
+            onClick={onRefresh}
+            className="btn-secondary px-4 py-2"
+            title="Actualizar lista de reportes"
+            disabled={deletingAll}
+          >
+            🔄 Refresh
+          </button>
+        </div>
       </div>
       {reportsLoading ? (
         <div className="flex items-center justify-center py-8">
           <LoadingSpinner />
         </div>
-      ) : reports && reports.length > 0 ? (
+      ) : filteredReports && filteredReports.length > 0 ? (
         <div className="space-y-2">
-          {reports.map((report: ReportHistoryItem) => (
+          {filterType !== 'all' && (
+            <div className="mb-3 text-sm text-gray-400">
+              Mostrando {filteredReports.length} de {reportsArray.length} reportes
+              {filterType !== 'all' && ` (filtrado por: ${filterType})`}
+            </div>
+          )}
+          {filteredReports.map((report: ReportHistoryItem) => (
             <div key={report.id} className="flex items-center justify-between p-4 bg-gray-900 border border-gray-700 rounded-lg hover:border-green-500 transition-colors">
               <div className="flex-1">
                 <div className="font-medium text-green-400">{report.title}</div>
@@ -214,14 +267,32 @@ const ReportsHistory: React.FC<ReportsHistoryProps> = ({
                   onClick={() => handleDownloadReport(report)}
                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors"
                   title="Descargar reporte"
+                  disabled={reportsLoading}
                 >
                   <Download className="w-4 h-4" />
                   Descargar
+                </button>
+                <button
+                  onClick={() => handleDeleteReport(report)}
+                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  title="Eliminar reporte"
+                  disabled={reportsLoading || deletingId === report.id}
+                >
+                  {deletingId === report.id ? (
+                    <Loader className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Trash2 className="w-4 h-4" />
+                  )}
+                  Eliminar
                 </button>
               </div>
             </div>
           ))}
         </div>
+      ) : reportsArray && reportsArray.length > 0 && filterType !== 'all' ? (
+        <p className="text-gray-500 text-center py-4">
+          No hay reportes de tipo "{filterType}" en el historial
+        </p>
       ) : (
         <p className="text-gray-500 text-center py-4">
           No hay reportes generados

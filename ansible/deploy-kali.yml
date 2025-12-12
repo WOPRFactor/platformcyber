@@ -1,0 +1,486 @@
+---
+# Playbook de Ansible para Desplegar Cybersecurity Platform en Kali Linux
+# ========================================================================
+# Este playbook configura la aplicación SIN Docker, separando entornos dev/prod
+# 
+# Uso:
+#   ansible-playbook -i inventory/hosts.ini deploy-kali.yml -e "environment=dev"
+#   ansible-playbook -i inventory/hosts.ini deploy-kali.yml -e "environment=prod"
+#
+# Autor: Factor X
+# Fecha: Enero 2025
+
+- name: Desplegar Cybersecurity Platform en Kali Linux
+  hosts: kali_servers
+  become: yes
+  vars:
+    # Directorio base del proyecto
+    project_base_dir: /opt/cybersecurity-platform
+    # Entorno a configurar (dev o prod)
+    environment: "{{ env | default('dev') }}"
+    # Usuario que ejecutará la aplicación
+    app_user: "{{ ansible_user }}"
+    app_group: "{{ ansible_user }}"
+    
+    # Versiones
+    python_version: "3.11"
+    node_version: "20"
+    
+    # Puertos por entorno
+    ports:
+      dev:
+        backend: 5001
+        frontend: 5180
+        redis: 6379
+        postgres: 5432
+      prod:
+        backend: 5002
+        frontend: 5181
+        redis: 6380
+        postgres: 5433
+    
+    # Directorios por entorno
+    env_dirs:
+      dev:
+        base: "{{ project_base_dir }}/environments/dev"
+        backend: "{{ project_base_dir }}/environments/dev/platform/backend"
+        frontend: "{{ project_base_dir }}/environments/dev/platform/frontend"
+        workspaces: "{{ project_base_dir }}/environments/dev/workspaces"
+        logs: "{{ project_base_dir }}/environments/dev/logs"
+        tmp: "{{ project_base_dir }}/environments/dev/tmp"
+      prod:
+        base: "{{ project_base_dir }}/environments/prod"
+        backend: "{{ project_base_dir }}/environments/prod/platform/backend"
+        frontend: "{{ project_base_dir }}/environments/prod/platform/frontend"
+        workspaces: "{{ project_base_dir }}/environments/prod/workspaces"
+        logs: "{{ project_base_dir }}/environments/prod/logs"
+        tmp: "{{ project_base_dir }}/environments/prod/tmp"
+
+  tasks:
+    # ============================================
+    # TAREA 1: Actualizar sistema
+    # ============================================
+    - name: Actualizar sistema
+      apt:
+        update_cache: yes
+        upgrade: dist
+        cache_valid_time: 3600
+
+    # ============================================
+    # TAREA 2: Instalar dependencias del sistema
+    # ============================================
+    - name: Instalar dependencias del sistema
+      apt:
+        name:
+          - python3
+          - python3-pip
+          - python3-venv
+          - python3-dev
+          - build-essential
+          - libpq-dev
+          - curl
+          - wget
+          - git
+          - vim
+          - htop
+          - net-tools
+          - dnsutils
+          - whois
+          - nmap
+          - postgresql
+          - postgresql-contrib
+          - redis-server
+          - nginx
+          - ufw
+          - supervisor
+        state: present
+
+    # ============================================
+    # TAREA 3: Instalar Node.js y npm
+    # ============================================
+    - name: Instalar Node.js {{ node_version }} usando NodeSource
+      shell: |
+        curl -fsSL https://deb.nodesource.com/setup_{{ node_version }}.x | bash -
+      args:
+        creates: /usr/bin/node
+
+    - name: Instalar Node.js
+      apt:
+        name: nodejs
+        state: present
+        update_cache: yes
+
+    - name: Verificar versión de Node.js
+      command: node --version
+      register: node_version_output
+      changed_when: false
+
+    - name: Mostrar versión de Node.js instalada
+      debug:
+        msg: "Node.js {{ node_version_output.stdout }} instalado"
+
+    # ============================================
+    # TAREA 4: Crear estructura de directorios
+    # ============================================
+    - name: Crear directorios base del proyecto
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ app_user }}"
+        group: "{{ app_group }}"
+        mode: '0755'
+      loop:
+        - "{{ project_base_dir }}"
+        - "{{ project_base_dir }}/environments"
+        - "{{ env_dirs[environment].base }}"
+        - "{{ env_dirs[environment].backend }}"
+        - "{{ env_dirs[environment].frontend }}"
+        - "{{ env_dirs[environment].workspaces }}"
+        - "{{ env_dirs[environment].logs }}"
+        - "{{ env_dirs[environment].tmp }}"
+
+    # ============================================
+    # TAREA 5: Verificar/Copiar código del proyecto
+    # ============================================
+    # El código ya debe estar descargado en la máquina remota
+    # Se asume que está en: {{ project_base_dir }}/source/ o en el directorio actual
+    
+    - name: Verificar si el código ya existe en el entorno
+      stat:
+        path: "{{ env_dirs[environment].backend }}/app.py"
+      register: code_exists_in_env
+
+    - name: Buscar código fuente en ubicaciones comunes
+      find:
+        paths:
+          - "{{ project_base_dir }}/source"
+          - "{{ ansible_env.HOME }}/cybersecurity-platform"
+          - "/home/{{ app_user }}/cybersecurity-platform"
+          - "{{ project_base_dir }}"
+        patterns:
+          - "platform/backend/app.py"
+        file_type: file
+      register: code_search
+      when: not code_exists_in_env.stat.exists
+
+    - name: Determinar ruta del código fuente
+      set_fact:
+        source_code_path: "{{ code_search.files[0].path | dirname | dirname }}"
+      when: 
+        - not code_exists_in_env.stat.exists
+        - code_search.files | length > 0
+
+    - name: Copiar código al entorno desde ubicación encontrada
+      copy:
+        src: "{{ source_code_path }}/platform/"
+        dest: "{{ env_dirs[environment].base }}/platform/"
+        remote_src: yes
+      when: 
+        - not code_exists_in_env.stat.exists
+        - source_code_path is defined
+
+    - name: Error si no se encuentra el código
+      fail:
+        msg: "No se encontró el código fuente. Asegúrate de tenerlo en {{ project_base_dir }}/source/ o en el directorio del usuario"
+      when: 
+        - not code_exists_in_env.stat.exists
+        - source_code_path is not defined
+
+    # ============================================
+    # TAREA 6: Configurar Python Virtual Environment
+    # ============================================
+    - name: Crear virtual environment de Python
+      command: python3 -m venv {{ env_dirs[environment].backend }}/venv
+      args:
+        creates: "{{ env_dirs[environment].backend }}/venv/bin/activate"
+      become_user: "{{ app_user }}"
+
+    - name: Actualizar pip en virtual environment
+      pip:
+        name: pip
+        state: latest
+        virtualenv: "{{ env_dirs[environment].backend }}/venv"
+        virtualenv_python: python3
+      become_user: "{{ app_user }}"
+
+    - name: Verificar que requirements.txt existe
+      stat:
+        path: "{{ env_dirs[environment].backend }}/requirements.txt"
+      register: requirements_exists
+
+    - name: Instalar dependencias Python del backend
+      pip:
+        requirements: "{{ env_dirs[environment].backend }}/requirements.txt"
+        virtualenv: "{{ env_dirs[environment].backend }}/venv"
+        virtualenv_python: python3
+      become_user: "{{ app_user }}"
+      register: pip_install
+      when: requirements_exists.stat.exists
+      failed_when: pip_install.rc != 0
+
+    - name: Error si requirements.txt no existe
+      fail:
+        msg: "requirements.txt no encontrado en {{ env_dirs[environment].backend }}"
+      when: not requirements_exists.stat.exists
+
+    # ============================================
+    # TAREA 7: Instalar dependencias Node.js
+    # ============================================
+    - name: Verificar que package.json existe
+      stat:
+        path: "{{ env_dirs[environment].frontend }}/package.json"
+      register: package_json_exists
+
+    - name: Instalar dependencias Node.js del frontend
+      npm:
+        path: "{{ env_dirs[environment].frontend }}"
+        state: present
+      become_user: "{{ app_user }}"
+      environment:
+        NODE_ENV: "{{ 'production' if environment == 'prod' else 'development' }}"
+      when: package_json_exists.stat.exists
+
+    - name: Error si package.json no existe
+      fail:
+        msg: "package.json no encontrado en {{ env_dirs[environment].frontend }}"
+      when: not package_json_exists.stat.exists
+
+    # ============================================
+    # TAREA 8: Configurar PostgreSQL
+    # ============================================
+    - name: Iniciar y habilitar PostgreSQL
+      systemd:
+        name: postgresql
+        state: started
+        enabled: yes
+
+    - name: Crear base de datos para entorno
+      postgresql_db:
+        name: "pentest_{{ environment }}"
+        state: present
+        login_user: postgres
+        login_password: "{{ postgres_admin_password | default('') }}"
+      become_user: postgres
+      when: postgres_admin_password is defined
+
+    - name: Crear usuario de base de datos
+      postgresql_user:
+        name: "pentest_{{ environment }}_user"
+        password: "{{ db_password | default('changeme') }}"
+        priv: "pentest_{{ environment }}:ALL"
+        state: present
+        login_user: postgres
+        login_password: "{{ postgres_admin_password | default('') }}"
+      become_user: postgres
+      when: postgres_admin_password is defined
+
+    # ============================================
+    # TAREA 9: Configurar Redis
+    # ============================================
+    - name: Crear directorios para Redis {{ environment }}
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: redis
+        group: redis
+        mode: '0755'
+      loop:
+        - /var/lib/redis/{{ environment }}
+        - /var/log/redis
+        - /var/run/redis
+
+    - name: Configurar Redis para múltiples instancias
+      template:
+        src: templates/redis-{{ environment }}.conf.j2
+        dest: /etc/redis/redis-{{ environment }}.conf
+        owner: redis
+        group: redis
+        mode: '0644'
+      notify: restart redis
+
+    - name: Crear systemd service para Redis {{ environment }}
+      template:
+        src: templates/redis-{{ environment }}.service.j2
+        dest: /etc/systemd/system/redis-{{ environment }}.service
+        mode: '0644'
+      notify: reload systemd
+
+    - name: Iniciar Redis {{ environment }}
+      systemd:
+        name: "redis-{{ environment }}"
+        state: started
+        enabled: yes
+        daemon_reload: yes
+
+    # ============================================
+    # TAREA 10: Crear archivo .env para el entorno
+    # ============================================
+    - name: Generar SECRET_KEY
+      command: openssl rand -hex 32
+      register: secret_key
+      changed_when: false
+
+    - name: Generar JWT_SECRET_KEY
+      command: openssl rand -hex 32
+      register: jwt_secret_key
+      changed_when: false
+
+    - name: Crear archivo .env para backend
+      template:
+        src: templates/backend.env.j2
+        dest: "{{ env_dirs[environment].backend }}/.env"
+        owner: "{{ app_user }}"
+        group: "{{ app_group }}"
+        mode: '0600'
+      vars:
+        secret_key: "{{ secret_key.stdout }}"
+        jwt_secret_key: "{{ jwt_secret_key.stdout }}"
+        db_password: "{{ db_password | default('changeme') }}"
+        backend_port: "{{ ports[environment].backend }}"
+        frontend_port: "{{ ports[environment].frontend }}"
+        redis_port: "{{ ports[environment].redis }}"
+        postgres_port: "{{ ports[environment].postgres }}"
+
+    - name: Crear archivo .env para frontend
+      template:
+        src: templates/frontend.env.j2
+        dest: "{{ env_dirs[environment].frontend }}/.env"
+        owner: "{{ app_user }}"
+        group: "{{ app_group }}"
+        mode: '0600'
+      vars:
+        backend_port: "{{ ports[environment].backend }}"
+        frontend_port: "{{ ports[environment].frontend }}"
+
+    # ============================================
+    # TAREA 11: Configurar Supervisor para servicios
+    # ============================================
+    - name: Crear configuración Supervisor para backend
+      template:
+        src: templates/supervisor-backend.conf.j2
+        dest: /etc/supervisor/conf.d/cybersecurity-{{ environment }}-backend.conf
+        mode: '0644'
+      notify: restart supervisor
+
+    - name: Crear configuración Supervisor para frontend
+      template:
+        src: templates/supervisor-frontend.conf.j2
+        dest: /etc/supervisor/conf.d/cybersecurity-{{ environment }}-frontend.conf
+        mode: '0644'
+      notify: restart supervisor
+
+    - name: Crear configuración Supervisor para Celery
+      template:
+        src: templates/supervisor-celery.conf.j2
+        dest: /etc/supervisor/conf.d/cybersecurity-{{ environment }}-celery.conf
+        mode: '0644'
+      notify: restart supervisor
+
+    - name: Recargar configuración de Supervisor
+      command: supervisorctl reread
+      changed_when: false
+
+    - name: Agregar programas a Supervisor
+      command: supervisorctl update
+      changed_when: false
+
+    # ============================================
+    # TAREA 12: Configurar Firewall
+    # ============================================
+    - name: Habilitar UFW
+      ufw:
+        state: enabled
+
+    - name: Permitir SSH
+      ufw:
+        rule: allow
+        port: '22'
+        proto: tcp
+
+    - name: Permitir puerto backend {{ environment }}
+      ufw:
+        rule: allow
+        port: "{{ ports[environment].backend }}"
+        proto: tcp
+        comment: "Backend {{ environment }}"
+
+    - name: Permitir puerto frontend {{ environment }}
+      ufw:
+        rule: allow
+        port: "{{ ports[environment].frontend }}"
+        proto: tcp
+        comment: "Frontend {{ environment }}"
+
+    # ============================================
+    # TAREA 13: Inicializar base de datos
+    # ============================================
+    - name: Ejecutar migraciones de base de datos
+      command: "{{ env_dirs[environment].backend }}/venv/bin/python -m flask db upgrade"
+      args:
+        chdir: "{{ env_dirs[environment].backend }}"
+        creates: "{{ env_dirs[environment].backend }}/migrations/versions/.gitkeep"
+      environment:
+        FLASK_ENV: "{{ environment }}"
+        DATABASE_URL: "postgresql://pentest_{{ environment }}_user:{{ db_password | default('changeme') }}@localhost:{{ ports[environment].postgres }}/pentest_{{ environment }}"
+      become_user: "{{ app_user }}"
+      ignore_errors: yes
+
+    - name: Crear usuario admin inicial
+      command: "{{ env_dirs[environment].backend }}/venv/bin/python create_admin.py"
+      args:
+        chdir: "{{ env_dirs[environment].backend }}"
+      environment:
+        FLASK_ENV: "{{ environment }}"
+        DATABASE_URL: "postgresql://pentest_{{ environment }}_user:{{ db_password | default('changeme') }}@localhost:{{ ports[environment].postgres }}/pentest_{{ environment }}"
+      become_user: "{{ app_user }}"
+      ignore_errors: yes
+
+    # ============================================
+    # TAREA 14: Iniciar servicios
+    # ============================================
+    - name: Iniciar servicios con Supervisor
+      supervisorctl:
+        name: "{{ item }}"
+        state: started
+      loop:
+        - "cybersecurity-{{ environment }}-backend"
+        - "cybersecurity-{{ environment }}-frontend"
+        - "cybersecurity-{{ environment }}-celery"
+
+    # ============================================
+    # TAREA 15: Verificar que servicios están corriendo
+    # ============================================
+    - name: Esperar a que backend esté listo
+      uri:
+        url: "http://localhost:{{ ports[environment].backend }}/api/v1/health"
+        status_code: 200
+      register: backend_health
+      until: backend_health.status == 200
+      retries: 10
+      delay: 5
+      ignore_errors: yes
+
+    - name: Mostrar estado final
+      debug:
+        msg:
+          - "✅ Entorno {{ environment }} configurado correctamente"
+          - "📍 Backend: http://{{ ansible_default_ipv4.address }}:{{ ports[environment].backend }}"
+          - "📍 Frontend: http://{{ ansible_default_ipv4.address }}:{{ ports[environment].frontend }}"
+          - "📁 Directorio: {{ env_dirs[environment].base }}"
+          - "🔐 Base de datos: pentest_{{ environment }}"
+          - "📊 Supervisor: supervisorctl status"
+
+  handlers:
+    - name: restart supervisor
+      systemd:
+        name: supervisor
+        state: restarted
+
+    - name: reload systemd
+      systemd:
+        daemon_reload: yes
+
+    - name: restart redis
+      systemd:
+        name: "redis-{{ environment }}"
+        state: restarted

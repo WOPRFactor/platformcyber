@@ -245,6 +245,28 @@
         </div>
         {% endif %}
     </div>
+    
+    <!-- Nuevos gráficos avanzados -->
+    {% if charts.severity_heatmap %}
+    <div style="text-align: center; margin: 30pt 0; page-break-inside: avoid;">
+        <h3>Mapa de Calor: Severidad por Categoría</h3>
+        <img src="file://{{ charts.severity_heatmap }}" alt="Severity Heatmap" style="max-width: 100%;">
+    </div>
+    {% endif %}
+    
+    {% if charts.stacked_bar %}
+    <div style="text-align: center; margin: 30pt 0; page-break-inside: avoid;">
+        <h3>Distribución de Severidad por Categoría (Barras Apiladas)</h3>
+        <img src="file://{{ charts.stacked_bar }}" alt="Stacked Bar Chart" style="max-width: 100%;">
+    </div>
+    {% endif %}
+    
+    {% if charts.category_treemap %}
+    <div style="text-align: center; margin: 30pt 0; page-break-inside: avoid;">
+        <h3>Visualización Jerárquica de Categorías (Treemap)</h3>
+        <img src="file://{{ charts.category_treemap }}" alt="Category Treemap" style="max-width: 100%;">
+    </div>
+    {% endif %}
     {% endif %}
     
     <div class="stats-grid">

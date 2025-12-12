@@ -343,6 +343,145 @@ class WeasyPrintPDFGenerator:
         
         return CSS(string=css_content)
     
+    def generate_executive_report(
+        self,
+        output_path: Path,
+        workspace_name: str,
+        findings: List[Any],
+        statistics: Dict[str, Any],
+        risk_metrics: Dict[str, Any],
+        metadata: Dict[str, Any]
+    ) -> Path:
+        """
+        Genera un reporte ejecutivo en PDF.
+        
+        El reporte ejecutivo se enfoca en:
+        - Métricas visuales y gráficos grandes
+        - Top 5 vulnerabilidades críticas/altas
+        - Recomendaciones priorizadas
+        - Menos detalles técnicos
+        
+        Args:
+            output_path: Ruta donde guardar el PDF
+            workspace_name: Nombre del workspace
+            findings: Lista de findings consolidados (solo críticos/altos para ejecutivo)
+            statistics: Estadísticas del escaneo
+            risk_metrics: Métricas de riesgo
+            metadata: Metadata adicional
+            
+        Returns:
+            Path al archivo PDF generado
+        """
+        try:
+            logger.info(f"Generating executive report with WeasyPrint: {output_path}")
+            
+            # Generar gráficos primero
+            charts_dir = output_path.parent / 'charts'
+            
+            # Organizar findings por categoría para el gráfico (usar todos los findings para estadísticas)
+            findings_by_category = {}
+            for finding in findings:
+                category = finding.category
+                if category not in findings_by_category:
+                    findings_by_category[category] = []
+                findings_by_category[category].append(finding)
+            
+            # Generar todos los gráficos
+            charts = self.chart_builder.generate_all_charts(
+                severity_distribution=risk_metrics.get('severity_distribution', {}),
+                findings_by_category=findings_by_category,
+                risk_score=risk_metrics.get('risk_score', 0.0),
+                output_dir=charts_dir
+            )
+            
+            logger.info(f"Generated {len(charts)} charts for executive report")
+            
+            # Preparar datos específicos para template ejecutivo
+            template_data = self._prepare_executive_template_data(
+                workspace_name=workspace_name,
+                findings=findings,
+                statistics=statistics,
+                risk_metrics=risk_metrics,
+                metadata=metadata
+            )
+            
+            # Agregar paths de gráficos
+            template_data['charts'] = charts
+            
+            # Renderizar template HTML ejecutivo
+            template = self.jinja_env.get_template('executive/report_weasy.html')
+            html_content = template.render(**template_data)
+            
+            # Convertir HTML a PDF
+            HTML(string=html_content).write_pdf(
+                target=str(output_path),
+                stylesheets=[self._get_pdf_stylesheet()]
+            )
+            
+            logger.info(f"Executive PDF generated successfully: {output_path}")
+            return output_path
+            
+        except Exception as e:
+            logger.error(f"Error generating executive PDF with WeasyPrint: {e}", exc_info=True)
+            raise
+    
+    def _prepare_executive_template_data(
+        self,
+        workspace_name: str,
+        findings: List[Any],
+        statistics: Dict[str, Any],
+        risk_metrics: Dict[str, Any],
+        metadata: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        Prepara datos estructurados para el template ejecutivo.
+        
+        Args:
+            workspace_name: Nombre del workspace
+            findings: Lista de findings (ya filtrados para ejecutivo)
+            statistics: Estadísticas
+            risk_metrics: Métricas de riesgo
+            metadata: Metadata
+            
+        Returns:
+            Dict con datos estructurados para Jinja2 (template ejecutivo)
+        """
+        # Filtrar solo críticos y altos para el ejecutivo
+        critical_and_high = [
+            f for f in findings 
+            if f.severity in ['critical', 'high']
+        ]
+        
+        # Ordenar por severidad (críticos primero) y tomar top 5
+        severity_order = {'critical': 0, 'high': 1, 'medium': 2, 'low': 3, 'info': 4}
+        critical_and_high.sort(
+            key=lambda f: (severity_order.get(f.severity, 999), f.title)
+        )
+        top_critical_findings = critical_and_high[:5]
+        
+        return {
+            'workspace_name': workspace_name,
+            'report_date': datetime.now().strftime('%d de %B, %Y'),
+            'report_time': datetime.now().strftime('%H:%M'),
+            
+            # Solo top 5 críticas/altas para ejecutivo
+            'top_critical_findings': top_critical_findings,
+            
+            # Estadísticas (todas, para contexto completo)
+            'total_findings': statistics.get('total_findings', 0),
+            'total_files': statistics.get('total_files', 0),
+            'unique_targets': len(statistics.get('targets', [])),
+            
+            # Risk metrics
+            'risk_score': risk_metrics.get('risk_score', 0.0),
+            'risk_level': risk_metrics.get('risk_level', 'unknown'),
+            'severity_distribution': risk_metrics.get('severity_distribution', {}),
+            
+            # Metadata
+            'tools_used': metadata.get('tools_used', []),
+            'generation_time': metadata.get('generation_time', 0),
+        }
+    
     def generate(
         self,
         findings: Dict[str, List] | List[Any],
@@ -354,19 +493,20 @@ class WeasyPrintPDFGenerator:
         """
         Método de interfaz compatible con el generador anterior.
         
-        Genera reporte técnico (método principal para compatibilidad).
+        Detecta el tipo de reporte desde metadata y genera el apropiado.
         
         Args:
             findings: Diccionario {categoria: [findings]} o Lista de findings
             statistics: Estadísticas
             risk_metrics: Métricas de riesgo
-            metadata: Metadata (debe incluir workspace info)
+            metadata: Metadata (debe incluir workspace info y report_type)
             output_path: Path de salida
             
         Returns:
             Path al PDF generado
         """
         workspace_name = metadata.get('workspace', {}).get('name', 'Unknown Workspace')
+        report_type = metadata.get('report_type', 'technical')
         
         # Convertir diccionario consolidado a lista plana si es necesario
         if isinstance(findings, dict):
@@ -376,12 +516,29 @@ class WeasyPrintPDFGenerator:
                 findings_list.extend(findings_list_in_category)
             findings = findings_list
         
-        return self.generate_technical_report(
-            output_path=output_path,
-            workspace_name=workspace_name,
-            findings=findings,
-            statistics=statistics,
-            risk_metrics=risk_metrics,
-            metadata=metadata
-        )
+        # Filtrar findings para ejecutivo (solo críticos/altos)
+        if report_type == 'executive':
+            findings = [
+                f for f in findings 
+                if f.severity in ['critical', 'high']
+            ]
+            logger.info(f"Filtered findings for executive report: {len(findings)} critical/high findings")
+            return self.generate_executive_report(
+                output_path=output_path,
+                workspace_name=workspace_name,
+                findings=findings,
+                statistics=statistics,
+                risk_metrics=risk_metrics,
+                metadata=metadata
+            )
+        else:
+            # Reporte técnico (default)
+            return self.generate_technical_report(
+                output_path=output_path,
+                workspace_name=workspace_name,
+                findings=findings,
+                statistics=statistics,
+                risk_metrics=risk_metrics,
+                metadata=metadata
+            )
 

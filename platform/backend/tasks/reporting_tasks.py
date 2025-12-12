@@ -215,11 +215,18 @@ def generate_report_v2_task(
         )
         
         all_findings = []
+        tools_detected = set()  # Conjunto para almacenar herramientas detectadas
         files_parsed = 0
         for category, files in files_by_category.items():
             for file_path in files:
-                findings = report_service.parser_manager.parse_file(file_path)
+                # Usar parse_file_with_parser para obtener también el nombre del parser
+                findings, parser_name = report_service.parser_manager.parse_file_with_parser(file_path)
                 all_findings.extend(findings)
+                
+                # Agregar herramienta detectada si existe
+                if parser_name:
+                    tools_detected.add(parser_name)
+                
                 files_parsed += 1
                 # Actualizar progreso durante parsing
                 if files_parsed % 10 == 0:
@@ -273,6 +280,28 @@ def generate_report_v2_task(
             }
         )
         
+        # Determinar herramientas usadas ANTES de generar el PDF
+        # Prioridad 1: Herramientas detectadas durante el parsing (más confiable)
+        tools_used_list = list(tools_detected)
+        
+        # Prioridad 2: Si algún finding tiene raw_data['tool'], agregarlo también
+        # (para parsers que ya lo agregaban, como mysql_enum, redis_enum)
+        for finding in consolidated:
+            if hasattr(finding, 'raw_data') and finding.raw_data:
+                tool_from_finding = finding.raw_data.get('tool')
+                if tool_from_finding and tool_from_finding != 'unknown':
+                    tools_used_list.append(tool_from_finding)
+        
+        # Eliminar duplicados y ordenar
+        tools_used = sorted(list(set(tools_used_list)))
+        
+        # Si aún no hay herramientas detectadas, log warning
+        if not tools_used:
+            logger.warning(
+                f"No tools detected for workspace {workspace_id}. "
+                f"Processed {total_files} files, found {len(all_findings)} findings."
+            )
+        
         # Generar metadata y reporte
         from services.reporting.generators.metadata_generator import generate_metadata
         metadata = generate_metadata(workspace, report_type)
@@ -281,6 +310,9 @@ def generate_report_v2_task(
             'name': workspace.name,
             'description': workspace.description
         }
+        # Agregar tools_used y report_type al metadata para que aparezca en el PDF
+        metadata['tools_used'] = tools_used
+        metadata['report_type'] = report_type  # Necesario para que el generador detecte el tipo
         
         from utils.workspace_filesystem import get_workspace_dir
         from pathlib import Path
@@ -302,13 +334,6 @@ def generate_report_v2_task(
         
         file_size = output_path.stat().st_size if output_path.exists() else 0
         generation_time = time.time() - start_time
-        
-        # Determinar herramientas usadas
-        tools_used = list(set([
-            finding.raw_data.get('tool', 'unknown') 
-            for finding in consolidated 
-            if hasattr(finding, 'raw_data') and finding.raw_data
-        ]))
         
         # Calcular contadores de severidad
         severity_counts = statistics.get('by_severity', {})

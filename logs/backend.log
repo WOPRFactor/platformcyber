@@ -1,461 +1,53 @@
+psutil no disponible. Endpoints de red no funcionarán correctamente.
+2025-12-12 14:03:22 - __main__ - INFO - ✅ Logging configurado: /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/backend/logs/app.log
+2025-12-12 14:03:22 - __main__ - INFO -    Rotación: 20.0MB, 2 backups
+2025-12-12 14:03:22,187 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-12-12 14:03:22,188 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("users")
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("users")
+2025-12-12 14:03:22,188 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-12 14:03:22,190 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("workspaces")
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspaces")
+2025-12-12 14:03:22,190 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-12 14:03:22,191 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("workspace_logs")
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("workspace_logs")
+2025-12-12 14:03:22,191 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-12 14:03:22,192 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("scans")
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scans")
+2025-12-12 14:03:22,192 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-12 14:03:22,192 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("scan_results")
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("scan_results")
+2025-12-12 14:03:22,193 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-12 14:03:22,194 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("vulnerabilities")
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("vulnerabilities")
+2025-12-12 14:03:22,194 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-12 14:03:22,195 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("reports")
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("reports")
+2025-12-12 14:03:22,195 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-12 14:03:22,196 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("audit_logs")
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - PRAGMA main.table_info("audit_logs")
+2025-12-12 14:03:22,196 INFO sqlalchemy.engine.Engine [raw sql] ()
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2025-12-12 14:03:22,196 INFO sqlalchemy.engine.Engine COMMIT
+2025-12-12 14:03:22 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-12-12 14:03:22 - apscheduler.scheduler - INFO - Scheduler started
+2025-12-12 14:03:22 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-12 14:03:22 - apscheduler.scheduler - INFO - Added job "Log cleanup task" to job store "default"
+2025-12-12 14:03:22 - services.scheduler_service - INFO - 📋 Tarea de limpieza de logs programada (cada hora)
+2025-12-12 14:03:22 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-12 15:03:22.198626-05:00 (in 3599.998339 seconds)
+2025-12-12 14:03:22 - services.scheduler_service - INFO - 🕒 Scheduler iniciado
+2025-12-12 14:03:22 - apscheduler.scheduler - DEBUG - Looking for jobs to run
+2025-12-12 14:03:22 - __main__ - INFO - ✅ Aplicación iniciada en modo development
+2025-12-12 14:03:22 - apscheduler.scheduler - DEBUG - Next wakeup is due at 2025-12-12 15:03:22.198626-05:00 (in 3599.996391 seconds)
+2025-12-12 14:03:22 - werkzeug - WARNING - Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
  * Serving Flask app 'app'
  * Debug mode: on
-FROM users 
-WHERE users.id = ?
-FROM users 
-WHERE users.id = ?
-FROM users 
-WHERE users.id = ?
-FROM users 
-WHERE users.id = ?
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-emitting event "connection_established" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "join_workspace" from V0cyRL9HwKg5DOYCAAAC [/]
-V0cyRL9HwKg5DOYCAAAC is entering room workspace_10 [/]
-emitting event "joined_workspace" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "join_workspace" from V0cyRL9HwKg5DOYCAAAC [/]
-V0cyRL9HwKg5DOYCAAAC is entering room workspace_10 [/]
-received event "join_workspace" from V0cyRL9HwKg5DOYCAAAC [/]
-V0cyRL9HwKg5DOYCAAAC is entering room workspace_10 [/]
-emitting event "joined_workspace" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "join_workspace" from V0cyRL9HwKg5DOYCAAAC [/]
-emitting event "joined_workspace" to V0cyRL9HwKg5DOYCAAAC [/]
-V0cyRL9HwKg5DOYCAAAC is entering room workspace_10 [/]
-emitting event "joined_workspace" to V0cyRL9HwKg5DOYCAAAC [/]
-FROM scans 
-WHERE scans.user_id = ? AND scans.workspace_id = ? ORDER BY scans.created_at DESC
-FROM scans 
-WHERE scans.user_id = ? AND scans.workspace_id = ? ORDER BY scans.created_at DESC
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM scans 
-WHERE scans.workspace_id = ?
-FROM scans 
-WHERE scans.workspace_id = ? AND scans.created_at >= ? ORDER BY scans.created_at DESC
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM scans 
-WHERE scans.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ? AND vulnerabilities.updated_at >= ? GROUP BY date(vulnerabilities.updated_at), vulnerabilities.severity
-FROM scans 
-WHERE scans.workspace_id = ? AND scans.created_at >= ? ORDER BY scans.created_at DESC
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ? AND vulnerabilities.updated_at >= ? GROUP BY date(vulnerabilities.updated_at), vulnerabilities.severity
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM (SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ?) AS anon_1
-FROM (SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ?) AS anon_1
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ? ORDER BY workspace_logs.timestamp DESC
- LIMIT ? OFFSET ?
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ? ORDER BY workspace_logs.timestamp DESC
- LIMIT ? OFFSET ?
-received event "leave_workspace" from V0cyRL9HwKg5DOYCAAAC [/]
-V0cyRL9HwKg5DOYCAAAC is leaving room workspace_10 [/]
-received event "join_workspace" from V0cyRL9HwKg5DOYCAAAC [/]
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-emitting event "left_workspace" to V0cyRL9HwKg5DOYCAAAC [/]
-V0cyRL9HwKg5DOYCAAAC is entering room workspace_10 [/]
-emitting event "joined_workspace" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "leave_workspace" from V0cyRL9HwKg5DOYCAAAC [/]
-V0cyRL9HwKg5DOYCAAAC is leaving room workspace_10 [/]
-emitting event "left_workspace" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "leave_workspace" from V0cyRL9HwKg5DOYCAAAC [/]
-V0cyRL9HwKg5DOYCAAAC is leaving room workspace_10 [/]
-emitting event "left_workspace" to V0cyRL9HwKg5DOYCAAAC [/]
-FROM reports 
-WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
-FROM reports 
-WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-def generate_report_v2_task(self, workspace_id, report_type, format_type, user_id):
-    return 1
-
-emitting event "tool_log" to workspace_10 [/]
-received event "ping" from V0cyRL9HwKg5DOYCAAAC [/]
-emitting event "pong" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "ping" from V0cyRL9HwKg5DOYCAAAC [/]
-emitting event "pong" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "ping" from V0cyRL9HwKg5DOYCAAAC [/]
-emitting event "pong" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "ping" from V0cyRL9HwKg5DOYCAAAC [/]
-emitting event "pong" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "ping" from V0cyRL9HwKg5DOYCAAAC [/]
-emitting event "pong" to V0cyRL9HwKg5DOYCAAAC [/]
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-received event "ping" from V0cyRL9HwKg5DOYCAAAC [/]
-emitting event "pong" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "ping" from V0cyRL9HwKg5DOYCAAAC [/]
-emitting event "pong" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "ping" from V0cyRL9HwKg5DOYCAAAC [/]
-emitting event "pong" to V0cyRL9HwKg5DOYCAAAC [/]
-received event "ping" from V0cyRL9HwKg5DOYCAAAC [/]
-emitting event "pong" to V0cyRL9HwKg5DOYCAAAC [/]
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-FROM users 
-WHERE users.id = ?
-FROM users 
-WHERE users.id = ?
-FROM users 
-WHERE users.id = ?
-FROM users 
-WHERE users.id = ?
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-emitting event "connection_established" to _9vUIH5fInvBjS5OAAAF [/]
-FROM scans 
-WHERE scans.user_id = ? AND scans.workspace_id = ? ORDER BY scans.created_at DESC
-received event "join_workspace" from _9vUIH5fInvBjS5OAAAF [/]
-FROM scans 
-WHERE scans.user_id = ? AND scans.workspace_id = ? ORDER BY scans.created_at DESC
-_9vUIH5fInvBjS5OAAAF is entering room workspace_10 [/]
-received event "join_workspace" from _9vUIH5fInvBjS5OAAAF [/]
-FROM workspaces 
-WHERE workspaces.id = ?
-_9vUIH5fInvBjS5OAAAF is entering room workspace_10 [/]
-received event "join_workspace" from _9vUIH5fInvBjS5OAAAF [/]
-emitting event "joined_workspace" to _9vUIH5fInvBjS5OAAAF [/]
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-_9vUIH5fInvBjS5OAAAF is entering room workspace_10 [/]
-received event "join_workspace" from _9vUIH5fInvBjS5OAAAF [/]
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM scans 
-WHERE scans.workspace_id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-emitting event "joined_workspace" to _9vUIH5fInvBjS5OAAAF [/]
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM scans 
-WHERE scans.workspace_id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-_9vUIH5fInvBjS5OAAAF is entering room workspace_10 [/]
-emitting event "joined_workspace" to _9vUIH5fInvBjS5OAAAF [/]
-emitting event "joined_workspace" to _9vUIH5fInvBjS5OAAAF [/]
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ? AND vulnerabilities.updated_at >= ? GROUP BY date(vulnerabilities.updated_at), vulnerabilities.severity
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ? AND vulnerabilities.updated_at >= ? GROUP BY date(vulnerabilities.updated_at), vulnerabilities.severity
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM scans 
-WHERE scans.workspace_id = ? AND scans.created_at >= ? ORDER BY scans.created_at DESC
-FROM scans 
-WHERE scans.workspace_id = ? AND scans.created_at >= ? ORDER BY scans.created_at DESC
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM (SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ?) AS anon_1
-received event "leave_workspace" from _9vUIH5fInvBjS5OAAAF [/]
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM (SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ?) AS anon_1
-_9vUIH5fInvBjS5OAAAF is leaving room workspace_10 [/]
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ? ORDER BY workspace_logs.timestamp DESC
- LIMIT ? OFFSET ?
-FROM workspaces 
-WHERE workspaces.id = ?
-received event "join_workspace" from _9vUIH5fInvBjS5OAAAF [/]
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ? ORDER BY workspace_logs.timestamp DESC
- LIMIT ? OFFSET ?
-emitting event "left_workspace" to _9vUIH5fInvBjS5OAAAF [/]
-_9vUIH5fInvBjS5OAAAF is entering room workspace_10 [/]
-emitting event "joined_workspace" to _9vUIH5fInvBjS5OAAAF [/]
-received event "leave_workspace" from _9vUIH5fInvBjS5OAAAF [/]
-_9vUIH5fInvBjS5OAAAF is leaving room workspace_10 [/]
-received event "join_workspace" from _9vUIH5fInvBjS5OAAAF [/]
-_9vUIH5fInvBjS5OAAAF is entering room workspace_10 [/]
-emitting event "left_workspace" to _9vUIH5fInvBjS5OAAAF [/]
-emitting event "joined_workspace" to _9vUIH5fInvBjS5OAAAF [/]
-FROM scans 
-WHERE scans.user_id = ? AND scans.workspace_id = ? ORDER BY scans.created_at DESC
-FROM scans 
-WHERE scans.user_id = ? AND scans.workspace_id = ? ORDER BY scans.created_at DESC
-received event "leave_workspace" from _9vUIH5fInvBjS5OAAAF [/]
-_9vUIH5fInvBjS5OAAAF is leaving room workspace_10 [/]
-emitting event "left_workspace" to _9vUIH5fInvBjS5OAAAF [/]
-received event "leave_workspace" from _9vUIH5fInvBjS5OAAAF [/]
-_9vUIH5fInvBjS5OAAAF is leaving room workspace_10 [/]
-emitting event "left_workspace" to _9vUIH5fInvBjS5OAAAF [/]
-FROM reports 
-WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
-FROM reports 
-WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-received event "ping" from _9vUIH5fInvBjS5OAAAF [/]
-emitting event "pong" to _9vUIH5fInvBjS5OAAAF [/]
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-emitting event "tool_log" to workspace_10 [/]
-received event "ping" from _9vUIH5fInvBjS5OAAAF [/]
-emitting event "pong" to _9vUIH5fInvBjS5OAAAF [/]
-received event "ping" from _9vUIH5fInvBjS5OAAAF [/]
-emitting event "pong" to _9vUIH5fInvBjS5OAAAF [/]
-received event "ping" from _9vUIH5fInvBjS5OAAAF [/]
-emitting event "pong" to _9vUIH5fInvBjS5OAAAF [/]
-received event "ping" from _9vUIH5fInvBjS5OAAAF [/]
-emitting event "pong" to _9vUIH5fInvBjS5OAAAF [/]
-received event "ping" from _9vUIH5fInvBjS5OAAAF [/]
-emitting event "pong" to _9vUIH5fInvBjS5OAAAF [/]
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-FROM users 
-WHERE users.id = ?
-FROM users 
-WHERE users.id = ?
-FROM users 
-WHERE users.id = ?
-FROM users 
-WHERE users.id = ?
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-FROM workspaces 
-WHERE workspaces.owner_id = ? AND workspaces.is_active = 1 ORDER BY workspaces.created_at DESC
-emitting event "connection_established" to rD533s0z2qj_IC5BAAAI [/]
-FROM scans 
-WHERE scans.user_id = ? AND scans.workspace_id = ? ORDER BY scans.created_at DESC
-FROM scans 
-WHERE scans.user_id = ? AND scans.workspace_id = ? ORDER BY scans.created_at DESC
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM scans 
-WHERE scans.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM scans 
-WHERE scans.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ? AND vulnerabilities.updated_at >= ? GROUP BY date(vulnerabilities.updated_at), vulnerabilities.severity
-FROM scans 
-WHERE scans.workspace_id = ? AND scans.created_at >= ? ORDER BY scans.created_at DESC
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ? AND vulnerabilities.updated_at >= ? GROUP BY date(vulnerabilities.updated_at), vulnerabilities.severity
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM scans 
-WHERE scans.workspace_id = ? AND scans.created_at >= ? ORDER BY scans.created_at DESC
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-received event "join_workspace" from rD533s0z2qj_IC5BAAAI [/]
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-rD533s0z2qj_IC5BAAAI is entering room workspace_10 [/]
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-emitting event "joined_workspace" to rD533s0z2qj_IC5BAAAI [/]
-FROM (SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ?) AS anon_1
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM (SELECT workspace_logs.id AS workspace_logs_id, workspace_logs.workspace_id AS workspace_logs_workspace_id, workspace_logs.source AS workspace_logs_source, workspace_logs.level AS workspace_logs_level, workspace_logs.message AS workspace_logs_message, workspace_logs.timestamp AS workspace_logs_timestamp, workspace_logs.task_id AS workspace_logs_task_id, workspace_logs.log_metadata AS workspace_logs_log_metadata 
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ?) AS anon_1
-FROM vulnerabilities 
-WHERE vulnerabilities.workspace_id = ?
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ? ORDER BY workspace_logs.timestamp DESC
- LIMIT ? OFFSET ?
-FROM workspace_logs 
-WHERE workspace_logs.workspace_id = ? ORDER BY workspace_logs.timestamp DESC
- LIMIT ? OFFSET ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-received event "join_workspace" from rD533s0z2qj_IC5BAAAI [/]
-rD533s0z2qj_IC5BAAAI is entering room workspace_10 [/]
-received event "join_workspace" from rD533s0z2qj_IC5BAAAI [/]
-emitting event "joined_workspace" to rD533s0z2qj_IC5BAAAI [/]
-rD533s0z2qj_IC5BAAAI is entering room workspace_10 [/]
-received event "join_workspace" from rD533s0z2qj_IC5BAAAI [/]
-rD533s0z2qj_IC5BAAAI is entering room workspace_10 [/]
-emitting event "joined_workspace" to rD533s0z2qj_IC5BAAAI [/]
-emitting event "joined_workspace" to rD533s0z2qj_IC5BAAAI [/]
-received event "leave_workspace" from rD533s0z2qj_IC5BAAAI [/]
-rD533s0z2qj_IC5BAAAI is leaving room workspace_10 [/]
-emitting event "left_workspace" to rD533s0z2qj_IC5BAAAI [/]
-received event "join_workspace" from rD533s0z2qj_IC5BAAAI [/]
-rD533s0z2qj_IC5BAAAI is entering room workspace_10 [/]
-emitting event "joined_workspace" to rD533s0z2qj_IC5BAAAI [/]
-received event "leave_workspace" from rD533s0z2qj_IC5BAAAI [/]
-rD533s0z2qj_IC5BAAAI is leaving room workspace_10 [/]
-emitting event "left_workspace" to rD533s0z2qj_IC5BAAAI [/]
-received event "join_workspace" from rD533s0z2qj_IC5BAAAI [/]
-rD533s0z2qj_IC5BAAAI is entering room workspace_10 [/]
-emitting event "joined_workspace" to rD533s0z2qj_IC5BAAAI [/]
-received event "leave_workspace" from rD533s0z2qj_IC5BAAAI [/]
-rD533s0z2qj_IC5BAAAI is leaving room workspace_10 [/]
-emitting event "left_workspace" to rD533s0z2qj_IC5BAAAI [/]
-received event "leave_workspace" from rD533s0z2qj_IC5BAAAI [/]
-rD533s0z2qj_IC5BAAAI is leaving room workspace_10 [/]
-emitting event "left_workspace" to rD533s0z2qj_IC5BAAAI [/]
-FROM reports 
-WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
-FROM reports 
-WHERE reports.workspace_id = ? ORDER BY reports.created_at DESC
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-FROM workspaces 
-WHERE workspaces.id = ?
-emitting event "tool_log" to workspace_10 [/]
-received event "ping" from rD533s0z2qj_IC5BAAAI [/]
-emitting event "pong" to rD533s0z2qj_IC5BAAAI [/]
-received event "ping" from rD533s0z2qj_IC5BAAAI [/]
-emitting event "pong" to rD533s0z2qj_IC5BAAAI [/]
-received event "ping" from rD533s0z2qj_IC5BAAAI [/]
-emitting event "pong" to rD533s0z2qj_IC5BAAAI [/]
-received event "ping" from rD533s0z2qj_IC5BAAAI [/]
-emitting event "pong" to rD533s0z2qj_IC5BAAAI [/]
+2025-12-12 14:03:25 - __main__ - INFO - 🌐 REQUEST: GET /api/v1/system/health
+nd stop that program, or start the server with a different port.

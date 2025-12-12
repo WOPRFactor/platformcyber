@@ -1,0 +1,12 @@
+# Redis Configuration for DEV Environment
+port {{ redis_port }}
+bind 127.0.0.1
+protected-mode yes
+dir /var/lib/redis/dev
+pidfile /var/run/redis/redis-dev.pid
+logfile /var/log/redis/redis-dev.log
+databases 16
+save 900 1
+save 300 10
+save 60 10000
+

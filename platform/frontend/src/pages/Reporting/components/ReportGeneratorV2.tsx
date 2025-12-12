@@ -192,6 +192,67 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
               <span>{status.error}</span>
             </div>
           )}
+          
+          {/* Información del reporte cuando está completado */}
+          {status.status === 'completed' && status.result && (() => {
+            const resultData = status.result?.result || status.result
+            const metadata = resultData?.metadata || {}
+            const toolsUsed = metadata.tools_used || resultData?.tools_used || []
+            const totalFindings = resultData?.total_findings || metadata.total_findings || 0
+            const riskScore = resultData?.risk_score || metadata.risk_score || 0
+            const filesProcessed = metadata.files_processed || resultData?.files_processed || 0
+            
+            return (
+              <div className="mt-3 pt-3 border-t border-gray-700 space-y-2">
+                {/* Estadísticas del reporte */}
+                {(totalFindings > 0 || filesProcessed > 0 || riskScore > 0) && (
+                  <div className="grid grid-cols-3 gap-2 text-xs">
+                    {totalFindings > 0 && (
+                      <div className="bg-gray-900 rounded p-2">
+                        <div className="text-gray-400">Hallazgos</div>
+                        <div className="text-white font-bold">{totalFindings}</div>
+                      </div>
+                    )}
+                    {filesProcessed > 0 && (
+                      <div className="bg-gray-900 rounded p-2">
+                        <div className="text-gray-400">Archivos</div>
+                        <div className="text-white font-bold">{filesProcessed}</div>
+                      </div>
+                    )}
+                    {riskScore > 0 && (
+                      <div className="bg-gray-900 rounded p-2">
+                        <div className="text-gray-400">Risk Score</div>
+                        <div className="text-white font-bold">{riskScore.toFixed(1)}</div>
+                      </div>
+                    )}
+                  </div>
+                )}
+                
+                {/* Herramientas usadas */}
+                {toolsUsed && toolsUsed.length > 0 && (
+                  <div className="bg-gray-900 rounded p-2">
+                    <div className="text-gray-400 text-xs mb-1.5 flex items-center gap-1">
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      Herramientas Usadas
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {toolsUsed.map((tool: string, index: number) => (
+                        <span
+                          key={index}
+                          className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-900/50 text-blue-300 border border-blue-700/50"
+                        >
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )
+          })()}
         </div>
       )}
 
