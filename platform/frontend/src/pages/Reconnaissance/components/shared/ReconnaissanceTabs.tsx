@@ -19,7 +19,7 @@ export const ReconnaissanceTabs: React.FC<ReconnaissanceTabsProps> = ({
   setActiveTab
 }) => {
   return (
-    <div className="flex border-b border-green-500 mb-4 overflow-x-auto">
+    <div className="flex border-b border-gray-200 mb-4 overflow-x-auto">
       {tabs.map((tab) => {
         const Icon = tab.icon
         return (
@@ -28,8 +28,8 @@ export const ReconnaissanceTabs: React.FC<ReconnaissanceTabsProps> = ({
             onClick={() => setActiveTab(tab.id)}
             className={`flex items-center gap-2 px-4 py-2 border-b-2 whitespace-nowrap ${
               activeTab === tab.id
-                ? 'border-green-400 text-green-400'
-                : 'border-transparent text-gray-400 hover:text-green-400'
+                ? 'border-gray-200 text-gray-900'
+                : 'border-transparent text-gray-500 hover:text-gray-900'
             }`}
           >
             <Icon className="w-4 h-4" />

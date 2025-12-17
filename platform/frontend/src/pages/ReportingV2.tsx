@@ -27,7 +27,7 @@ const ReportingV2: React.FC = () => {
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Reporting V2</h1>
+        <h1 className="text-2xl font-semibold text-gray-900">Reporting V2</h1>
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <FileText className="w-4 h-4" />
           Nuevo módulo de reportes profesionales
@@ -35,17 +35,17 @@ const ReportingV2: React.FC = () => {
       </div>
 
       {isLoadingWorkspaces ? (
-        <div className="bg-gray-800 border border-blue-500 rounded-lg p-6 text-center">
+        <div className="bg-gray-100 border border-blue-500 rounded-xl p-6 text-center">
           <p className="text-blue-400">Cargando workspaces...</p>
         </div>
       ) : !currentWorkspace ? (
-        <div className="bg-gray-800 border border-yellow-500 rounded-lg p-6 text-center">
+        <div className="bg-gray-100 border border-yellow-500 rounded-xl p-6 text-center">
           <p className="text-yellow-400">Por favor selecciona un workspace para generar reportes</p>
         </div>
       ) : (
         <>
           {/* Nuevo módulo V2 */}
-          <div className="bg-gray-800 border border-blue-500 rounded-lg p-6">
+          <div className="bg-gray-100 border border-blue-500 rounded-xl p-6">
             <ReportGeneratorV2
               onReportGenerated={(result) => {
                 console.log('📊 Reporte V2 generado:', result)
@@ -58,7 +58,7 @@ const ReportingV2: React.FC = () => {
           {/* Historial de reportes */}
           <ReportsHistory
             workspaceId={currentWorkspace?.id}
-            reports={reports?.reports || []}
+            reports={reports}
             reportsLoading={reportsLoading}
             onRefresh={() => refetchReports()}
           />

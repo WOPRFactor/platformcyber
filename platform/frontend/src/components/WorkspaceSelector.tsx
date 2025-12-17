@@ -24,7 +24,7 @@ const WorkspaceLogsIndicatorCompact: React.FC<{ workspace: any }> = ({ workspace
   });
 
   const status = workspace.status || (workspace.is_active ? 'active' : 'archived');
-  const statusText = status === 'active' ? 'Activo' : status === 'archived' ? 'Archivado' : 'Pausado';
+  const statusText = status === 'active' ? 'Active' : status === 'archived' ? 'Archived' : 'Paused';
   
   const formatLogCount = (count: number) => {
     if (count >= 1000) return `${(count / 1000).toFixed(1)}K`;
@@ -33,33 +33,33 @@ const WorkspaceLogsIndicatorCompact: React.FC<{ workspace: any }> = ({ workspace
 
   if (isLoading) {
     return (
-      <div className="flex items-center gap-2 text-xs text-gray-500">
-        <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-gray-500/20 text-gray-400">
+      <div className="flex items-center gap-2 text-xs text-slate-500">
+        <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-600/30 text-slate-400">
           {statusText}
         </span>
-        <span className="text-gray-500">Cargando...</span>
+        <span className="text-slate-500">Loading...</span>
       </div>
     );
   }
 
   const logCount = stats?.total_logs || 0;
-  const logText = logCount === 0 ? 'Sin logs' : `${formatLogCount(logCount)} logs`;
+  const logText = logCount === 0 ? 'No logs' : `${formatLogCount(logCount)} logs`;
 
   return (
     <div className="flex items-center gap-2 text-xs">
       <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
         status === 'active' 
-          ? 'bg-green-500/20 text-green-400' 
+          ? 'bg-emerald-500/20 text-emerald-400' 
           : status === 'archived'
-          ? 'bg-gray-500/20 text-gray-400'
-          : 'bg-yellow-500/20 text-yellow-400'
+          ? 'bg-slate-500/20 text-slate-400'
+          : 'bg-amber-500/20 text-amber-400'
       }`}>
         {statusText}
       </span>
-      <span className="text-gray-500">{logText}</span>
+      <span className="text-slate-500">{logText}</span>
       {stats && stats.size_mb > 10 && (
         <span className="px-1.5 py-0.5 bg-red-500/20 text-red-400 rounded text-[10px] font-semibold">
-          ⚠️ {stats.size_mb.toFixed(1)}MB
+          {stats.size_mb.toFixed(1)}MB
         </span>
       )}
     </div>
@@ -96,7 +96,6 @@ export const WorkspaceSelector: React.FC<WorkspaceSelectorProps> = ({ className 
 
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-      // Focus en el input de búsqueda cuando se abre
       setTimeout(() => {
         searchInputRef.current?.focus();
       }, 100);
@@ -118,7 +117,7 @@ export const WorkspaceSelector: React.FC<WorkspaceSelectorProps> = ({ className 
     selectWorkspace(workspace.id);
     setIsOpen(false);
     setSearchQuery('');
-    toast.success(`Workspace cambiado: ${workspace.name}`);
+    toast.success(`Workspace changed: ${workspace.name}`);
   };
 
   const handleCreateWorkspace = async (data: any) => {
@@ -130,7 +129,7 @@ export const WorkspaceSelector: React.FC<WorkspaceSelectorProps> = ({ className 
   };
 
   const handleDeleteWorkspace = async (workspaceId: number, workspaceName: string) => {
-    if (!confirm(`¿Estás seguro de que deseas eliminar el workspace "${workspaceName}"?\n\nEsta acción es permanente y eliminará:\n- El workspace y todos sus datos\n- Todos los escaneos y resultados\n- El directorio completo del filesystem\n\nEsta acción NO se puede deshacer.`)) {
+    if (!confirm(`Are you sure you want to delete workspace "${workspaceName}"?\n\nThis action is permanent and will delete:\n- The workspace and all its data\n- All scans and results\n- The complete filesystem directory\n\nThis action CANNOT be undone.`)) {
       return;
     }
 
@@ -138,17 +137,12 @@ export const WorkspaceSelector: React.FC<WorkspaceSelectorProps> = ({ className 
     setWorkspaceToDelete(workspaceId);
     try {
       await deleteWorkspace(workspaceId);
-      toast.success(`Workspace "${workspaceName}" eliminado exitosamente`);
+      toast.success(`Workspace "${workspaceName}" deleted successfully`);
       
-      // Esperar un momento para que la query se actualice
       await new Promise(resolve => setTimeout(resolve, 300));
       
-      // Si el workspace eliminado era el actual, seleccionar el primero disponible
-      // La lista ya debería estar actualizada por el refetch en el contexto
       if (currentWorkspace?.id === workspaceId) {
-        // Esperar un poco más para que la lista se actualice completamente
         await new Promise(resolve => setTimeout(resolve, 200));
-        // Obtener la lista actualizada del contexto
         const updatedWorkspaces = workspaces.filter(w => w.id !== workspaceId);
         if (updatedWorkspaces.length > 0) {
           selectWorkspace(updatedWorkspaces[0].id);
@@ -158,7 +152,7 @@ export const WorkspaceSelector: React.FC<WorkspaceSelectorProps> = ({ className 
       setIsOpen(false);
       setSearchQuery('');
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || `Error al eliminar workspace: ${error.message}`);
+      toast.error(error?.response?.data?.message || `Error deleting workspace: ${error.message}`);
     } finally {
       setIsDeleting(false);
       setWorkspaceToDelete(null);
@@ -167,65 +161,65 @@ export const WorkspaceSelector: React.FC<WorkspaceSelectorProps> = ({ className 
 
   if (isLoadingWorkspaces) {
     return (
-      <div className={`${className} flex items-center space-x-2 px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg`}>
-        <div className="w-4 h-4 border-2 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-        <span className="text-gray-400 text-sm">Cargando...</span>
+      <div className={`${className} flex items-center gap-2 px-3 py-2 bg-white/5 rounded-xl`}>
+        <div className="w-4 h-4 border-2 border-red-500 border-t-transparent rounded-full animate-spin"></div>
+        <span className="text-slate-400 text-sm">Loading...</span>
       </div>
     );
   }
 
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
-      {/* Selector principal - Mejorado */}
+      {/* Selector principal */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 px-4 py-2.5 bg-gray-800/80 backdrop-blur-sm border border-gray-700 hover:border-green-500/50 hover:bg-gray-750 rounded-lg transition-all duration-200 group min-w-[200px] max-w-[280px]"
+        className="flex items-center gap-3 px-3 py-2 bg-white/5 hover:bg-white/10 rounded-xl transition-all duration-200 group w-full"
       >
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <Briefcase className="w-4 h-4 text-green-400 flex-shrink-0" />
+          <Briefcase className="w-4 h-4 text-slate-400 flex-shrink-0" />
           <div className="flex-1 min-w-0 text-left">
-            <div className="text-sm font-semibold text-white truncate">
-              {currentWorkspace?.name || 'Seleccionar Workspace'}
+            <div className="text-sm font-medium text-white truncate">
+              {currentWorkspace?.name || 'Select Workspace'}
             </div>
             {currentWorkspace?.client_name && (
-              <div className="text-xs text-gray-400 truncate">
+              <div className="text-xs text-slate-500 truncate">
                 {currentWorkspace.client_name}
               </div>
             )}
           </div>
         </div>
         <ChevronDown 
-          className={`w-4 h-4 text-gray-400 transition-all duration-200 flex-shrink-0 group-hover:text-green-400 ${
-            isOpen ? 'rotate-180 text-green-400' : ''
+          className={`w-4 h-4 text-slate-500 transition-all duration-200 flex-shrink-0 ${
+            isOpen ? 'rotate-180 text-white' : ''
           }`} 
         />
       </button>
 
-      {/* Dropdown mejorado */}
+      {/* Dropdown */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-[380px] bg-gray-900/95 backdrop-blur-md border border-gray-700 rounded-xl shadow-2xl z-[9999] overflow-hidden">
-          {/* Header del dropdown con búsqueda */}
-          <div className="p-3 border-b border-gray-700 bg-gray-800/50">
+        <div className="absolute top-full left-0 mt-2 w-[320px] bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-[9999] overflow-hidden">
+          {/* Header con búsqueda */}
+          <div className="p-3 border-b border-slate-700/50">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-500" />
               <input
                 ref={searchInputRef}
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Buscar workspace..."
-                className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+                placeholder="Search workspace..."
+                className="w-full pl-10 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-red-500/30 focus:border-red-500 transition-all"
               />
             </div>
           </div>
 
           {/* Lista de workspaces */}
-          <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
+          <div className="max-h-[350px] overflow-y-auto sidebar-scrollbar">
             {filteredWorkspaces.length === 0 ? (
               <div className="p-6 text-center">
-                <Briefcase className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-                <p className="text-gray-400 text-sm">
-                  {searchQuery ? 'No se encontraron workspaces' : 'No hay workspaces disponibles'}
+                <Briefcase className="w-10 h-10 text-slate-700 mx-auto mb-3" />
+                <p className="text-slate-500 text-sm">
+                  {searchQuery ? 'No workspaces found' : 'No workspaces available'}
                 </p>
               </div>
             ) : (
@@ -234,10 +228,10 @@ export const WorkspaceSelector: React.FC<WorkspaceSelectorProps> = ({ className 
                 return (
                   <div
                     key={workspace.id}
-                    className={`w-full transition-all duration-150 hover:bg-gray-800/70 group ${
+                    className={`transition-all duration-150 hover:bg-slate-800/70 ${
                       isActive 
-                        ? 'bg-green-500/10 border-l-4 border-green-500' 
-                        : 'border-l-4 border-transparent hover:border-l-4 hover:border-green-500/30'
+                        ? 'bg-red-500/10 border-l-2 border-red-500' 
+                        : 'border-l-2 border-transparent hover:border-slate-600'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-3 px-4 py-3">
@@ -246,59 +240,53 @@ export const WorkspaceSelector: React.FC<WorkspaceSelectorProps> = ({ className 
                         className="flex-1 min-w-0 text-left"
                       >
                         <div className="flex-1 min-w-0">
-                          {/* Nombre del workspace */}
                           <div className="flex items-center gap-2 mb-1">
                             <Briefcase className={`w-4 h-4 flex-shrink-0 ${
-                              isActive ? 'text-green-400' : 'text-gray-500 group-hover:text-green-400'
+                              isActive ? 'text-red-400' : 'text-slate-500'
                             } transition-colors`} />
-                            <span className={`text-sm font-semibold truncate ${
-                              isActive ? 'text-green-400' : 'text-white'
+                            <span className={`text-sm font-medium truncate ${
+                              isActive ? 'text-white' : 'text-slate-200'
                             }`}>
                               {workspace.name}
                             </span>
                             {isActive && (
-                              <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
+                              <Check className="w-4 h-4 text-red-400 flex-shrink-0" />
                             )}
                           </div>
 
-                          {/* Información adicional */}
                           <div className="ml-6 space-y-1">
                             {workspace.client_name && (
-                              <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                              <div className="flex items-center gap-1.5 text-xs text-slate-500">
                                 <Users className="w-3 h-3" />
                                 <span className="truncate">{workspace.client_name}</span>
                               </div>
                             )}
                             {workspace.target_domain && (
-                              <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                              <div className="flex items-center gap-1.5 text-xs text-slate-500">
                                 <Globe className="w-3 h-3" />
                                 <span className="truncate">{workspace.target_domain}</span>
                               </div>
                             )}
-                            {/* Estado y logs - versión compacta */}
                             <WorkspaceLogsIndicatorCompact workspace={workspace} />
                           </div>
                         </div>
                       </button>
 
-                      {/* Botón de eliminar - siempre visible */}
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        {/* Indicador visual de activo */}
                         {isActive && (
-                          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                          <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
                         )}
                         
-                        {/* Botón de eliminar */}
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             handleDeleteWorkspace(workspace.id, workspace.name);
                           }}
                           disabled={isDeleting && workspaceToDelete === workspace.id}
-                          className={`opacity-40 hover:opacity-100 transition-all p-1.5 rounded hover:bg-red-500/20 hover:text-red-400 text-gray-400 ${
+                          className={`opacity-40 hover:opacity-100 transition-all p-1.5 rounded hover:bg-red-500/20 hover:text-red-400 text-slate-500 ${
                             isDeleting && workspaceToDelete === workspace.id ? 'opacity-100 animate-pulse bg-red-500/20 text-red-400' : ''
                           }`}
-                          title="Eliminar workspace"
+                          title="Delete workspace"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -311,20 +299,20 @@ export const WorkspaceSelector: React.FC<WorkspaceSelectorProps> = ({ className 
           </div>
 
           {/* Separador */}
-          <div className="border-t border-gray-700"></div>
+          <div className="border-t border-slate-700/50"></div>
 
           {/* Botones de acción */}
-          <div className="p-3 bg-gray-800/30 space-y-2">
+          <div className="p-3 space-y-2">
             {currentWorkspace && (
               <button
                 onClick={() => {
                   setShowFilesConsole(true);
                   setIsOpen(false);
                 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/50 hover:border-blue-500 rounded-lg transition-all duration-200 group"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-600 rounded-xl transition-all duration-200"
               >
-                <FolderOpen className="w-4 h-4 text-blue-400 group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-medium text-blue-400">Ver Archivos</span>
+                <FolderOpen className="w-4 h-4 text-slate-400" />
+                <span className="text-sm font-medium text-slate-300">View Files</span>
               </button>
             )}
             <button
@@ -333,10 +321,10 @@ export const WorkspaceSelector: React.FC<WorkspaceSelectorProps> = ({ className 
                 setIsOpen(false);
                 setSearchQuery('');
               }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600/20 hover:bg-green-600/30 border border-green-500/50 hover:border-green-500 rounded-lg transition-all duration-200 group"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 hover:bg-red-700 rounded-xl transition-all duration-200"
             >
-              <Plus className="w-4 h-4 text-green-400 group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-medium text-green-400">Crear Nuevo Workspace</span>
+              <Plus className="w-4 h-4 text-white" />
+              <span className="text-sm font-medium text-white">New Workspace</span>
             </button>
           </div>
         </div>

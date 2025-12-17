@@ -59,11 +59,11 @@ const StatCard: React.FC<StatCardProps> = ({
   // Color schemes
   const colorSchemes = {
     green: {
-      bg: 'bg-green-500/10',
-      text: 'text-green-400',
-      icon: 'text-green-500',
-      border: 'border-green-500/30',
-      glow: 'shadow-green-500/20',
+      bg: 'bg-emerald-50',
+      text: 'text-emerald-700',
+      icon: 'text-emerald-600',
+      border: 'border-emerald-200',
+      glow: 'shadow-emerald-500/20',
     },
     blue: {
       bg: 'bg-blue-500/10',
@@ -124,15 +124,15 @@ const StatCard: React.FC<StatCardProps> = ({
   // Trend color
   const getTrendColor = () => {
     if (!trend) return ''
-    if (trend.value === 0) return 'text-gray-400'
+    if (trend.value === 0) return 'text-gray-500'
     
     // En seguridad, menos vulnerabilidades es positivo
     if (trend.isPositive === false) {
-      return trend.value > 0 ? 'text-red-400' : 'text-green-400'
+      return trend.value > 0 ? 'text-red-600' : 'text-emerald-600'
     }
     
     // Por defecto, más es positivo
-    return trend.value > 0 ? 'text-green-400' : 'text-red-400'
+    return trend.value > 0 ? 'text-emerald-600' : 'text-red-600'
   }
 
   return (
@@ -142,11 +142,10 @@ const StatCard: React.FC<StatCardProps> = ({
       transition={{ duration: 0.3 }}
       className={`
         relative overflow-hidden
-        bg-gray-800 rounded-xl 
-        border ${scheme.border}
+        bg-gray-100 border border-gray-300 rounded-xl 
         p-6
-        shadow-lg ${scheme.glow}
-        hover:shadow-xl hover:border-opacity-100
+        shadow-sm
+        hover:shadow-md hover:border-gray-400
         transition-all duration-300
         ${className}
       `}
@@ -174,7 +173,7 @@ const StatCard: React.FC<StatCardProps> = ({
                 rounded-full 
                 text-xs font-semibold
                 ${getTrendColor()}
-                bg-gray-900/50
+                bg-gray-50
               `}
             >
               {getTrendIcon()}
@@ -189,11 +188,11 @@ const StatCard: React.FC<StatCardProps> = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <div className={`text-3xl font-bold ${scheme.text} mb-1`}>
+          <div className={`text-3xl font-bold text-gray-900 mb-1`}>
             {prefix}{formatValue(displayValue)}{suffix}
           </div>
           
-          <div className="text-sm text-gray-400 font-medium">
+          <div className="text-sm text-gray-500 font-medium">
             {title}
           </div>
         </motion.div>

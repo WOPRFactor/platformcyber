@@ -24,15 +24,15 @@ export const ScanActivityChart: React.FC<ScanActivityChartProps> = ({ data }) =>
   return (
     <div className="card">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold text-green-400 flex items-center">
+        <h2 className="text-lg font-semibold text-gray-900 flex items-center">
           <BarChart3 className="w-5 h-5 mr-2" />
           Actividad de Escaneos
         </h2>
         <div className="flex items-center space-x-2">
           <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
-          <span className="text-xs text-gray-400">Escaneos</span>
+          <span className="text-xs text-gray-500">Escaneos</span>
           <div className="w-3 h-3 bg-red-400 rounded-full ml-4"></div>
-          <span className="text-xs text-gray-400">Vulnerabilidades</span>
+          <span className="text-xs text-gray-500">Vulnerabilidades</span>
         </div>
       </div>
 

@@ -8,13 +8,13 @@ interface WhiteboxTabsProps {
 
 export const WhiteboxTabs: React.FC<WhiteboxTabsProps> = ({ activeTab, setActiveTab }) => {
   return (
-    <div className="flex border-b border-green-500 mb-4 overflow-x-auto">
+    <div className="flex border-b border-gray-200 mb-4 overflow-x-auto">
       <button
         onClick={() => setActiveTab('code_analysis')}
         className={`flex items-center gap-2 px-4 py-2 border-b-2 whitespace-nowrap ${
           activeTab === 'code_analysis'
             ? 'border-red-400 text-red-400'
-            : 'border-transparent text-gray-400 hover:text-red-400'
+            : 'border-transparent text-gray-500 hover:text-red-400'
         }`}
       >
         <Code className="w-4 h-4" />
@@ -25,7 +25,7 @@ export const WhiteboxTabs: React.FC<WhiteboxTabsProps> = ({ activeTab, setActive
         className={`flex items-center gap-2 px-4 py-2 border-b-2 whitespace-nowrap ${
           activeTab === 'dependency_analysis'
             ? 'border-red-400 text-red-400'
-            : 'border-transparent text-gray-400 hover:text-red-400'
+            : 'border-transparent text-gray-500 hover:text-red-400'
         }`}
       >
         <Package className="w-4 h-4" />
@@ -36,7 +36,7 @@ export const WhiteboxTabs: React.FC<WhiteboxTabsProps> = ({ activeTab, setActive
         className={`flex items-center gap-2 px-4 py-2 border-b-2 whitespace-nowrap ${
           activeTab === 'secrets_detection'
             ? 'border-red-400 text-red-400'
-            : 'border-transparent text-gray-400 hover:text-red-400'
+            : 'border-transparent text-gray-500 hover:text-red-400'
         }`}
       >
         <Shield className="w-4 h-4" />
@@ -47,7 +47,7 @@ export const WhiteboxTabs: React.FC<WhiteboxTabsProps> = ({ activeTab, setActive
         className={`flex items-center gap-2 px-4 py-2 border-b-2 whitespace-nowrap ${
           activeTab === 'config_analysis'
             ? 'border-red-400 text-red-400'
-            : 'border-transparent text-gray-400 hover:text-red-400'
+            : 'border-transparent text-gray-500 hover:text-red-400'
         }`}
       >
         <Settings className="w-4 h-4" />
@@ -58,7 +58,7 @@ export const WhiteboxTabs: React.FC<WhiteboxTabsProps> = ({ activeTab, setActive
         className={`flex items-center gap-2 px-4 py-2 border-b-2 whitespace-nowrap ${
           activeTab === 'comprehensive'
             ? 'border-red-400 text-red-400'
-            : 'border-transparent text-gray-400 hover:text-red-400'
+            : 'border-transparent text-gray-500 hover:text-red-400'
         }`}
       >
         <Search className="w-4 h-4" />

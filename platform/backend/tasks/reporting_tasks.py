@@ -244,7 +244,13 @@ def generate_report_v2_task(
                     )
         
         if not all_findings:
-            raise ValueError('No findings parsed from files')
+            error_msg = (
+                f'No findings parsed from {total_files} files in workspace. '
+                f'Files may be empty or in unsupported format. '
+                f'Files found: {files_parsed} parsed, {total_files} total.'
+            )
+            logger.warning(error_msg)
+            raise ValueError(error_msg)
         
         # Paso 3: Consolidar (70%)
         self.update_state(
@@ -433,7 +439,8 @@ def generate_report_v2_task(
         except Exception as update_error:
             logger.warning(f"Could not update task state: {update_error}")
         
-        # Re-lanzar la excepción para que Celery la maneje correctamente
+        # Re-lanzar la excepción original para que Celery la maneje correctamente
+        # Celery serializará automáticamente la excepción con el formato correcto
         raise
 
 

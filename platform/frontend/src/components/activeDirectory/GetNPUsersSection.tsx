@@ -105,7 +105,7 @@ export const GetNPUsersSection: React.FC<GetNPUsersSectionProps> = ({ workspaceI
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-red-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-red-500 rounded-xl p-6">
         <div className="mb-4">
           <h3 className="text-lg font-bold text-red-400 flex items-center gap-2">
             <UserSearch className="w-5 h-5" />
@@ -118,39 +118,39 @@ export const GetNPUsersSection: React.FC<GetNPUsersSectionProps> = ({ workspaceI
 
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Dominio *
             </label>
             <input
               type="text"
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="example.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               DC IP (opcional)
             </label>
             <input
               type="text"
               value={dcIp}
               onChange={(e) => setDcIp(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="192.168.1.10"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Método de autenticación
             </label>
             <select
               value={authMethod}
               onChange={(e) => setAuthMethod(e.target.value as 'username' | 'usersfile')}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
             >
               <option value="username">Username/Password</option>
               <option value="usersfile">Archivo de usuarios</option>
@@ -160,26 +160,26 @@ export const GetNPUsersSection: React.FC<GetNPUsersSectionProps> = ({ workspaceI
           {authMethod === 'username' && (
             <>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-600 mb-2">
                   Username
                 </label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
                   placeholder="user"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-600 mb-2">
                   Password (opcional)
                 </label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
                   placeholder="••••••••"
                 />
               </div>
@@ -188,7 +188,7 @@ export const GetNPUsersSection: React.FC<GetNPUsersSectionProps> = ({ workspaceI
 
           {authMethod === 'usersfile' && (
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-600 mb-2">
                 Archivo de usuarios
                 <span className="text-xs text-gray-500 ml-2">Path al archivo con lista de usuarios</span>
               </label>
@@ -196,7 +196,7 @@ export const GetNPUsersSection: React.FC<GetNPUsersSectionProps> = ({ workspaceI
                 type="text"
                 value={usersfile}
                 onChange={(e) => setUsersfile(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
                 placeholder="/path/to/users.txt"
               />
             </div>
@@ -208,9 +208,9 @@ export const GetNPUsersSection: React.FC<GetNPUsersSectionProps> = ({ workspaceI
                 type="checkbox"
                 checked={noPass}
                 onChange={(e) => setNoPass(e.target.checked)}
-                className="w-4 h-4 text-red-600 bg-gray-800 border-gray-700 rounded focus:ring-red-500"
+                className="w-4 h-4 text-red-600 bg-white border-gray-200 rounded focus:ring-red-500"
               />
-              <span className="ml-2 text-sm text-gray-300">No requerir password (no-pass)</span>
+              <span className="ml-2 text-sm text-gray-600">No requerir password (no-pass)</span>
             </label>
           </div>
         </div>
@@ -223,7 +223,7 @@ export const GetNPUsersSection: React.FC<GetNPUsersSectionProps> = ({ workspaceI
             (authMethod === 'username' && !username) ||
             (authMethod === 'usersfile' && !usersfile)
           }
-          className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+          className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
         >
           {getNPUsersMutation.isPending ? (
             <>
@@ -251,6 +251,9 @@ export const GetNPUsersSection: React.FC<GetNPUsersSectionProps> = ({ workspaceI
     </div>
   )
 }
+
+
+
 
 
 

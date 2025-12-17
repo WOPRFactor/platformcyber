@@ -30,8 +30,8 @@ interface TechnicalReportProps {
 const TechnicalReport: React.FC<TechnicalReportProps> = ({ data }) => {
   return (
     <div className="space-y-6">
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
-        <h3 className="text-xl font-bold text-green-400 mb-4">🔧 Resumen de Vulnerabilidades</h3>
+      <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">🔧 Resumen de Vulnerabilidades</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="text-center p-4 bg-red-100 rounded">
             <div className="text-2xl font-bold text-red-600">{data.vulnerability_summary.high}</div>
@@ -52,7 +52,7 @@ const TechnicalReport: React.FC<TechnicalReportProps> = ({ data }) => {
         </div>
       </div>
 
-      <div className="bg-gray-800 border border-blue-500 rounded-lg p-6">
+      <div className="bg-white border border-blue-500 rounded-xl p-6">
         <h3 className="text-xl font-bold text-blue-400 mb-4">📋 Metodología de Escaneo</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>

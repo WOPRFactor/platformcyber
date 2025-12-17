@@ -59,9 +59,9 @@ const OverviewTab: React.FC<OverviewTabProps> = ({ metrics }) => {
           label="Hosts Escaneados"
           value={metrics.scannedHosts}
           icon={Activity}
-          borderColor="border-green-500"
-          textColor="text-green-400"
-          iconColor="text-green-400"
+          borderColor="border-gray-200"
+          textColor="text-gray-900"
+          iconColor="text-gray-900"
         />
         <MetricCard
           label="Progreso Global"

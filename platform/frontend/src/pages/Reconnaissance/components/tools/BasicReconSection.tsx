@@ -310,28 +310,28 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
         <div className="mb-4">
-          <h3 className="text-lg font-bold text-green-400 flex items-center gap-2">
+          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
             <Globe className="w-5 h-5" />
             Reconocimiento Básico
           </h3>
-          <p className="text-green-600">
+          <p className="text-gray-500">
             Herramientas fundamentales de reconocimiento: WHOIS, DNS y enumeración de subdominios
           </p>
         </div>
 
         <div className="space-y-4">
           {/* WHOIS */}
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-cyan-400 mb-2">WHOIS</h4>
-            <p className="text-sm text-gray-400 mb-3">
+            <p className="text-sm text-gray-500 mb-3">
               Consulta información de registro del dominio o IP
             </p>
             <button
               onClick={handleWhoisWithPreview}
               disabled={whoisMutation.isPending || !target.trim()}
-              className="w-full bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+              className="w-full bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
             >
               {whoisMutation.isPending ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -343,15 +343,15 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
           </div>
 
           {/* DNS */}
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-blue-400 mb-2">DNS Enumeration</h4>
-            <p className="text-sm text-gray-400 mb-3">
+            <p className="text-sm text-gray-500 mb-3">
               Enumeración DNS completa usando DNSRecon (A, AAAA, MX, NS, TXT, SOA, CNAME)
             </p>
             <button
               onClick={handleDnsReconWithPreview}
               disabled={dnsMutation.isPending || !target.trim()}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
             >
               {dnsMutation.isPending ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -363,9 +363,9 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
           </div>
 
           {/* Subdominios */}
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-purple-400 mb-2">Subdomain Enumeration</h4>
-            <p className="text-sm text-gray-400 mb-3">
+            <p className="text-sm text-gray-500 mb-3">
               Descubre subdominios usando Subfinder, Amass, Assetfinder o Sublist3r
             </p>
             <div className="grid grid-cols-2 gap-2 mb-3">
@@ -388,15 +388,15 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
           </div>
 
           {/* crt.sh */}
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-indigo-400 mb-2">Certificate Transparency (crt.sh)</h4>
-            <p className="text-sm text-gray-400 mb-3">
+            <p className="text-sm text-gray-500 mb-3">
               Busca subdominios usando Certificate Transparency logs
             </p>
             <button
               onClick={handleCrtshWithPreview}
               disabled={crtshMutation.isPending || !target.trim()}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
             >
               {crtshMutation.isPending ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -408,15 +408,15 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
           </div>
 
           {/* Findomain */}
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-violet-400 mb-2">Findomain</h4>
-            <p className="text-sm text-gray-400 mb-3">
+            <p className="text-sm text-gray-500 mb-3">
               Enumeración rápida de subdominios con APIs
             </p>
             <button
               onClick={handleFindomainWithPreview}
               disabled={findomainMutation.isPending || !target.trim()}
-              className="w-full bg-violet-600 hover:bg-violet-700 disabled:bg-violet-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+              className="w-full bg-violet-600 hover:bg-violet-700 disabled:bg-violet-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
             >
               {findomainMutation.isPending ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -428,16 +428,16 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
           </div>
 
           {/* DNS Lookup */}
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-cyan-400 mb-2">DNS Lookup (host/nslookup)</h4>
-            <p className="text-sm text-gray-400 mb-3">
+            <p className="text-sm text-gray-500 mb-3">
               Consultas DNS simples con host o nslookup
             </p>
             <div className="grid grid-cols-2 gap-2 mb-3">
               <select
                 value={dnsLookupTool}
                 onChange={(e) => setDnsLookupTool(e.target.value)}
-                className="bg-gray-900 border border-gray-700 rounded px-3 py-2 text-gray-300 text-sm"
+                className="bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-600 text-sm"
               >
                 <option value="host">host</option>
                 <option value="nslookup">nslookup</option>
@@ -445,7 +445,7 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
               <select
                 value={dnsLookupType}
                 onChange={(e) => setDnsLookupType(e.target.value)}
-                className="bg-gray-900 border border-gray-700 rounded px-3 py-2 text-gray-300 text-sm"
+                className="bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-600 text-sm"
               >
                 <option value="">Todos</option>
                 <option value="A">A</option>
@@ -460,7 +460,7 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
             <button
               onClick={() => handleDnsLookupWithPreview(dnsLookupTool, dnsLookupType || undefined)}
               disabled={dnsLookupMutation.isPending || !target.trim()}
-              className="w-full bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+              className="w-full bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
             >
               {dnsLookupMutation.isPending ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -472,9 +472,9 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
           </div>
 
           {/* DNS Enum Alt */}
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-emerald-400 mb-2">DNS Enumeration Alternativa</h4>
-            <p className="text-sm text-gray-400 mb-3">
+            <p className="text-sm text-gray-500 mb-3">
               Enumeración DNS con dnsenum o fierce
             </p>
             <div className="grid grid-cols-2 gap-2">
@@ -497,16 +497,16 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
           </div>
 
           {/* Traceroute */}
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-amber-400 mb-2">Traceroute</h4>
-            <p className="text-sm text-gray-400 mb-3">
+            <p className="text-sm text-gray-500 mb-3">
               Mapeo de ruta de red
             </p>
             <div className="grid grid-cols-2 gap-2 mb-3">
               <select
                 value={tracerouteProtocol}
                 onChange={(e) => setTracerouteProtocol(e.target.value)}
-                className="bg-gray-900 border border-gray-700 rounded px-3 py-2 text-gray-300 text-sm"
+                className="bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-600 text-sm"
               >
                 <option value="icmp">ICMP</option>
                 <option value="tcp">TCP</option>
@@ -517,13 +517,13 @@ export const BasicReconSection: React.FC<BasicReconSectionProps> = ({ target, wo
                 value={tracerouteHops}
                 onChange={(e) => setTracerouteHops(Number(e.target.value))}
                 placeholder="Max hops (30)"
-                className="bg-gray-900 border border-gray-700 rounded px-3 py-2 text-gray-300 text-sm"
+                className="bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-600 text-sm"
               />
             </div>
             <button
               onClick={() => handleTracerouteWithPreview(tracerouteProtocol, tracerouteHops)}
               disabled={tracerouteMutation.isPending || !target.trim()}
-              className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-amber-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+              className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-amber-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
             >
               {tracerouteMutation.isPending ? (
                 <Loader2 className="w-4 h-4 animate-spin" />

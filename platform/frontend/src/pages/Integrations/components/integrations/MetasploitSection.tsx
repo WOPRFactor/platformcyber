@@ -62,7 +62,7 @@ export const MetasploitSection: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Status Card */}
-      <div className="bg-gray-900 border border-red-500 rounded-lg p-6 mb-6">
+      <div className="bg-gray-100 border border-red-500 rounded-xl p-6 mb-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <Terminal className="w-6 h-6 text-red-600" />
@@ -70,11 +70,11 @@ export const MetasploitSection: React.FC = () => {
           </div>
           <div className="flex items-center gap-2">
             {metasploitStatus?.connected ? (
-              <CheckCircle className="w-5 h-5 text-green-600" />
+              <CheckCircle className="w-5 h-5 text-gray-500" />
             ) : (
               <XCircle className="w-5 h-5 text-red-600" />
             )}
-            <span className={metasploitStatus?.connected ? 'text-green-600' : 'text-red-600'}>
+            <span className={metasploitStatus?.connected ? 'text-gray-500' : 'text-red-600'}>
               {metasploitStatus?.connected ? 'Conectado' : 'Desconectado'}
             </span>
           </div>
@@ -83,7 +83,7 @@ export const MetasploitSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div className="text-center">
             <div className="text-sm text-gray-600">Estado RPC</div>
-            <div className={`text-lg font-bold ${metasploitStatus?.connected ? 'text-green-600' : 'text-red-600'}`}>
+            <div className={`text-lg font-bold ${metasploitStatus?.connected ? 'text-gray-500' : 'text-red-600'}`}>
               {metasploitStatus?.connected ? 'Activo' : 'Inactivo'}
             </div>
           </div>
@@ -104,7 +104,7 @@ export const MetasploitSection: React.FC = () => {
         <button
           onClick={() => checkMetasploitMutation.mutate()}
           disabled={checkMetasploitMutation.isPending}
-          className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {checkMetasploitMutation.isPending ? (
             <Loader className="w-4 h-4 animate-spin mr-2" />
@@ -122,7 +122,7 @@ export const MetasploitSection: React.FC = () => {
       </div>
 
       {/* Exploit Form */}
-      <div className="bg-gray-900 border border-red-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-red-500 rounded-xl p-6">
         <h3 className="text-lg font-bold text-red-400 mb-4 flex items-center gap-2">
           <Play className="w-5 h-5" />
           Ejecutar Exploit
@@ -130,63 +130,63 @@ export const MetasploitSection: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">Módulo de Exploit</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">Módulo de Exploit</label>
             <input
               type="text"
               value={metasploitModule}
               onChange={(e) => setMetasploitModule(e.target.value)}
               placeholder="exploit/windows/smb/ms17_010_eternalblue"
-              className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">RHOSTS (Objetivo)</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">RHOSTS (Objetivo)</label>
             <input
               type="text"
               value={exploitOptions.RHOSTS}
               onChange={(e) => setExploitOptions({...exploitOptions, RHOSTS: e.target.value})}
               placeholder="192.168.1.100"
-              className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">RPORT</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">RPORT</label>
             <input
               type="text"
               value={exploitOptions.RPORT}
               onChange={(e) => setExploitOptions({...exploitOptions, RPORT: e.target.value})}
-              className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">LHOST</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">LHOST</label>
             <input
               type="text"
               value={exploitOptions.LHOST}
               onChange={(e) => setExploitOptions({...exploitOptions, LHOST: e.target.value})}
               placeholder="tu-ip"
-              className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">LPORT</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">LPORT</label>
             <input
               type="text"
               value={exploitOptions.LPORT}
               onChange={(e) => setExploitOptions({...exploitOptions, LPORT: e.target.value})}
-              className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">PAYLOAD</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">PAYLOAD</label>
             <input
               type="text"
               value={exploitOptions.PAYLOAD}
               onChange={(e) => setExploitOptions({...exploitOptions, PAYLOAD: e.target.value})}
-              className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
           </div>
         </div>
@@ -221,8 +221,8 @@ export const MetasploitSection: React.FC = () => {
 
         {runExploitMutation.data && (
           <div className="mt-4">
-            <h4 className="font-semibold mb-2 text-green-400">Resultado del Exploit</h4>
-            <div className="bg-black text-green-400 p-4 rounded font-mono text-sm max-h-40 overflow-y-auto">
+            <h4 className="font-semibold mb-2 text-gray-900">Resultado del Exploit</h4>
+            <div className="bg-black text-gray-900 p-4 rounded font-mono text-sm max-h-40 overflow-y-auto">
               {runExploitMutation.data?.console_output || 'Sin salida de consola'}
             </div>
           </div>

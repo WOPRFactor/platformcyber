@@ -18,7 +18,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const getStatusIcon = () => {
     switch (task.status) {
       case 'SUCCESS':
-        return <CheckCircle className="w-5 h-5 text-green-500" />;
+        return <CheckCircle className="w-5 h-5 text-gray-800" />;
       case 'FAILURE':
         return <XCircle className="w-5 h-5 text-red-500" />;
       case 'STARTED':
@@ -33,7 +33,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const getStatusColor = () => {
     switch (task.status) {
       case 'SUCCESS':
-        return 'border-green-500 bg-green-500/5';
+        return 'border-gray-200 bg-red-600/5';
       case 'FAILURE':
         return 'border-red-500 bg-red-500/5';
       case 'STARTED':
@@ -48,7 +48,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const getProgressColor = () => {
     switch (task.status) {
       case 'SUCCESS':
-        return 'bg-green-500';
+        return 'bg-red-600';
       case 'FAILURE':
         return 'bg-red-500';
       case 'STARTED':
@@ -61,7 +61,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   return (
     <div
       className={`
-        border-l-4 rounded-lg p-4 transition-all duration-200
+        border-l-4 rounded-xl p-4 transition-all duration-200
         ${getStatusColor()}
       `}
     >
@@ -76,7 +76,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
               <span
                 className={`
                   text-xs px-2 py-0.5 rounded-full font-medium uppercase
-                  ${task.status === 'SUCCESS' ? 'bg-green-500/20 text-green-400' : ''}
+                  ${task.status === 'SUCCESS' ? 'bg-red-600/20 text-gray-900' : ''}
                   ${task.status === 'FAILURE' ? 'bg-red-500/20 text-red-400' : ''}
                   ${task.status === 'STARTED' ? 'bg-blue-500/20 text-blue-400' : ''}
                   ${task.status === 'PENDING' ? 'bg-yellow-500/20 text-yellow-400' : ''}
@@ -90,8 +90,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
             {task.progress !== undefined && task.status === 'STARTED' && (
               <div className="mt-2 mb-2">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs text-gray-400">Progress</span>
-                  <span className="text-xs text-gray-300 font-semibold">{task.progress}%</span>
+                  <span className="text-xs text-gray-500">Progress</span>
+                  <span className="text-xs text-gray-600 font-semibold">{task.progress}%</span>
                 </div>
                 <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
                   <div
@@ -104,7 +104,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 
             {/* Result or Error */}
             {task.result && task.status === 'SUCCESS' && (
-              <div className="mt-2 text-xs text-gray-400">
+              <div className="mt-2 text-xs text-gray-500">
                 <span className="font-medium">Result:</span>{' '}
                 {typeof task.result === 'string' 
                   ? task.result 
@@ -163,9 +163,9 @@ export const TaskMonitor: React.FC<TaskMonitorProps> = ({
 
   if (tasks.length === 0) {
     return (
-      <div className="bg-gray-800 rounded-lg shadow p-6 text-center">
+      <div className="bg-white rounded-xl shadow p-6 text-center">
         <div className="text-6xl mb-4">📋</div>
-        <h3 className="text-lg font-semibold text-gray-300 mb-2">
+        <h3 className="text-lg font-semibold text-gray-600 mb-2">
           No Tasks Running
         </h3>
         <p className="text-sm text-gray-500">
@@ -176,9 +176,9 @@ export const TaskMonitor: React.FC<TaskMonitorProps> = ({
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg shadow">
+    <div className="bg-white rounded-xl shadow">
       {/* Header with Stats */}
-      <div className="p-4 border-b border-gray-700">
+      <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-200">
             📋 Active Tasks
@@ -205,7 +205,7 @@ export const TaskMonitor: React.FC<TaskMonitorProps> = ({
           <StatCard
             label="Completed"
             value={stats.success}
-            color="text-green-400"
+            color="text-gray-900"
             icon="✅"
           />
           <StatCard
@@ -226,7 +226,7 @@ export const TaskMonitor: React.FC<TaskMonitorProps> = ({
 
       {/* Footer */}
       {tasks.length > maxDisplay && (
-        <div className="p-3 bg-gray-900 border-t border-gray-700 text-center text-sm text-gray-400">
+        <div className="p-3 bg-gray-50 border-t border-gray-200 text-center text-sm text-gray-500">
           Showing {displayedTasks.length} of {tasks.length} tasks
         </div>
       )}
@@ -242,7 +242,7 @@ interface StatCardProps {
 }
 
 const StatCard: React.FC<StatCardProps> = ({ label, value, color, icon }) => (
-  <div className="bg-gray-900 rounded-lg p-3 text-center">
+  <div className="bg-gray-50 rounded-xl p-3 text-center">
     <div className="text-2xl mb-1">{icon}</div>
     <div className={`text-2xl font-bold ${color} mb-1`}>{value}</div>
     <div className="text-xs text-gray-500 uppercase">{label}</div>

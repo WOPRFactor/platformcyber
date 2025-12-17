@@ -68,15 +68,15 @@ const SecurityTrendChart: React.FC<SecurityTrendChartProps> = ({
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-gray-900 border border-gray-700 rounded-lg p-4 shadow-xl"
+        className="bg-gray-50 border border-gray-200 rounded-xl p-4 shadow-xl"
       >
-        <div className="text-white font-semibold mb-3 border-b border-gray-700 pb-2">
+        <div className="text-white font-semibold mb-3 border-b border-gray-200 pb-2">
           {format(date, "d 'de' MMMM, yyyy", { locale: es })}
         </div>
         
         {showTotal && (
           <div className="flex justify-between items-center mb-2 pb-2 border-b border-gray-800">
-            <span className="text-gray-400 text-sm">Total:</span>
+            <span className="text-gray-500 text-sm">Total:</span>
             <span className="text-white font-bold text-lg">{data.total}</span>
           </div>
         )}
@@ -92,7 +92,7 @@ const SecurityTrendChart: React.FC<SecurityTrendChartProps> = ({
                     className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: item.color }}
                   />
-                  <span className="text-gray-400 text-sm capitalize">{item.name}:</span>
+                  <span className="text-gray-500 text-sm capitalize">{item.name}:</span>
                 </div>
                 <span className="text-white font-semibold ml-4">{item.value}</span>
               </div>

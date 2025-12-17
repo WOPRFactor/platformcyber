@@ -142,7 +142,7 @@ const ConsoleDemo: React.FC<ConsoleDemoProps> = ({ className }) => {
   }
 
   return (
-    <div className={`p-4 bg-gray-800 rounded-lg border border-cyan-500 ${className}`}>
+    <div className={`p-4 bg-white rounded-xl border border-cyan-500 ${className}`}>
       <h3 className="text-lg font-semibold text-cyan-400 mb-4 flex items-center">
         <Terminal className="w-5 h-5 mr-2" />
         🔔 Consola Automática - Demo
@@ -158,7 +158,7 @@ const ConsoleDemo: React.FC<ConsoleDemoProps> = ({ className }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {/* Simulación de Procesos Reales */}
         <div className="space-y-2">
-          <h4 className="text-sm font-medium text-gray-300 flex items-center">
+          <h4 className="text-sm font-medium text-gray-600 flex items-center">
             <Zap className="w-4 h-4 mr-2 text-yellow-400" />
             Simular Procesos Reales
           </h4>
@@ -187,15 +187,15 @@ const ConsoleDemo: React.FC<ConsoleDemoProps> = ({ className }) => {
 
         {/* Logs de Ejemplo */}
         <div className="space-y-2">
-          <h4 className="text-sm font-medium text-gray-300">Logs de Ejemplo</h4>
+          <h4 className="text-sm font-medium text-gray-600">Logs de Ejemplo</h4>
           <button
             onClick={addSampleLogs}
-            className="w-full flex items-center justify-center px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm transition-colors"
+            className="w-full flex items-center justify-center px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded text-sm transition-colors"
           >
             <Terminal className="w-4 h-4 mr-2" />
             Agregar Logs
           </button>
-          <div className="text-xs text-gray-400 mt-2">
+          <div className="text-xs text-gray-500 mt-2">
             <p>• Click en el botón del terminal (abajo derecha)</p>
             <p>• Prueba diferentes tamaños (minimizar/compacto/completo)</p>
             <p>• Observa el progreso en tiempo real</p>
@@ -203,7 +203,7 @@ const ConsoleDemo: React.FC<ConsoleDemoProps> = ({ className }) => {
         </div>
       </div>
 
-      <div className="mt-4 p-3 bg-gray-900 rounded text-xs text-gray-400">
+      <div className="mt-4 p-3 bg-gray-50 rounded text-xs text-gray-500">
         <p className="font-medium text-cyan-400 mb-2">🎯 Cómo Funciona la Apertura Automática:</p>
         <div className="space-y-2">
           <div className="flex items-start space-x-2">
@@ -228,7 +228,7 @@ const ConsoleDemo: React.FC<ConsoleDemoProps> = ({ className }) => {
           </div>
         </div>
 
-        <div className="mt-3 pt-3 border-t border-gray-700">
+        <div className="mt-3 pt-3 border-t border-gray-200">
           <p className="font-medium text-yellow-400 mb-1">💡 Consejos:</p>
           <ul className="space-y-1">
             <li>• <strong>Arrastra</strong> la consola para moverla</li>

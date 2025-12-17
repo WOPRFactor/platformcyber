@@ -86,7 +86,7 @@ export const PacuSection: React.FC<PacuSectionProps> = ({ workspaceId }) => {
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-blue-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-blue-500 rounded-xl p-6">
         <div className="mb-4">
           <h3 className="text-lg font-bold text-blue-400 flex items-center gap-2">
             <Cloud className="w-5 h-5" />
@@ -99,7 +99,7 @@ export const PacuSection: React.FC<PacuSectionProps> = ({ workspaceId }) => {
 
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Módulo Pacu
               <span className="text-xs text-gray-500 ml-2">Ej: iam__enum_permissions, s3__enum</span>
             </label>
@@ -107,13 +107,13 @@ export const PacuSection: React.FC<PacuSectionProps> = ({ workspaceId }) => {
               type="text"
               value={moduleName}
               onChange={(e) => setModuleName(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="iam__enum_permissions"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               AWS Profile (opcional)
               <span className="text-xs text-gray-500 ml-2">Perfil de credenciales AWS</span>
             </label>
@@ -121,7 +121,7 @@ export const PacuSection: React.FC<PacuSectionProps> = ({ workspaceId }) => {
               type="text"
               value={awsProfile}
               onChange={(e) => setAwsProfile(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="default"
             />
           </div>
@@ -130,7 +130,7 @@ export const PacuSection: React.FC<PacuSectionProps> = ({ workspaceId }) => {
         <button
           onClick={handlePacuWithPreview}
           disabled={pacuMutation.isPending || !moduleName.trim()}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
         >
           {pacuMutation.isPending ? (
             <>

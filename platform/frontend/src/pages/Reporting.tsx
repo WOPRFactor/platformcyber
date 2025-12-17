@@ -94,12 +94,15 @@ const Reporting: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Reporting</h1>
-        <div className="flex items-center gap-2 text-sm text-gray-600">
+        <div>
+          <h1 className="text-2xl font-semibold text-gray-900">Reporting</h1>
+          <p className="text-gray-500 mt-1">Professional pentesting reports generator</p>
+        </div>
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-sm font-medium">
           <FileText className="w-4 h-4" />
-          Sistema de reportes profesionales de pentesting
+          Report System
         </div>
       </div>
 
@@ -116,11 +119,11 @@ const Reporting: React.FC = () => {
       />
 
       {/* Tipos de reporte */}
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+      <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
         <div className="mb-4">
-          <h2 className="text-xl font-bold text-green-400">Generar Reporte</h2>
-          <p className="text-green-600">
-            Seleccione el tipo de reporte a generar
+          <h2 className="text-lg font-semibold text-gray-900">Generate Report</h2>
+          <p className="text-gray-500 text-sm">
+            Select the type of report to generate
           </p>
         </div>
 

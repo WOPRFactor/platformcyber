@@ -86,16 +86,16 @@ export const ArchiveWorkspaceModal: React.FC<ArchiveWorkspaceModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-[60] bg-black bg-opacity-75 flex items-center justify-center">
-      <div className="bg-gray-800 border border-green-500 rounded-lg shadow-2xl max-w-lg w-full mx-4">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-2xl max-w-lg w-full mx-4">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-green-500">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div className="flex items-center space-x-2">
             <Archive className="w-5 h-5 text-yellow-400" />
             <h3 className="text-lg font-medium text-cyan-400">Completar Proyecto</h3>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-red-400 transition-colors"
+            className="text-gray-500 hover:text-red-400 transition-colors"
             disabled={archiveMutation.isPending}
           >
             <X className="w-5 h-5" />
@@ -104,32 +104,32 @@ export const ArchiveWorkspaceModal: React.FC<ArchiveWorkspaceModalProps> = ({
 
         {/* Content */}
         <div className="p-4 space-y-4">
-          <div className="text-sm text-gray-300">
+          <div className="text-sm text-gray-600">
             <p className="mb-2">
               Estás a punto de archivar el workspace <span className="text-cyan-400 font-semibold">{workspace.name}</span>.
             </p>
-            <p className="text-gray-400 text-xs">
+            <p className="text-gray-500 text-xs">
               Esto cambiará el estado del workspace a "archivado" y eliminará los logs.
             </p>
           </div>
 
           {/* Estadísticas de logs */}
           {stats && stats.total_logs > 0 && (
-            <div className="bg-gray-900 rounded p-3 space-y-2 text-sm border border-yellow-500/30">
+            <div className="bg-gray-50 rounded p-3 space-y-2 text-sm border border-yellow-500/30">
               <div className="flex items-center space-x-2 text-yellow-400">
                 <AlertTriangle className="w-4 h-4" />
                 <span className="font-semibold">Advertencia</span>
               </div>
-              <div className="text-gray-300">
+              <div className="text-gray-600">
                 Los logs del workspace serán eliminados:
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-gray-400">Total de logs:</span>
-                <span className="text-green-400 font-mono">{stats.total_logs.toLocaleString()}</span>
+                <span className="text-gray-500">Total de logs:</span>
+                <span className="text-gray-900 font-mono">{stats.total_logs.toLocaleString()}</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-gray-400">Tamaño:</span>
-                <span className="text-green-400 font-mono">{stats.sizeMB.toFixed(2)} MB</span>
+                <span className="text-gray-500">Tamaño:</span>
+                <span className="text-gray-900 font-mono">{stats.sizeMB.toFixed(2)} MB</span>
               </div>
             </div>
           )}
@@ -139,16 +139,16 @@ export const ArchiveWorkspaceModal: React.FC<ArchiveWorkspaceModalProps> = ({
             <label className="flex items-start space-x-3 cursor-pointer group">
               <div className="mt-0.5">
                 {exportLogs ? (
-                  <CheckSquare className="w-5 h-5 text-green-400" />
+                  <CheckSquare className="w-5 h-5 text-gray-900" />
                 ) : (
-                  <Square className="w-5 h-5 text-gray-500 group-hover:text-gray-400" />
+                  <Square className="w-5 h-5 text-gray-500 group-hover:text-gray-500" />
                 )}
               </div>
               <div className="flex-1">
-                <div className="text-sm text-gray-300 font-medium">
+                <div className="text-sm text-gray-600 font-medium">
                   ☑ Exportar logs antes de eliminar
                 </div>
-                <div className="text-xs text-gray-400 mt-1">
+                <div className="text-xs text-gray-500 mt-1">
                   Se generará un archivo JSON con todos los logs antes de eliminarlos
                 </div>
               </div>
@@ -163,16 +163,16 @@ export const ArchiveWorkspaceModal: React.FC<ArchiveWorkspaceModalProps> = ({
             <label className="flex items-start space-x-3 cursor-pointer group">
               <div className="mt-0.5">
                 {keepFindings ? (
-                  <CheckSquare className="w-5 h-5 text-green-400" />
+                  <CheckSquare className="w-5 h-5 text-gray-900" />
                 ) : (
-                  <Square className="w-5 h-5 text-gray-500 group-hover:text-gray-400" />
+                  <Square className="w-5 h-5 text-gray-500 group-hover:text-gray-500" />
                 )}
               </div>
               <div className="flex-1">
-                <div className="text-sm text-gray-300 font-medium">
+                <div className="text-sm text-gray-600 font-medium">
                   ☐ Mantener vulnerabilidades encontradas
                 </div>
-                <div className="text-xs text-gray-400 mt-1">
+                <div className="text-xs text-gray-500 mt-1">
                   Las vulnerabilidades detectadas se conservarán en el workspace
                 </div>
               </div>
@@ -187,16 +187,16 @@ export const ArchiveWorkspaceModal: React.FC<ArchiveWorkspaceModalProps> = ({
             <label className="flex items-start space-x-3 cursor-pointer group">
               <div className="mt-0.5">
                 {keepReports ? (
-                  <CheckSquare className="w-5 h-5 text-green-400" />
+                  <CheckSquare className="w-5 h-5 text-gray-900" />
                 ) : (
-                  <Square className="w-5 h-5 text-gray-500 group-hover:text-gray-400" />
+                  <Square className="w-5 h-5 text-gray-500 group-hover:text-gray-500" />
                 )}
               </div>
               <div className="flex-1">
-                <div className="text-sm text-gray-300 font-medium">
+                <div className="text-sm text-gray-600 font-medium">
                   ☐ Mantener reportes generados
                 </div>
-                <div className="text-xs text-gray-400 mt-1">
+                <div className="text-xs text-gray-500 mt-1">
                   Los reportes PDF/HTML generados se conservarán
                 </div>
               </div>
@@ -211,10 +211,10 @@ export const ArchiveWorkspaceModal: React.FC<ArchiveWorkspaceModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end space-x-2 p-4 border-t border-green-500">
+        <div className="flex items-center justify-end space-x-2 p-4 border-t border-gray-200">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm text-gray-400 hover:text-gray-300 transition-colors"
+            className="px-4 py-2 text-sm text-gray-500 hover:text-gray-600 transition-colors"
             disabled={archiveMutation.isPending}
           >
             Cancelar

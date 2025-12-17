@@ -19,7 +19,7 @@ export const IntegrationTabs: React.FC<IntegrationTabsProps> = ({
   setActiveTab
 }) => {
   return (
-    <div className="flex border-b border-green-500 mb-4 overflow-x-auto">
+    <div className="flex border-b border-gray-200 mb-4 overflow-x-auto">
       {tabs.map((tab) => {
         const Icon = tab.icon
         return (
@@ -29,7 +29,7 @@ export const IntegrationTabs: React.FC<IntegrationTabsProps> = ({
             className={`flex items-center gap-2 px-4 py-2 border-b-2 whitespace-nowrap ${
               activeTab === tab.id
                 ? 'border-red-400 text-red-400'
-                : 'border-transparent text-gray-400 hover:text-red-400'
+                : 'border-transparent text-gray-500 hover:text-red-400'
             }`}
           >
             <Icon className="w-4 h-4" />

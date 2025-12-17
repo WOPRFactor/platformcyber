@@ -100,7 +100,7 @@ export const KerbruteSection: React.FC<KerbruteSectionProps> = ({ workspaceId })
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-red-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-red-500 rounded-xl p-6">
         <div className="mb-4">
           <h3 className="text-lg font-bold text-red-400 flex items-center gap-2">
             <Key className="w-5 h-5" />
@@ -113,13 +113,13 @@ export const KerbruteSection: React.FC<KerbruteSectionProps> = ({ workspaceId })
 
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Acción
             </label>
             <select
               value={action}
               onChange={(e) => setAction(e.target.value as 'userenum' | 'passwordspray')}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
             >
               <option value="userenum">User Enumeration</option>
               <option value="passwordspray">Password Spraying</option>
@@ -127,33 +127,33 @@ export const KerbruteSection: React.FC<KerbruteSectionProps> = ({ workspaceId })
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Dominio
             </label>
             <input
               type="text"
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="example.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               DC IP
             </label>
             <input
               type="text"
               value={dcIp}
               onChange={(e) => setDcIp(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="192.168.1.10"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Lista de usuarios
               <span className="text-xs text-gray-500 ml-2">Path al archivo de usuarios</span>
             </label>
@@ -161,21 +161,21 @@ export const KerbruteSection: React.FC<KerbruteSectionProps> = ({ workspaceId })
               type="text"
               value={userlist}
               onChange={(e) => setUserlist(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="/path/to/users.txt"
             />
           </div>
 
           {action === 'passwordspray' && (
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-600 mb-2">
                 Password
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
                 placeholder="Password123!"
               />
             </div>
@@ -185,7 +185,7 @@ export const KerbruteSection: React.FC<KerbruteSectionProps> = ({ workspaceId })
         <button
           onClick={handleKerbruteWithPreview}
           disabled={kerbruteMutation.isPending || !domain || !dcIp || !userlist || (action === 'passwordspray' && !password)}
-          className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+          className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
         >
           {kerbruteMutation.isPending ? (
             <>
@@ -213,6 +213,9 @@ export const KerbruteSection: React.FC<KerbruteSectionProps> = ({ workspaceId })
     </div>
   )
 }
+
+
+
 
 
 

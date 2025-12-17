@@ -208,8 +208,8 @@ const MitreAttacks: React.FC = () => {
       case 'critical': return 'text-red-400 border-red-400'
       case 'high': return 'text-orange-400 border-orange-400'
       case 'medium': return 'text-yellow-400 border-yellow-400'
-      case 'low': return 'text-green-400 border-green-400'
-      default: return 'text-gray-400 border-gray-400'
+      case 'low': return 'text-gray-900 border-gray-200'
+      default: return 'text-gray-500 border-gray-400'
     }
   }
 
@@ -272,24 +272,24 @@ const MitreAttacks: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
         <div className="flex items-center space-x-3 mb-4">
           <Sword className="w-8 h-8 text-blue-400" />
           <div>
             <h1 className="text-2xl font-bold text-white">MITRE ATT&CK Simulator</h1>
-            <p className="text-gray-400">Simulador de técnicas de ataque según el framework MITRE ATT&CK</p>
+            <p className="text-gray-500">Simulador de técnicas de ataque según el framework MITRE ATT&CK</p>
           </div>
         </div>
 
         {/* Input para target */}
-        <div className="bg-gray-700 border border-gray-600 rounded p-4">
-          <label className="block text-gray-300 mb-2">Target para simulación:</label>
+        <div className="bg-gray-700 border border-gray-200 rounded p-4">
+          <label className="block text-gray-600 mb-2">Target para simulación:</label>
           <input
             type="text"
             value={target}
             onChange={(e) => setTarget(e.target.value)}
             placeholder="192.168.1.100 o https://example.com"
-            className="w-full bg-gray-600 border border-gray-500 rounded px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-blue-400"
+            className="w-full bg-gray-600 border border-gray-500 rounded px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400"
           />
           <p className="text-xs text-gray-500 mt-1">
             ⚠️ Solo para uso educativo y de prueba de seguridad autorizada
@@ -298,7 +298,7 @@ const MitreAttacks: React.FC = () => {
       </div>
 
       {/* Filtros por táctica */}
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
         <h2 className="text-xl font-bold text-white mb-4">Tácticas ATT&CK</h2>
 
         <div className="flex flex-wrap gap-2 mb-4">
@@ -307,7 +307,7 @@ const MitreAttacks: React.FC = () => {
             className={`px-4 py-2 rounded text-sm font-medium ${
               selectedTactic === 'all'
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                : 'bg-gray-700 text-gray-600 hover:bg-gray-600'
             }`}
           >
             Todas
@@ -321,7 +321,7 @@ const MitreAttacks: React.FC = () => {
                 className={`px-4 py-2 rounded text-sm font-medium flex items-center space-x-2 ${
                   selectedTactic === tactic.id
                     ? 'bg-blue-600 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    : 'bg-gray-700 text-gray-600 hover:bg-gray-600'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -335,19 +335,19 @@ const MitreAttacks: React.FC = () => {
       {/* Lista de técnicas */}
       <div className="space-y-4">
         {techniquesLoading && (
-          <div className="bg-gray-800 border border-green-500 rounded-lg p-6 text-center">
-            <p className="text-gray-400">Cargando técnicas...</p>
+          <div className="bg-gray-100 border border-gray-300 rounded-xl p-6 text-center">
+            <p className="text-gray-500">Cargando técnicas...</p>
           </div>
         )}
         {techniquesError && (
-          <div className="bg-red-900 border border-red-500 rounded-lg p-6 text-center">
+          <div className="bg-red-900 border border-red-500 rounded-xl p-6 text-center">
             <p className="text-red-400">Error cargando técnicas: {techniquesError.message}</p>
             <p className="text-red-300 text-sm mt-2">Revisa la consola para más detalles</p>
           </div>
         )}
         {!techniquesLoading && !techniquesError && filteredTechniques.length === 0 && (
-          <div className="bg-gray-800 border border-green-500 rounded-lg p-6 text-center">
-            <p className="text-gray-400">No hay técnicas disponibles para la táctica seleccionada.</p>
+          <div className="bg-gray-100 border border-gray-300 rounded-xl p-6 text-center">
+            <p className="text-gray-500">No hay técnicas disponibles para la táctica seleccionada.</p>
             <p className="text-gray-500 text-sm mt-2">Total técnicas cargadas: {techniques.length}</p>
             <p className="text-gray-500 text-sm">Táctica seleccionada: {selectedTactic}</p>
             <p className="text-gray-500 text-sm mt-2">Revisa la consola para ver los datos recibidos</p>
@@ -358,7 +358,7 @@ const MitreAttacks: React.FC = () => {
           const TacticIcon = getTacticIcon(technique.tactic)
 
           return (
-            <div key={technique.id} className="bg-gray-800 border border-green-500 rounded-lg p-6">
+            <div key={technique.id} className="bg-gray-100 border border-gray-300 rounded-xl p-6">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center space-x-3 mb-2">
@@ -369,7 +369,7 @@ const MitreAttacks: React.FC = () => {
                     </span>
                   </div>
 
-                  <p className="text-gray-400 mb-3">{technique.description}</p>
+                  <p className="text-gray-500 mb-3">{technique.description}</p>
 
                   <div className="flex items-center space-x-4 text-sm text-gray-500">
                     <span>Táctica: {tactics.find(t => t.id === technique.tactic)?.name}</span>
@@ -422,13 +422,13 @@ const MitreAttacks: React.FC = () => {
       </div>
 
       {/* Información sobre MITRE ATT&CK */}
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
         <h2 className="text-xl font-bold text-white mb-4">¿Qué es MITRE ATT&CK?</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <h3 className="text-blue-400 font-semibold mb-2">Framework de Conocimiento</h3>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-500 text-sm">
               MITRE ATT&CK es una base de conocimiento globalmente accesible que documenta
               tácticas y técnicas comunes de ciberataques. Ayuda a organizaciones a entender
               mejor las amenazas y mejorar sus defensas.
@@ -437,7 +437,7 @@ const MitreAttacks: React.FC = () => {
 
           <div>
             <h3 className="text-blue-400 font-semibold mb-2">Usos Educativos</h3>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-500 text-sm">
               Este simulador permite practicar técnicas de ataque en entornos controlados
               para fines educativos y de investigación de seguridad. Nunca debe usarse
               en sistemas reales sin autorización expresa.

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
-import { Terminal, Eye, EyeOff, AlertCircle } from 'lucide-react'
+import { Shield, Eye, EyeOff, AlertCircle, Lock } from 'lucide-react'
 
 const Login: React.FC = () => {
   const [credentials, setCredentials] = useState({
@@ -20,21 +20,12 @@ const Login: React.FC = () => {
     setError('')
     setLoading(true)
 
-    console.log('🔐 Intentando login con:', { username: credentials.username, password: '***' })
-
     try {
-      console.log('📡 Enviando petición de login...')
       await login(credentials)
-      console.log('✅ Login exitoso, redirigiendo...')
       navigate('/')
     } catch (err: any) {
-      console.error('❌ Error en login:', err)
-      console.error('Detalles del error:', {
-        message: err.message,
-        response: err.response?.data,
-        stack: err.stack
-      })
-      setError(err.message || 'Error de autenticación')
+      console.error('Login error:', err)
+      setError(err.message || 'Authentication failed')
     } finally {
       setLoading(false)
     }
@@ -49,127 +40,188 @@ const Login: React.FC = () => {
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center px-4"
+      className="min-h-screen flex"
       style={{
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        backgroundColor: '#111827',
-        color: '#ffffff'
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
       }}
     >
-      {/* Banner de Testing - Fijo en la parte superior */}
-      <div className="fixed top-0 left-0 right-0 bg-yellow-500 text-black py-2 px-4 z-50 shadow-lg">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
-          <span className="font-bold text-lg animate-pulse">⚠️</span>
-          <span className="font-bold text-lg">PLATAFORMA DE TESTING - DEV4-IMPROVEMENTS</span>
-          <span className="font-bold text-lg animate-pulse">⚠️</span>
-        </div>
-      </div>
-
-      <div className="max-w-md w-full mt-16">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center border-4 border-yellow-300">
-              <Terminal className="w-8 h-8 text-black" />
-            </div>
-          </div>
-          <h1 className="text-3xl font-bold text-yellow-400 mb-2">
-            Factor X
-          </h1>
-          <p className="text-yellow-600 mb-2">
-            Cybersecurity Suite v2.0
-          </p>
-          {/* Badge de Testing */}
-          <div className="inline-flex items-center gap-2 bg-yellow-500/20 border-2 border-yellow-500 rounded-full px-4 py-1">
-            <span className="text-yellow-400 font-bold text-sm">🧪 TESTING ENVIRONMENT</span>
-          </div>
-        </div>
-
-        {/* Login Form */}
-        <div className="card border-2 border-yellow-500/30">
-          <h2 className="text-xl font-bold text-yellow-400 mb-6 text-center">
-            Acceso al Sistema
-          </h2>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Username */}
-            <div>
-              <label htmlFor="username" className="block text-sm font-medium text-yellow-400 mb-1">
-                Usuario
-              </label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                value={credentials.username}
-                onChange={handleChange}
-                className="input w-full"
-                placeholder="admin"
-                required
-                autoComplete="username"
-              />
-            </div>
-
-            {/* Password */}
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-yellow-400 mb-1">
-                Contraseña
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  id="password"
-                  name="password"
-                  value={credentials.password}
-                  onChange={handleChange}
-                  className="input w-full pr-10"
-                  placeholder="••••••••"
-                  required
-                  autoComplete="current-password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-yellow-600 hover:text-yellow-400"
-                >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-              </div>
-            </div>
-
-            {/* Error Message */}
-            {error && (
-              <div className="flex items-center space-x-2 text-red-400 bg-red-900/20 border border-red-500 rounded p-3">
-                <AlertCircle size={16} />
-                <span className="text-sm">{error}</span>
-              </div>
-            )}
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+      {/* Left Panel - Branding */}
+      <div 
+        className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12"
+        style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}
+      >
+        <div>
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div 
+              className="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white text-lg"
+              style={{ background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)' }}
             >
-              {loading ? 'Autenticando...' : 'Acceder al Sistema'}
-            </button>
-          </form>
-
-          {/* Info adicional */}
-          <div className="mt-6 pt-4 border-t border-yellow-500/20">
-            <div className="text-xs text-yellow-600 text-center space-y-1">
-              <p>Usuario por defecto: <span className="text-yellow-400">admin</span></p>
-              <p>Contraseña: <span className="text-yellow-400">admin123</span></p>
-              <p className="text-yellow-400 font-bold">🧪 Ambiente de Testing - Dev4-Improvements</p>
+              FX
             </div>
+            <div>
+              <div className="font-semibold text-white text-xl">Factor X</div>
+              <div className="text-sm text-slate-400">Security Platform</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Center Content */}
+        <div className="space-y-8">
+          <div>
+            <h1 className="text-4xl font-bold text-white mb-4">
+              Enterprise Security<br />Platform
+            </h1>
+            <p className="text-slate-400 text-lg max-w-md">
+              Comprehensive penetration testing and vulnerability assessment platform for enterprise security teams.
+            </p>
+          </div>
+
+          {/* Features */}
+          <div className="space-y-4">
+            {[
+              'Automated vulnerability scanning',
+              'Cloud & container security',
+              'Active Directory assessment',
+              'AI-powered threat analysis',
+            ].map((feature, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center">
+                  <Shield size={14} className="text-red-400" />
+                </div>
+                <span className="text-slate-300">{feature}</span>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Footer */}
-        <div className="text-center mt-8 text-xs text-yellow-600">
-          <p>Frontend React + TypeScript | Backend Flask + JWT</p>
-          <p>Seguridad Empresarial | Factor X 🤖</p>
-          <p className="mt-2 font-bold text-yellow-400">⚠️ TESTING ENVIRONMENT - NO PRODUCTION ⚠️</p>
+        <div className="text-sm text-slate-500">
+          <p>© 2024 Factor X Security. All rights reserved.</p>
+        </div>
+      </div>
+
+      {/* Right Panel - Login Form */}
+      <div className="flex-1 flex items-center justify-center p-8 bg-[#f8f9fa]">
+        <div className="w-full max-w-md">
+          {/* Mobile Logo */}
+          <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
+            <div 
+              className="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white text-lg"
+              style={{ background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)' }}
+            >
+              FX
+            </div>
+            <div>
+              <div className="font-semibold text-gray-900 text-xl">Factor X</div>
+              <div className="text-sm text-gray-500">Security Platform</div>
+            </div>
+          </div>
+
+          {/* Form Card */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div className="text-center mb-8">
+              <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4">
+                <Lock size={24} className="text-red-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900">Welcome back</h2>
+              <p className="text-gray-500 mt-1">Sign in to your account</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Username */}
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={credentials.username}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all"
+                  placeholder="Enter your username"
+                  required
+                  autoComplete="username"
+                />
+              </div>
+
+              {/* Password */}
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    name="password"
+                    value={credentials.password}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all pr-12"
+                    placeholder="Enter your password"
+                    required
+                    autoComplete="current-password"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-gray-600 transition-colors"
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="flex items-center gap-3 p-4 rounded-xl bg-red-50 border border-red-100">
+                  <AlertCircle size={18} className="text-red-500 flex-shrink-0" />
+                  <span className="text-sm text-red-600">{error}</span>
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 px-4 rounded-xl text-white font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
+                style={{ background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)' }}
+              >
+                {loading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Signing in...
+                  </span>
+                ) : (
+                  'Sign in'
+                )}
+              </button>
+            </form>
+
+            {/* Demo Credentials */}
+            <div className="mt-6 p-4 rounded-xl bg-amber-50 border border-amber-100">
+              <div className="flex items-start gap-3">
+                <AlertCircle size={18} className="text-amber-500 flex-shrink-0 mt-0.5" />
+                <div className="text-sm">
+                  <p className="font-medium text-amber-800">Demo Credentials</p>
+                  <p className="text-amber-600 mt-1">
+                    Username: <span className="font-mono font-medium">admin</span><br />
+                    Password: <span className="font-mono font-medium">admin123</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <p className="text-center text-sm text-gray-500 mt-6">
+            Secured with JWT Authentication
+          </p>
         </div>
       </div>
     </div>

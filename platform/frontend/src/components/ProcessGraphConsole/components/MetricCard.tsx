@@ -26,10 +26,10 @@ const MetricCard: React.FC<MetricCardProps> = ({
   iconColor
 }) => {
   return (
-    <div className={`bg-gray-800 p-4 rounded-lg border ${borderColor}`}>
+    <div className={`bg-white p-4 rounded-xl border ${borderColor}`}>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-gray-400">{label}</p>
+          <p className="text-sm text-gray-500">{label}</p>
           <p className={`text-2xl font-bold ${textColor}`}>
             {value}
           </p>

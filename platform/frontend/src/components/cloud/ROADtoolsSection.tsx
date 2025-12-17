@@ -99,7 +99,7 @@ export const ROADtoolsSection: React.FC<ROADtoolsSectionProps> = ({ workspaceId 
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-blue-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-blue-500 rounded-xl p-6">
         <div className="mb-4">
           <h3 className="text-lg font-bold text-blue-400 flex items-center gap-2">
             <Route className="w-5 h-5" />
@@ -112,13 +112,13 @@ export const ROADtoolsSection: React.FC<ROADtoolsSectionProps> = ({ workspaceId 
 
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Método de autenticación
             </label>
             <select
               value={authMethod}
               onChange={(e) => setAuthMethod(e.target.value as 'username' | 'token' | 'device')}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="username">Username/Password</option>
               <option value="token">Access Token</option>
@@ -129,38 +129,38 @@ export const ROADtoolsSection: React.FC<ROADtoolsSectionProps> = ({ workspaceId 
           {authMethod === 'username' && (
             <>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-600 mb-2">
                   Username
                 </label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="user@domain.com"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-600 mb-2">
                   Password
                 </label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="••••••••"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-600 mb-2">
                   Tenant ID (opcional)
                 </label>
                 <input
                   type="text"
                   value={tenantId}
                   onChange={(e) => setTenantId(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
                 />
               </div>
@@ -169,13 +169,13 @@ export const ROADtoolsSection: React.FC<ROADtoolsSectionProps> = ({ workspaceId 
 
           {authMethod === 'token' && (
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-600 mb-2">
                 Access Token
               </label>
               <textarea
                 value={accessToken}
                 onChange={(e) => setAccessToken(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 rows={3}
                 placeholder="eyJ0eXAiOiJKV1QiLCJhbGc..."
               />
@@ -183,7 +183,7 @@ export const ROADtoolsSection: React.FC<ROADtoolsSectionProps> = ({ workspaceId 
           )}
 
           {authMethod === 'device' && (
-            <div className="bg-blue-900 border border-blue-700 rounded-lg p-4">
+            <div className="bg-blue-900 border border-blue-700 rounded-xl p-4">
               <p className="text-blue-300 text-sm">
                 Se usará autenticación por device code. Se mostrará un código en la consola que deberás ingresar en el navegador.
               </p>
@@ -198,7 +198,7 @@ export const ROADtoolsSection: React.FC<ROADtoolsSectionProps> = ({ workspaceId 
             (authMethod === 'username' && (!username || !password)) ||
             (authMethod === 'token' && !accessToken)
           }
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
         >
           {roadtoolsMutation.isPending ? (
             <>
@@ -226,6 +226,9 @@ export const ROADtoolsSection: React.FC<ROADtoolsSectionProps> = ({ workspaceId 
     </div>
   )
 }
+
+
+
 
 
 

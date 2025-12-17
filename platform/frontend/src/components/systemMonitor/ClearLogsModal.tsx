@@ -67,16 +67,16 @@ export const ClearLogsModal: React.FC<ClearLogsModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-[60] bg-black bg-opacity-75 flex items-center justify-center">
-      <div className="bg-gray-800 border border-green-500 rounded-lg shadow-2xl max-w-md w-full mx-4">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-2xl max-w-md w-full mx-4">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-green-500">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div className="flex items-center space-x-2">
             <AlertTriangle className="w-5 h-5 text-yellow-400" />
             <h3 className="text-lg font-medium text-cyan-400">Limpiar Logs</h3>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-red-400 transition-colors"
+            className="text-gray-500 hover:text-red-400 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -85,23 +85,23 @@ export const ClearLogsModal: React.FC<ClearLogsModalProps> = ({
         {/* Content */}
         <div className="p-4 space-y-4">
           {stats && (
-            <div className="bg-gray-900 rounded p-3 space-y-2 text-sm">
+            <div className="bg-gray-50 rounded p-3 space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-400">Total de logs:</span>
-                <span className="text-green-400 font-mono">{stats.totalLogs.toLocaleString()}</span>
+                <span className="text-gray-500">Total de logs:</span>
+                <span className="text-gray-900 font-mono">{stats.totalLogs.toLocaleString()}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Tamaño:</span>
-                <span className="text-green-400 font-mono">{stats.sizeMB.toFixed(2)} MB</span>
+                <span className="text-gray-500">Tamaño:</span>
+                <span className="text-gray-900 font-mono">{stats.sizeMB.toFixed(2)} MB</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Rango de fechas:</span>
-                <span className="text-green-400 text-xs">{stats.dateRangeText}</span>
+                <span className="text-gray-500">Rango de fechas:</span>
+                <span className="text-gray-900 text-xs">{stats.dateRangeText}</span>
               </div>
             </div>
           )}
 
-          <div className="text-sm text-gray-300">
+          <div className="text-sm text-gray-600">
             <p className="mb-3">
               ⚠️ Los logs del workspace <span className="text-cyan-400 font-semibold">{currentWorkspace?.name}</span> serán eliminados.
             </p>
@@ -114,18 +114,18 @@ export const ClearLogsModal: React.FC<ClearLogsModalProps> = ({
                 type="checkbox"
                 checked={exportBeforeDelete}
                 onChange={(e) => setExportBeforeDelete(e.target.checked)}
-                className="w-4 h-4 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500"
+                className="w-4 h-4 text-cyan-500 bg-gray-700 border-gray-200 rounded focus:ring-cyan-500"
               />
-              <span className="text-sm text-gray-300">☑ Exportar logs antes de eliminar</span>
+              <span className="text-sm text-gray-600">☑ Exportar logs antes de eliminar</span>
             </label>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end space-x-2 p-4 border-t border-green-500">
+        <div className="flex items-center justify-end space-x-2 p-4 border-t border-gray-200">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm text-gray-400 hover:text-gray-300 transition-colors"
+            className="px-4 py-2 text-sm text-gray-500 hover:text-gray-600 transition-colors"
             disabled={deleteMutation.isPending}
           >
             Cancelar
@@ -134,7 +134,7 @@ export const ClearLogsModal: React.FC<ClearLogsModalProps> = ({
             <button
               onClick={handleConfirm}
               disabled={deleteMutation.isPending}
-              className="px-4 py-2 text-sm bg-green-500 text-black hover:bg-green-400 rounded transition-colors flex items-center space-x-2 disabled:opacity-50"
+              className="px-4 py-2 text-sm bg-red-600 text-black hover:bg-green-400 rounded transition-colors flex items-center space-x-2 disabled:opacity-50"
             >
               <Download className="w-4 h-4" />
               <span>{deleteMutation.isPending ? 'Exportando...' : 'Exportar y Borrar'}</span>

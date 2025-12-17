@@ -270,50 +270,50 @@ const DashboardEnhanced: React.FC = () => {
   if (!isAuthenticated) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="text-gray-400">Por favor, inicia sesión para ver el dashboard</div>
+        <div className="text-gray-500">Please login to view the dashboard</div>
       </div>
     )
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">
-            Dashboard
+          <h1 className="text-2xl font-semibold text-gray-900">
+            Security Dashboard
           </h1>
-          <p className="text-gray-400">
-            Bienvenido, {user?.username} • Workspace: {currentWorkspace?.name || 'Sin workspace'}
+          <p className="text-gray-500 mt-1">
+            Welcome back, {user?.username} • Workspace: {currentWorkspace?.name || 'No workspace'}
           </p>
         </div>
         
         <button
           onClick={handleRefreshAll}
-          className="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+          className="flex items-center gap-2 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium"
         >
           <Activity className="w-4 h-4" />
-          <span>Actualizar</span>
+          <span>Refresh</span>
         </button>
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════ */}
       {/* STAT CARDS */}
       {/* ═══════════════════════════════════════════════════════════════ */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         <StatCard
-          title="Total Vulnerabilidades"
+          title="Total Vulnerabilities"
           value={metrics.vulnerabilities.total}
           icon={AlertTriangle}
           color="red"
           trend={{
             value: metrics.vulnerabilities.trend,
-            isPositive: false, // Menos vulnerabilidades es mejor
+            isPositive: false,
           }}
         />
 
         <StatCard
-          title="Escaneos Activos"
+          title="Active Scans"
           value={metrics.scans.active}
           icon={Activity}
           color="blue"
@@ -321,19 +321,19 @@ const DashboardEnhanced: React.FC = () => {
         />
 
         <StatCard
-          title="Score de Seguridad"
+          title="Security Score"
           value={metrics.security.score}
           icon={Shield}
           color="green"
           suffix="%"
           trend={{
-            value: -metrics.vulnerabilities.trend, // Invertido: si hay menos vulns, el score mejora
+            value: -metrics.vulnerabilities.trend,
             isPositive: true,
           }}
         />
 
         <StatCard
-          title="Auditorías Completadas"
+          title="Audits Completed"
           value={metrics.audits.completed}
           icon={Lock}
           color="purple"
@@ -377,7 +377,6 @@ const DashboardEnhanced: React.FC = () => {
         onRefresh={refetchTopVulns}
         onVulnerabilityClick={(vuln) => {
           console.log('Clicked vulnerability:', vuln)
-          // TODO: Navegar a detalles de vulnerabilidad
         }}
       />
 
@@ -390,24 +389,23 @@ const DashboardEnhanced: React.FC = () => {
         onRefresh={refetchRiskMatrix}
         onRiskClick={(risk) => {
           console.log('Clicked risk:', risk)
-          // TODO: Navegar a detalles de riesgo
         }}
       />
 
       {/* ═══════════════════════════════════════════════════════════════ */}
-      {/* REAL-TIME SECTIONS (si hay datos) */}
+      {/* REAL-TIME SECTIONS */}
       {/* ═══════════════════════════════════════════════════════════════ */}
       {tasks.length > 0 && (
-        <div className="bg-gray-800 rounded-xl border border-gray-700 p-6">
-          <h2 className="text-xl font-semibold text-white mb-4 flex items-center">
-            <Zap className="w-5 h-5 mr-2 text-yellow-400" />
-            Tareas en Ejecución
+        <div className="bg-gray-100 rounded-xl border border-gray-300 p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <Zap className="w-5 h-5 mr-2 text-amber-500" />
+            Running Tasks
           </h2>
           <div className="space-y-2">
             {tasks.slice(0, 5).map((task: any) => (
-              <div key={task.id} className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg">
-                <span className="text-gray-300">{task.name}</span>
-                <span className="text-sm text-gray-400">{task.status}</span>
+              <div key={task.id} className="flex items-center justify-between p-3 bg-white/60 rounded-xl border border-sky-100">
+                <span className="text-gray-700">{task.name}</span>
+                <span className="text-sm px-2.5 py-1 rounded-full bg-blue-50 text-blue-600 font-medium">{task.status}</span>
               </div>
             ))}
           </div>
@@ -418,4 +416,5 @@ const DashboardEnhanced: React.FC = () => {
 }
 
 export default DashboardEnhanced
+
 

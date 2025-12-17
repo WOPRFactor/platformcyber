@@ -130,7 +130,7 @@ const ScheduledTasks: React.FC = () => {
 
   const getStatusColor = (task: ScheduledTask) => {
     if (task.status === 'cancelled') return 'text-red-400'
-    if (task.status === 'completed') return 'text-gray-400'
+    if (task.status === 'completed') return 'text-gray-500'
     if (!task.next_run) return 'text-yellow-400'
     const nextRun = new Date(task.next_run)
     const now = new Date()
@@ -138,7 +138,7 @@ const ScheduledTasks: React.FC = () => {
     
     if (diffMinutes < 0) return 'text-red-400' // Atrasada
     if (diffMinutes < 60) return 'text-yellow-400' // Próxima
-    return 'text-green-400' // Normal
+    return 'text-gray-900' // Normal
   }
 
   const formatDateTime = (dateString: string | null) => {
@@ -151,11 +151,11 @@ const ScheduledTasks: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-green-400 flex items-center">
+          <h1 className="text-2xl font-semibold text-gray-900 text-gray-900 flex items-center">
             <Clock className="w-8 h-8 mr-3" />
             Tareas Programadas
           </h1>
-          <p className="text-green-600 mt-2">
+          <p className="text-gray-500 mt-2">
             Automatiza escaneos, reportes y mantenimiento del sistema
           </p>
         </div>
@@ -164,7 +164,7 @@ const ScheduledTasks: React.FC = () => {
           {/* Estado del Scheduler */}
           <div className="flex items-center space-x-2">
             <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-gray-500">
               Scheduler: Activo
             </span>
             <span className="text-sm text-gray-500">
@@ -174,7 +174,7 @@ const ScheduledTasks: React.FC = () => {
 
           <button
             onClick={() => setShowCreateForm(true)}
-            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors"
           >
             <Plus size={16} />
             <span>Nueva Tarea</span>
@@ -184,7 +184,7 @@ const ScheduledTasks: React.FC = () => {
 
       {/* Lista de Tareas */}
       <div className="card">
-        <h2 className="text-xl font-bold text-green-400 mb-6 flex items-center">
+        <h2 className="text-lg font-semibold text-gray-900 mb-6 flex items-center">
           <Settings className="w-5 h-5 mr-2" />
           Tareas Activas
         </h2>
@@ -196,15 +196,15 @@ const ScheduledTasks: React.FC = () => {
             {tasksData.map((task: ScheduledTask) => {
               const FunctionIcon = getFunctionIcon(task.scan_type)
               return (
-                <div key={task.scan_id} className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg border border-green-500/20">
+                <div key={task.scan_id} className="flex items-center justify-between p-4 bg-white rounded-xl border border-gray-200">
                   <div className="flex items-center space-x-4">
-                    <div className={`p-2 rounded-lg ${task.status === 'active' ? 'bg-green-500/10' : 'bg-red-500/10'}`}>
-                      <FunctionIcon className={`w-5 h-5 ${task.status === 'active' ? 'text-green-400' : 'text-red-400'}`} />
+                    <div className={`p-2 rounded-xl ${task.status === 'active' ? 'bg-red-600/10' : 'bg-red-500/10'}`}>
+                      <FunctionIcon className={`w-5 h-5 ${task.status === 'active' ? 'text-gray-900' : 'text-red-400'}`} />
                     </div>
 
                     <div>
                       <h3 className="text-white font-medium">{task.scan_type} - {task.target}</h3>
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-gray-500 text-sm">
                         ID: {task.scan_id} • Horario: {task.schedule}
                       </p>
                       <div className="flex items-center space-x-4 mt-1 text-xs text-gray-500">
@@ -222,7 +222,7 @@ const ScheduledTasks: React.FC = () => {
                         }
                       }}
                       disabled={deleteTaskMutation.isPending}
-                      className="p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                      className="p-2 text-red-400 hover:bg-red-500/10 rounded-xl transition-colors"
                       title="Eliminar tarea"
                     >
                       <Trash2 size={16} />
@@ -245,15 +245,15 @@ const ScheduledTasks: React.FC = () => {
       {/* Modal de Creación de Tarea */}
       {showCreateForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-gray-900 border border-green-500 rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-gray-100 border border-gray-300 rounded-xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-green-400 flex items-center">
+              <h2 className="text-lg font-semibold text-gray-900 flex items-center">
                 <Plus className="w-5 h-5 mr-2" />
                 Crear Nueva Tarea Programada
               </h2>
               <button
                 onClick={() => setShowCreateForm(false)}
-                className="text-gray-400 hover:text-white"
+                className="text-gray-500 hover:text-white"
               >
                 ✕
               </button>
@@ -308,14 +308,14 @@ const ScheduledTasks: React.FC = () => {
                 helperText="Define con qué frecuencia se ejecutará el escaneo"
               />
 
-              <div className="flex justify-end space-x-4 pt-4 border-t border-gray-700">
+              <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200">
                 <button
                   type="button"
                   onClick={() => {
                     setShowCreateForm(false)
                     resetForm()
                   }}
-                  className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                  className="px-4 py-2 text-gray-500 hover:text-white transition-colors"
                 >
                   Cancelar
                 </button>
@@ -323,7 +323,7 @@ const ScheduledTasks: React.FC = () => {
                   type="button"
                   onClick={handlePreview}
                   disabled={!isValid}
-                  className="px-6 py-2 bg-gray-600 hover:bg-gray-700 disabled:bg-gray-600 text-white rounded-lg font-medium transition-colors flex items-center space-x-2"
+                  className="px-6 py-2 bg-gray-600 hover:bg-gray-700 disabled:bg-gray-600 text-white rounded-xl font-medium transition-colors flex items-center space-x-2"
                 >
                   <Eye className="w-4 h-4" />
                   <span>Preview</span>
@@ -331,7 +331,7 @@ const ScheduledTasks: React.FC = () => {
                 <button
                   type="submit"
                   disabled={!isValid || createTaskMutation.isPending}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white rounded-lg font-medium transition-colors"
+                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white rounded-xl font-medium transition-colors"
                 >
                   {createTaskMutation.isPending ? 'Creando...' : 'Crear Tarea'}
                 </button>

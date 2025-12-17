@@ -42,7 +42,7 @@ const DiscoveryTab: React.FC<DiscoveryTabProps> = ({ metrics, logs }) => {
 
         {/* Métricas detalladas de descubrimientos */}
         <div className="space-y-4">
-          <div className="bg-gray-800 p-4 rounded-lg border border-blue-500">
+          <div className="bg-white p-4 rounded-xl border border-blue-500">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Search className="w-6 h-6 text-blue-400" />
@@ -50,12 +50,12 @@ const DiscoveryTab: React.FC<DiscoveryTabProps> = ({ metrics, logs }) => {
               </div>
               <span className="text-xl font-bold text-blue-400">{metrics.openPorts}</span>
             </div>
-            <div className="mt-2 text-sm text-gray-400">
+            <div className="mt-2 text-sm text-gray-500">
               TCP/UDP ports discovered
             </div>
           </div>
 
-          <div className="bg-gray-800 p-4 rounded-lg border border-purple-500">
+          <div className="bg-white p-4 rounded-xl border border-purple-500">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Activity className="w-6 h-6 text-purple-400" />
@@ -63,25 +63,25 @@ const DiscoveryTab: React.FC<DiscoveryTabProps> = ({ metrics, logs }) => {
               </div>
               <span className="text-xl font-bold text-purple-400">{metrics.discoveredServices}</span>
             </div>
-            <div className="mt-2 text-sm text-gray-400">
+            <div className="mt-2 text-sm text-gray-500">
               HTTP, SSH, FTP, etc.
             </div>
           </div>
 
-          <div className="bg-gray-800 p-4 rounded-lg border border-green-500">
+          <div className="bg-white p-4 rounded-xl border border-gray-200">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <BarChart3 className="w-6 h-6 text-green-400" />
-                <span className="text-green-400">URLs</span>
+                <BarChart3 className="w-6 h-6 text-gray-900" />
+                <span className="text-gray-900">URLs</span>
               </div>
-              <span className="text-xl font-bold text-green-400">{metrics.foundUrls}</span>
+              <span className="text-lg font-semibold text-gray-900">{metrics.foundUrls}</span>
             </div>
-            <div className="mt-2 text-sm text-gray-400">
+            <div className="mt-2 text-sm text-gray-500">
               Web pages discovered
             </div>
           </div>
 
-          <div className="bg-gray-800 p-4 rounded-lg border border-red-500">
+          <div className="bg-white p-4 rounded-xl border border-red-500">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Shield className="w-6 h-6 text-red-400" />
@@ -89,7 +89,7 @@ const DiscoveryTab: React.FC<DiscoveryTabProps> = ({ metrics, logs }) => {
               </div>
               <span className="text-xl font-bold text-red-400">{metrics.sensitiveFiles}</span>
             </div>
-            <div className="mt-2 text-sm text-gray-400">
+            <div className="mt-2 text-sm text-gray-500">
               Config files, backups, etc.
             </div>
           </div>
@@ -99,8 +99,8 @@ const DiscoveryTab: React.FC<DiscoveryTabProps> = ({ metrics, logs }) => {
       {/* Gráfico histórico de descubrimientos */}
       <ChartWrapper
         title="Evolución de Descubrimientos"
-        titleColor="text-green-400"
-        borderColor="border-green-500"
+        titleColor="text-gray-900"
+        borderColor="border-gray-200"
         height="h-80"
       >
         <Line data={discoveryHistoryData} options={chartOptions} />

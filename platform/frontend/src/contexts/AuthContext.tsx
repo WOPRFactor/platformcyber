@@ -53,32 +53,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log('🎉 Login completado exitosamente')
     } catch (error: any) {
       console.error('❌ Login error:', error)
-      console.error('Error details:', {
-        message: error.message,
-        code: error.code,
-        response: error.response?.data,
-        status: error.response?.status,
-        isNetworkError: !error.response
-      })
-      
-      // Manejar diferentes tipos de errores
-      let errorMessage = 'Error en el login'
-      
-      if (error.response?.data?.error) {
-        errorMessage = error.response.data.error
-      } else if (error.code === 'ERR_NETWORK' || !error.response) {
-        errorMessage = 'Error de conexión. Verifica que el backend esté funcionando.'
-      } else if (error.response?.status === 401) {
-        errorMessage = 'Credenciales inválidas'
-      } else if (error.response?.status === 403) {
-        errorMessage = 'Cuenta deshabilitada'
-      } else if (error.response?.status >= 500) {
-        errorMessage = 'Error del servidor. Intenta nuevamente más tarde.'
-      } else if (error.message) {
-        errorMessage = error.message
-      }
-      
-      throw new Error(errorMessage)
+      throw new Error(error.response?.data?.error || 'Error en el login')
     } finally {
       setLoading(false)
     }

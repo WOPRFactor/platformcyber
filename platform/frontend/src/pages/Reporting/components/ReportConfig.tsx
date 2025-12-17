@@ -33,15 +33,15 @@ const ReportConfig: React.FC<ReportConfigProps> = ({
     : 'No hay workspace seleccionado'
 
   return (
-    <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+    <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
       <div className="mb-4">
-        <h2 className="text-xl font-bold text-green-400">Configuración del Reporte</h2>
+        <h2 className="text-lg font-semibold text-gray-900">Configuración del Reporte</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">Workspace</label>
-          <div className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 min-h-[42px] flex items-center">
-            <span className={currentWorkspace ? 'text-green-400' : 'text-gray-500 italic'}>
+          <label className="block text-sm font-medium text-gray-900 mb-2">Workspace</label>
+          <div className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 min-h-[42px] flex items-center">
+            <span className={currentWorkspace ? 'text-gray-900' : 'text-gray-500 italic'}>
               {displayName}
             </span>
           </div>
@@ -65,11 +65,11 @@ const ReportConfig: React.FC<ReportConfigProps> = ({
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">Estándar Cumplimiento</label>
+          <label className="block text-sm font-medium text-gray-900 mb-2">Estándar Cumplimiento</label>
           <select
             value={complianceStandard}
             onChange={(e) => setComplianceStandard(e.target.value)}
-            className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="general">General</option>
             <option value="pci-dss">PCI-DSS</option>

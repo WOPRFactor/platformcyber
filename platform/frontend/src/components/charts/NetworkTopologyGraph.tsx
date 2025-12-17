@@ -90,7 +90,7 @@ const NetworkTopologyGraph: React.FC<NetworkTopologyGraphProps> = ({
                   {host.hostname || host.ip}
                 </span>
               </div>
-              <div className="text-xs text-gray-400">{host.ip}</div>
+              <div className="text-xs text-gray-500">{host.ip}</div>
               {host.vulnerabilities > 0 && (
                 <div className="flex items-center space-x-1 mt-1">
                   <AlertTriangle className="w-3 h-3 text-red-400" />
@@ -160,7 +160,7 @@ const NetworkTopologyGraph: React.FC<NetworkTopologyGraphProps> = ({
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.3 }}
-          className="px-4 py-3 bg-gray-800 border-2 rounded-lg cursor-pointer hover:shadow-lg transition-shadow"
+          className="px-4 py-3 bg-white border-2 rounded-xl cursor-pointer hover:shadow-lg transition-shadow"
           style={{
             borderColor: getSeverityColor(data.host.severity),
             backgroundColor: getSeverityColor(data.host.severity) + '20',
@@ -196,7 +196,7 @@ const NetworkTopologyGraph: React.FC<NetworkTopologyGraphProps> = ({
           nodeTypes={nodeTypes}
           fitView
           attributionPosition="bottom-left"
-          className="bg-gray-900"
+          className="bg-gray-50"
         >
           <Background color="#374151" gap={16} />
           <Controls
@@ -220,7 +220,7 @@ const NetworkTopologyGraph: React.FC<NetworkTopologyGraphProps> = ({
         </ReactFlow>
 
         {/* Legend */}
-        <div className="absolute top-4 right-4 bg-gray-800/90 border border-gray-700 rounded-lg p-4 space-y-2 z-10">
+        <div className="absolute top-4 right-4 bg-white/90 border border-gray-200 rounded-xl p-4 space-y-2 z-10">
           <div className="text-white font-semibold text-sm mb-2">Leyenda</div>
           {['critical', 'high', 'medium', 'low'].map((severity) => {
             const count = hosts.filter((h) => h.severity === severity).length
@@ -235,7 +235,7 @@ const NetworkTopologyGraph: React.FC<NetworkTopologyGraphProps> = ({
                     borderColor: getSeverityColor(severity),
                   }}
                 />
-                <span className="text-gray-300 capitalize">{severity}</span>
+                <span className="text-gray-600 capitalize">{severity}</span>
                 <span className="text-gray-500">({count})</span>
               </div>
             )
@@ -243,8 +243,8 @@ const NetworkTopologyGraph: React.FC<NetworkTopologyGraphProps> = ({
         </div>
 
         {/* Stats */}
-        <div className="absolute bottom-4 left-4 bg-gray-800/90 border border-gray-700 rounded-lg p-3 z-10">
-          <div className="text-xs text-gray-400 space-y-1">
+        <div className="absolute bottom-4 left-4 bg-white/90 border border-gray-200 rounded-xl p-3 z-10">
+          <div className="text-xs text-gray-500 space-y-1">
             <div className="flex items-center space-x-2">
               <Globe className="w-3 h-3" />
               <span>{hosts.length} hosts</span>

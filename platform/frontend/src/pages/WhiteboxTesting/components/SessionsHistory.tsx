@@ -34,7 +34,7 @@ export const SessionsHistory: React.FC<SessionsHistoryProps> = ({ sessions, isLo
   return (
     <div className="space-y-2">
       {sessions.slice(0, 10).map((session: WhiteboxSession) => (
-        <div key={session.id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+        <div key={session.id} className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200">
           <div>
             <div className="font-medium">{session.target}</div>
             <div className="text-sm text-gray-600">

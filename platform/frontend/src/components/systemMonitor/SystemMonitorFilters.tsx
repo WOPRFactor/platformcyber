@@ -59,10 +59,10 @@ export const SystemMonitorFilters: React.FC<SystemMonitorFiltersProps> = ({
   onExport
 }) => {
   return (
-    <div className="p-3 border-b border-green-500 bg-gray-800 space-y-3 overflow-x-auto">
+    <div className="p-3 border-b border-gray-200 bg-white space-y-3 overflow-x-auto">
       {/* Filtros de fuente */}
       <div className="flex items-center space-x-4 min-w-0">
-        <span className="text-xs text-gray-400 font-medium flex-shrink-0">Fuentes:</span>
+        <span className="text-xs text-gray-500 font-medium flex-shrink-0">Fuentes:</span>
         <div className="flex flex-wrap items-center gap-2 min-w-0 flex-1">
           {SOURCES.map(source => (
             <label
@@ -73,9 +73,9 @@ export const SystemMonitorFilters: React.FC<SystemMonitorFiltersProps> = ({
                 type="checkbox"
                 checked={sourceFilters[source.key]}
                 onChange={() => onToggleSource(source.key)}
-                className="w-3 h-3 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500"
+                className="w-3 h-3 text-cyan-500 bg-gray-700 border-gray-200 rounded focus:ring-cyan-500"
               />
-              <span className="text-xs text-gray-300 whitespace-nowrap">{source.label}</span>
+              <span className="text-xs text-gray-600 whitespace-nowrap">{source.label}</span>
             </label>
           ))}
         </div>
@@ -84,7 +84,7 @@ export const SystemMonitorFilters: React.FC<SystemMonitorFiltersProps> = ({
       {/* Filtros de nivel y búsqueda */}
       <div className="flex items-center justify-between gap-4 min-w-0">
         <div className="flex items-center space-x-4 min-w-0 flex-shrink">
-          <span className="text-xs text-gray-400 font-medium flex-shrink-0">Niveles:</span>
+          <span className="text-xs text-gray-500 font-medium flex-shrink-0">Niveles:</span>
           <div className="flex items-center gap-2 flex-wrap">
             {LEVELS.map(level => (
               <label
@@ -95,9 +95,9 @@ export const SystemMonitorFilters: React.FC<SystemMonitorFiltersProps> = ({
                   type="checkbox"
                   checked={levelFilters[level.key]}
                   onChange={() => onToggleLevel(level.key)}
-                  className="w-3 h-3 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500"
+                  className="w-3 h-3 text-cyan-500 bg-gray-700 border-gray-200 rounded focus:ring-cyan-500"
                 />
-                <span className="text-xs text-gray-300 whitespace-nowrap">{level.label}</span>
+                <span className="text-xs text-gray-600 whitespace-nowrap">{level.label}</span>
               </label>
             ))}
           </div>
@@ -106,19 +106,19 @@ export const SystemMonitorFilters: React.FC<SystemMonitorFiltersProps> = ({
         {/* Búsqueda y acciones */}
         <div className="flex items-center space-x-2 flex-shrink-0">
           <div className="relative">
-            <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Buscar..."
-              className="pl-8 pr-3 py-1 text-xs bg-gray-700 border border-green-500 rounded text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 w-32"
+              className="pl-8 pr-3 py-1 text-xs bg-gray-700 border border-gray-200 rounded text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 w-32"
             />
           </div>
 
           <button
             onClick={onTogglePause}
-            className="p-1.5 text-gray-400 hover:text-cyan-400 transition-colors flex-shrink-0"
+            className="p-1.5 text-gray-500 hover:text-cyan-400 transition-colors flex-shrink-0"
             title={isPaused ? "Reanudar" : "Pausar"}
           >
             {isPaused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
@@ -126,7 +126,7 @@ export const SystemMonitorFilters: React.FC<SystemMonitorFiltersProps> = ({
 
           <button
             onClick={onClear}
-            className="p-1.5 text-gray-400 hover:text-red-400 transition-colors flex-shrink-0"
+            className="p-1.5 text-gray-500 hover:text-red-400 transition-colors flex-shrink-0"
             title="Limpiar logs"
           >
             <Trash2 className="w-4 h-4" />
@@ -134,7 +134,7 @@ export const SystemMonitorFilters: React.FC<SystemMonitorFiltersProps> = ({
 
           <button
             onClick={onExport}
-            className="p-1.5 text-gray-400 hover:text-cyan-400 transition-colors flex-shrink-0"
+            className="p-1.5 text-gray-500 hover:text-cyan-400 transition-colors flex-shrink-0"
             title="Exportar logs"
           >
             <Download className="w-4 h-4" />

@@ -1,0 +1,9 @@
+# Nmap 7.95 scan initiated Mon Dec 15 08:38:55 2025 as: /usr/lib/nmap/nmap -T4 --top-ports 100 -oX /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/necod_fortidyndns_com/scans/nmap_929.xml -oN /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/necod_fortidyndns_com/scans/nmap_929.txt necod.fortidyndns.com
+Nmap scan report for necod.fortidyndns.com (181.166.161.236)
+Host is up (0.013s latency).
+rDNS record for 181.166.161.236: 236-161-166-181.fibertel.com.ar
+Not shown: 99 filtered tcp ports (no-response)
+PORT    STATE  SERVICE
+113/tcp closed ident
+
+# Nmap done at Mon Dec 15 08:39:02 2025 -- 1 IP address (1 host up) scanned in 7.17 seconds

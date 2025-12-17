@@ -35,7 +35,7 @@ export const ConfigIssuesList: React.FC<ConfigIssuesListProps> = ({ issues }) =>
   return (
     <div className="space-y-2">
       {issues.map((issue, idx) => (
-        <div key={idx} className={`border rounded-lg p-4 ${getSeverityStyles(issue.severity)}`}>
+        <div key={idx} className={`border rounded-xl p-4 ${getSeverityStyles(issue.severity)}`}>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <Settings className="w-4 h-4" />

@@ -117,8 +117,8 @@ const Dashboard: React.FC = () => {
       title: 'Estado del Sistema',
       value: healthData?.status === 'healthy' ? 'Activo' : 'Inactivo',
       icon: Activity,
-      color: healthData?.status === 'healthy' ? 'text-green-400' : 'text-red-400',
-      bgColor: healthData?.status === 'healthy' ? 'bg-green-500/10' : 'bg-red-500/10',
+      color: healthData?.status === 'healthy' ? 'text-gray-900' : 'text-red-400',
+      bgColor: healthData?.status === 'healthy' ? 'bg-red-600/10' : 'bg-red-500/10',
       trend: null,
       subtitle: 'Disponibilidad 99.9%'
     },

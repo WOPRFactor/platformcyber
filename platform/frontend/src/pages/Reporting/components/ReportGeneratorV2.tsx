@@ -31,10 +31,16 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
 
   // Actualizar progreso en la consola cuando cambia el status
   React.useEffect(() => {
+    // #region agent log
+    fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ReportGeneratorV2.tsx:33',message:'useEffect status change',data:{hasStatus:!!status,hasTaskId:!!taskId,statusValue:status?.status,taskIdValue:taskId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+    // #endregion
     if (!status || !taskId) return
 
     // DEBUG: Ver qué llega en el status
     console.log('🔍 Status recibido:', JSON.stringify(status, null, 2))
+    // #region agent log
+    fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ReportGeneratorV2.tsx:37',message:'Status received',data:{status:JSON.stringify(status)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
+    // #endregion
 
     if (status.status === 'processing' && status.progress !== undefined) {
       if (!consoleTaskIdRef.current) {
@@ -75,6 +81,9 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
   }, [status, taskId, reportType, currentWorkspace, startTask, updateTaskProgress, completeTask, failTask, onReportGenerated])
 
   const handleGenerate = async () => {
+    // #region agent log
+    fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ReportGeneratorV2.tsx:77',message:'handleGenerate called',data:{workspaceId:currentWorkspace?.id,workspaceName:currentWorkspace?.name,reportType},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H3'})}).catch(()=>{});
+    // #endregion
     if (!currentWorkspace || !currentWorkspace.id) {
       toast.error('Por favor selecciona un workspace')
       return
@@ -82,6 +91,9 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
 
     setIsGenerating(true)
     setTaskId(null)
+    // #region agent log
+    fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ReportGeneratorV2.tsx:84',message:'Before API call',data:{workspaceId:currentWorkspace.id,reportType},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H3'})}).catch(()=>{});
+    // #endregion
 
     try {
       const result = await reportingAPI.generateReportV2(
@@ -90,9 +102,15 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
         'pdf'
       )
 
+      // #region agent log
+      fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ReportGeneratorV2.tsx:93',message:'API call success',data:{taskId:result.task_id,result:JSON.stringify(result)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H3'})}).catch(()=>{});
+      // #endregion
       setTaskId(result.task_id)
       toast.success('Generación de reporte iniciada')
     } catch (error: any) {
+      // #region agent log
+      fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ReportGeneratorV2.tsx:96',message:'API call error',data:{error:error.message,errorResponse:error.response?.data},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H3'})}).catch(()=>{});
+      // #endregion
       console.error('Error iniciando generación de reporte V2:', error)
       toast.error(error.response?.data?.error || error.message || 'Error iniciando generación de reporte')
       setIsGenerating(false)
@@ -108,7 +126,7 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
       case 'processing':
         return <Loader className="w-4 h-4 animate-spin text-blue-400" />
       case 'completed':
-        return <CheckCircle className="w-4 h-4 text-green-400" />
+        return <CheckCircle className="w-4 h-4 text-gray-900" />
       case 'failed':
         return <XCircle className="w-4 h-4 text-red-400" />
       default:
@@ -134,7 +152,7 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
   }
 
   return (
-    <div className="bg-gray-900 border border-blue-500 rounded-lg p-6">
+    <div className="bg-gray-100 border border-blue-500 rounded-xl p-6">
       <div className="mb-4">
         <h3 className="text-lg font-bold text-blue-400 flex items-center gap-2">
           <FileText className="w-5 h-5" />
@@ -147,14 +165,14 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
 
       {/* Selector de tipo de reporte */}
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-300 mb-2">
+        <label className="block text-sm font-medium text-gray-600 mb-2">
           Tipo de Reporte
         </label>
         <select
           value={reportType}
           onChange={(e) => setReportType(e.target.value as any)}
           disabled={isGenerating || isPolling}
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+          className="w-full bg-gray-100 border border-gray-300 rounded-xl px-4 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 disabled:opacity-50"
         >
           <option value="technical">Técnico</option>
           <option value="executive">Ejecutivo</option>
@@ -164,10 +182,10 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
 
       {/* Estado actual */}
       {status && (
-        <div className="mb-4 p-3 bg-gray-800 rounded-lg border border-gray-700">
+        <div className="mb-4 p-3 bg-white rounded-xl border border-gray-200">
           <div className="flex items-center gap-2 mb-2">
             {getStatusIcon()}
-            <span className="text-sm font-medium text-gray-300">
+            <span className="text-sm font-medium text-gray-600">
               {getStatusMessage()}
             </span>
           </div>
@@ -180,79 +198,36 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
                   style={{ width: `${status.progress}%` }}
                 />
               </div>
-              <p className="text-xs text-gray-400 mt-1 text-right">
+              <p className="text-xs text-gray-500 mt-1 text-right">
                 {status.progress}%
               </p>
             </div>
           )}
           
-          {status.status === 'failed' && status.error && (
-            <div className="mt-2 flex items-start gap-2 text-red-400 text-sm">
-              <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-              <span>{status.error}</span>
+          {status.status === 'failed' && (
+            <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+              <div className="flex items-start gap-2 text-red-600 text-sm">
+                <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <div className="flex-1">
+                  <p className="font-medium">
+                    {status.error?.includes('serialization issue')
+                      ? 'Error en el procesamiento del reporte'
+                      : status.error || status.message || 'Error generando reporte'}
+                  </p>
+                  {status.error?.includes('serialization issue') && (
+                    <p className="text-xs text-red-500 mt-1">
+                      El error no pudo ser serializado correctamente. Por favor, revisa los logs del servidor o contacta al administrador.
+                    </p>
+                  )}
+                  {taskId && (
+                    <p className="text-xs text-gray-500 mt-1 font-mono">
+                      Task ID: {taskId}
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
           )}
-          
-          {/* Información del reporte cuando está completado */}
-          {status.status === 'completed' && status.result && (() => {
-            const resultData = status.result?.result || status.result
-            const metadata = resultData?.metadata || {}
-            const toolsUsed = metadata.tools_used || resultData?.tools_used || []
-            const totalFindings = resultData?.total_findings || metadata.total_findings || 0
-            const riskScore = resultData?.risk_score || metadata.risk_score || 0
-            const filesProcessed = metadata.files_processed || resultData?.files_processed || 0
-            
-            return (
-              <div className="mt-3 pt-3 border-t border-gray-700 space-y-2">
-                {/* Estadísticas del reporte */}
-                {(totalFindings > 0 || filesProcessed > 0 || riskScore > 0) && (
-                  <div className="grid grid-cols-3 gap-2 text-xs">
-                    {totalFindings > 0 && (
-                      <div className="bg-gray-900 rounded p-2">
-                        <div className="text-gray-400">Hallazgos</div>
-                        <div className="text-white font-bold">{totalFindings}</div>
-                      </div>
-                    )}
-                    {filesProcessed > 0 && (
-                      <div className="bg-gray-900 rounded p-2">
-                        <div className="text-gray-400">Archivos</div>
-                        <div className="text-white font-bold">{filesProcessed}</div>
-                      </div>
-                    )}
-                    {riskScore > 0 && (
-                      <div className="bg-gray-900 rounded p-2">
-                        <div className="text-gray-400">Risk Score</div>
-                        <div className="text-white font-bold">{riskScore.toFixed(1)}</div>
-                      </div>
-                    )}
-                  </div>
-                )}
-                
-                {/* Herramientas usadas */}
-                {toolsUsed && toolsUsed.length > 0 && (
-                  <div className="bg-gray-900 rounded p-2">
-                    <div className="text-gray-400 text-xs mb-1.5 flex items-center gap-1">
-                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      Herramientas Usadas
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {toolsUsed.map((tool: string, index: number) => (
-                        <span
-                          key={index}
-                          className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-900/50 text-blue-300 border border-blue-700/50"
-                        >
-                          {tool}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )
-          })()}
         </div>
       )}
 
@@ -261,7 +236,7 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
         type="button"
         onClick={handleGenerate}
         disabled={isGenerating || isPolling || !currentWorkspace}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
       >
         {isGenerating || isPolling ? (
           <>
@@ -337,7 +312,7 @@ const ReportGeneratorV2: React.FC<ReportGeneratorV2Props> = ({
               toast.error('Error al descargar el reporte')
             }
           }}
-          className="w-full mt-3 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center justify-center transition-colors"
+          className="w-full mt-3 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl flex items-center justify-center transition-colors"
         >
           <Download className="w-4 h-4 mr-2" />
           Descargar Reporte PDF

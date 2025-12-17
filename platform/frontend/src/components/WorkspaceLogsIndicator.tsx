@@ -50,14 +50,14 @@ export const WorkspaceLogsIndicator: React.FC<WorkspaceLogsIndicatorProps> = ({ 
 
   if (!stats || stats.total_logs === 0) {
     return (
-      <div className="text-xs text-gray-400">
+      <div className="text-xs text-gray-500">
         {statusEmoji} {workspace.name} [{statusText}] Sin logs
       </div>
     )
   }
 
   return (
-    <div className="text-xs text-gray-300 flex items-center gap-2">
+    <div className="text-xs text-gray-600 flex items-center gap-2">
       <span>
         {statusEmoji} {workspace.name} [{statusText}] {formatLogCount(stats.total_logs)} logs
       </span>

@@ -23,7 +23,7 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({
   children
 }) => {
   return (
-    <div className={`bg-gray-800 p-6 rounded-lg border ${borderColor}`}>
+    <div className={`bg-white p-6 rounded-xl border ${borderColor}`}>
       <h3 className={`text-lg font-semibold ${titleColor} mb-4`}>{title}</h3>
       <div className={height}>
         {children}

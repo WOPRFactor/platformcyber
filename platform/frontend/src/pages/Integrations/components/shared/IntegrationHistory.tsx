@@ -12,10 +12,10 @@ export const IntegrationHistory: React.FC<IntegrationHistoryProps> = ({
   isLoading
 }) => {
   return (
-    <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+    <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
       <div className="mb-4">
-        <h2 className="text-xl font-bold text-green-400">Historial de Integraciones</h2>
-        <p className="text-green-600">
+        <h2 className="text-lg font-semibold text-gray-900">Historial de Integraciones</h2>
+        <p className="text-gray-500">
           Sesiones de herramientas avanzadas ejecutadas
         </p>
       </div>
@@ -26,7 +26,7 @@ export const IntegrationHistory: React.FC<IntegrationHistoryProps> = ({
       ) : sessions && sessions.length > 0 ? (
         <div className="space-y-2">
           {sessions.slice(0, 10).map((session: IntegrationSession) => (
-            <div key={session?.id || Math.random()} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+            <div key={session?.id || Math.random()} className="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200">
               <div>
                 <div className="font-medium">{session?.target || 'Unknown'}</div>
                 <div className="text-sm text-gray-600">

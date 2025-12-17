@@ -79,7 +79,7 @@ export const KubeBenchSection: React.FC<KubeBenchSectionProps> = ({ workspaceId 
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-purple-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-purple-500 rounded-xl p-6">
         <div className="mb-4">
           <h3 className="text-lg font-bold text-purple-400 flex items-center gap-2">
             <CheckSquare className="w-5 h-5" />
@@ -92,7 +92,7 @@ export const KubeBenchSection: React.FC<KubeBenchSectionProps> = ({ workspaceId 
 
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Componentes a verificar
             </label>
             <div className="flex flex-wrap gap-2">
@@ -103,7 +103,7 @@ export const KubeBenchSection: React.FC<KubeBenchSectionProps> = ({ workspaceId 
                   className={`px-3 py-1 rounded-md text-sm ${
                     targets.includes(target)
                       ? 'bg-purple-600 text-white'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                      : 'bg-gray-700 text-gray-600 hover:bg-gray-600'
                   }`}
                 >
                   {target.charAt(0).toUpperCase() + target.slice(1)}
@@ -116,7 +116,7 @@ export const KubeBenchSection: React.FC<KubeBenchSectionProps> = ({ workspaceId 
         <button
           onClick={handleKubeBenchWithPreview}
           disabled={kubeBenchMutation.isPending || targets.length === 0}
-          className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+          className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
         >
           {kubeBenchMutation.isPending ? (
             <>
@@ -144,6 +144,9 @@ export const KubeBenchSection: React.FC<KubeBenchSectionProps> = ({ workspaceId 
     </div>
   )
 }
+
+
+
 
 
 

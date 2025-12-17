@@ -24,7 +24,7 @@ interface SystemMonitorLogViewerProps {
 const getSourceColor = (source: LogSource): string => {
   switch (source) {
     case 'BACKEND': return 'text-cyan-400'
-    case 'CELERY': return 'text-green-400'
+    case 'CELERY': return 'text-gray-900'
     case 'NIKTO': return 'text-yellow-400'
     case 'NMAP': return 'text-blue-400'
     case 'NUCLEI': return 'text-purple-400'
@@ -33,7 +33,7 @@ const getSourceColor = (source: LogSource): string => {
     case 'TESTSSL': return 'text-teal-400'
     case 'WHATWEB': return 'text-indigo-400'
     case 'DALFOX': return 'text-rose-400'
-    default: return 'text-gray-300'
+    default: return 'text-gray-600'
   }
 }
 
@@ -42,9 +42,9 @@ const getLevelColor = (level: string): string => {
   switch (level) {
     case 'ERROR': return 'text-red-400'
     case 'WARNING': return 'text-orange-400'
-    case 'INFO': return 'text-gray-300'
+    case 'INFO': return 'text-gray-600'
     case 'DEBUG': return 'text-gray-500'
-    default: return 'text-gray-300'
+    default: return 'text-gray-600'
   }
 }
 
@@ -89,7 +89,7 @@ export const SystemMonitorLogViewer: React.FC<SystemMonitorLogViewerProps> = ({
     <div
       ref={containerRef}
       onScroll={handleScroll}
-      className="flex-1 overflow-y-auto p-3 bg-gray-900 font-mono text-sm"
+      className="flex-1 overflow-y-auto p-3 bg-gray-50 font-mono text-sm"
       style={{ fontFamily: 'monospace' }}
     >
       {logs.length === 0 ? (
@@ -105,9 +105,9 @@ export const SystemMonitorLogViewer: React.FC<SystemMonitorLogViewerProps> = ({
               return (
                 <div
                   key={log.id}
-                  className="flex items-center justify-center py-3 my-2 border-t border-b border-green-500/50"
+                  className="flex items-center justify-center py-3 my-2 border-t border-b border-gray-200/50"
                 >
-                  <span className="text-green-400 font-bold text-sm px-4 bg-gray-900">
+                  <span className="text-gray-900 font-bold text-sm px-4 bg-gray-50">
                     {log.message}
                   </span>
                 </div>
@@ -117,7 +117,7 @@ export const SystemMonitorLogViewer: React.FC<SystemMonitorLogViewerProps> = ({
             return (
               <div
                 key={log.id}
-                className={`flex items-start space-x-2 text-xs hover:bg-gray-800/30 px-2 py-1 rounded ${
+                className={`flex items-start space-x-2 text-xs hover:bg-white/30 px-2 py-1 rounded ${
                   log.id.startsWith('historical-') ? 'opacity-75' : ''
                 }`}
               >
@@ -137,7 +137,7 @@ export const SystemMonitorLogViewer: React.FC<SystemMonitorLogViewerProps> = ({
                 </span>
 
                 {/* Mensaje */}
-                <span className="text-gray-300 flex-1 break-words">
+                <span className="text-gray-600 flex-1 break-words">
                   {log.raw ? log.raw : log.message}
                 </span>
               </div>

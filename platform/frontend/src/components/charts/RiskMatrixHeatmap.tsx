@@ -126,14 +126,14 @@ const RiskMatrixHeatmap: React.FC<RiskMatrixHeatmapProps> = ({
         <div className="relative" style={{ width: '100%', height: '500px' }}>
           {/* Y Axis Label (Impacto) */}
           <div
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 -rotate-90 text-sm font-semibold text-gray-300 whitespace-nowrap"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 -rotate-90 text-sm font-semibold text-gray-600 whitespace-nowrap"
             style={{ writingMode: 'vertical-rl' }}
           >
             Impacto
           </div>
 
           {/* X Axis Label (Probabilidad) */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-8 text-sm font-semibold text-gray-300">
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-8 text-sm font-semibold text-gray-600">
             Probabilidad
           </div>
 
@@ -156,7 +156,7 @@ const RiskMatrixHeatmap: React.FC<RiskMatrixHeatmapProps> = ({
                       return (
                         <motion.div
                           key={`${rowIndex}-${colIndex}`}
-                          className="border border-gray-700 relative cursor-pointer"
+                          className="border border-gray-200 relative cursor-pointer"
                           style={{
                             width: `${cellSize}%`,
                             height: '100%',
@@ -179,7 +179,7 @@ const RiskMatrixHeatmap: React.FC<RiskMatrixHeatmapProps> = ({
                             <motion.div
                               initial={{ scale: 0 }}
                               animate={{ scale: 1 }}
-                              className="absolute top-1 right-1 bg-gray-900 text-white text-xs font-bold px-1.5 py-0.5 rounded"
+                              className="absolute top-1 right-1 bg-gray-50 text-white text-xs font-bold px-1.5 py-0.5 rounded"
                             >
                               {count}
                             </motion.div>
@@ -190,7 +190,7 @@ const RiskMatrixHeatmap: React.FC<RiskMatrixHeatmapProps> = ({
                             <motion.div
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
-                              className="absolute z-20 bg-gray-900 border border-gray-700 rounded-lg p-3 shadow-xl"
+                              className="absolute z-20 bg-gray-50 border border-gray-200 rounded-xl p-3 shadow-xl"
                               style={{
                                 bottom: '100%',
                                 left: '50%',
@@ -204,7 +204,7 @@ const RiskMatrixHeatmap: React.FC<RiskMatrixHeatmapProps> = ({
                               </div>
                               <div className="space-y-1">
                                 {cell.slice(0, 3).map((risk) => (
-                                  <div key={risk.id} className="text-xs text-gray-300">
+                                  <div key={risk.id} className="text-xs text-gray-600">
                                     • {risk.name}
                                   </div>
                                 ))}
@@ -234,20 +234,20 @@ const RiskMatrixHeatmap: React.FC<RiskMatrixHeatmapProps> = ({
               <span>Medio</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-green-500 rounded" />
+              <div className="w-3 h-3 bg-red-600 rounded" />
               <span>Bajo</span>
             </div>
           </div>
         </div>
 
         {/* Legend */}
-        <div className="mt-4 flex items-center justify-center space-x-6 text-xs text-gray-400">
+        <div className="mt-4 flex items-center justify-center space-x-6 text-xs text-gray-500">
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 bg-gray-700 rounded" />
             <span>Sin riesgos</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-green-500/50 rounded" />
+            <div className="w-4 h-4 bg-red-600/50 rounded" />
             <span>1-2 riesgos</span>
           </div>
           <div className="flex items-center space-x-2">
@@ -265,33 +265,33 @@ const RiskMatrixHeatmap: React.FC<RiskMatrixHeatmapProps> = ({
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-4 bg-gray-700/50 rounded-lg border border-gray-600"
+            className="mt-4 p-4 bg-gray-700/50 rounded-xl border border-gray-200"
           >
             <div className="flex items-start justify-between mb-2">
               <h4 className="text-white font-semibold">{selectedRisk.name}</h4>
               <button
                 onClick={() => setSelectedRisk(null)}
-                className="text-gray-400 hover:text-white"
+                className="text-gray-500 hover:text-white"
               >
                 ✕
               </button>
             </div>
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-gray-400">Probabilidad:</span>
+                <span className="text-gray-500">Probabilidad:</span>
                 <span className="text-white font-semibold ml-2">
                   {selectedRisk.probability}%
                 </span>
               </div>
               <div>
-                <span className="text-gray-400">Impacto:</span>
+                <span className="text-gray-500">Impacto:</span>
                 <span className="text-white font-semibold ml-2">
                   {selectedRisk.impact}%
                 </span>
               </div>
               {selectedRisk.count && (
                 <div>
-                  <span className="text-gray-400">Ocurrencias:</span>
+                  <span className="text-gray-500">Ocurrencias:</span>
                   <span className="text-white font-semibold ml-2">
                     {selectedRisk.count}
                   </span>
@@ -299,7 +299,7 @@ const RiskMatrixHeatmap: React.FC<RiskMatrixHeatmapProps> = ({
               )}
               {selectedRisk.affected_hosts && (
                 <div>
-                  <span className="text-gray-400">Hosts Afectados:</span>
+                  <span className="text-gray-500">Hosts Afectados:</span>
                   <span className="text-white font-semibold ml-2">
                     {selectedRisk.affected_hosts}
                   </span>

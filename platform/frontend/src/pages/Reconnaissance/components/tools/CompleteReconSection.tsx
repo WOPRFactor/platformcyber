@@ -24,20 +24,20 @@ export const CompleteReconSection: React.FC<CompleteReconSectionProps> = ({ targ
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
         <div className="mb-4">
-          <h3 className="text-lg font-bold text-green-400 flex items-center gap-2">
+          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
             <Activity className="w-5 h-5" />
             Reconocimiento Completo
           </h3>
-          <p className="text-green-600">
+          <p className="text-gray-500">
             Ejecuta todas las fases básicas de reconocimiento automáticamente
           </p>
         </div>
 
-        <div className="bg-gray-800 rounded-lg p-4 mb-4">
-          <h4 className="text-md font-semibold text-green-400 mb-2">Fases Incluidas</h4>
-          <ul className="text-sm text-gray-400 space-y-1 list-disc list-inside">
+        <div className="bg-gray-100 rounded-xl p-4 border border-gray-200 mb-4">
+          <h4 className="text-md font-semibold text-gray-900 mb-2">Fases Incluidas</h4>
+          <ul className="text-sm text-gray-500 space-y-1 list-disc list-inside">
             <li>WHOIS - Consulta de información de registro</li>
             <li>DNS - Enumeración DNS completa</li>
             <li>Subdominios - Enumeración con Subfinder</li>
@@ -51,9 +51,9 @@ export const CompleteReconSection: React.FC<CompleteReconSectionProps> = ({ targ
             id="include-advanced"
             checked={includeAdvanced}
             onChange={(e) => setIncludeAdvanced(e.target.checked)}
-            className="w-4 h-4 text-green-500 bg-gray-700 border-gray-600 rounded focus:ring-green-500"
+            className="w-4 h-4 text-gray-800 bg-gray-700 border-gray-200 rounded focus:ring-red-500"
           />
-          <label htmlFor="include-advanced" className="ml-2 text-sm text-gray-300">
+          <label htmlFor="include-advanced" className="ml-2 text-sm text-gray-600">
             Incluir herramientas avanzadas (Wayback URLs)
           </label>
         </div>
@@ -61,7 +61,7 @@ export const CompleteReconSection: React.FC<CompleteReconSectionProps> = ({ targ
         <button
           onClick={() => completeMutation.mutate(includeAdvanced)}
           disabled={completeMutation.isPending || !target.trim()}
-          className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 text-lg font-semibold"
+          className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-lg font-semibold"
         >
           {completeMutation.isPending ? (
             <>

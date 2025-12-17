@@ -51,7 +51,7 @@ const Reconnaissance: React.FC = () => {
   if (!isAuthenticated) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p className="text-red-400">Debes iniciar sesión para acceder a esta página</p>
+        <p className="text-red-500">You must log in to access this page</p>
       </div>
     )
   }
@@ -59,63 +59,65 @@ const Reconnaissance: React.FC = () => {
   if (!currentWorkspace) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p className="text-yellow-400">Por favor selecciona un workspace</p>
+        <p className="text-amber-500">Please select a workspace</p>
       </div>
     )
   }
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8 space-y-6">
-        <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
-          <h1 className="text-3xl font-bold text-green-400 mb-2">Reconocimiento y OSINT</h1>
-          <p className="text-green-600">
-            Herramientas de reconocimiento pasivo y activo para recopilar información sobre objetivos
+      <div className="space-y-6">
+        {/* Page Header */}
+        <div className="bg-gray-100 border border-gray-300 rounded-xl p-6 shadow-sm">
+          <h1 className="text-2xl font-semibold text-gray-900 mb-1">Reconnaissance & OSINT</h1>
+          <p className="text-gray-500">
+            Passive and active reconnaissance tools for gathering target information
           </p>
-      </div>
+        </div>
       
-        {/* Información del workspace */}
+        {/* Workspace Info */}
         {currentWorkspace && (
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
-        <div className="mb-4">
-              <h2 className="text-xl font-bold text-green-400">Workspace Actual</h2>
-              <p className="text-green-600">
-                {currentWorkspace.name} - {currentWorkspace.target_domain || 'Sin target configurado'}
+          <div className="bg-gray-100 border border-gray-300 rounded-xl p-6 shadow-sm">
+            <div className="mb-3">
+              <h2 className="text-lg font-semibold text-gray-900">Current Workspace</h2>
+              <p className="text-gray-500 text-sm">
+                {currentWorkspace.name} - {currentWorkspace.target_domain || 'No target configured'}
               </p>
             </div>
             {currentWorkspace.target_domain ? (
-            <div className="space-y-2">
-              <p className="text-green-600 flex items-center gap-2">
-                <span className="text-green-400">🎯</span>
-                Target del workspace: <span className="text-green-300 font-mono font-bold">{currentWorkspace.target_domain}</span>
-              </p>
-              {currentWorkspace.target_ip && (
-                <p className="text-gray-400 text-sm">
-                  IP: <span className="text-gray-300 font-mono">{currentWorkspace.target_ip}</span>
+              <div className="space-y-2">
+                <p className="text-gray-600 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                  Workspace target: <span className="text-gray-900 font-mono font-medium">{currentWorkspace.target_domain}</span>
                 </p>
-              )}
-                </div>
-          ) : (
-            <p className="text-yellow-600">
-              ⚠️ Este workspace no tiene un target configurado. Ingresa manualmente el objetivo.
-            </p>
-          )}
+                {currentWorkspace.target_ip && (
+                  <p className="text-gray-500 text-sm">
+                    IP: <span className="text-gray-700 font-mono">{currentWorkspace.target_ip}</span>
+                  </p>
+                )}
+              </div>
+            ) : (
+              <p className="text-amber-600 flex items-center gap-2 text-sm">
+                <span className="w-2 h-2 bg-amber-500 rounded-full"></span>
+                This workspace has no target configured. Enter the target manually.
+              </p>
+            )}
           </div>
         )}
 
         {/* Target Input */}
         <ReconTargetInput target={target} setTarget={setTarget} clearTarget={clearTarget} />
 
-      {/* Tabs de herramientas */}
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
-        <div className="mb-4">
-          <h2 className="text-xl font-bold text-green-400">Herramientas de Reconocimiento</h2>
-          <p className="text-green-600">
-            Seleccione la categoría de herramientas a utilizar
-          </p>
-        </div>
+        {/* Tabs de herramientas */}
+        <div className="bg-gray-100 border border-gray-300 rounded-xl p-6 shadow-sm">
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">Reconnaissance Tools</h2>
+            <p className="text-gray-500 text-sm mt-1">
+              Select the tool category to use
+            </p>
+          </div>
         
-        <div className="w-full">
+          <div className="w-full">
             <ReconnaissanceTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
             {/* Contenido de cada tab */}
@@ -138,18 +140,18 @@ const Reconnaissance: React.FC = () => {
             {activeTab === 'complete' && (
               <CompleteReconSection target={target} workspaceId={currentWorkspace.id} />
             )}
+          </div>
         </div>
       </div>
-    </div>
     
-    <CommandPreviewModal
-      isOpen={showPreview}
+      <CommandPreviewModal
+        isOpen={showPreview}
         onClose={closePreview}
         onExecute={executePreview}
-      previewData={previewData}
-      toolName={previewToolName}
-      category="reconnaissance"
-    />
+        previewData={previewData}
+        toolName={previewToolName}
+        category="reconnaissance"
+      />
     </>
   )
 }

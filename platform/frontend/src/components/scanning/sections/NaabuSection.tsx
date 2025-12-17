@@ -63,25 +63,25 @@ const NaabuSection: React.FC<NaabuSectionProps> = ({
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
         <div className="mb-4">
-          <h3 className="text-lg font-bold text-green-400 flex items-center gap-2">
+          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
             <Zap className="w-5 h-5" />
             Naabu - Port Discovery Rápido
           </h3>
-          <p className="text-green-600">
+          <p className="text-gray-500">
             Descubrimiento rápido de puertos usando Naabu. Optimizado para velocidad y eficiencia.
           </p>
         </div>
         <div className="space-y-4">
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-purple-400 mb-2">Configuración</h4>
             <div className="grid grid-cols-3 gap-3 mb-3">
               <div>
-                <label className="text-sm text-gray-400">Top Ports</label>
+                <label className="text-sm text-gray-500">Top Ports</label>
                 <select
                   id="naabu-top-ports"
-                  className="w-full bg-gray-900 border border-gray-700 rounded px-2 py-1 text-gray-300 text-sm"
+                  className="w-full bg-gray-50 border border-gray-200 rounded px-2 py-1 text-gray-600 text-sm"
                   defaultValue=""
                 >
                   <option value="">Todos</option>
@@ -90,16 +90,16 @@ const NaabuSection: React.FC<NaabuSectionProps> = ({
                 </select>
               </div>
               <div>
-                <label className="text-sm text-gray-400">Rate (paquetes/seg)</label>
+                <label className="text-sm text-gray-500">Rate (paquetes/seg)</label>
                 <input
                   type="number"
                   id="naabu-rate"
                   defaultValue={1000}
-                  className="w-full bg-gray-900 border border-gray-700 rounded px-2 py-1 text-gray-300 text-sm"
+                  className="w-full bg-gray-50 border border-gray-200 rounded px-2 py-1 text-gray-600 text-sm"
                 />
               </div>
               <div className="flex items-end">
-                <label className="flex items-center text-sm text-gray-400">
+                <label className="flex items-center text-sm text-gray-500">
                   <input
                     type="checkbox"
                     id="naabu-verify"
@@ -148,7 +148,7 @@ const NaabuSection: React.FC<NaabuSectionProps> = ({
               }
             }}
             disabled={naabuMutation.isPending || !target?.trim()}
-            className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-purple-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center"
+            className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-purple-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center"
           >
             {naabuMutation.isPending ? (
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />

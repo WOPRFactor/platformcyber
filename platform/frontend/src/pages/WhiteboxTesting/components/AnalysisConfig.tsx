@@ -26,28 +26,28 @@ export const AnalysisConfig: React.FC<AnalysisConfigProps> = ({
   onConfigTypesChange
 }) => {
   return (
-    <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+    <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
       <div className="mb-4">
-        <h2 className="text-xl font-bold text-green-400">Configuración del Análisis</h2>
+        <h2 className="text-lg font-semibold text-gray-900">Configuración del Análisis</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">Ruta del Código Fuente</label>
+          <label className="block text-sm font-medium text-gray-900 mb-2">Ruta del Código Fuente</label>
           <input
             type="text"
             value={targetPath}
             onChange={(e) => onTargetPathChange(e.target.value)}
             placeholder="/path/to/source/code"
-            className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">Lenguaje de Programación</label>
+          <label className="block text-sm font-medium text-gray-900 mb-2">Lenguaje de Programación</label>
           <select
             value={language}
             onChange={(e) => onLanguageChange(e.target.value)}
-            className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="auto">Auto-detectar</option>
             <option value="python">Python</option>
@@ -59,11 +59,11 @@ export const AnalysisConfig: React.FC<AnalysisConfigProps> = ({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">Gestor de Paquetes</label>
+          <label className="block text-sm font-medium text-gray-900 mb-2">Gestor de Paquetes</label>
           <select
             value={packageManager}
             onChange={(e) => onPackageManagerChange(e.target.value)}
-            className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="auto">Auto-detectar</option>
             <option value="pip">Python (pip)</option>
@@ -74,7 +74,7 @@ export const AnalysisConfig: React.FC<AnalysisConfigProps> = ({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">Tipos de Configuración</label>
+          <label className="block text-sm font-medium text-gray-900 mb-2">Tipos de Configuración</label>
           <div className="space-y-2">
             {[
               { id: 'web_servers', label: 'Servidores Web' },
@@ -103,7 +103,7 @@ export const AnalysisConfig: React.FC<AnalysisConfigProps> = ({
       </div>
 
       <div className="mt-4">
-        <label className="block text-sm font-medium text-green-400 mb-2">Escáneres de Secrets</label>
+        <label className="block text-sm font-medium text-gray-900 mb-2">Escáneres de Secrets</label>
         <div className="space-y-2">
           {[
             { id: 'patterns', label: 'Patrones comunes' },

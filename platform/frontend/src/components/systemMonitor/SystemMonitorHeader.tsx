@@ -40,7 +40,7 @@ export const SystemMonitorHeader: React.FC<SystemMonitorHeaderProps> = ({
   }
 
   return (
-    <div className="modal-header flex items-center justify-between p-3 border-b border-green-500 bg-gray-800 rounded-t-lg select-none">
+    <div className="modal-header flex items-center justify-between p-3 border-b border-gray-200 bg-white rounded-t-lg select-none">
       <div className="flex items-center space-x-3 flex-1 min-w-0">
         <Activity className="w-5 h-5 text-cyan-400 flex-shrink-0" />
         <div className="flex items-center space-x-2 flex-1 min-w-0">
@@ -52,7 +52,7 @@ export const SystemMonitorHeader: React.FC<SystemMonitorHeaderProps> = ({
           )}
           {/* Estadísticas de logs */}
           {stats && !isLoadingStats && (
-            <span className="text-xs text-gray-400 whitespace-nowrap truncate">
+            <span className="text-xs text-gray-500 whitespace-nowrap truncate">
               Logs: {formatLogCount(stats.totalLogs)} entradas ({stats.sizeMB.toFixed(1)}MB)
               {stats.daysSinceFirst > 0 && ` - Últimos ${stats.daysSinceFirst} días`}
             </span>
@@ -64,7 +64,7 @@ export const SystemMonitorHeader: React.FC<SystemMonitorHeaderProps> = ({
         {/* Botón Exportar */}
         <button
           onClick={onExportLogs}
-          className="p-1.5 text-gray-400 hover:text-green-400 transition-colors"
+          className="p-1.5 text-gray-500 hover:text-gray-900 transition-colors"
           title="Exportar logs"
         >
           <Download className="w-4 h-4" />
@@ -72,7 +72,7 @@ export const SystemMonitorHeader: React.FC<SystemMonitorHeaderProps> = ({
         {/* Botón Limpiar */}
         <button
           onClick={onClearLogs}
-          className="p-1.5 text-gray-400 hover:text-red-400 transition-colors"
+          className="p-1.5 text-gray-500 hover:text-red-400 transition-colors"
           title="Limpiar logs"
         >
           <Trash2 className="w-4 h-4" />
@@ -80,7 +80,7 @@ export const SystemMonitorHeader: React.FC<SystemMonitorHeaderProps> = ({
         {/* Botón Minimizar */}
         <button
           onClick={onMinimize}
-          className="p-1.5 text-gray-400 hover:text-cyan-400 transition-colors"
+          className="p-1.5 text-gray-500 hover:text-cyan-400 transition-colors"
           title={isMinimized ? "Maximizar" : "Minimizar"}
         >
           {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
@@ -88,7 +88,7 @@ export const SystemMonitorHeader: React.FC<SystemMonitorHeaderProps> = ({
         {/* Botón Cerrar */}
         <button
           onClick={onClose}
-          className="p-1.5 text-gray-400 hover:text-red-400 transition-colors"
+          className="p-1.5 text-gray-500 hover:text-red-400 transition-colors"
           title="Cerrar"
         >
           <X className="w-4 h-4" />

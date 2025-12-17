@@ -305,3 +305,4 @@ textfont=dict(size=14, color='white', weight='bold')  # Texto mejorado
 **Última actualización**: 12 de Diciembre 2025, 14:05  
 **Estado**: ✅ Comparación completa y actualizada
 
+

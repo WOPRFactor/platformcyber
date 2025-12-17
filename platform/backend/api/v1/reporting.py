@@ -8,6 +8,7 @@ Endpoints para generación de reportes profesionales.
 from flask import Blueprint, request, jsonify, send_file
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import logging
+import time
 from datetime import datetime
 
 from services import ReportingService
@@ -363,16 +364,214 @@ def get_report_status(task_id: str):
         }
     """
     try:
+        # #region agent log
+        try:
+            import json
+            with open('/home/kali/Proyectos/cybersecurity/.cursor/debug.log', 'a') as f:
+                f.write(json.dumps({
+                    'location': 'reporting.py:366',
+                    'message': 'get_report_status llamado',
+                    'data': {'task_id': task_id},
+                    'timestamp': int(time.time() * 1000),
+                    'sessionId': 'debug-session',
+                    'runId': 'run1',
+                    'hypothesisId': 'H1'
+                }) + '\n')
+        except: pass
+        # #endregion
+        
         task = celery.AsyncResult(task_id)
         
         # Acceder a task.state puede fallar si la excepción no está serializada correctamente
         # Envolver en try-except para manejar este caso
         try:
             task_state = task.state
+            
+            # #region agent log
+            try:
+                import json
+                with open('/home/kali/Proyectos/cybersecurity/.cursor/debug.log', 'a') as f:
+                    f.write(json.dumps({
+                        'location': 'reporting.py:372',
+                        'message': 'task.state obtenido exitosamente',
+                        'data': {'task_id': task_id, 'task_state': task_state},
+                        'timestamp': int(time.time() * 1000),
+                        'sessionId': 'debug-session',
+                        'runId': 'run1',
+                        'hypothesisId': 'H1'
+                    }) + '\n')
+            except: pass
+            # #endregion
+            
         except ValueError as state_error:
             # Si no podemos obtener el estado porque la excepción no está serializada,
-            # asumir que la tarea falló
+            # intentar leer directamente desde Redis
+            
+            # #region agent log
+            try:
+                import json
+                with open('/home/kali/Proyectos/cybersecurity/.cursor/debug.log', 'a') as f:
+                    f.write(json.dumps({
+                        'location': 'reporting.py:375',
+                        'message': 'task.state falló con ValueError',
+                        'data': {'task_id': task_id, 'error': str(state_error), 'error_type': type(state_error).__name__},
+                        'timestamp': int(time.time() * 1000),
+                        'sessionId': 'debug-session',
+                        'runId': 'run1',
+                        'hypothesisId': 'H3'
+                    }) + '\n')
+            except: pass
+            # #endregion
+            
             logger.warning(f"Could not get task.state for task {task_id}: {state_error}")
+            
+            # Intentar leer directamente desde Redis
+            try:
+                import redis
+                import os
+                # Obtener URL de Redis desde la misma configuración que Celery
+                redis_url = os.getenv('CELERY_RESULT_BACKEND') or os.getenv('REDIS_URL', 'redis://localhost:6379/1')
+                
+                # #region agent log
+                try:
+                    import json
+                    with open('/home/kali/Proyectos/cybersecurity/.cursor/debug.log', 'a') as f:
+                        f.write(json.dumps({
+                            'location': 'reporting.py:383',
+                            'message': 'Intentando leer desde Redis',
+                            'data': {'task_id': task_id, 'redis_url': redis_url},
+                            'timestamp': int(time.time() * 1000),
+                            'sessionId': 'debug-session',
+                            'runId': 'run1',
+                            'hypothesisId': 'H1'
+                        }) + '\n')
+                except: pass
+                # #endregion
+                
+                redis_client = redis.from_url(redis_url)
+                redis_key = f"celery-task-meta-{task_id}"
+                raw_result = redis_client.get(redis_key)
+                
+                # #region agent log
+                try:
+                    import json
+                    with open('/home/kali/Proyectos/cybersecurity/.cursor/debug.log', 'a') as f:
+                        f.write(json.dumps({
+                            'location': 'reporting.py:387',
+                            'message': 'Dato leído desde Redis',
+                            'data': {'task_id': task_id, 'redis_key': redis_key, 'raw_result_exists': raw_result is not None, 'raw_result_preview': str(raw_result)[:200] if raw_result else None},
+                            'timestamp': int(time.time() * 1000),
+                            'sessionId': 'debug-session',
+                            'runId': 'run1',
+                            'hypothesisId': 'H1'
+                        }) + '\n')
+                except: pass
+                # #endregion
+                
+                if raw_result:
+                    import json
+                    meta = json.loads(raw_result)
+                    
+                    # #region agent log
+                    try:
+                        import json
+                        with open('/home/kali/Proyectos/cybersecurity/.cursor/debug.log', 'a') as f:
+                            f.write(json.dumps({
+                                'location': 'reporting.py:390',
+                                'message': 'Meta parseado desde Redis',
+                                'data': {'task_id': task_id, 'meta_keys': list(meta.keys()) if isinstance(meta, dict) else None, 'meta_status': meta.get('status') if isinstance(meta, dict) else None, 'meta_result_type': type(meta.get('result')).__name__ if isinstance(meta, dict) else None},
+                                'timestamp': int(time.time() * 1000),
+                                'sessionId': 'debug-session',
+                                'runId': 'run1',
+                                'hypothesisId': 'H4'
+                            }) + '\n')
+                    except: pass
+                    # #endregion
+                    
+                    if meta.get('status') == 'FAILURE' and meta.get('result'):
+                        result = meta['result']
+                        
+                        # #region agent log
+                        try:
+                            import json
+                            with open('/home/kali/Proyectos/cybersecurity/.cursor/debug.log', 'a') as f:
+                                f.write(json.dumps({
+                                    'location': 'reporting.py:393',
+                                    'message': 'Procesando resultado de fallo',
+                                    'data': {'task_id': task_id, 'result_type': type(result).__name__, 'result_keys': list(result.keys()) if isinstance(result, dict) else None, 'result_preview': str(result)[:200]},
+                                    'timestamp': int(time.time() * 1000),
+                                    'sessionId': 'debug-session',
+                                    'runId': 'run1',
+                                    'hypothesisId': 'H4'
+                                }) + '\n')
+                        except: pass
+                        # #endregion
+                        
+                        if isinstance(result, dict):
+                            error_message = result.get('error', 'Report generation failed')
+                            error_type = result.get('error_type', 'UnknownError')
+                            
+                            # #region agent log
+                            try:
+                                import json
+                                with open('/home/kali/Proyectos/cybersecurity/.cursor/debug.log', 'a') as f:
+                                    f.write(json.dumps({
+                                        'location': 'reporting.py:400',
+                                        'message': 'Retornando error desde Redis',
+                                        'data': {'task_id': task_id, 'error_message': error_message, 'error_type': error_type},
+                                        'timestamp': int(time.time() * 1000),
+                                        'sessionId': 'debug-session',
+                                        'runId': 'run1',
+                                        'hypothesisId': 'H1'
+                                    }) + '\n')
+                            except: pass
+                            # #endregion
+                            
+                            return jsonify({
+                                'task_id': task_id,
+                                'status': 'failed',
+                                'progress': 0,
+                                'error': error_message,
+                                'error_type': error_type,
+                                'message': f'Report generation failed: {error_message}'
+                            }), 200
+            except Exception as redis_error:
+                # #region agent log
+                try:
+                    import json
+                    with open('/home/kali/Proyectos/cybersecurity/.cursor/debug.log', 'a') as f:
+                        f.write(json.dumps({
+                            'location': 'reporting.py:404',
+                            'message': 'Error leyendo desde Redis',
+                            'data': {'task_id': task_id, 'error': str(redis_error), 'error_type': type(redis_error).__name__},
+                            'timestamp': int(time.time() * 1000),
+                            'sessionId': 'debug-session',
+                            'runId': 'run1',
+                            'hypothesisId': 'H1'
+                        }) + '\n')
+                except: pass
+                # #endregion
+                
+                logger.warning(f"Could not read from Redis for task {task_id}: {redis_error}")
+            
+            # Si no pudimos leer desde Redis, devolver error genérico
+            
+            # #region agent log
+            try:
+                import json
+                with open('/home/kali/Proyectos/cybersecurity/.cursor/debug.log', 'a') as f:
+                    f.write(json.dumps({
+                        'location': 'reporting.py:407',
+                        'message': 'Retornando error genérico de serialización',
+                        'data': {'task_id': task_id},
+                        'timestamp': int(time.time() * 1000),
+                        'sessionId': 'debug-session',
+                        'runId': 'run1',
+                        'hypothesisId': 'H3'
+                    }) + '\n')
+            except: pass
+            # #endregion
+            
             return jsonify({
                 'task_id': task_id,
                 'status': 'failed',

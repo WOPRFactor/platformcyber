@@ -300,15 +300,15 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
       case 'command_start':
         return 'text-blue-400'
       case 'stdout':
-        return 'text-green-400'
+        return 'text-gray-900'
       case 'stderr':
         return 'text-yellow-400'
       case 'command_end':
-        return 'text-green-300'
+        return 'text-gray-700'
       case 'error':
         return 'text-red-400'
       default:
-        return 'text-gray-300'
+        return 'text-gray-600'
     }
   }
 
@@ -327,7 +327,7 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
               </div>
             )}
             {messages.length > 0 && (
-              <div className="text-xs text-gray-400">
+              <div className="text-xs text-gray-500">
                 {messages.length} mensajes
               </div>
             )}
@@ -339,7 +339,7 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
     return (
       <div className="flex flex-col" style={{ height: 'calc(100% - 48px)' }}>
         {/* Área de mensajes con scroll */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-1 bg-gray-900" style={{ minHeight: 0, overflowX: 'hidden' }}>
+        <div className="flex-1 overflow-y-auto p-4 space-y-1 bg-gray-50" style={{ minHeight: 0, overflowX: 'hidden' }}>
           {messages.length === 0 ? (
             <div className="text-center py-20 text-gray-500">
               <Terminal className="w-16 h-16 mx-auto mb-4 opacity-50" />
@@ -347,9 +347,9 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
               <p className="text-sm">Ingresa comandos para ejecutar...</p>
               <div className="mt-4 text-xs space-y-1">
                 <p>💡 <strong>Comandos útiles:</strong></p>
-                <p><code className="bg-gray-800 px-2 py-1 rounded">nmap -sV -p 80,443 example.com</code></p>
-                <p><code className="bg-gray-800 px-2 py-1 rounded">whois example.com</code></p>
-                <p><code className="bg-gray-800 px-2 py-1 rounded">dig example.com</code></p>
+                <p><code className="bg-white px-2 py-1 rounded">nmap -sV -p 80,443 example.com</code></p>
+                <p><code className="bg-white px-2 py-1 rounded">whois example.com</code></p>
+                <p><code className="bg-white px-2 py-1 rounded">dig example.com</code></p>
               </div>
             </div>
           ) : (
@@ -359,7 +359,7 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
                 className={`flex items-start space-x-3 p-2 rounded ${
                   message.type === 'error' ? 'bg-red-900/20 border border-red-500/30' :
                   message.type === 'stderr' ? 'bg-yellow-900/20 border border-yellow-500/30' :
-                  'hover:bg-gray-800/50'
+                  'hover:bg-white/50'
                 }`}
               >
                 <span className="text-gray-500 text-xs flex-shrink-0 w-12">
@@ -401,9 +401,9 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Input de comandos - Siempre visible */}
-        <div className="border-t border-green-500 bg-gray-800 p-4 flex-shrink-0">
+        <div className="border-t border-gray-200 bg-white p-4 flex-shrink-0">
           <div className="flex items-center space-x-3">
-            <span className="text-green-400 font-bold">$</span>
+            <span className="text-gray-900 font-bold">$</span>
             <input
               ref={inputRef}
               type="text"
@@ -411,7 +411,7 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
               onChange={(e) => setCommand(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Ingresa un comando (ej: nmap -sV -p 80 example.com)"
-              className="flex-1 bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 font-mono"
+              className="flex-1 bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 font-mono"
               disabled={!isConnected}
             />
             {isRunning ? (
@@ -456,7 +456,7 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
         {/* Modal */}
         <div
           ref={modalRef}
-          className="bg-gray-900 border border-cyan-500 rounded-lg shadow-2xl overflow-hidden pointer-events-auto absolute flex flex-col"
+          className="bg-gray-50 border border-cyan-500 rounded-xl shadow-2xl overflow-hidden pointer-events-auto absolute flex flex-col"
           style={{
             left: position.x,
             top: position.y,
@@ -468,7 +468,7 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
           onMouseDown={handleMouseDown}
         >
           {/* Header - Draggable - Siempre visible */}
-          <div className="modal-header flex items-center justify-between p-3 bg-gray-800 border-b border-cyan-500 select-none flex-shrink-0 z-20">
+          <div className="modal-header flex items-center justify-between p-3 bg-white border-b border-cyan-500 select-none flex-shrink-0 z-20">
           <div className="flex items-center space-x-3">
             <Terminal className="w-5 h-5 text-cyan-400" />
             <h2 className="text-lg font-semibold text-cyan-400">
@@ -476,7 +476,7 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
             </h2>
             <div className="flex items-center space-x-2">
               <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400' : 'bg-red-400'}`} />
-              <span className="text-sm text-gray-300">
+              <span className="text-sm text-gray-600">
                 {isConnected ? 'Conectado' : 'Desconectado'}
               </span>
               {isRunning && (
@@ -491,14 +491,14 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
           <div className="flex items-center space-x-1">
             <button
               onClick={() => setIsMinimized(!isMinimized)}
-              className="p-1 text-gray-400 hover:text-cyan-400 transition-colors"
+              className="p-1 text-gray-500 hover:text-cyan-400 transition-colors"
               title={isMinimized ? "Maximizar" : "Minimizar"}
             >
               {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
             </button>
             <button
               onClick={reconnect}
-              className="p-1 text-gray-400 hover:text-cyan-400 transition-colors"
+              className="p-1 text-gray-500 hover:text-cyan-400 transition-colors"
               title="Reconectar"
             >
               <RotateCcw className="w-4 h-4" />
@@ -506,7 +506,7 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
             {!isMinimized && (
               <button
                 onClick={clearConsole}
-                className="p-1 text-gray-400 hover:text-red-400 transition-colors"
+                className="p-1 text-gray-500 hover:text-red-400 transition-colors"
                 title="Limpiar consola"
               >
                 <Trash2 className="w-4 h-4" />
@@ -514,7 +514,7 @@ const ConsoleModal: React.FC<ConsoleModalProps> = ({ isOpen, onClose }) => {
             )}
             <button
               onClick={onClose}
-              className="p-1 text-gray-400 hover:text-red-400 transition-colors flex-shrink-0 z-30"
+              className="p-1 text-gray-500 hover:text-red-400 transition-colors flex-shrink-0 z-30"
               title="Cerrar"
             >
               <X className="w-4 h-4" />

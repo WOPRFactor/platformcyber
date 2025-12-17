@@ -161,7 +161,7 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
   const getTaskColor = (status: string) => {
     switch (status) {
       case 'running': return 'border-blue-500 bg-blue-500/10'
-      case 'completed': return 'border-green-500 bg-green-500/10'
+      case 'completed': return 'border-gray-200 bg-red-600/10'
       case 'failed': return 'border-red-500 bg-red-500/10'
       case 'cancelled': return 'border-yellow-500 bg-yellow-500/10'
       default: return 'border-gray-500 bg-gray-500/10'
@@ -172,9 +172,9 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
     switch (level) {
       case 'error': return 'text-red-400 border-red-500/30'
       case 'warning': return 'text-yellow-400 border-yellow-500/30'
-      case 'success': return 'text-green-400 border-green-500/30'
+      case 'success': return 'text-gray-900 border-gray-200/30'
       case 'command': return 'text-blue-400 border-blue-500/30'
-      default: return 'text-gray-300 border-gray-500/30'
+      default: return 'text-gray-600 border-gray-500/30'
     }
   }
 
@@ -281,7 +281,7 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
     <div className={`fixed inset-0 z-50 bg-black bg-opacity-50 pointer-events-none ${className}`}>
       <div
         ref={modalRef}
-        className="bg-gray-900 border border-green-500 rounded-lg shadow-2xl pointer-events-auto"
+        className="bg-gray-50 border border-gray-200 rounded-xl shadow-2xl pointer-events-auto"
         style={{
           position: 'absolute',
           left: position.x,
@@ -294,7 +294,7 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
         onMouseDown={handleMouseDown}
       >
         {/* Header - Draggable */}
-        <div className="modal-header flex items-center justify-between p-3 border-b border-green-500 bg-gray-800 rounded-t-lg select-none">
+        <div className="modal-header flex items-center justify-between p-3 border-b border-gray-200 bg-white rounded-t-lg select-none">
           <div className="flex items-center space-x-2">
             <Activity className="w-5 h-5 text-cyan-400" />
             <h3 className="text-sm font-medium text-cyan-400">Monitor de Sistema</h3>
@@ -308,14 +308,14 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
           <div className="flex items-center space-x-1">
             <button
               onClick={() => setIsMinimized(!isMinimized)}
-              className="p-1 text-gray-400 hover:text-cyan-400 transition-colors"
+              className="p-1 text-gray-500 hover:text-cyan-400 transition-colors"
               title={isMinimized ? "Maximizar" : "Minimizar"}
             >
               {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
             </button>
             <button
               onMouseDown={onClose}
-              className="p-1 text-gray-400 hover:text-red-400 transition-colors"
+              className="p-1 text-gray-500 hover:text-red-400 transition-colors"
               title="Cerrar"
             >
               <X className="w-4 h-4" />
@@ -327,13 +327,13 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
           <div className="flex h-[calc(100%-48px)]">
 
             {/* Panel lateral - Tareas activas */}
-            <div className="w-64 border-r border-green-500 bg-gray-800 p-3">
+            <div className="w-64 border-r border-gray-200 bg-white p-3">
               <div className="flex items-center justify-between mb-3">
-                <h4 className="text-xs font-medium text-green-400 uppercase tracking-wide">Tareas Activas</h4>
+                <h4 className="text-xs font-medium text-gray-900 uppercase tracking-wide">Tareas Activas</h4>
                 <div className="flex space-x-1">
                   <button
                     onClick={() => setShowCompleted(!showCompleted)}
-                    className={`p-1 rounded text-xs ${showCompleted ? 'text-green-400' : 'text-gray-500'}`}
+                    className={`p-1 rounded text-xs ${showCompleted ? 'text-gray-900' : 'text-gray-500'}`}
                     title={showCompleted ? "Ocultar completadas" : "Mostrar completadas"}
                   >
                     {showCompleted ? <Eye className="w-3 h-3" /> : <EyeOff className="w-3 h-3" />}
@@ -365,7 +365,7 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
                         <X className="w-3 h-3" />
                       </button>
                     </div>
-                    <div className="text-xs text-gray-400">{task.module}</div>
+                    <div className="text-xs text-gray-500">{task.module}</div>
                     <div className="mt-2">
                       <div className="w-full bg-gray-700 rounded-full h-1">
                         <div
@@ -400,9 +400,9 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
                     id="autoClose"
                     checked={autoClose}
                     onChange={(e) => setAutoClose(e.target.checked)}
-                    className="w-3 h-3 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500"
+                    className="w-3 h-3 text-cyan-500 bg-gray-700 border-gray-200 rounded focus:ring-cyan-500"
                   />
-                  <label htmlFor="autoClose" className="text-xs text-gray-400">
+                  <label htmlFor="autoClose" className="text-xs text-gray-500">
                     Auto-cerrar al terminar
                   </label>
                 </div>
@@ -413,12 +413,12 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
             <div className="flex-1 flex flex-col">
 
               {/* Barra de herramientas */}
-              <div className="flex items-center justify-between p-3 border-b border-green-500 bg-gray-800">
+              <div className="flex items-center justify-between p-3 border-b border-gray-200 bg-white">
                 <div className="flex items-center space-x-3">
                   <select
                     value={filterLevel}
                     onChange={(e) => setFilterLevel(e.target.value)}
-                    className="px-2 py-1 text-xs bg-gray-700 border border-green-500 rounded text-green-400 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                    className="px-2 py-1 text-xs bg-gray-700 border border-gray-200 rounded text-gray-900 focus:outline-none focus:ring-1 focus:ring-cyan-500"
                   >
                     <option value="all">Todos los logs</option>
                     <option value="info">Info</option>
@@ -428,7 +428,7 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
                     <option value="command">Comandos</option>
                   </select>
 
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-gray-500">
                     {filteredLogs.length} logs
                   </span>
                 </div>
@@ -436,14 +436,14 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
                 <div className="flex items-center space-x-1">
                   <button
                     onClick={exportLogs}
-                    className="p-1 text-gray-400 hover:text-cyan-400 transition-colors"
+                    className="p-1 text-gray-500 hover:text-cyan-400 transition-colors"
                     title="Exportar logs"
                   >
                     <Download className="w-4 h-4" />
                   </button>
                   <button
                     onClick={clearLogs}
-                    className="p-1 text-gray-400 hover:text-red-400 transition-colors"
+                    className="p-1 text-gray-500 hover:text-red-400 transition-colors"
                     title="Limpiar logs"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -454,7 +454,7 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
                         resetConsole();
                       }
                     }}
-                    className="p-1 text-gray-400 hover:text-orange-400 transition-colors"
+                    className="p-1 text-gray-500 hover:text-orange-400 transition-colors"
                     title="Resetear consola completa"
                   >
                     <RotateCcw className="w-4 h-4" />
@@ -475,7 +475,7 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
                     filteredLogs.slice(-100).map((log) => (
                       <div
                         key={log.id}
-                        className={`p-3 rounded border text-sm ${getLogColor(log.level)} bg-gray-800/50`}
+                        className={`p-3 rounded border text-sm ${getLogColor(log.level)} bg-white/50`}
                       >
                         <div className="flex items-start justify-between mb-1">
                           <div className="flex items-center space-x-2">
@@ -502,12 +502,12 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
                         </div>
 
                         {log.command && (
-                          <div className="mb-2 font-mono text-blue-400 bg-gray-900/50 p-2 rounded">
+                          <div className="mb-2 font-mono text-blue-400 bg-gray-50/50 p-2 rounded">
                             $ {log.command}
                           </div>
                         )}
 
-                        <div className="text-gray-300 break-words">
+                        <div className="text-gray-600 break-words">
                           {log.message}
                         </div>
                       </div>
@@ -518,9 +518,9 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
               </div>
 
               {/* Barra de estado inferior */}
-              <div className="p-2 border-t border-green-500 bg-gray-800 text-xs text-gray-400 flex items-center justify-between">
+              <div className="p-2 border-t border-gray-200 bg-white text-xs text-gray-500 flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <span>Usuario: <span className="text-green-400">{user?.username}</span></span>
+                  <span>Usuario: <span className="text-gray-900">{user?.username}</span></span>
                   <span>•</span>
                   <span>Estado: <span className="text-cyan-400">
                     {activeTasks.length > 0 ? `${activeTasks.length} ejecutándose` : 'En espera'}
@@ -539,7 +539,7 @@ const MonitoringConsole: React.FC<MonitoringConsoleProps> = ({
           className="absolute bottom-0 right-0 w-4 h-4 cursor-nw-resize"
           onMouseDown={handleResizeMouseDown}
         >
-          <div className="w-full h-full bg-green-500 rounded-tl opacity-50 hover:opacity-100 transition-opacity" />
+          <div className="w-full h-full bg-red-600 rounded-tl opacity-50 hover:opacity-100 transition-opacity" />
         </div>
       </div>
     </div>

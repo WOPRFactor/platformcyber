@@ -21,13 +21,22 @@ export const useReportV2Progress = (taskId: string | null) => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const startPolling = () => {
+    // #region agent log
+    fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useReportV2Progress.ts:23',message:'startPolling called',data:{taskId,isPolling},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H2'})}).catch(()=>{});
+    // #endregion
     if (!taskId || isPolling) return
     
     setIsPolling(true)
     
     const poll = async () => {
       try {
+        // #region agent log
+        fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useReportV2Progress.ts:28',message:'Polling API call',data:{taskId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H2'})}).catch(()=>{});
+        // #endregion
         const result = await reportingAPI.getReportStatus(taskId)
+        // #region agent log
+        fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useReportV2Progress.ts:31',message:'Polling API response',data:{taskId,status:result.status,progress:result.progress,error:result.error,rawResult:JSON.stringify(result)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H4'})}).catch(()=>{});
+        // #endregion
         
         // Normalizar el status del backend al formato esperado
         const normalizedStatus: ReportStatus = {
@@ -44,7 +53,9 @@ export const useReportV2Progress = (taskId: string | null) => {
         }
         
         setStatus(normalizedStatus)
-        
+        // #region agent log
+        fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useReportV2Progress.ts:46',message:'Status normalized and set',data:{normalizedStatus:JSON.stringify(normalizedStatus),willStopPolling:normalizedStatus.status === 'completed' || normalizedStatus.status === 'failed'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H2'})}).catch(()=>{});
+        // #endregion
         // Si está completo o falló, detener polling
         if (normalizedStatus.status === 'completed' || normalizedStatus.status === 'failed') {
           stopPolling()
@@ -74,6 +85,9 @@ export const useReportV2Progress = (taskId: string | null) => {
   }
 
   useEffect(() => {
+    // #region agent log
+    fetch('http://localhost:7242/ingest/cd4b79aa-febd-4ef3-87f4-1622e77b509d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useReportV2Progress.ts:76',message:'useEffect taskId changed',data:{taskId,willStartPolling:!!taskId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H1'})}).catch(()=>{});
+    // #endregion
     if (taskId) {
       startPolling()
     } else {

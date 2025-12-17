@@ -19,7 +19,7 @@ const ConsoleStatus: React.FC<ConsoleStatusProps> = ({ className }) => {
 
   return (
     <div className={cn(
-      "fixed top-4 right-4 z-40 flex items-center space-x-2 px-3 py-2 rounded-lg border transition-all duration-300",
+      "fixed top-4 right-4 z-40 flex items-center space-x-2 px-3 py-2 rounded-xl border transition-all duration-300",
       isConsoleOpen
         ? "bg-cyan-500/10 border-cyan-500/50 text-cyan-300"
         : "bg-orange-500/10 border-orange-500/50 text-orange-300 animate-pulse"

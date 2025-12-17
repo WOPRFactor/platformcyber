@@ -149,7 +149,7 @@ const WhiteboxTesting: React.FC = () => {
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Whitebox Testing</h1>
+        <h1 className="text-2xl font-semibold text-gray-900">Whitebox Testing</h1>
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <Search className="w-4 h-4" />
           Análisis de código fuente y configuraciones
@@ -157,7 +157,7 @@ const WhiteboxTesting: React.FC = () => {
       </div>
 
       {/* Advertencia de whitebox testing */}
-      <div className="border border-blue-500 bg-blue-50 p-6 rounded-lg">
+      <div className="border border-blue-500 bg-blue-50 p-6 rounded-xl">
         <div className="flex items-center gap-2 mb-4">
           <Eye className="w-6 h-6 text-blue-600" />
           <h2 className="text-xl font-bold text-blue-800">WHITEBOX TESTING - ACCESO INTERNO</h2>
@@ -185,10 +185,10 @@ const WhiteboxTesting: React.FC = () => {
       />
 
       {/* Tipos de análisis */}
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
         <div className="mb-4">
-          <h2 className="text-xl font-bold text-green-400">Análisis Disponibles</h2>
-          <p className="text-green-600">
+          <h2 className="text-lg font-semibold text-gray-900">Análisis Disponibles</h2>
+          <p className="text-gray-500">
             Seleccione el tipo de análisis whitebox a realizar
           </p>
         </div>
@@ -234,10 +234,10 @@ const WhiteboxTesting: React.FC = () => {
       </div>
 
       {/* Historial de sesiones */}
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
         <div className="mb-4">
-          <h2 className="text-xl font-bold text-green-400">Historial de Análisis</h2>
-          <p className="text-green-600">
+          <h2 className="text-lg font-semibold text-gray-900">Historial de Análisis</h2>
+          <p className="text-gray-500">
             Sesiones de análisis whitebox realizadas
           </p>
         </div>

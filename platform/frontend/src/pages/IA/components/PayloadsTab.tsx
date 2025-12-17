@@ -31,7 +31,7 @@ const PayloadsTab: React.FC<PayloadsTabProps> = ({
 }) => {
   return (
     <div>
-      <h2 className="text-xl font-bold text-green-400 mb-6 flex items-center space-x-2">
+      <h2 className="text-lg font-semibold text-gray-900 mb-6 flex items-center space-x-2">
         <Code size={20} />
         <span>Generación Inteligente de Payloads</span>
       </h2>
@@ -39,7 +39,7 @@ const PayloadsTab: React.FC<PayloadsTabProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">Sistema Operativo Objetivo</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">Sistema Operativo Objetivo</label>
             <select
               value={payloadData.target_os}
               onChange={(e) => setPayloadData({...payloadData, target_os: e.target.value})}
@@ -54,7 +54,7 @@ const PayloadsTab: React.FC<PayloadsTabProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">Tipo de Vulnerabilidad</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">Tipo de Vulnerabilidad</label>
             <input
               type="text"
               value={payloadData.vulnerability_type}
@@ -65,7 +65,7 @@ const PayloadsTab: React.FC<PayloadsTabProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">Método de Entrega</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">Método de Entrega</label>
             <select
               value={payloadData.delivery_method}
               onChange={(e) => setPayloadData({...payloadData, delivery_method: e.target.value})}
@@ -80,7 +80,7 @@ const PayloadsTab: React.FC<PayloadsTabProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">Técnicas de Evasión</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">Técnicas de Evasión</label>
             <div className="space-y-2">
               {['encoding', 'obfuscation', 'encryption', 'polymorphism'].map(technique => (
                 <label key={technique} className="flex items-center space-x-2">
@@ -95,7 +95,7 @@ const PayloadsTab: React.FC<PayloadsTabProps> = ({
                     }}
                     className="rounded"
                   />
-                  <span className="text-sm text-green-600 capitalize">{technique}</span>
+                  <span className="text-sm text-gray-500 capitalize">{technique}</span>
                 </label>
               ))}
             </div>
@@ -103,9 +103,9 @@ const PayloadsTab: React.FC<PayloadsTabProps> = ({
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-green-400 mb-2">Generación de Payload</h3>
-          <div className="bg-gray-900/50 p-4 rounded border border-green-500/20">
-            <p className="text-sm text-green-600 mb-4">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Generación de Payload</h3>
+          <div className="bg-gray-50/50 p-4 rounded border border-gray-200/20">
+            <p className="text-sm text-gray-500 mb-4">
               La IA generará payloads optimizados basándose en la configuración especificada.
               Se incluirán técnicas de evasión y explicaciones detalladas.
             </p>

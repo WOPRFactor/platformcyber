@@ -77,7 +77,7 @@ export const ScoutSuiteSection: React.FC<ScoutSuiteSectionProps> = ({ workspaceI
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-blue-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-blue-500 rounded-xl p-6">
         <div className="mb-4">
           <h3 className="text-lg font-bold text-blue-400 flex items-center gap-2">
             <Search className="w-5 h-5" />
@@ -90,13 +90,13 @@ export const ScoutSuiteSection: React.FC<ScoutSuiteSectionProps> = ({ workspaceI
 
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Proveedor Cloud
             </label>
             <select
               value={provider}
               onChange={(e) => setProvider(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500"
             >
               <option value="aws">AWS</option>
               <option value="azure">Azure</option>
@@ -107,7 +107,7 @@ export const ScoutSuiteSection: React.FC<ScoutSuiteSectionProps> = ({ workspaceI
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Profile (opcional)
               <span className="text-xs text-gray-500 ml-2">Perfil de credenciales</span>
             </label>
@@ -115,13 +115,13 @@ export const ScoutSuiteSection: React.FC<ScoutSuiteSectionProps> = ({ workspaceI
               type="text"
               value={profile}
               onChange={(e) => setProfile(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500"
               placeholder="default"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Regiones (opcional)
               <span className="text-xs text-gray-500 ml-2">Separadas por comas: us-east-1,eu-west-1</span>
             </label>
@@ -129,7 +129,7 @@ export const ScoutSuiteSection: React.FC<ScoutSuiteSectionProps> = ({ workspaceI
               type="text"
               value={regions}
               onChange={(e) => setRegions(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500"
               placeholder="us-east-1,eu-west-1"
             />
           </div>
@@ -138,7 +138,7 @@ export const ScoutSuiteSection: React.FC<ScoutSuiteSectionProps> = ({ workspaceI
         <button
           onClick={handleScoutSuiteWithPreview}
           disabled={scoutSuiteMutation.isPending}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
         >
           {scoutSuiteMutation.isPending ? (
             <>
@@ -166,6 +166,9 @@ export const ScoutSuiteSection: React.FC<ScoutSuiteSectionProps> = ({ workspaceI
     </div>
   )
 }
+
+
+
 
 
 

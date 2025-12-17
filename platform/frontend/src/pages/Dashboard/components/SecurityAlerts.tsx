@@ -18,14 +18,14 @@ interface SecurityAlertsProps {
 export const SecurityAlerts: React.FC<SecurityAlertsProps> = ({ totalVulnerabilities, systemInfo }) => {
   return (
     <div className="card">
-      <h2 className="text-xl font-bold text-green-400 mb-4 flex items-center">
+      <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
         <AlertTriangle className="w-5 h-5 mr-2" />
         Alertas de Seguridad
       </h2>
 
       <div className="space-y-3">
         {totalVulnerabilities > 10 ? (
-          <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+          <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl">
             <div className="flex items-start space-x-3">
               <AlertTriangle size={20} className="text-red-400 mt-0.5 flex-shrink-0" />
               <div>
@@ -37,7 +37,7 @@ export const SecurityAlerts: React.FC<SecurityAlertsProps> = ({ totalVulnerabili
             </div>
           </div>
         ) : totalVulnerabilities > 5 ? (
-          <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+          <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
             <div className="flex items-start space-x-3">
               <AlertTriangle size={20} className="text-yellow-400 mt-0.5 flex-shrink-0" />
               <div>
@@ -49,12 +49,12 @@ export const SecurityAlerts: React.FC<SecurityAlertsProps> = ({ totalVulnerabili
             </div>
           </div>
         ) : (
-          <div className="p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+          <div className="p-3 bg-red-600/10 border border-gray-200/30 rounded-xl">
             <div className="flex items-start space-x-3">
-              <CheckCircle size={20} className="text-green-400 mt-0.5 flex-shrink-0" />
+              <CheckCircle size={20} className="text-gray-900 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-green-400 font-medium text-sm">Estado Seguro</p>
-                <p className="text-green-300 text-xs mt-1">
+                <p className="text-gray-900 font-medium text-sm">Estado Seguro</p>
+                <p className="text-gray-700 text-xs mt-1">
                   {totalVulnerabilities === 0 ? 'Sin vulnerabilidades detectadas' :
                    `${totalVulnerabilities} vulnerabilidades bajo control`}
                 </p>
@@ -64,7 +64,7 @@ export const SecurityAlerts: React.FC<SecurityAlertsProps> = ({ totalVulnerabili
         )}
 
         {systemInfo?.memory && systemInfo.memory.percent > 80 && (
-          <div className="p-3 bg-orange-500/10 border border-orange-500/30 rounded-lg">
+          <div className="p-3 bg-orange-500/10 border border-orange-500/30 rounded-xl">
             <div className="flex items-start space-x-3">
               <AlertTriangle size={20} className="text-orange-400 mt-0.5 flex-shrink-0" />
               <div>
@@ -78,7 +78,7 @@ export const SecurityAlerts: React.FC<SecurityAlertsProps> = ({ totalVulnerabili
         )}
 
         {systemInfo?.disk && systemInfo.disk.percent > 90 && (
-          <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+          <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl">
             <div className="flex items-start space-x-3">
               <AlertTriangle size={20} className="text-red-400 mt-0.5 flex-shrink-0" />
               <div>

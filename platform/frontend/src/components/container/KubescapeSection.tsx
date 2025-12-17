@@ -73,7 +73,7 @@ export const KubescapeSection: React.FC<KubescapeSectionProps> = ({ workspaceId 
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-purple-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-purple-500 rounded-xl p-6">
         <div className="mb-4">
           <h3 className="text-lg font-bold text-purple-400 flex items-center gap-2">
             <ShieldCheck className="w-5 h-5" />
@@ -86,13 +86,13 @@ export const KubescapeSection: React.FC<KubescapeSectionProps> = ({ workspaceId 
 
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Framework de seguridad
             </label>
             <select
               value={framework}
               onChange={(e) => setFramework(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
               <option value="nsa">NSA/CISA Framework</option>
               <option value="mitre">MITRE ATT&CK</option>
@@ -101,7 +101,7 @@ export const KubescapeSection: React.FC<KubescapeSectionProps> = ({ workspaceId 
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Namespace (opcional)
               <span className="text-xs text-gray-500 ml-2">Dejar vacío para todos los namespaces</span>
             </label>
@@ -109,7 +109,7 @@ export const KubescapeSection: React.FC<KubescapeSectionProps> = ({ workspaceId 
               type="text"
               value={namespace}
               onChange={(e) => setNamespace(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="default"
             />
           </div>
@@ -118,7 +118,7 @@ export const KubescapeSection: React.FC<KubescapeSectionProps> = ({ workspaceId 
         <button
           onClick={handleKubescapeWithPreview}
           disabled={kubescapeMutation.isPending}
-          className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+          className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
         >
           {kubescapeMutation.isPending ? (
             <>
@@ -146,6 +146,9 @@ export const KubescapeSection: React.FC<KubescapeSectionProps> = ({ workspaceId 
     </div>
   )
 }
+
+
+
 
 
 

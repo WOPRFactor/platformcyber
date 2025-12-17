@@ -143,7 +143,7 @@ describe('ProcessGraphConsole Component', () => {
     )
 
     // Verificar que tenga el modal styling
-    const modal = document.querySelector('.bg-gray-900')
+    const modal = document.querySelector('.bg-gray-50')
     expect(modal).toBeInTheDocument()
   })
 

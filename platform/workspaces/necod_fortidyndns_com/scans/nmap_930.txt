@@ -1,0 +1,13 @@
+# Nmap 7.95 scan initiated Mon Dec 15 08:46:16 2025 as: /usr/lib/nmap/nmap -sV -O -T4 --top-ports 1000 -oX /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/necod_fortidyndns_com/scans/nmap_930.xml -oN /home/kali/Proyectos/cybersecurity/environments/dev4-improvements/platform/workspaces/necod_fortidyndns_com/scans/nmap_930.txt necod.fortidyndns.com
+Nmap scan report for necod.fortidyndns.com (181.166.161.236)
+Host is up (0.018s latency).
+rDNS record for 181.166.161.236: 236-161-166-181.fibertel.com.ar
+Not shown: 954 filtered tcp ports (no-response), 45 filtered tcp ports (admin-prohibited)
+PORT    STATE  SERVICE VERSION
+113/tcp closed ident
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Aggressive OS guesses: EMC VNX OE for File 7 (89%), ZyXEL P-2602H-D1A DSL modem (89%), D-Link NetDefend firewall (89%), Linux 2.6.32 (88%), SonicWALL Aventail EX-1500 SSL VPN appliance (87%), F5 BIG-IP load balancer (TMOS 11.4) (87%), Foundry Networks BigIron 8000 switch (IronWare 07.8.02eT53) (86%), Asus RT-53N WAP (86%), DEC Digital UNIX 5.X (86%), D-Link DCS-3220 or DCS-5300G webcam (85%)
+No exact OS matches for host (test conditions non-ideal).
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Mon Dec 15 08:46:29 2025 -- 1 IP address (1 host up) scanned in 13.02 seconds

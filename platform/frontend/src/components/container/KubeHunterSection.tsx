@@ -80,7 +80,7 @@ export const KubeHunterSection: React.FC<KubeHunterSectionProps> = ({ workspaceI
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-purple-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-purple-500 rounded-xl p-6">
         <div className="mb-4">
           <h3 className="text-lg font-bold text-purple-400 flex items-center gap-2">
             <Target className="w-5 h-5" />
@@ -93,13 +93,13 @@ export const KubeHunterSection: React.FC<KubeHunterSectionProps> = ({ workspaceI
 
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Modo de ejecución
             </label>
             <select
               value={mode}
               onChange={(e) => setMode(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
               <option value="remote">Remote (escanear cluster remoto)</option>
               <option value="pod">Pod (ejecutar desde dentro del cluster)</option>
@@ -108,7 +108,7 @@ export const KubeHunterSection: React.FC<KubeHunterSectionProps> = ({ workspaceI
 
           {mode === 'remote' && (
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-600 mb-2">
                 Host remoto
                 <span className="text-xs text-gray-500 ml-2">IP o hostname del cluster</span>
               </label>
@@ -116,7 +116,7 @@ export const KubeHunterSection: React.FC<KubeHunterSectionProps> = ({ workspaceI
                 type="text"
                 value={remoteHost}
                 onChange={(e) => setRemoteHost(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                 placeholder="192.168.1.100"
               />
             </div>
@@ -126,7 +126,7 @@ export const KubeHunterSection: React.FC<KubeHunterSectionProps> = ({ workspaceI
         <button
           onClick={handleKubeHunterWithPreview}
           disabled={kubeHunterMutation.isPending || (mode === 'remote' && !remoteHost.trim())}
-          className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+          className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
         >
           {kubeHunterMutation.isPending ? (
             <>
@@ -154,6 +154,9 @@ export const KubeHunterSection: React.FC<KubeHunterSectionProps> = ({ workspaceI
     </div>
   )
 }
+
+
+
 
 
 

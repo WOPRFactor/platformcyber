@@ -34,7 +34,7 @@ export const DependencyFindingsList: React.FC<DependencyFindingsListProps> = ({ 
   return (
     <div className="space-y-2">
       {dependencies.map((dep, idx) => (
-        <div key={idx} className={`border rounded-lg p-4 ${getSeverityStyles(dep.severity)}`}>
+        <div key={idx} className={`border rounded-xl p-4 ${getSeverityStyles(dep.severity)}`}>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <Package className="w-4 h-4" />

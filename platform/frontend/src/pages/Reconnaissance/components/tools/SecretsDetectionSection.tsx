@@ -55,21 +55,21 @@ export const SecretsDetectionSection: React.FC<SecretsDetectionSectionProps> = (
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
         <div className="mb-4">
-          <h3 className="text-lg font-bold text-green-400 flex items-center gap-2">
+          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
             <Key className="w-5 h-5" />
             Secrets Detection
           </h3>
-          <p className="text-green-600">
+          <p className="text-gray-500">
             Detecta secrets y credenciales en repositorios Git
           </p>
         </div>
 
         <div className="space-y-4">
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-pink-400 mb-2">Repositorio Git</h4>
-            <p className="text-sm text-gray-400 mb-3">
+            <p className="text-sm text-gray-500 mb-3">
               Ingresa la URL del repositorio a analizar
             </p>
             <input
@@ -77,7 +77,7 @@ export const SecretsDetectionSection: React.FC<SecretsDetectionSectionProps> = (
               value={repoUrl}
               onChange={(e) => setRepoUrl(e.target.value)}
               placeholder="https://github.com/user/repo"
-              className="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 text-gray-300 mb-3"
+              className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-600 mb-3"
             />
             <div className="grid grid-cols-2 gap-2">
               {['gitleaks', 'trufflehog'].map((tool) => (
@@ -91,7 +91,7 @@ export const SecretsDetectionSection: React.FC<SecretsDetectionSectionProps> = (
                     handleSecretsWithPreview(repoUrl, tool)
                   }}
                   disabled={secretsMutation.isPending}
-                  className="bg-pink-600 hover:bg-pink-700 disabled:bg-pink-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+                  className="bg-pink-600 hover:bg-pink-700 disabled:bg-pink-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
                 >
                   {secretsMutation.isPending ? (
                     <Loader2 className="w-4 h-4 animate-spin" />

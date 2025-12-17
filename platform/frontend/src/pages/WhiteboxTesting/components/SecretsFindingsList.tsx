@@ -36,7 +36,7 @@ export const SecretsFindingsList: React.FC<SecretsFindingsListProps> = ({ secret
   return (
     <div className="space-y-2">
       {secrets.map((secret, idx) => (
-        <div key={idx} className={`border rounded-lg p-4 ${getSeverityStyles(secret.severity)}`}>
+        <div key={idx} className={`border rounded-xl p-4 ${getSeverityStyles(secret.severity)}`}>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <Lock className="w-4 h-4" />
@@ -51,7 +51,7 @@ export const SecretsFindingsList: React.FC<SecretsFindingsListProps> = ({ secret
             {secret.line && <div>Línea: {secret.line}</div>}
             {secret.entropy && <div>Entropía: {secret.entropy.toFixed(2)}</div>}
           </div>
-          <div className="bg-black text-green-400 p-2 rounded font-mono text-xs overflow-x-auto">
+          <div className="bg-black text-gray-900 p-2 rounded font-mono text-xs overflow-x-auto">
             {secret.matched_text}
           </div>
         </div>

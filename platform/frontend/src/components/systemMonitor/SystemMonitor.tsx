@@ -189,7 +189,7 @@ export const SystemMonitor: React.FC<SystemMonitorProps> = ({
     <div className={`fixed inset-0 z-50 bg-black bg-opacity-50 pointer-events-none ${className}`}>
       <div
         ref={modalRef}
-        className="bg-gray-900 border border-green-500 rounded-lg shadow-2xl pointer-events-auto"
+        className="bg-gray-50 border border-gray-200 rounded-xl shadow-2xl pointer-events-auto"
         style={{
           position: 'absolute',
           left: position.x,
@@ -256,7 +256,7 @@ export const SystemMonitor: React.FC<SystemMonitorProps> = ({
           className="absolute bottom-0 right-0 w-6 h-6 cursor-nw-resize z-10"
           onMouseDown={handleResizeMouseDown}
         >
-          <div className="w-full h-full bg-green-500 rounded-tl opacity-70 hover:opacity-100 transition-opacity border-t-2 border-r-2 border-green-400" />
+          <div className="w-full h-full bg-red-600 rounded-tl opacity-70 hover:opacity-100 transition-opacity border-t-2 border-r-2 border-gray-200" />
         </div>
       </div>
 

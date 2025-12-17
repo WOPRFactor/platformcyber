@@ -115,15 +115,15 @@ const RealTerminal: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-mono p-4">
+    <div className="min-h-screen bg-black text-gray-900 font-mono p-4">
       {/* Terminal Header */}
-      <div className="border-b border-green-500 pb-2 mb-4">
+      <div className="border-b border-gray-200 pb-2 mb-4">
         <div className="flex items-center space-x-2">
           <span className="text-red-500">●</span>
           <span className="text-yellow-500">●</span>
-          <span className="text-green-500">●</span>
-          <span className="ml-4 text-green-400">Cybersecurity Terminal</span>
-          <span className={`ml-auto ${isConnected ? 'text-green-400' : 'text-red-400'}`}>
+          <span className="text-gray-800">●</span>
+          <span className="ml-4 text-gray-900">Cybersecurity Terminal</span>
+          <span className={`ml-auto ${isConnected ? 'text-gray-900' : 'text-red-400'}`}>
             {isConnected ? '●' : '○'}
           </span>
         </div>
@@ -146,14 +146,14 @@ const RealTerminal: React.FC = () => {
 
       {/* Command Input */}
       <div className="flex items-center space-x-2">
-        <span className="text-green-400">$</span>
+        <span className="text-gray-900">$</span>
         <input
           type="text"
           value={currentCommand}
           onChange={(e) => setCurrentCommand(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="Ingresa comando..."
-          className="flex-1 bg-transparent border-none outline-none text-green-400 placeholder-green-600"
+          className="flex-1 bg-transparent border-none outline-none text-gray-900 placeholder-green-600"
           disabled={!isConnected}
           autoFocus
         />
@@ -306,22 +306,22 @@ const Console: React.FC = () => {
       case 'command_start':
         return 'text-blue-400'
       case 'stdout':
-        return 'text-green-400'
+        return 'text-gray-900'
       case 'stderr':
         return 'text-yellow-400'
       case 'command_end':
-        return 'text-green-300'
+        return 'text-gray-700'
       case 'error':
         return 'text-red-400'
       default:
-        return 'text-gray-300'
+        return 'text-gray-600'
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-green-400 font-mono flex flex-col">
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-mono flex flex-col">
       {/* Header */}
-      <header className="bg-gray-800 border-b border-green-500 p-4">
+      <header className="bg-white border-b border-gray-200 p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Terminal className="w-6 h-6 text-cyan-400" />
@@ -330,7 +330,7 @@ const Console: React.FC = () => {
             </h1>
             <div className="flex items-center space-x-2">
               <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400' : 'bg-red-400'}`} />
-              <span className="text-sm text-gray-300">
+              <span className="text-sm text-gray-600">
                 {isConnected ? 'Conectado' : 'Desconectado'}
               </span>
               {isRunning && (
@@ -345,14 +345,14 @@ const Console: React.FC = () => {
           <div className="flex items-center space-x-2">
             <button
               onClick={reconnect}
-              className="p-2 text-gray-400 hover:text-cyan-400 transition-colors"
+              className="p-2 text-gray-500 hover:text-cyan-400 transition-colors"
               title="Reconectar"
             >
               <RotateCcw className="w-4 h-4" />
             </button>
             <button
               onClick={clearConsole}
-              className="p-2 text-gray-400 hover:text-red-400 transition-colors"
+              className="p-2 text-gray-500 hover:text-red-400 transition-colors"
               title="Limpiar consola"
             >
               <Trash2 className="w-4 h-4" />
@@ -361,9 +361,9 @@ const Console: React.FC = () => {
         </div>
 
         {/* Barra de información */}
-        <div className="mt-2 text-xs text-gray-400 flex items-center justify-between">
+        <div className="mt-2 text-xs text-gray-500 flex items-center justify-between">
           <span>
-            Usuario: <span className="text-green-400">{user?.username}</span> |
+            Usuario: <span className="text-gray-900">{user?.username}</span> |
             Rol: <span className="text-cyan-400">{user?.role}</span>
           </span>
           <span>
@@ -374,7 +374,7 @@ const Console: React.FC = () => {
 
       {/* Área de mensajes */}
       <div className="flex-1 overflow-hidden">
-        <div className="h-full overflow-y-auto p-4 space-y-1 bg-gray-900">
+        <div className="h-full overflow-y-auto p-4 space-y-1 bg-gray-50">
           {messages.length === 0 ? (
             <div className="text-center py-20 text-gray-500">
               <Terminal className="w-16 h-16 mx-auto mb-4 opacity-50" />
@@ -382,9 +382,9 @@ const Console: React.FC = () => {
               <p className="text-sm">Ingresa comandos para ejecutar...</p>
               <div className="mt-4 text-xs space-y-1">
                 <p>💡 <strong>Comandos útiles:</strong></p>
-                <p><code className="bg-gray-800 px-2 py-1 rounded">nmap -sV -p 80,443 example.com</code></p>
-                <p><code className="bg-gray-800 px-2 py-1 rounded">whois example.com</code></p>
-                <p><code className="bg-gray-800 px-2 py-1 rounded">dig example.com</code></p>
+                <p><code className="bg-white px-2 py-1 rounded">nmap -sV -p 80,443 example.com</code></p>
+                <p><code className="bg-white px-2 py-1 rounded">whois example.com</code></p>
+                <p><code className="bg-white px-2 py-1 rounded">dig example.com</code></p>
               </div>
             </div>
           ) : (
@@ -394,7 +394,7 @@ const Console: React.FC = () => {
                 className={`flex items-start space-x-3 p-2 rounded ${
                   message.type === 'error' ? 'bg-red-900/20 border border-red-500/30' :
                   message.type === 'stderr' ? 'bg-yellow-900/20 border border-yellow-500/30' :
-                  'hover:bg-gray-800/50'
+                  'hover:bg-white/50'
                 }`}
               >
                 <span className="text-gray-500 text-xs flex-shrink-0 w-12">
@@ -437,9 +437,9 @@ const Console: React.FC = () => {
       </div>
 
       {/* Input de comandos */}
-      <div className="border-t border-green-500 bg-gray-800 p-4">
+      <div className="border-t border-gray-200 bg-white p-4">
         <div className="flex items-center space-x-3">
-          <span className="text-green-400 font-bold">$</span>
+          <span className="text-gray-900 font-bold">$</span>
           <input
             ref={inputRef}
             type="text"
@@ -447,7 +447,7 @@ const Console: React.FC = () => {
             onChange={(e) => setCommand(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Ingresa un comando (ej: nmap -sV -p 80 example.com)"
-            className="flex-1 bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 font-mono"
+            className="flex-1 bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 font-mono"
             disabled={!isConnected}
           />
           <button

@@ -320,7 +320,7 @@ const Reporting: React.FC = () => {
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Reporting</h1>
+        <h1 className="text-2xl font-semibold text-gray-900">Reporting</h1>
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <FileText className="w-4 h-4" />
           Sistema de reportes profesionales de pentesting
@@ -328,11 +328,11 @@ const Reporting: React.FC = () => {
       </div>
 
       {isLoadingWorkspaces ? (
-        <div className="bg-gray-800 border border-blue-500 rounded-lg p-6 text-center">
+        <div className="bg-white border border-blue-500 rounded-xl p-6 text-center">
           <p className="text-blue-400">Cargando workspaces...</p>
         </div>
       ) : !currentWorkspace ? (
-        <div className="bg-gray-800 border border-yellow-500 rounded-lg p-6 text-center">
+        <div className="bg-white border border-yellow-500 rounded-xl p-6 text-center">
           <p className="text-yellow-400">Por favor selecciona un workspace para generar reportes</p>
         </div>
       ) : (
@@ -347,7 +347,7 @@ const Reporting: React.FC = () => {
           />
 
           {/* Módulo anterior */}
-          <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+          <div className="bg-white border border-gray-200 rounded-xl p-6">
             <div className="w-full">
               <ReportingTabs activeTab={activeTab} setActiveTab={setActiveTab} />
               <ReportGenerator

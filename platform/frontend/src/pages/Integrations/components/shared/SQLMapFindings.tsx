@@ -16,7 +16,7 @@ export const SQLMapFindings: React.FC<SQLMapFindingsProps> = ({ findings }) => {
   return (
     <div className="space-y-2">
       {findings?.map((finding, idx) => (
-        <div key={idx} className={`border rounded-lg p-4 ${
+        <div key={idx} className={`border rounded-xl p-4 ${
           finding?.severity === 'critical' ? 'border-red-500 bg-red-50' :
           finding?.severity === 'high' ? 'border-orange-500 bg-orange-50' :
           finding?.severity === 'medium' ? 'border-yellow-500 bg-yellow-50' :

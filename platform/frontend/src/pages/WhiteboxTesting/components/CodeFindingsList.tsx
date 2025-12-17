@@ -49,7 +49,7 @@ export const CodeFindingsList: React.FC<CodeFindingsListProps> = ({ findings }) 
   return (
     <div className="space-y-2">
       {findings.map((finding, idx) => (
-        <div key={idx} className={`border rounded-lg p-4 ${getSeverityStyles(finding.severity)}`}>
+        <div key={idx} className={`border rounded-xl p-4 ${getSeverityStyles(finding.severity)}`}>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               {getSeverityIcon(finding.severity)}
@@ -65,7 +65,7 @@ export const CodeFindingsList: React.FC<CodeFindingsListProps> = ({ findings }) 
             {finding.line && <div>Línea: {finding.line}</div>}
             {finding.code && (
               <div className="mt-1">
-                <div className="bg-black text-green-400 p-2 rounded font-mono text-xs overflow-x-auto">
+                <div className="bg-black text-gray-900 p-2 rounded font-mono text-xs overflow-x-auto">
                   {finding.code}
                 </div>
               </div>

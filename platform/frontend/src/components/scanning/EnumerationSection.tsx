@@ -317,13 +317,13 @@ const EnumerationSection: React.FC = () => {
   return (
     <div className="mt-4">
       {/* Categorías */}
-      <div className="flex border-b border-gray-700 mb-4">
+      <div className="flex border-b border-gray-200 mb-4">
         <button
           onClick={() => setActiveCategory('smb')}
           className={`px-4 py-2 border-b-2 ${
             activeCategory === 'smb'
-              ? 'border-green-400 text-green-400'
-              : 'border-transparent text-gray-400 hover:text-green-400'
+              ? 'border-gray-200 text-gray-900'
+              : 'border-transparent text-gray-500 hover:text-gray-900'
           }`}
         >
           <Server className="w-4 h-4 inline mr-2" />
@@ -333,8 +333,8 @@ const EnumerationSection: React.FC = () => {
           onClick={() => setActiveCategory('network')}
           className={`px-4 py-2 border-b-2 ${
             activeCategory === 'network'
-              ? 'border-green-400 text-green-400'
-              : 'border-transparent text-gray-400 hover:text-green-400'
+              ? 'border-gray-200 text-gray-900'
+              : 'border-transparent text-gray-500 hover:text-gray-900'
           }`}
         >
           <Network className="w-4 h-4 inline mr-2" />
@@ -344,8 +344,8 @@ const EnumerationSection: React.FC = () => {
           onClick={() => setActiveCategory('database')}
           className={`px-4 py-2 border-b-2 ${
             activeCategory === 'database'
-              ? 'border-green-400 text-green-400'
-              : 'border-transparent text-gray-400 hover:text-green-400'
+              ? 'border-gray-200 text-gray-900'
+              : 'border-transparent text-gray-500 hover:text-gray-900'
           }`}
         >
           <Database className="w-4 h-4 inline mr-2" />
@@ -355,8 +355,8 @@ const EnumerationSection: React.FC = () => {
           onClick={() => setActiveCategory('ssl')}
           className={`px-4 py-2 border-b-2 ${
             activeCategory === 'ssl'
-              ? 'border-green-400 text-green-400'
-              : 'border-transparent text-gray-400 hover:text-green-400'
+              ? 'border-gray-200 text-gray-900'
+              : 'border-transparent text-gray-500 hover:text-gray-900'
           }`}
         >
           <Lock className="w-4 h-4 inline mr-2" />
@@ -368,7 +368,7 @@ const EnumerationSection: React.FC = () => {
       {activeCategory === 'smb' && (
         <div className="space-y-4">
           {/* enum4linux */}
-          <div className="bg-gray-900 border border-green-500 rounded-lg p-4">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
             <h3 className="text-lg font-bold mb-3">enum4linux</h3>
             <div className="space-y-3">
               <label className="flex items-center space-x-2">
@@ -425,7 +425,7 @@ const EnumerationSection: React.FC = () => {
                   }
                 }}
                 disabled={enum4linuxMutation.isPending || !target?.trim()}
-                className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-4 py-2 rounded"
+                className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
               >
                 {enum4linuxMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Iniciar enum4linux'}
               </button>
@@ -433,26 +433,26 @@ const EnumerationSection: React.FC = () => {
           </div>
 
           {/* smbmap */}
-          <div className="bg-gray-900 border border-green-500 rounded-lg p-4">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
             <h3 className="text-lg font-bold mb-3">smbmap</h3>
             <div className="space-y-3">
               <input
                 type="text"
                 placeholder="Username (opcional)"
                 id="smbmap-username"
-                className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
               />
               <input
                 type="password"
                 placeholder="Password (opcional)"
                 id="smbmap-password"
-                className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
               />
               <input
                 type="text"
                 placeholder="Share (opcional)"
                 id="smbmap-share"
-                className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
               />
               <button
                 onClick={async () => {
@@ -489,7 +489,7 @@ const EnumerationSection: React.FC = () => {
                   }
                 }}
                 disabled={smbmapMutation.isPending || !target?.trim()}
-                className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-4 py-2 rounded"
+                className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
               >
                 {smbmapMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Iniciar smbmap'}
               </button>
@@ -497,26 +497,26 @@ const EnumerationSection: React.FC = () => {
           </div>
 
           {/* smbclient */}
-          <div className="bg-gray-900 border border-green-500 rounded-lg p-4">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
             <h3 className="text-lg font-bold mb-3">smbclient</h3>
             <div className="space-y-3">
               <input
                 type="text"
                 placeholder="Share (default: IPC$)"
                 id="smbclient-share"
-                className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
               />
               <input
                 type="text"
                 placeholder="Username (opcional)"
                 id="smbclient-username"
-                className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
               />
               <input
                 type="password"
                 placeholder="Password (opcional)"
                 id="smbclient-password"
-                className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
               />
               <button
                 onClick={async () => {
@@ -554,7 +554,7 @@ const EnumerationSection: React.FC = () => {
                   }
                 }}
                 disabled={smbclientMutation.isPending || !target?.trim()}
-                className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-4 py-2 rounded"
+                className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
               >
                 {smbclientMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Iniciar smbclient'}
               </button>
@@ -575,7 +575,7 @@ const EnumerationSection: React.FC = () => {
             { name: 'LDAP', mutation: ldapEnumMutation, defaultPort: 389, hasPreview: true, handler: handleLdapEnumWithPreview },
             { name: 'RDP', mutation: rdpEnumMutation, defaultPort: 3389, hasPreview: true, handler: handleRdpEnumWithPreview }
           ].map(({ name, mutation, defaultPort, extraField, hasPreview, handler }) => (
-            <div key={name} className="bg-gray-900 border border-green-500 rounded-lg p-4">
+            <div key={name} className="bg-gray-50 border border-gray-200 rounded-xl p-4">
               <h3 className="text-lg font-bold mb-3">{name} Enumeration</h3>
               <div className="space-y-3">
                 <input
@@ -583,7 +583,7 @@ const EnumerationSection: React.FC = () => {
                   placeholder={`Puerto (default: ${defaultPort})`}
                   id={`${name.toLowerCase()}-port`}
                   defaultValue={defaultPort}
-                  className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                  className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
                 />
                 {extraField === 'community' && (
                   <input
@@ -591,7 +591,7 @@ const EnumerationSection: React.FC = () => {
                     placeholder="Community (default: public)"
                     id={`${name.toLowerCase()}-community`}
                     defaultValue="public"
-                    className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                    className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
                   />
                 )}
                 <div className="flex space-x-2">
@@ -607,7 +607,7 @@ const EnumerationSection: React.FC = () => {
                         }
                       }}
                       disabled={mutation.isPending || !target?.trim()}
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white px-4 py-2 rounded"
+                      className="flex-1 bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
                     >
                       Preview
                     </button>
@@ -622,7 +622,7 @@ const EnumerationSection: React.FC = () => {
                       mutation.mutate(options)
                     }}
                     disabled={mutation.isPending || !target?.trim()}
-                    className={`${hasPreview && handler ? 'flex-1' : 'w-full'} bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-4 py-2 rounded`}
+                    className={`${hasPreview && handler ? 'flex-1' : 'w-full'} bg-red-600 hover:bg-red-700 disabled:bg-gray-600 text-white px-4 py-2 rounded`}
                   >
                     {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : `Iniciar ${name} Enum`}
                   </button>
@@ -642,7 +642,7 @@ const EnumerationSection: React.FC = () => {
             { name: 'Redis', mutation: redisEnumMutation, defaultPort: 6379, handler: handleRedisEnumWithPreview },
             { name: 'MongoDB', mutation: mongodbEnumMutation, defaultPort: 27017, handler: handleMongodbEnumWithPreview }
           ].map(({ name, mutation, defaultPort, hasUsername, defaultUsername, handler }) => (
-            <div key={name} className="bg-gray-900 border border-green-500 rounded-lg p-4">
+            <div key={name} className="bg-gray-50 border border-gray-200 rounded-xl p-4">
               <h3 className="text-lg font-bold mb-3">{name} Enumeration</h3>
               <div className="space-y-3">
                 <input
@@ -650,7 +650,7 @@ const EnumerationSection: React.FC = () => {
                   placeholder={`Puerto (default: ${defaultPort})`}
                   id={`${name.toLowerCase()}-port`}
                   defaultValue={defaultPort}
-                  className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                  className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
                 />
                 {hasUsername && (
                   <input
@@ -658,7 +658,7 @@ const EnumerationSection: React.FC = () => {
                     placeholder={`Username${defaultUsername ? ` (default: ${defaultUsername})` : ''}`}
                     id={`${name.toLowerCase()}-username`}
                     defaultValue={defaultUsername || ''}
-                    className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                    className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
                   />
                 )}
                 <button
@@ -681,7 +681,7 @@ const EnumerationSection: React.FC = () => {
                     }
                   }}
                   disabled={mutation.isPending || !target?.trim()}
-                  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-4 py-2 rounded"
+                  className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
                 >
                   {mutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : `Iniciar ${name} Enum`}
                 </button>
@@ -695,7 +695,7 @@ const EnumerationSection: React.FC = () => {
       {activeCategory === 'ssl' && (
         <div className="space-y-4">
           {/* sslscan */}
-          <div className="bg-gray-900 border border-green-500 rounded-lg p-4">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
             <h3 className="text-lg font-bold mb-3">sslscan</h3>
             <div className="space-y-3">
               <input
@@ -703,7 +703,7 @@ const EnumerationSection: React.FC = () => {
                 placeholder="Puerto (default: 443)"
                 id="sslscan-port"
                 defaultValue={443}
-                className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
               />
               <label className="flex items-center gap-2">
                 <input
@@ -719,7 +719,7 @@ const EnumerationSection: React.FC = () => {
                   (document.getElementById('sslscan-certificate') as HTMLInputElement)?.checked
                 )}
                 disabled={sslscanMutation.isPending || !target?.trim()}
-                className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-4 py-2 rounded"
+                className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
               >
                 {sslscanMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Iniciar sslscan'}
               </button>
@@ -727,7 +727,7 @@ const EnumerationSection: React.FC = () => {
           </div>
 
           {/* sslyze */}
-          <div className="bg-gray-900 border border-green-500 rounded-lg p-4">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
             <h3 className="text-lg font-bold mb-3">sslyze</h3>
             <div className="space-y-3">
               <input
@@ -735,7 +735,7 @@ const EnumerationSection: React.FC = () => {
                 placeholder="Puerto (default: 443)"
                 id="sslyze-port"
                 defaultValue={443}
-                className="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2"
+                className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2"
               />
               <label className="flex items-center gap-2">
                 <input
@@ -752,7 +752,7 @@ const EnumerationSection: React.FC = () => {
                   (document.getElementById('sslyze-regular') as HTMLInputElement)?.checked
                 )}
                 disabled={sslyzeMutation.isPending || !target?.trim()}
-                className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-4 py-2 rounded"
+                className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
               >
                 {sslyzeMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : 'Iniciar sslyze'}
               </button>

@@ -78,7 +78,7 @@ export const BurpSection: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Status Card */}
-      <div className="bg-gray-900 border border-red-500 rounded-lg p-6 mb-6">
+      <div className="bg-gray-100 border border-red-500 rounded-xl p-6 mb-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <Shield className="w-6 h-6 text-red-600" />
@@ -86,11 +86,11 @@ export const BurpSection: React.FC = () => {
           </div>
           <div className="flex items-center gap-2">
             {burpStatus?.connected ? (
-              <CheckCircle className="w-5 h-5 text-green-600" />
+              <CheckCircle className="w-5 h-5 text-gray-500" />
             ) : (
               <XCircle className="w-5 h-5 text-red-600" />
             )}
-            <span className={burpStatus?.connected ? 'text-green-600' : 'text-red-600'}>
+            <span className={burpStatus?.connected ? 'text-gray-500' : 'text-red-600'}>
               {burpStatus?.connected ? 'Conectado' : 'Desconectado'}
             </span>
           </div>
@@ -99,7 +99,7 @@ export const BurpSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div className="text-center">
             <div className="text-sm text-gray-600">Estado API</div>
-            <div className={`text-lg font-bold ${burpStatus?.connected ? 'text-green-600' : 'text-red-600'}`}>
+            <div className={`text-lg font-bold ${burpStatus?.connected ? 'text-gray-500' : 'text-red-600'}`}>
               {burpStatus?.connected ? 'Activo' : 'Inactivo'}
             </div>
           </div>
@@ -120,7 +120,7 @@ export const BurpSection: React.FC = () => {
         <button
           onClick={() => checkBurpMutation.mutate()}
           disabled={checkBurpMutation.isPending}
-          className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {checkBurpMutation.isPending ? (
             <Loader className="w-4 h-4 animate-spin mr-2" />
@@ -138,20 +138,20 @@ export const BurpSection: React.FC = () => {
       </div>
 
       {/* Scan Form */}
-      <div className="bg-gray-900 border border-red-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-red-500 rounded-xl p-6">
         <h3 className="text-lg font-bold text-red-400 mb-4 flex items-center gap-2">
           <Shield className="w-5 h-5" />
           Escaneo Activo con Burp
         </h3>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-green-400 mb-2">URL Objetivo</label>
+          <label className="block text-sm font-medium text-gray-900 mb-2">URL Objetivo</label>
           <input
             type="url"
             value={burpUrl}
             onChange={(e) => setBurpUrl(e.target.value)}
             placeholder="https://example.com"
-            className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
 

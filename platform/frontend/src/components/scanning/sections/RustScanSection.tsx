@@ -96,45 +96,45 @@ const RustScanSection: React.FC<RustScanSectionProps> = ({
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
         <div className="mb-4">
-          <h3 className="text-lg font-bold text-green-400 flex items-center gap-2">
+          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
             <Rocket className="w-5 h-5" />
             RustScan - Escaneo Ultra-Rápido
           </h3>
-          <p className="text-green-600">
+          <p className="text-gray-500">
             Escaneo de puertos extremadamente rápido usando RustScan. Ideal para escaneos masivos de puertos.
           </p>
         </div>
         <div className="space-y-4">
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-100 rounded-xl p-4 border border-gray-200">
             <h4 className="text-md font-semibold text-cyan-400 mb-2">Opciones Avanzadas</h4>
             <div className="grid grid-cols-3 gap-3 mb-3">
               <div>
-                <label className="text-sm text-gray-400">Batch Size</label>
+                <label className="text-sm text-gray-500">Batch Size</label>
                 <input
                   type="number"
                   id="rustscan-batch"
                   defaultValue={4000}
-                  className="w-full bg-gray-900 border border-gray-700 rounded px-2 py-1 text-gray-300 text-sm"
+                  className="w-full bg-gray-50 border border-gray-200 rounded px-2 py-1 text-gray-600 text-sm"
                 />
               </div>
               <div>
-                <label className="text-sm text-gray-400">Timeout (ms)</label>
+                <label className="text-sm text-gray-500">Timeout (ms)</label>
                 <input
                   type="number"
                   id="rustscan-timeout"
                   defaultValue={1500}
-                  className="w-full bg-gray-900 border border-gray-700 rounded px-2 py-1 text-gray-300 text-sm"
+                  className="w-full bg-gray-50 border border-gray-200 rounded px-2 py-1 text-gray-600 text-sm"
                 />
               </div>
               <div>
-                <label className="text-sm text-gray-400">Ulimit</label>
+                <label className="text-sm text-gray-500">Ulimit</label>
                 <input
                   type="number"
                   id="rustscan-ulimit"
                   defaultValue={5000}
-                  className="w-full bg-gray-900 border border-gray-700 rounded px-2 py-1 text-gray-300 text-sm"
+                  className="w-full bg-gray-50 border border-gray-200 rounded px-2 py-1 text-gray-600 text-sm"
                 />
               </div>
             </div>
@@ -172,7 +172,7 @@ const RustScanSection: React.FC<RustScanSectionProps> = ({
               }
             }}
             disabled={rustscanMutation.isPending || !target?.trim()}
-            className="w-full bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center"
+            className="w-full bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center"
           >
             {rustscanMutation.isPending ? (
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />

@@ -24,10 +24,10 @@ const ScanningHistory: React.FC<ScanningHistoryProps> = ({
   killTask
 }) => {
   return (
-    <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+    <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
       <div className="mb-4">
-        <h2 className="text-xl font-bold text-green-400">Historial de Escaneos</h2>
-        <p className="text-green-600">
+        <h2 className="text-lg font-semibold text-gray-900">Historial de Escaneos</h2>
+        <p className="text-gray-500">
           Sesiones de escaneo recientes y su estado
         </p>
       </div>

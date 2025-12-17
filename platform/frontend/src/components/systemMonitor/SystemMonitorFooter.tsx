@@ -22,10 +22,10 @@ export const SystemMonitorFooter: React.FC<SystemMonitorFooterProps> = ({
   isConnected
 }) => {
   return (
-    <div className="p-2 border-t border-green-500 bg-gray-800 text-xs text-gray-400 flex items-center justify-between">
+    <div className="p-2 border-t border-gray-200 bg-white text-xs text-gray-500 flex items-center justify-between">
       <div className="flex items-center space-x-3">
         <span>
-          Usuario: <span className="text-green-400">{username || 'N/A'}</span>
+          Usuario: <span className="text-gray-900">{username || 'N/A'}</span>
         </span>
         <span>•</span>
         <span>
@@ -39,7 +39,7 @@ export const SystemMonitorFooter: React.FC<SystemMonitorFooterProps> = ({
         </span>
         <span>•</span>
         <span>
-          WebSocket: <span className={isConnected ? 'text-green-400' : 'text-red-400'}>
+          WebSocket: <span className={isConnected ? 'text-gray-900' : 'text-red-400'}>
             {isConnected ? 'Conectado' : 'Desconectado'}
           </span>
         </span>

@@ -74,10 +74,10 @@ const IA: React.FC = () => {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-green-400">
+        <h1 className="text-2xl font-semibold text-gray-900 text-gray-900">
           🤖 Inteligencia Artificial Avanzada
         </h1>
-        <p className="text-green-600 mt-2">
+        <p className="text-gray-500 mt-2">
           Sistema completo de IA para pentesting: Chatbot contextual, análisis predictivo, generación de payloads y más
         </p>
       </div>
@@ -131,10 +131,10 @@ const IA: React.FC = () => {
       </div>
 
       <div className="card">
-        <h2 className="text-xl font-bold text-green-400 mb-4">
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">
           Historial de Consultas IA
         </h2>
-        <div className="text-center py-8 text-green-600">
+        <div className="text-center py-8 text-gray-500">
           <Brain size={48} className="mx-auto mb-4 opacity-50" />
           <p>No hay consultas recientes</p>
           <p className="text-sm">Las consultas aparecerán aquí</p>

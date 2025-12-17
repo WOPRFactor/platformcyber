@@ -26,15 +26,15 @@ export const SystemMonitorTabs: React.FC<SystemMonitorTabsProps> = ({
   onTabChange
 }) => {
   return (
-    <div className="flex items-center space-x-1 p-2 border-b border-green-500 bg-gray-800">
+    <div className="flex items-center space-x-1 p-2 border-b border-gray-200 bg-white">
       {tabs.map(tab => (
         <button
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
           className={`px-4 py-2 text-xs font-medium rounded-t transition-colors ${
             activeTab === tab.id
-              ? 'bg-gray-900 text-cyan-400 border-t border-l border-r border-green-500'
-              : 'text-gray-400 hover:text-cyan-400 hover:bg-gray-700/50'
+              ? 'bg-gray-50 text-cyan-400 border-t border-l border-r border-gray-200'
+              : 'text-gray-500 hover:text-cyan-400 hover:bg-gray-700/50'
           }`}
         >
           {tab.label}

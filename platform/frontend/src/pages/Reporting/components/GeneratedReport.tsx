@@ -43,14 +43,14 @@ const GeneratedReport: React.FC<GeneratedReportProps> = ({
   console.log('📋 Report type determined:', reportType)
 
   return (
-    <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+    <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-green-400">Reporte Generado</h2>
+        <h2 className="text-lg font-semibold text-gray-900">Reporte Generado</h2>
         <div className="flex gap-2">
           <select
             value={exportFormat}
             onChange={(e) => setExportFormat(e.target.value as 'json' | 'html' | 'pdf')}
-            className="bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="html">HTML</option>
             <option value="json">JSON</option>
@@ -59,7 +59,7 @@ const GeneratedReport: React.FC<GeneratedReportProps> = ({
           <button
             onClick={handleExportReport}
             disabled={exportMutation.isPending || exportFormat === 'pdf'}
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {exportMutation.isPending ? (
               <Loader className="w-4 h-4 animate-spin" />
@@ -73,7 +73,7 @@ const GeneratedReport: React.FC<GeneratedReportProps> = ({
 
       {(reportType === 'executive' || reportType === 'full') && generatedReport.executive_summary && (
         <div>
-          <h3 className="text-green-400 text-lg font-bold mb-2">📊 Resumen Ejecutivo</h3>
+          <h3 className="text-gray-900 text-lg font-bold mb-2">📊 Resumen Ejecutivo</h3>
           <ExecutiveSummary data={generatedReport} />
         </div>
       )}
@@ -85,8 +85,8 @@ const GeneratedReport: React.FC<GeneratedReportProps> = ({
       )}
       
       {reportType === 'full' && (
-        <div className="mt-4 p-4 bg-gray-900 rounded">
-          <p className="text-green-400 text-sm">
+        <div className="mt-4 p-4 bg-gray-50 rounded">
+          <p className="text-gray-900 text-sm">
             Este es un reporte completo que incluye todas las secciones. Usa las pestañas arriba para ver secciones específicas.
           </p>
         </div>

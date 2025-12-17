@@ -31,50 +31,50 @@ interface ExecutiveSummaryProps {
 const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ data }) => {
   return (
     <div className="space-y-6">
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
-        <h3 className="text-xl font-bold text-green-400 mb-4">📊 Resumen Ejecutivo</h3>
+      <div className="bg-gray-100 border border-gray-300 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">📊 Resumen Ejecutivo</h3>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-blue-600">{data.executive_summary.total_scans}</div>
-            <div className="text-sm text-gray-400">Scans Totales</div>
+            <div className="text-2xl font-semibold text-gray-900 text-blue-600">{data.executive_summary.total_scans}</div>
+            <div className="text-sm text-gray-500">Scans Totales</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600">{data.executive_summary.total_vulnerabilities}</div>
-            <div className="text-sm text-gray-400">Vulnerabilidades</div>
+            <div className="text-2xl font-semibold text-gray-900 text-gray-500">{data.executive_summary.total_vulnerabilities}</div>
+            <div className="text-sm text-gray-500">Vulnerabilidades</div>
           </div>
           <div className="text-center">
-            <div className={`text-3xl font-bold ${
+            <div className={`text-2xl font-semibold text-gray-900 ${
               data.executive_summary.risk_level === 'Critical' ? 'text-red-600' :
               data.executive_summary.risk_level === 'High' ? 'text-orange-600' :
               data.executive_summary.risk_level === 'Medium' ? 'text-yellow-600' :
-              'text-green-600'
+              'text-gray-500'
             }`}>
               {data.executive_summary.risk_score}
             </div>
-            <div className="text-sm text-gray-400">Puntuación de Riesgo</div>
+            <div className="text-sm text-gray-500">Puntuación de Riesgo</div>
           </div>
           <div className="text-center">
             <div className={`text-lg font-bold px-2 py-1 rounded ${
-              data.executive_summary.risk_level === 'Critical' ? 'bg-red-900 text-red-200' :
-              data.executive_summary.risk_level === 'High' ? 'bg-orange-900 text-orange-200' :
-              data.executive_summary.risk_level === 'Medium' ? 'bg-yellow-900 text-yellow-200' :
-              'bg-green-900 text-green-200'
+              data.executive_summary.risk_level === 'Critical' ? 'bg-red-50 text-red-700 border border-red-200' :
+              data.executive_summary.risk_level === 'High' ? 'bg-orange-50 text-orange-700 border border-orange-200' :
+              data.executive_summary.risk_level === 'Medium' ? 'bg-yellow-50 text-yellow-700 border border-yellow-200' :
+              'bg-emerald-50 text-emerald-700 border border-emerald-200'
             }`}>
               {data.executive_summary.risk_level}
             </div>
-            <div className="text-sm text-gray-400">Nivel de Riesgo</div>
+            <div className="text-sm text-gray-500">Nivel de Riesgo</div>
           </div>
         </div>
 
-        <div className="bg-gray-900 p-4 rounded-lg">
-          <h4 className="text-lg font-semibold text-green-400 mb-2">🔍 Hallazgos Clave</h4>
+        <div className="bg-gray-50 p-4 rounded-xl">
+          <h4 className="text-lg font-semibold text-gray-900 mb-2">🔍 Hallazgos Clave</h4>
           <div className="space-y-2">
             {data.executive_summary.key_findings.map((finding, index) => (
               <div key={index} className="flex items-start space-x-2">
-                <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                <CheckCircle className="w-5 h-5 text-gray-800 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300">{finding}</p>
+                  <p className="text-gray-600">{finding}</p>
                 </div>
               </div>
             ))}
@@ -82,7 +82,7 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ data }) => {
         </div>
       </div>
 
-        <div className="bg-gray-900 p-4 rounded-lg">
+        <div className="bg-gray-50 p-4 rounded-xl">
           <h4 className="text-lg font-semibold text-blue-400 mb-2">📊 Distribución por Severidad</h4>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {Object.entries(data.executive_summary.severity_distribution).map(([severity, count]) => (
@@ -92,30 +92,30 @@ const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({ data }) => {
                   severity === 'high' ? 'text-orange-400' :
                   severity === 'medium' ? 'text-yellow-400' :
                   severity === 'low' ? 'text-blue-400' :
-                  'text-gray-400'
+                  'text-gray-500'
                 }`}>
                   {count as number}
                 </div>
-                <div className="text-sm text-gray-400 capitalize">{severity}</div>
+                <div className="text-sm text-gray-500 capitalize">{severity}</div>
               </div>
             ))}
           </div>
         </div>
 
         {data.metadata && (
-          <div className="mt-4 p-4 bg-gray-900 rounded">
+          <div className="mt-4 p-4 bg-gray-50 rounded">
             <h4 className="text-lg font-semibold text-purple-400 mb-2">📄 Información del Reporte</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div>
-                <span className="text-gray-400">Tipo:</span>
+                <span className="text-gray-500">Tipo:</span>
                 <span className="ml-2 text-gray-200 capitalize">{data.metadata.report_type}</span>
               </div>
               <div>
-                <span className="text-gray-400">Workspace:</span>
+                <span className="text-gray-500">Workspace:</span>
                 <span className="ml-2 text-gray-200">#{data.metadata.workspace_id}</span>
               </div>
               <div>
-                <span className="text-gray-400">Generado:</span>
+                <span className="text-gray-500">Generado:</span>
                 <span className="ml-2 text-gray-200">
                   {new Date(data.metadata.generated_at).toLocaleString()}
                 </span>

@@ -106,7 +106,7 @@ const RunningScansConsoleModal: React.FC<RunningScansConsoleModalProps> = ({ isO
   return (
     <div className="fixed inset-0 z-50 pointer-events-none select-none">
       <div
-        className="absolute pointer-events-auto bg-gray-900 border border-green-500 rounded-lg shadow-2xl flex flex-col"
+        className="absolute pointer-events-auto bg-gray-50 border border-gray-200 rounded-xl shadow-2xl flex flex-col"
         style={{
           left: position.x,
           top: position.y,
@@ -117,7 +117,7 @@ const RunningScansConsoleModal: React.FC<RunningScansConsoleModalProps> = ({ isO
       >
         {/* Header */}
         <div
-          className="modal-header flex items-center justify-between px-4 py-2 border-b border-green-500 bg-gray-800 rounded-t-lg cursor-move"
+          className="modal-header flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-white rounded-t-lg cursor-move"
           onMouseDown={handleHeaderMouseDown}
         >
           <div className="flex items-center gap-2 text-cyan-400">
@@ -126,7 +126,7 @@ const RunningScansConsoleModal: React.FC<RunningScansConsoleModalProps> = ({ isO
               <p className="text-sm font-semibold leading-tight">
                 Running Scans Console
               </p>
-              <p className="text-[11px] text-gray-400 leading-tight">
+              <p className="text-[11px] text-gray-500 leading-tight">
                 Control total de herramientas en ejecución
               </p>
             </div>
@@ -138,7 +138,7 @@ const RunningScansConsoleModal: React.FC<RunningScansConsoleModalProps> = ({ isO
                 event.stopPropagation()
                 setIsMinimized(!isMinimized)
               }}
-              className="p-1 text-gray-400 hover:text-cyan-300 transition-colors"
+              className="p-1 text-gray-500 hover:text-cyan-300 transition-colors"
               title={isMinimized ? 'Restaurar' : 'Minimizar'}
             >
               {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
@@ -148,7 +148,7 @@ const RunningScansConsoleModal: React.FC<RunningScansConsoleModalProps> = ({ isO
                 event.stopPropagation()
                 onClose()
               }}
-              className="p-1 text-gray-400 hover:text-red-400 transition-colors"
+              className="p-1 text-gray-500 hover:text-red-400 transition-colors"
               title="Cerrar consola"
             >
               <X className="w-4 h-4" />
@@ -158,27 +158,27 @@ const RunningScansConsoleModal: React.FC<RunningScansConsoleModalProps> = ({ isO
 
         {!isMinimized && (
           <>
-            <div className="px-4 py-2 border-b border-green-500 bg-gray-800 text-xs text-gray-400 flex justify-between items-center">
+            <div className="px-4 py-2 border-b border-gray-200 bg-white text-xs text-gray-500 flex justify-between items-center">
               <span>
                 ⚡ Supervisión en vivo de recon, scanning, vuln y post-exploitation
               </span>
-              <span className="text-green-400">
+              <span className="text-gray-900">
                 Arrastra para mover · ESC para cerrar
               </span>
             </div>
 
-            <div className="flex-1 overflow-hidden p-4 bg-gray-900">
+            <div className="flex-1 overflow-hidden p-4 bg-gray-50">
               <RunningScansMonitor />
             </div>
           </>
         )}
 
         <div
-          className="absolute bottom-1 right-1 w-4 h-4 cursor-nwse-resize text-green-400 flex items-center justify-center"
+          className="absolute bottom-1 right-1 w-4 h-4 cursor-nwse-resize text-gray-900 flex items-center justify-center"
           onMouseDown={handleResizeMouseDown}
           title="Redimensionar"
         >
-          <div className="w-3 h-3 border-r border-b border-green-500" />
+          <div className="w-3 h-3 border-r border-b border-gray-200" />
         </div>
       </div>
     </div>

@@ -91,7 +91,7 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
   const getLogIcon = (level: string) => {
     switch (level) {
       case 'success':
-        return <CheckCircle className="w-4 h-4 text-green-400" />
+        return <CheckCircle className="w-4 h-4 text-gray-900" />
       case 'error':
         return <XCircle className="w-4 h-4 text-red-400" />
       case 'warning':
@@ -109,7 +109,7 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
       case 'running':
         return <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
       case 'completed':
-        return <CheckCircle className="w-4 h-4 text-green-400" />
+        return <CheckCircle className="w-4 h-4 text-gray-900" />
       case 'failed':
         return <XCircle className="w-4 h-4 text-red-400" />
       case 'cancelled':
@@ -150,7 +150,7 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
           "fixed bottom-4 right-4 z-50 p-3 rounded-full shadow-lg transition-all duration-200",
           hasActivity
             ? "bg-cyan-500 hover:bg-cyan-600 text-black animate-pulse"
-            : "bg-gray-800 hover:bg-gray-700 text-cyan-400"
+            : "bg-white hover:bg-gray-700 text-cyan-400"
         )}
         title={hasActivity ? "Ver progreso de tareas" : "Abrir consola de tareas"}
       >
@@ -170,7 +170,7 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
     <div
       ref={consoleRef}
       className={cn(
-        "fixed z-50 bg-gray-900 border border-cyan-500 rounded-lg shadow-2xl overflow-hidden",
+        "fixed z-50 bg-gray-50 border border-cyan-500 rounded-xl shadow-2xl overflow-hidden",
         "backdrop-blur-sm bg-opacity-95",
         isDragging && "cursor-move"
       )}
@@ -184,7 +184,7 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
     >
       {/* Header */}
       <div
-        className="flex items-center justify-between p-3 bg-gray-800 border-b border-cyan-500 cursor-move"
+        className="flex items-center justify-between p-3 bg-white border-b border-cyan-500 cursor-move"
         onMouseDown={handleMouseDown}
       >
         <div className="flex items-center space-x-2">
@@ -204,7 +204,7 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
           {consoleSize !== 'minimized' && (
             <button
               onClick={() => setConsoleSize(consoleSize === 'compact' ? 'full' : 'compact')}
-              className="p-1 text-gray-400 hover:text-cyan-400 transition-colors"
+              className="p-1 text-gray-500 hover:text-cyan-400 transition-colors"
               title={consoleSize === 'compact' ? 'Maximizar' : 'Compactar'}
             >
               {consoleSize === 'compact' ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
@@ -214,7 +214,7 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
           {consoleSize === 'full' && (
             <button
               onClick={() => setConsoleSize('compact')}
-              className="p-1 text-gray-400 hover:text-cyan-400 transition-colors"
+              className="p-1 text-gray-500 hover:text-cyan-400 transition-colors"
               title="Compactar"
             >
               <ChevronDown className="w-4 h-4" />
@@ -223,7 +223,7 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
 
           <button
             onClick={toggleConsole}
-            className="p-1 text-gray-400 hover:text-red-400 transition-colors"
+            className="p-1 text-gray-500 hover:text-red-400 transition-colors"
             title="Cerrar consola"
           >
             <X className="w-4 h-4" />
@@ -235,12 +235,12 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
       <div className="flex flex-col h-full">
         {/* Tareas activas */}
         {consoleSize !== 'minimized' && runningTasks.length > 0 && (
-          <div className="p-3 border-b border-gray-700">
+          <div className="p-3 border-b border-gray-200">
             <div className="flex items-center justify-between mb-2">
               <h4 className="text-sm font-medium text-cyan-400">Tareas Activas</h4>
               <button
                 onClick={clearCompletedTasks}
-                className="text-xs text-gray-400 hover:text-red-400"
+                className="text-xs text-gray-500 hover:text-red-400"
                 title="Limpiar completadas"
               >
                 <Trash2 className="w-3 h-3" />
@@ -248,12 +248,12 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
             </div>
             <div className="space-y-2">
               {runningTasks.map((task) => (
-                <div key={task.id} className="flex items-center justify-between bg-gray-800 p-2 rounded">
+                <div key={task.id} className="flex items-center justify-between bg-white p-2 rounded">
                   <div className="flex items-center space-x-2 flex-1 min-w-0">
                     {getTaskStatusIcon(task.status)}
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-medium text-white truncate">{task.name}</p>
-                      <p className="text-xs text-gray-400">{task.module}</p>
+                      <p className="text-xs text-gray-500">{task.module}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -274,12 +274,12 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
         {/* Logs */}
         {consoleSize !== 'minimized' && (
           <div className="flex-1 overflow-hidden">
-            <div className="flex items-center justify-between p-3 border-b border-gray-700">
+            <div className="flex items-center justify-between p-3 border-b border-gray-200">
               <h4 className="text-sm font-medium text-cyan-400">Logs</h4>
               <div className="flex items-center space-x-1">
                 <button
                   onClick={clearLogs}
-                  className="text-xs text-gray-400 hover:text-red-400"
+                  className="text-xs text-gray-500 hover:text-red-400"
                   title="Limpiar logs"
                 >
                   <Trash2 className="w-3 h-3" />
@@ -302,13 +302,13 @@ const FloatingConsole: React.FC<FloatingConsoleProps> = ({ className }) => {
                     <div className="flex items-center space-x-1 flex-shrink-0">
                       {getLogIcon(log.level)}
                     </div>
-                    <span className="text-gray-400 flex-shrink-0 w-12">
+                    <span className="text-gray-500 flex-shrink-0 w-12">
                       [{log.module}]
                     </span>
                     <span className={cn(
                       "flex-1 break-all",
                       log.level === 'error' && "text-red-400",
-                      log.level === 'success' && "text-green-400",
+                      log.level === 'success' && "text-gray-900",
                       log.level === 'warning' && "text-yellow-400",
                       log.level === 'command' && "text-blue-400",
                       log.level === 'info' && "text-cyan-400"

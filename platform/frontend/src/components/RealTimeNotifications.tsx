@@ -30,7 +30,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notification, onClo
   const getLevelColor = () => {
     switch (notification.level) {
       case 'success':
-        return 'bg-green-500';
+        return 'bg-red-600';
       case 'warning':
         return 'bg-yellow-500';
       case 'error':
@@ -58,7 +58,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notification, onClo
       className={`
         transform transition-all duration-300 ease-in-out
         ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}
-        mb-2 p-4 rounded-lg shadow-lg backdrop-blur-sm
+        mb-2 p-4 rounded-xl shadow-lg backdrop-blur-sm
         ${getLevelColor()} bg-opacity-90 text-white
         max-w-md
       `}

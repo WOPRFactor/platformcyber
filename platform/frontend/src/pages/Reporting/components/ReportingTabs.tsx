@@ -15,13 +15,13 @@ interface ReportingTabsProps {
 
 const ReportingTabs: React.FC<ReportingTabsProps> = ({ activeTab, setActiveTab }) => {
   return (
-    <div className="flex border-b border-green-500 mb-4 overflow-x-auto">
+    <div className="flex border-b border-gray-200 mb-4 overflow-x-auto">
       <button
         onClick={() => setActiveTab('executive')}
         className={`flex items-center gap-2 px-4 py-2 border-b-2 whitespace-nowrap ${
           activeTab === 'executive'
             ? 'border-red-400 text-red-400'
-            : 'border-transparent text-gray-400 hover:text-red-400'
+            : 'border-transparent text-gray-500 hover:text-red-400'
         }`}
       >
         <BarChart3 className="w-4 h-4" />
@@ -32,7 +32,7 @@ const ReportingTabs: React.FC<ReportingTabsProps> = ({ activeTab, setActiveTab }
         className={`flex items-center gap-2 px-4 py-2 border-b-2 whitespace-nowrap ${
           activeTab === 'technical'
             ? 'border-red-400 text-red-400'
-            : 'border-transparent text-gray-400 hover:text-red-400'
+            : 'border-transparent text-gray-500 hover:text-red-400'
         }`}
       >
         <Target className="w-4 h-4" />
@@ -43,7 +43,7 @@ const ReportingTabs: React.FC<ReportingTabsProps> = ({ activeTab, setActiveTab }
         className={`flex items-center gap-2 px-4 py-2 border-b-2 whitespace-nowrap ${
           activeTab === 'compliance'
             ? 'border-red-400 text-red-400'
-            : 'border-transparent text-gray-400 hover:text-red-400'
+            : 'border-transparent text-gray-500 hover:text-red-400'
         }`}
       >
         <Shield className="w-4 h-4" />

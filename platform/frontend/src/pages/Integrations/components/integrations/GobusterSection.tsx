@@ -57,7 +57,7 @@ export const GobusterSection: React.FC = () => {
   }
 
   return (
-    <div className="bg-gray-900 border border-red-500 rounded-lg p-6">
+    <div className="bg-gray-100 border border-red-500 rounded-xl p-6">
       <h3 className="text-lg font-bold text-red-400 mb-4 flex items-center gap-2">
         <FolderOpen className="w-5 h-5" />
         Directory Busting
@@ -65,21 +65,21 @@ export const GobusterSection: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">URL Base</label>
+          <label className="block text-sm font-medium text-gray-900 mb-2">URL Base</label>
           <input
             type="url"
             value={gobusterUrl}
             onChange={(e) => setGobusterUrl(e.target.value)}
             placeholder="https://example.com"
-            className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-green-400 mb-2">Wordlist</label>
+          <label className="block text-sm font-medium text-gray-900 mb-2">Wordlist</label>
           <select
             value={gobusterWordlist}
             onChange={(e) => setGobusterWordlist(e.target.value)}
-            className="w-full bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
           >
             <option value="common">Common (874 palabras)</option>
             <option value="big">Big (204.689 palabras)</option>
@@ -92,7 +92,7 @@ export const GobusterSection: React.FC = () => {
         <button
           onClick={handleGobusterWithPreview}
           disabled={directoryBustingMutation.isPending || !gobusterUrl.trim()}
-          className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {directoryBustingMutation.isPending ? (
             <Loader className="w-4 h-4 animate-spin mr-2" />
@@ -104,7 +104,7 @@ export const GobusterSection: React.FC = () => {
         <button
           onClick={handleGobusterWithPreview}
           disabled={!gobusterUrl.trim()}
-          className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 disabled:opacity-50"
+          className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 disabled:opacity-50"
         >
           <Eye className="w-4 h-4" />
           Preview
@@ -113,15 +113,15 @@ export const GobusterSection: React.FC = () => {
 
       {directoryBustingMutation.data && (
         <div className="mt-6">
-          <div className="bg-gray-800 border border-green-500 rounded-lg p-6 mb-4">
-            <h4 className="font-semibold mb-4 text-green-400">Resumen de Directory Busting</h4>
+          <div className="bg-gray-100 border border-gray-300 rounded-xl p-6 mb-4">
+            <h4 className="font-semibold mb-4 text-gray-900">Resumen de Directory Busting</h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="text-center">
                 <div className="text-2xl font-bold text-blue-600">{directoryBustingMutation.data?.directories_found || 0}</div>
                 <div className="text-sm text-gray-600">Directorios</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">
+                <div className="text-2xl font-bold text-gray-500">
                   {directoryBustingMutation.data?.directories?.filter((d: DirectoryResult) => d.status_code?.startsWith('2')).length || 0}
                 </div>
                 <div className="text-sm text-gray-600">200 OK</div>

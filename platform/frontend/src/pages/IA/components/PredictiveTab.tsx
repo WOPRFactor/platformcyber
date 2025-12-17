@@ -17,14 +17,14 @@ interface PredictiveTabProps {
 const PredictiveTab: React.FC<PredictiveTabProps> = ({ onAnalyze, predictiveAnalysisMutation }) => {
   return (
     <div>
-      <h2 className="text-xl font-bold text-green-400 mb-6 flex items-center space-x-2">
+      <h2 className="text-lg font-semibold text-gray-900 mb-6 flex items-center space-x-2">
         <TrendingUp size={20} />
         <span>Análisis Predictivo de Vulnerabilidades</span>
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <h3 className="text-lg font-semibold text-green-400 mb-2">Información del Objetivo</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Información del Objetivo</h3>
           <div className="space-y-2">
             <input
               type="text"
@@ -47,9 +47,9 @@ const PredictiveTab: React.FC<PredictiveTabProps> = ({ onAnalyze, predictiveAnal
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-green-400 mb-2">Análisis Predictivo</h3>
-          <div className="bg-gray-900/50 p-4 rounded border border-green-500/20">
-            <p className="text-sm text-green-600 mb-2">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Análisis Predictivo</h3>
+          <div className="bg-gray-50/50 p-4 rounded border border-gray-200/20">
+            <p className="text-sm text-gray-500 mb-2">
               La IA analizará el objetivo y predecirá posibles vulnerabilidades basándose en patrones históricos.
             </p>
             <button

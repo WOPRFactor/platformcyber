@@ -77,7 +77,7 @@ export const ADIDNSDumpSection: React.FC<ADIDNSDumpSectionProps> = ({ workspaceI
 
   return (
     <div className="mt-4">
-      <div className="bg-gray-900 border border-red-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-red-500 rounded-xl p-6">
         <div className="mb-4">
           <h3 className="text-lg font-bold text-red-400 flex items-center gap-2">
             <Globe className="w-5 h-5" />
@@ -90,53 +90,53 @@ export const ADIDNSDumpSection: React.FC<ADIDNSDumpSectionProps> = ({ workspaceI
 
         <div className="space-y-4 mb-6">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               DC IP *
             </label>
             <input
               type="text"
               value={dcIp}
               onChange={(e) => setDcIp(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="192.168.1.10"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Dominio *
             </label>
             <input
               type="text"
               value={domain}
               onChange={(e) => setDomain(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="example.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Username *
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="user"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-600 mb-2">
               Password *
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="••••••••"
             />
           </div>
@@ -145,7 +145,7 @@ export const ADIDNSDumpSection: React.FC<ADIDNSDumpSectionProps> = ({ workspaceI
         <button
           onClick={handleADIDNSDumpWithPreview}
           disabled={adidnsDumpMutation.isPending || !dcIp || !username || !password || !domain}
-          className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2"
+          className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-xl flex items-center justify-center gap-2"
         >
           {adidnsDumpMutation.isPending ? (
             <>
@@ -173,6 +173,9 @@ export const ADIDNSDumpSection: React.FC<ADIDNSDumpSectionProps> = ({ workspaceI
     </div>
   )
 }
+
+
+
 
 
 

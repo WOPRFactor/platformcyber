@@ -267,12 +267,16 @@ const Scanning: React.FC = () => {
 
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="space-y-6">
+      {/* Page Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Scanning</h1>
-        <div className="flex items-center gap-2 text-sm text-gray-600">
+        <div>
+          <h1 className="text-2xl font-semibold text-gray-900">Network Scanning</h1>
+          <p className="text-gray-500 mt-1">Port scanning and service enumeration tools</p>
+        </div>
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-xl text-sm font-medium">
           <Activity className="w-4 h-4" />
-          Sistema de escaneo avanzado activo
+          Scanner Active
         </div>
       </div>
 
@@ -280,27 +284,28 @@ const Scanning: React.FC = () => {
       <ScanningProgressHeader scanProgress={scanProgress} />
 
       {/* Input del target */}
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-gray-300 rounded-xl p-6 shadow-sm">
         <div className="mb-4">
-          <h2 className="text-xl font-bold text-green-400">Target</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Target Configuration</h2>
           {currentWorkspace?.target_domain ? (
-            <div className="space-y-2">
-              <p className="text-green-600 flex items-center gap-2">
-                <span className="text-green-400">🎯</span>
-                Target del workspace: <span className="text-green-300 font-mono font-bold">{currentWorkspace.target_domain}</span>
+            <div className="mt-2 space-y-2">
+              <p className="text-gray-600 flex items-center gap-2">
+                <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                Workspace target: <span className="text-gray-900 font-mono font-medium">{currentWorkspace.target_domain}</span>
               </p>
               {currentWorkspace.target_ip && (
-                <p className="text-gray-400 text-sm">
-                  IP: <span className="text-gray-300 font-mono">{currentWorkspace.target_ip}</span>
+                <p className="text-gray-500 text-sm">
+                  IP: <span className="text-gray-700 font-mono">{currentWorkspace.target_ip}</span>
                 </p>
               )}
               <p className="text-xs text-gray-500">
-                Este target se auto-completa desde la configuración del workspace. Puedes modificarlo si necesitas escanear otro objetivo.
+                Auto-filled from workspace configuration. You can modify it to scan another target.
               </p>
             </div>
           ) : (
-            <p className="text-yellow-600">
-              ⚠️ Este workspace no tiene un target configurado. Ingresa manualmente el objetivo del escaneo.
+            <p className="mt-2 text-amber-600 flex items-center gap-2 text-sm">
+              <span className="w-2 h-2 bg-amber-500 rounded-full"></span>
+              This workspace has no target configured. Enter the scan target manually.
             </p>
           )}
         </div>
@@ -309,27 +314,27 @@ const Scanning: React.FC = () => {
             type="text"
             value={target}
             onChange={(e) => setTarget(e.target.value)}
-            placeholder="ej: example.com, 192.168.1.1, 192.168.1.0/24"
-            className="flex-1 bg-gray-900 border border-green-500 rounded px-3 py-2 text-green-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="e.g., example.com, 192.168.1.1, 192.168.1.0/24"
+            className="flex-1 px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all"
           />
           {target && (
             <button
               onClick={clearTarget}
-              className="btn-secondary px-3 ml-2"
-              title="Limpiar target"
+              className="px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl transition-colors"
+              title="Clear target"
             >
-              🗑️
+              ✕
             </button>
           )}
         </div>
       </div>
 
       {/* Herramientas de escaneo */}
-      <div className="bg-gray-800 border border-green-500 rounded-lg p-6">
+      <div className="bg-gray-100 border border-gray-300 rounded-xl p-6 shadow-sm">
         <div className="mb-4">
-          <h2 className="text-xl font-bold text-green-400">Herramientas de Escaneo</h2>
-          <p className="text-green-600">
-            Seleccione la herramienta y tipo de escaneo a realizar
+          <h2 className="text-lg font-semibold text-gray-900">Scanning Tools</h2>
+          <p className="text-gray-500 text-sm mt-1">
+            Select tool and scan type to perform
           </p>
         </div>
 

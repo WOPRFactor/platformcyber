@@ -30,7 +30,7 @@ const ReportsTab: React.FC<ReportsTabProps> = ({
 }) => {
   return (
     <div>
-      <h2 className="text-xl font-bold text-green-400 mb-6 flex items-center space-x-2">
+      <h2 className="text-lg font-semibold text-gray-900 mb-6 flex items-center space-x-2">
         <FileText size={20} />
         <span>Análisis Automático de Reportes</span>
       </h2>
@@ -38,7 +38,7 @@ const ReportsTab: React.FC<ReportsTabProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">Tipo de Reporte</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">Tipo de Reporte</label>
             <select
               value={reportData.type}
               onChange={(e) => setReportData({...reportData, type: e.target.value})}
@@ -53,7 +53,7 @@ const ReportsTab: React.FC<ReportsTabProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">Contenido del Reporte</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">Contenido del Reporte</label>
             <textarea
               value={reportData.content}
               onChange={(e) => setReportData({...reportData, content: e.target.value})}
@@ -63,7 +63,7 @@ const ReportsTab: React.FC<ReportsTabProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-green-400 mb-2">Información del Objetivo</label>
+            <label className="block text-sm font-medium text-gray-900 mb-2">Información del Objetivo</label>
             <input
               type="text"
               placeholder="IP, dominio o nombre del objetivo"
@@ -74,9 +74,9 @@ const ReportsTab: React.FC<ReportsTabProps> = ({
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-green-400 mb-2">Análisis Automático</h3>
-          <div className="bg-gray-900/50 p-4 rounded border border-green-500/20">
-            <p className="text-sm text-green-600 mb-4">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">Análisis Automático</h3>
+          <div className="bg-gray-50/50 p-4 rounded border border-gray-200/20">
+            <p className="text-sm text-gray-500 mb-4">
               La IA analizará automáticamente el reporte y generará:
               resumen ejecutivo, hallazgos críticos, recomendaciones prioritarias y métricas de riesgo.
             </p>

@@ -67,14 +67,14 @@ const TopVulnerabilitiesChart: React.FC<TopVulnerabilitiesChartProps> = ({
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-gray-900 border border-gray-700 rounded-lg p-4 shadow-xl max-w-sm"
+        className="bg-gray-50 border border-gray-200 rounded-xl p-4 shadow-xl max-w-sm"
       >
         <div className="flex items-center space-x-2 mb-3">
           <div
             className="w-3 h-3 rounded-full"
             style={{ backgroundColor: getSeverityColor(data.severity) }}
           />
-          <span className="text-xs font-semibold text-gray-400 uppercase">
+          <span className="text-xs font-semibold text-gray-500 uppercase">
             {data.severity}
           </span>
         </div>
@@ -199,7 +199,7 @@ const TopVulnerabilitiesChart: React.FC<TopVulnerabilitiesChartProps> = ({
                 className="w-2.5 h-2.5 rounded-full"
                 style={{ backgroundColor: getSeverityColor(severity) }}
               />
-              <span className="text-xs text-gray-300 capitalize">{severity}</span>
+              <span className="text-xs text-gray-600 capitalize">{severity}</span>
               <span className="text-xs text-white font-semibold">({count})</span>
             </div>
           )

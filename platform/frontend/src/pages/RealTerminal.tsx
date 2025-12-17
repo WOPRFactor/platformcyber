@@ -119,15 +119,15 @@ const RealTerminal: React.FC = () => {
   }, [])
 
   return (
-    <div className="min-h-screen bg-black text-green-400 font-mono p-4">
+    <div className="min-h-screen bg-black text-gray-900 font-mono p-4">
       {/* Terminal Header */}
-      <div className="border-b border-green-500 pb-2 mb-4">
+      <div className="border-b border-gray-200 pb-2 mb-4">
         <div className="flex items-center space-x-2">
           <span className="text-red-500">●</span>
           <span className="text-yellow-500">●</span>
-          <span className="text-green-500">●</span>
-          <span className="ml-4 text-green-400">Cybersecurity Terminal</span>
-          <span className={`ml-auto ${isConnected ? 'text-green-400' : 'text-red-400'}`}>
+          <span className="text-gray-800">●</span>
+          <span className="ml-4 text-gray-900">Cybersecurity Terminal</span>
+          <span className={`ml-auto ${isConnected ? 'text-gray-900' : 'text-red-400'}`}>
             {isConnected ? '●' : '○'}
           </span>
         </div>
@@ -150,7 +150,7 @@ const RealTerminal: React.FC = () => {
 
       {/* Command Input */}
       <div className="flex items-center space-x-2">
-        <span className="text-green-400">$</span>
+        <span className="text-gray-900">$</span>
         <input
           ref={inputRef}
           type="text"
@@ -158,7 +158,7 @@ const RealTerminal: React.FC = () => {
           onChange={(e) => setCurrentCommand(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="Ingresa comando..."
-          className="flex-1 bg-transparent border-none outline-none text-green-400 placeholder-green-600"
+          className="flex-1 bg-transparent border-none outline-none text-gray-900 placeholder-green-600"
           disabled={!isConnected}
           autoFocus
         />

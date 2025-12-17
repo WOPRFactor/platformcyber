@@ -54,7 +54,7 @@ const ProcessGraphConsole: React.FC<ProcessGraphConsoleProps> = ({ isOpen, onClo
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 pointer-events-none">
       <div
         ref={modalRef}
-        className="bg-gray-900 border border-green-500 rounded-lg shadow-2xl flex flex-col pointer-events-auto"
+        className="bg-gray-50 border border-gray-200 rounded-xl shadow-2xl flex flex-col pointer-events-auto"
         style={{
           position: 'absolute',
           left: position.x,
@@ -67,14 +67,14 @@ const ProcessGraphConsole: React.FC<ProcessGraphConsoleProps> = ({ isOpen, onClo
         onMouseDown={handleMouseDown}
       >
         {/* Header - Draggable */}
-        <div className="modal-header flex items-center justify-between p-4 border-b border-green-500 select-none">
-          <h2 className="text-xl font-bold text-green-400 flex items-center gap-2">
+        <div className="modal-header flex items-center justify-between p-4 border-b border-gray-200 select-none">
+          <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
             <PieChart className="w-6 h-6" />
             Consola de Gráficos
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-700 rounded-md text-green-400 hover:text-green-300 transition-colors"
+            className="p-2 hover:bg-gray-700 rounded-md text-gray-900 hover:text-gray-700 transition-colors"
           >
             <X size={20} />
           </button>
@@ -85,7 +85,7 @@ const ProcessGraphConsole: React.FC<ProcessGraphConsoleProps> = ({ isOpen, onClo
           className="absolute bottom-0 right-0 w-4 h-4 cursor-nw-resize"
           onMouseDown={handleResizeMouseDown}
         >
-          <div className="w-full h-full bg-green-500 rounded-tl opacity-50 hover:opacity-100 transition-opacity" />
+          <div className="w-full h-full bg-red-600 rounded-tl opacity-50 hover:opacity-100 transition-opacity" />
         </div>
 
         {/* Tabs */}
