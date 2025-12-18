@@ -120,6 +120,7 @@ export interface ScanSession {
   progress?: number
   scan_type?: string
   tool?: string
+  options?: Record<string, any>  // Incluir options para identificar herramientas
   started_at?: string | null
   completed_at?: string | null
   created_at: string

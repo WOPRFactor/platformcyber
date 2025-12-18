@@ -8,7 +8,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { useWorkspace } from '../contexts/WorkspaceContext'
 import {
   Activity, Shield, Target, AlertTriangle, TrendingUp,
-  Zap, Database, Lock, Users
+  Zap, Database, Lock, Users, Search, FileText
 } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { systemAPI } from '../lib/api/system'
@@ -27,6 +27,7 @@ import {
   ScanTimelineChart,
   RiskMatrixHeatmap,
 } from '../components/charts'
+import { PhasesOverview } from './Dashboard/components/PhasesOverview'
 
 const DashboardEnhanced: React.FC = () => {
   const { user, isAuthenticated } = useAuth()
@@ -249,6 +250,231 @@ const DashboardEnhanced: React.FC = () => {
   }, [riskMatrixData])
 
   // ═══════════════════════════════════════════════════════════════════════
+  // PHASES PROGRESS
+  // ═══════════════════════════════════════════════════════════════════════
+
+  // Totales de pasos por fase (basado en herramientas disponibles)
+  const phaseTotals = {
+    reconnaissance: 26,
+    scanning: 30,
+    vulnerability: 25,
+    exploitation: 14,
+    post_exploitation: 6,
+    reporting: 5
+  }
+
+  // Mapear scan_type a fases
+  const mapScanTypeToPhase = (scanType: string): string | null => {
+    const mapping: Record<string, string> = {
+      'reconnaissance': 'reconnaissance',
+      'port_scan': 'scanning',
+      'vuln_scan': 'vulnerability',
+      'exploit': 'exploitation',
+      'post_exploit': 'post_exploitation',
+      'ad_enum': 'scanning',
+      'cloud_audit': 'vulnerability'
+    }
+    return mapping[scanType] || null
+  }
+
+  // Función para inferir herramienta desde scan_type y options
+  const inferToolFromScan = (scanType: string, options: any): string | null => {
+    if (!options) return null
+    
+    // Prioridad 1: Intentar obtener tool directamente (la mayoría de escaneos lo tienen)
+    if (options.tool) {
+      return options.tool.toLowerCase()
+    }
+    
+    // Prioridad 2: Usar recon_type si está disponible
+    if (options.recon_type) {
+      const reconType = options.recon_type.toLowerCase()
+      // Mapear recon_type a herramientas específicas
+      if (reconType === 'whois') return 'whois'
+      if (reconType === 'dns') return 'dnsrecon'
+      if (reconType === 'dns_lookup') {
+        // host o nslookup ya están en options.tool normalmente, pero por si acaso
+        return options.tool || 'host'
+      }
+      if (reconType === 'subdomain_enum') {
+        // subfinder, amass, assetfinder, sublist3r - normalmente están en options.tool
+        return options.tool || 'subfinder'
+      }
+      if (reconType === 'email') return 'theharvester'
+      if (reconType === 'crawl') return options.tool || 'katana'
+      if (reconType === 'secrets') return options.tool || 'gitleaks'
+      if (reconType === 'google_dorks') return options.tool || 'manual'
+    }
+    
+    // Prioridad 3: Mapeo genérico por scan_type (fallback)
+    if (scanType === 'reconnaissance') {
+      // Si no hay información específica, usar un identificador genérico
+      return 'reconnaissance_tool'
+    }
+    
+    return null
+  }
+
+  // Calcular pasos completados por fase (híbrido: herramientas únicas + total ejecuciones)
+  const phasesProgress = useMemo(() => {
+    const uniqueToolsByPhase: Record<string, Set<string>> = {
+      reconnaissance: new Set(),
+      scanning: new Set(),
+      vulnerability: new Set(),
+      exploitation: new Set(),
+      post_exploitation: new Set(),
+      reporting: new Set()
+    }
+
+    const totalExecutionsByPhase: Record<string, number> = {
+      reconnaissance: 0,
+      scanning: 0,
+      vulnerability: 0,
+      exploitation: 0,
+      post_exploitation: 0,
+      reporting: 0
+    }
+
+    // Contar herramientas únicas y total de ejecuciones por fase
+    if (scanSessions) {
+      // Debug: Log de sesiones de reconocimiento para entender qué datos llegan
+      const reconSessions = scanSessions.filter((s: any) => s.scan_type === 'reconnaissance' && s.status === 'completed')
+      if (reconSessions.length > 0) {
+        console.log('🔍 DEBUG Reconnaissance Sessions:', reconSessions.slice(0, 5).map((s: any) => ({
+          id: s.id,
+          scan_type: s.scan_type,
+          options: s.options,
+          tool: s.options?.tool,
+          recon_type: s.options?.recon_type
+        })))
+      }
+
+      scanSessions.forEach((session: any) => {
+        if (session.status === 'completed') {
+          const phase = mapScanTypeToPhase(session.scan_type || '')
+          if (phase && uniqueToolsByPhase.hasOwnProperty(phase)) {
+            // Incrementar contador de ejecuciones
+            totalExecutionsByPhase[phase]++
+            
+            // Intentar identificar la herramienta específica
+            const tool = inferToolFromScan(session.scan_type || '', session.options)
+            if (tool) {
+              uniqueToolsByPhase[phase].add(tool.toLowerCase())
+            } else {
+              // Si no podemos identificar la herramienta, usar scan_type como fallback
+              // Pero solo si es reconnaissance, para otros tipos usar un identificador único por sesión
+              if (phase === 'reconnaissance') {
+                // Para reconnaissance, intentar usar recon_type o crear identificador único
+                const fallbackId = session.options?.recon_type 
+                  ? `${session.scan_type}_${session.options.recon_type}`.toLowerCase()
+                  : `${session.scan_type}_${session.id}`.toLowerCase()
+                uniqueToolsByPhase[phase].add(fallbackId)
+              } else {
+                uniqueToolsByPhase[phase].add(`${session.scan_type}_${session.id}`.toLowerCase())
+              }
+            }
+          }
+        }
+      })
+
+      // Debug: Log de herramientas únicas encontradas
+      console.log('📊 DEBUG Herramientas únicas por fase:', {
+        reconnaissance: Array.from(uniqueToolsByPhase.reconnaissance),
+        scanning: Array.from(uniqueToolsByPhase.scanning),
+        vulnerability: Array.from(uniqueToolsByPhase.vulnerability)
+      })
+    }
+
+    // Contar auditorías OWASP completadas como parte de vulnerability
+    if (owaspAudits?.audits) {
+      const completedOwasp = owaspAudits.audits.filter((a: any) => a.status === 'completed').length
+      totalExecutionsByPhase.vulnerability += completedOwasp
+      // Cada auditoría OWASP cuenta como una herramienta única
+      for (let i = 0; i < completedOwasp; i++) {
+        uniqueToolsByPhase.vulnerability.add('owasp_audit')
+      }
+    }
+
+    const completedByPhase: Record<string, number> = {
+      reconnaissance: uniqueToolsByPhase.reconnaissance.size,
+      scanning: uniqueToolsByPhase.scanning.size,
+      vulnerability: uniqueToolsByPhase.vulnerability.size,
+      exploitation: uniqueToolsByPhase.exploitation.size,
+      post_exploitation: uniqueToolsByPhase.post_exploitation.size,
+      reporting: uniqueToolsByPhase.reporting.size
+    }
+
+    return [
+      {
+        id: 'reconnaissance',
+        name: 'Reconocimiento',
+        route: '/reconnaissance',
+        completed: completedByPhase.reconnaissance,
+        total: phaseTotals.reconnaissance,
+        totalExecutions: totalExecutionsByPhase.reconnaissance,
+        icon: Search,
+        color: 'text-blue-400',
+        bgColor: 'bg-blue-500/10'
+      },
+      {
+        id: 'scanning',
+        name: 'Escaneo',
+        route: '/scanning',
+        completed: completedByPhase.scanning,
+        total: phaseTotals.scanning,
+        totalExecutions: totalExecutionsByPhase.scanning,
+        icon: Activity,
+        color: 'text-cyan-400',
+        bgColor: 'bg-cyan-500/10'
+      },
+      {
+        id: 'vulnerability',
+        name: 'Evaluación de Vulnerabilidades',
+        route: '/vulnerability',
+        completed: completedByPhase.vulnerability,
+        total: phaseTotals.vulnerability,
+        totalExecutions: totalExecutionsByPhase.vulnerability,
+        icon: Shield,
+        color: 'text-red-400',
+        bgColor: 'bg-red-500/10'
+      },
+      {
+        id: 'exploitation',
+        name: 'Explotación',
+        route: '/exploitation',
+        completed: completedByPhase.exploitation,
+        total: phaseTotals.exploitation,
+        totalExecutions: totalExecutionsByPhase.exploitation,
+        icon: Zap,
+        color: 'text-orange-400',
+        bgColor: 'bg-orange-500/10'
+      },
+      {
+        id: 'post_exploitation',
+        name: 'Post-Explotación',
+        route: '/post-exploitation',
+        completed: completedByPhase.post_exploitation,
+        total: phaseTotals.post_exploitation,
+        totalExecutions: totalExecutionsByPhase.post_exploitation,
+        icon: Target,
+        color: 'text-purple-400',
+        bgColor: 'bg-purple-500/10'
+      },
+      {
+        id: 'reporting',
+        name: 'Reportes',
+        route: '/reporting',
+        completed: completedByPhase.reporting,
+        total: phaseTotals.reporting,
+        totalExecutions: totalExecutionsByPhase.reporting,
+        icon: FileText,
+        color: 'text-green-400',
+        bgColor: 'bg-green-500/10'
+      }
+    ]
+  }, [scanSessions, owaspAudits])
+
+  // ═══════════════════════════════════════════════════════════════════════
   // HANDLERS
   // ═══════════════════════════════════════════════════════════════════════
 
@@ -296,6 +522,11 @@ const DashboardEnhanced: React.FC = () => {
           <span>Refresh</span>
         </button>
       </div>
+
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      {/* PHASES OVERVIEW */}
+      {/* ═══════════════════════════════════════════════════════════════ */}
+      <PhasesOverview phases={phasesProgress} />
 
       {/* ═══════════════════════════════════════════════════════════════ */}
       {/* STAT CARDS */}
@@ -411,6 +642,7 @@ const DashboardEnhanced: React.FC = () => {
           </div>
         </div>
       )}
+
     </div>
   )
 }

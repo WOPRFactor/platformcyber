@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { useWorkspace } from '../contexts/WorkspaceContext'
 import {
   Activity, Shield, AlertTriangle,
-  CheckCircle, Clock, Zap
+  CheckCircle, Clock, Zap, Search, Target, FileText
 } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { systemAPI } from '../lib/api/system'
@@ -20,7 +20,8 @@ import {
   QuickActions,
   SecurityAlerts,
   PerformanceMetrics,
-  RealTimeActivity
+  RealTimeActivity,
+  PhasesOverview
 } from './Dashboard/components'
 
 const Dashboard: React.FC = () => {
@@ -36,6 +37,14 @@ const Dashboard: React.FC = () => {
   const { data: healthData, isLoading: healthLoading, refetch: refetchHealth } = useQuery({
     queryKey: ['health'],
     queryFn: systemAPI.healthCheck,
+    enabled: !!localStorage.getItem('access_token'),
+    refetchInterval: 30000,
+  })
+
+  // Query para métricas del sistema (CPU, memoria, disco)
+  const { data: systemMetrics, isLoading: systemMetricsLoading, refetch: refetchSystemMetrics } = useQuery({
+    queryKey: ['system-metrics'],
+    queryFn: systemAPI.getSystemMetrics,
     enabled: !!localStorage.getItem('access_token'),
     refetchInterval: 30000,
   })
@@ -56,25 +65,32 @@ const Dashboard: React.FC = () => {
 
   // Transformar los datos del backend al formato esperado por el frontend
   const systemInfo = React.useMemo(() => {
-    if (!healthData?.system_info) return null
+    if (!systemMetrics?.system) return null
 
-    const backendInfo = healthData.system_info
+    const backendSystem = systemMetrics.system
+    
+    // Manejar errores del backend
+    if (backendSystem.error) {
+      return null
+    }
+
     return {
-      cpu_count: backendInfo.cpu_percent || 0,
+      cpu_count: backendSystem.cpu?.count || 0,
+      cpu_percent: backendSystem.cpu?.percent || 0,
       memory: {
-        available: (backendInfo.memory_total_mb - backendInfo.memory_used_mb) * 1024 * 1024,
-        percent: backendInfo.memory_percent || 0,
-        total: backendInfo.memory_total_mb * 1024 * 1024
+        available: (backendSystem.memory?.available_mb || 0) * 1024 * 1024,
+        percent: backendSystem.memory?.percent || 0,
+        total: (backendSystem.memory?.total_mb || 0) * 1024 * 1024
       },
       disk: {
-        free: backendInfo.disk_usage_percent ? (100 - backendInfo.disk_usage_percent) : 0,
-        percent: backendInfo.disk_usage_percent || 0,
-        total: 100
+        free: (backendSystem.disk?.free_gb || 0) * 1024 * 1024 * 1024,
+        percent: backendSystem.disk?.percent || 0,
+        total: (backendSystem.disk?.total_gb || 0) * 1024 * 1024 * 1024
       },
-      platform: backendInfo.platform || 'Unknown',
-      python_version: backendInfo.python_version || 'Unknown'
+      platform: backendSystem.platform || 'Unknown',
+      python_version: backendSystem.python_version || 'Unknown'
     }
-  }, [healthData])
+  }, [systemMetrics])
 
   // Calcular métricas avanzadas
   const activeScans = scanSessions?.filter(s => s.status === 'running').length || 0
@@ -83,6 +99,123 @@ const Dashboard: React.FC = () => {
   const totalVulnerabilities = scanSessions?.reduce((sum, s) => sum + (s.vulnerabilities || 0), 0) || 0
   const avgScanTime = scanSessions?.length ?
     scanSessions.reduce((sum, s) => sum + ((s as any).duration || 0), 0) / scanSessions.length : 0
+
+  // Totales de pasos por fase (basado en herramientas disponibles)
+  const phaseTotals = {
+    reconnaissance: 26,
+    scanning: 30,
+    vulnerability: 25,
+    exploitation: 14,
+    post_exploitation: 6,
+    reporting: 5
+  }
+
+  // Mapear scan_type a fases
+  const mapScanTypeToPhase = (scanType: string): string | null => {
+    const mapping: Record<string, string> = {
+      'reconnaissance': 'reconnaissance',
+      'port_scan': 'scanning',
+      'vuln_scan': 'vulnerability',
+      'exploit': 'exploitation',
+      'post_exploit': 'post_exploitation',
+      'ad_enum': 'scanning',
+      'cloud_audit': 'vulnerability'
+    }
+    return mapping[scanType] || null
+  }
+
+  // Calcular pasos completados por fase
+  const phasesProgress = React.useMemo(() => {
+    const completedByPhase: Record<string, number> = {
+      reconnaissance: 0,
+      scanning: 0,
+      vulnerability: 0,
+      exploitation: 0,
+      post_exploitation: 0,
+      reporting: 0
+    }
+
+    // Contar escaneos completados por fase
+    if (scanSessions) {
+      scanSessions.forEach((session: any) => {
+        if (session.status === 'completed') {
+          const phase = mapScanTypeToPhase(session.scan_type || '')
+          if (phase && completedByPhase.hasOwnProperty(phase)) {
+            completedByPhase[phase]++
+          }
+        }
+      })
+    }
+
+    // Contar auditorías OWASP completadas como parte de vulnerability
+    if (owaspAudits?.audits) {
+      const completedOwasp = owaspAudits.audits.filter((a: any) => a.status === 'completed').length
+      completedByPhase.vulnerability += completedOwasp
+    }
+
+    return [
+      {
+        id: 'reconnaissance',
+        name: 'Reconocimiento',
+        route: '/reconnaissance',
+        completed: completedByPhase.reconnaissance,
+        total: phaseTotals.reconnaissance,
+        icon: Search,
+        color: 'text-blue-400',
+        bgColor: 'bg-blue-500/10'
+      },
+      {
+        id: 'scanning',
+        name: 'Escaneo',
+        route: '/scanning',
+        completed: completedByPhase.scanning,
+        total: phaseTotals.scanning,
+        icon: Activity,
+        color: 'text-cyan-400',
+        bgColor: 'bg-cyan-500/10'
+      },
+      {
+        id: 'vulnerability',
+        name: 'Evaluación de Vulnerabilidades',
+        route: '/vulnerability',
+        completed: completedByPhase.vulnerability,
+        total: phaseTotals.vulnerability,
+        icon: Shield,
+        color: 'text-red-400',
+        bgColor: 'bg-red-500/10'
+      },
+      {
+        id: 'exploitation',
+        name: 'Explotación',
+        route: '/exploitation',
+        completed: completedByPhase.exploitation,
+        total: phaseTotals.exploitation,
+        icon: Zap,
+        color: 'text-orange-400',
+        bgColor: 'bg-orange-500/10'
+      },
+      {
+        id: 'post_exploitation',
+        name: 'Post-Explotación',
+        route: '/post-exploitation',
+        completed: completedByPhase.post_exploitation,
+        total: phaseTotals.post_exploitation,
+        icon: Target,
+        color: 'text-purple-400',
+        bgColor: 'bg-purple-500/10'
+      },
+      {
+        id: 'reporting',
+        name: 'Reportes',
+        route: '/reporting',
+        completed: completedByPhase.reporting,
+        total: phaseTotals.reporting,
+        icon: FileText,
+        color: 'text-green-400',
+        bgColor: 'bg-green-500/10'
+      }
+    ]
+  }, [scanSessions, owaspAudits])
 
   // Datos para gráficos
   const scanActivityData = React.useMemo(() => {
@@ -129,7 +262,7 @@ const Dashboard: React.FC = () => {
       color: 'text-cyan-400',
       bgColor: 'bg-cyan-500/10',
       trend: activeScans > 0 ? '+' + activeScans : null,
-      subtitle: `${totalScans} total realizados`
+      subtitle: totalScans > 0 ? `${totalScans} total realizados` : 'Inicia tu primer escaneo'
     },
     {
       title: 'Vulnerabilidades',
@@ -137,8 +270,8 @@ const Dashboard: React.FC = () => {
       icon: AlertTriangle,
       color: 'text-red-400',
       bgColor: 'bg-red-500/10',
-      trend: totalVulnerabilities > 10 ? 'Crítico' : totalVulnerabilities > 5 ? 'Alto' : 'Bajo',
-      subtitle: 'Necesitan atención'
+      trend: totalVulnerabilities > 10 ? 'Crítico' : totalVulnerabilities > 5 ? 'Alto' : totalVulnerabilities > 0 ? 'Bajo' : null,
+      subtitle: totalVulnerabilities > 0 ? 'Necesitan atención' : totalScans > 0 ? 'Sin vulnerabilidades detectadas' : 'Realiza escaneos para detectar'
     },
     {
       title: 'Auditorías OWASP',
@@ -147,7 +280,7 @@ const Dashboard: React.FC = () => {
       color: 'text-blue-400',
       bgColor: 'bg-blue-500/10',
       trend: completedAudits > 0 ? 'Completadas' : null,
-      subtitle: 'Top 10 evaluado'
+      subtitle: completedAudits > 0 ? 'Top 10 evaluado' : 'Crea una auditoría OWASP'
     },
     {
       title: 'Tiempo Promedio',
@@ -155,8 +288,8 @@ const Dashboard: React.FC = () => {
       icon: Clock,
       color: 'text-purple-400',
       bgColor: 'bg-purple-500/10',
-      trend: avgScanTime < 30 ? 'Excelente' : avgScanTime < 60 ? 'Bueno' : 'Mejorar',
-      subtitle: 'Por escaneo completo'
+      trend: avgScanTime > 0 ? (avgScanTime < 30 ? 'Excelente' : avgScanTime < 60 ? 'Bueno' : 'Mejorar') : null,
+      subtitle: avgScanTime > 0 ? 'Por escaneo completo' : 'Sin escaneos completados'
     },
     {
       title: 'Simulaciones MITRE',
@@ -171,6 +304,7 @@ const Dashboard: React.FC = () => {
 
   const handleRefresh = () => {
     refetchHealth()
+    refetchSystemMetrics()
     refetchSessions()
   }
 
@@ -193,11 +327,11 @@ const Dashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <ScanActivityChart data={scanActivityData} />
-        <VulnerabilityPieChart data={vulnerabilityData} total={totalVulnerabilities} />
+        <VulnerabilityPieChart data={vulnerabilityData} total={totalVulnerabilities} totalScans={totalScans} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <SystemInfo systemInfo={systemInfo} isLoading={healthLoading} />
+        <SystemInfo systemInfo={systemInfo} isLoading={systemMetricsLoading} />
         <RecentActivity sessions={scanSessions} isLoading={sessionsLoading} />
       </div>
 
@@ -214,6 +348,8 @@ const Dashboard: React.FC = () => {
       </div>
 
       <RealTimeActivity tasks={tasks} vulnerabilities={vulnerabilities} />
+
+      <PhasesOverview phases={phasesProgress} />
     </div>
   )
 }

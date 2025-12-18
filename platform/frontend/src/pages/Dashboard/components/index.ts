@@ -8,5 +8,7 @@ export { QuickActions } from './QuickActions'
 export { SecurityAlerts } from './SecurityAlerts'
 export { PerformanceMetrics } from './PerformanceMetrics'
 export { RealTimeActivity } from './RealTimeActivity'
+export { PhaseCard } from './PhaseCard'
+export { PhasesOverview } from './PhasesOverview'
 
 

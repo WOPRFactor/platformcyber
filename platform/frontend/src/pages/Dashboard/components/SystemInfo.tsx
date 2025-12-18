@@ -4,6 +4,7 @@ import LoadingSpinner from '../../../components/LoadingSpinner'
 
 interface SystemInfo {
   cpu_count: number
+  cpu_percent?: number
   memory: {
     available: number
     percent: number
@@ -66,9 +67,18 @@ export const SystemInfo: React.FC<SystemInfoProps> = ({ systemInfo, isLoading })
             <div className="flex justify-between items-center">
               <span className="text-gray-500">CPU:</span>
               <div className="flex items-center space-x-2">
-                <span className="text-gray-900 font-medium">{systemInfo.cpu_count || 'Cargando...'} núcleos</span>
+                <span className="text-gray-900 font-medium">
+                  {systemInfo.cpu_count || 'Cargando...'} núcleos
+                  {systemInfo.cpu_percent !== undefined && ` (${systemInfo.cpu_percent.toFixed(1)}%)`}
+                </span>
                 <div className="w-16 bg-gray-200 rounded-full h-2">
-                  <div className="bg-green-400 h-2 rounded-full" style={{ width: '75%' }}></div>
+                  <div 
+                    className={`h-2 rounded-full ${
+                      (systemInfo.cpu_percent || 0) > 80 ? 'bg-red-400' :
+                      (systemInfo.cpu_percent || 0) > 60 ? 'bg-yellow-400' : 'bg-green-400'
+                    }`}
+                    style={{ width: `${systemInfo.cpu_percent || 0}%` }}
+                  ></div>
                 </div>
               </div>
             </div>

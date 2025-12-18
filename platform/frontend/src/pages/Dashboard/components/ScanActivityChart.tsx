@@ -74,9 +74,12 @@ export const ScanActivityChart: React.FC<ScanActivityChartProps> = ({ data }) =>
           </ResponsiveContainer>
         ) : (
           <div className="flex items-center justify-center h-full text-gray-500">
-            <div className="text-center">
+            <div className="text-center px-4">
               <BarChart3 size={48} className="mx-auto mb-4 opacity-50" />
-              <p>No hay datos de actividad disponibles</p>
+              <p className="font-medium mb-2">No hay escaneos realizados</p>
+              <p className="text-sm text-gray-400">
+                Inicia tu primer escaneo desde la sección de Scanning para ver la actividad aquí
+              </p>
             </div>
           </div>
         )}

@@ -120,6 +120,7 @@ def register_routes(bp: Blueprint):
                 'target': scan.target,
                 'status': scan.status,
                 'progress': scan.progress,
+                'options': scan.options,  # Incluir options para identificar herramientas
                 'started_at': scan.started_at.isoformat() if scan.started_at else None,
                 'completed_at': scan.completed_at.isoformat() if scan.completed_at else None,
                 'created_at': scan.created_at.isoformat() if scan.created_at else None
@@ -156,6 +157,7 @@ def register_routes(bp: Blueprint):
                 'target': scan.target,
                 'status': scan.status,
                 'progress': scan.progress,
+                'options': scan.options,  # Incluir options para identificar herramientas
                 'started_at': scan.started_at.isoformat() if scan.started_at else None,
                 'completed_at': scan.completed_at.isoformat() if scan.completed_at else None,
                 'created_at': scan.created_at.isoformat() if scan.created_at else None

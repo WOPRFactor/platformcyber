@@ -96,7 +96,7 @@ export const OSINTSection: React.FC<OSINTSectionProps> = ({ target, workspaceId,
     }
 
     try {
-      const preview = await commandPreviewAPI.previewEmailHarvest({
+      const preview = await commandPreviewAPI.previewTheHarvester({
         domain: target,
         workspace_id: workspaceId
       })
